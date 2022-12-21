@@ -1,0 +1,23 @@
+.Tournaments {
+  &-group {
+    &:not(:last-child) {
+      margin-bottom: 3.6rem;
+    }
+
+    &-title {
+      font-weight: 700;
+      font-style: italic;
+      font-size: 1.6rem;
+      line-height: 2.4rem;
+      color: $dove-gray;
+      margin-bottom: 1.6rem;
+      text-transform: uppercase;
+    }
+
+    &-list {
+      &-item {
+        @include centerScaleImage;
+      }
+    }
+  }
+}

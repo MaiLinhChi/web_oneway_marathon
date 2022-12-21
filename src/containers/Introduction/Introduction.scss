@@ -1,0 +1,46 @@
+.Introduction {
+  position: relative;
+  padding: 9.6rem 0;
+
+  .ant-col {
+    position: unset;
+  }
+
+  &-title {
+    font-style: italic;
+    font-weight: 900;
+    color: $cod-gray;
+    font-size: 6.4rem;
+    line-height: 7.7rem;
+    text-transform: uppercase;
+    margin-bottom: 3.2rem;
+
+    span {
+      font-size: 5.6rem;
+      line-height: 6.7rem;
+      color: $blue-ribbon;
+      margin-left: 1rem;
+      display: inline-block;
+      text-transform: none;
+    }
+  }
+
+  &-description {
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    font-style: italic;
+    color: $dove-gray;
+    text-align: justify;
+  }
+
+  &-image {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    overflow: hidden;
+    clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
+    max-width: 44rem;
+    @include centerScaleImage;
+  }
+}

@@ -1,0 +1,22 @@
+.NewsList {
+  padding: 3.2rem 0 12.8rem;
+
+  &-title {
+    font-style: italic;
+    font-weight: 900;
+    color: $cod-gray;
+    font-size: 6.4rem;
+    line-height: 7.7rem;
+    text-transform: uppercase;
+    margin-bottom: 4.8rem;
+
+    span {
+      font-size: 5.6rem;
+      line-height: 6.7rem;
+      color: $blue-ribbon;
+      margin-left: 2rem;
+      display: inline-block;
+      text-transform: none;
+    }
+  }
+}

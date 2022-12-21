@@ -1,0 +1,17 @@
+.WrapperLazyLoad {
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 100%;
+
+  .rc-virtual-list-holder {
+    max-height: 100% !important;
+  }
+
+  &__loading {
+    display: none;
+
+    &.show {
+      display: block;
+    }
+  }
+}

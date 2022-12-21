@@ -1,0 +1,52 @@
+.Header {
+  background: $white;
+  padding: .8rem 0;
+  transition: $common-transition;
+
+  &.active {
+    box-shadow: 0 0 15px rgba($black, 0.3);
+  }
+
+  &-wrapper {
+    column-gap: 4.8rem;
+  }
+
+  &-actions {
+    column-gap: 2.8rem;
+  }
+
+  &-logo {
+    max-width: 19rem;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  &-nav {
+    margin-left: auto;
+
+    &-list {
+      column-gap: 4rem;
+
+      &-item {
+        a {
+          font-size: 1.6rem;
+          font-style: italic;
+          line-height: 2.4rem;
+          font-weight: 700;
+          color: $regent-gray;
+        }
+      }
+    }
+  }
+
+  &-language {
+    width: 4rem;
+    height: 4rem;
+    overflow: hidden;
+    border-radius: 50%;
+    cursor: pointer;
+    @include centerScaleImage;
+  }
+}

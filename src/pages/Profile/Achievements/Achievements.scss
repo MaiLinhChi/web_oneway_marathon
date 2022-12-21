@@ -1,0 +1,56 @@
+.Achievements {
+  &-group {
+    &:not(:last-child) {
+      margin-bottom: 3.6rem;
+    }
+
+    &-title {
+      font-weight: 700;
+      font-style: italic;
+      font-size: 1.6rem;
+      line-height: 2.4rem;
+      color: $dove-gray;
+      margin-bottom: 1.6rem;
+      text-transform: uppercase;
+    }
+
+    &-list {
+      &-item {
+        padding: 1.6rem;
+        border-radius: 1.2rem;
+        background: $white;
+        column-gap: .8rem;
+
+        &:not(:last-child) {
+          margin-bottom: .8rem;
+        }
+
+        &-icon {
+          flex: 0 0 6.4rem;
+          max-width: 6.4rem;
+          height: 6.4rem;
+          @include centerOriginImage;
+        }
+
+        &-info {
+          &-title {
+            font-size: 1.6rem;
+            font-style: italic;
+            font-weight: 700;
+            color: $cod-gray;
+            line-height: 2rem;
+            margin-bottom: 0.4rem;
+          }
+
+          &-description {
+            font-size: 1.4rem;
+            line-height: 1.6rem;
+            font-style: italic;
+            font-weight: 500;
+            color: $regent-gray;
+          }
+        }
+      }
+    }
+  }
+}

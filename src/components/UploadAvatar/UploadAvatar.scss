@@ -1,0 +1,41 @@
+.UploadAvatar {
+
+  .Upload-wrapper,
+  &-wrapper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .Upload {
+    width: 100%;
+    height: 100%;
+  }
+
+  &-wrapper {
+    position: relative;
+    cursor: pointer;
+    border-radius: .4rem;
+    overflow: hidden;
+  }
+
+  &-preview {
+    width: 100%;
+    height: 100%;
+    border-radius: .4rem;
+    overflow: hidden;
+
+    &.scale {
+      @include centerScaleImage;
+    }
+
+    &.origin {
+      @include centerOriginImage;
+    }
+  }
+
+  &-placeholder {
+    width: 100%;
+    height: 100%;
+    background: $mystic;
+  }
+}

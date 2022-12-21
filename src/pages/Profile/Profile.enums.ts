@@ -1,0 +1,4 @@
+export enum ETabProfileKey {
+  TOURNAMENT = 'TOURNAMENT',
+  ACHIEVEMENTS = 'ACHIEVEMENTS',
+}

@@ -1,0 +1,26 @@
+.Activities {
+  &-wrapper {
+    margin-top: 4.8rem;
+  }
+
+  &-item {
+    &-image {
+      width: 25.6rem;
+      height: 25.6rem;
+      margin: 0 auto 2.4rem;
+      border-radius: 50%;
+      overflow: hidden;
+      background: $alto;
+      @include centerScaleImage;
+    }
+
+    &-title {
+      font-size: 2.4rem;
+      font-style: italic;
+      font-weight: 700;
+      color: $white;
+      line-height: 3rem;
+      text-align: center;
+    }
+  }
+}

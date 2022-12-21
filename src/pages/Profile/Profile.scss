@@ -1,0 +1,18 @@
+.Profile {
+  background: $wild-sand;
+  padding-bottom: 25.6rem;
+
+  &-background {
+    .UploadAvatar {
+      height: 32rem;
+    }
+  }
+
+  .ProfileCard {
+    transform: translateY(-35%);
+  }
+
+  .TabRectangle {
+    margin: 2.4rem 0 3.6rem;
+  }
+}

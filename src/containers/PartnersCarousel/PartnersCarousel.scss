@@ -1,0 +1,10 @@
+.PartnersCarousel {
+  &-item {
+    padding: 7.6rem 1.6rem;
+
+    a {
+      height: 5.6rem;
+      @include centerOriginImage;
+    }
+  }
+}

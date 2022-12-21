@@ -1,0 +1,125 @@
+@import './normalize';
+@import './reset';
+@import './fonts';
+@import './colors';
+@import './constants';
+@import './mixins';
+
+* {
+  scroll-behavior: smooth;
+}
+
+html {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+}
+
+.container {
+  max-width: calc(128rem + 1.6rem * 2);
+  padding: 0 1.6rem;
+  width: 100%;
+  margin: 0 auto;
+}
+
+html,
+body {
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  // Fixed when design responsive completed !
+  min-width: 1440px;
+  overflow: auto;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.row-reverse {
+  flex-direction: row-reverse;
+}
+
+.col-reverse {
+  flex-direction: column-reverse;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.items-end {
+  align-items: flex-end;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+a {
+  transition: $common-transition;
+
+  &:hover {
+    color: $blue-ribbon;
+  }
+}

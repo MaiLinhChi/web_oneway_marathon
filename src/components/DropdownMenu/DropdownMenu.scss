@@ -1,0 +1,40 @@
+.DropdownMenu {
+  &-wrapper {
+    cursor: pointer;
+  }
+
+  &-list {
+    background: $aqua-haze;
+    padding: 1.2rem 0;
+
+    &-line {
+      height: 1px;
+      background: $alto;
+      width: calc(100% - 1.2rem * 2);
+      margin: 1.2rem auto;
+    }
+
+    &-item {
+      padding: 1.2rem 2.4rem;
+      font-size: 1.4rem;
+      line-height: 2rem;
+      font-style: italic;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+
+      &:hover {
+        color: $blue-ribbon;
+      }
+
+      &.danger {
+        font-weight: 700;
+        color: $red-orange;
+
+        &:hover {
+          color: darken($red-orange, 5%);
+        }
+      }
+    }
+  }
+}

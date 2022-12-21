@@ -1,0 +1,39 @@
+.NewBlock {
+  background: $aqua-haze;
+
+  &-image {
+    flex: 0 0 16.8rem;
+    max-width: 16.8rem;
+    height: 16.8rem;
+    overflow: hidden;
+    clip-path: polygon(0 0, 100% 0, 80% 100%, 0% 100%);
+    @include centerScaleImage;
+  }
+
+  &-info {
+    padding: .8rem;
+
+    &-title {
+      font-size: 1.6rem;
+      line-height: 2.4rem;
+      font-style: italic;
+      color: $cod-gray;
+      margin-left: 1.2rem;
+      font-weight: 600;
+      margin-bottom: .8rem;
+      display: block;
+
+      &:hover {
+        color: $blue-ribbon;
+      }
+    }
+
+    &-description {
+      color: $dove-gray;
+      font-size: 1.4rem;
+      line-height: 2rem;
+      font-weight: 500;
+      font-style: italic;
+    }
+  }
+}

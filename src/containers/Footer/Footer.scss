@@ -1,0 +1,61 @@
+.Footer {
+  background: $black;
+  padding: 8rem 0 6.4rem;
+
+  &-logo {
+    max-width: 31.2rem;
+    @include centerOriginImage;
+  }
+
+  &-line {
+    height: 1px;
+    background: $tundora;
+  }
+
+  &-title {
+    font-style: italic;
+    font-size: 2rem;
+    font-weight: 900;
+    color: $white;
+    line-height: 2.4rem;
+    margin-bottom: 2.4rem;
+  }
+
+  &-link {
+    position: relative;
+
+    &::before {
+      content: '•';
+      margin-right: 1.2rem;
+    }
+  }
+
+  &-description {
+    font-size: 1.6rem;
+    line-height: 2.5rem;
+    color: $white;
+    font-weight: 500;
+    font-style: italic;
+
+    a {
+      color: $white;
+
+      &:hover {
+        color: $blue-ribbon;
+      }
+    }
+  }
+
+  &-partner {
+    row-gap: 2.4rem;
+    column-gap: 2.4rem;
+    max-width: 53.7rem;
+    margin: 1.8rem auto 0;
+
+    &-item {
+      a {
+        @include centerOriginImage;
+      }
+    }
+  }
+}
