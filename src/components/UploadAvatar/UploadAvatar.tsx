@@ -8,7 +8,7 @@ import { REGEX } from '@/common/constants';
 import { TUploadAvatarProps } from './UploadAvatar.types.d';
 import './UploadAvatar.scss';
 
-const UploadAvatar: React.FC<TUploadAvatarProps> = ({ value, onChange, typePreview = 'scale' }) => {
+const UploadAvatar: React.FC<TUploadAvatarProps> = ({ value, onChange, overlay, typePreview = 'scale' }) => {
   const [previewImage, setPreviewImage] = useState<string>();
   const [isChanged, setIsChanged] = useState<boolean>(false);
 
@@ -46,6 +46,7 @@ const UploadAvatar: React.FC<TUploadAvatarProps> = ({ value, onChange, typePrevi
           ) : (
             <div className="UploadAvatar-placeholder flex items-center justify-center" />
           )}
+          {overlay && <div className="UploadAvatar-overlay">{overlay}</div>}
         </div>
       </Upload>
     </div>

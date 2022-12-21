@@ -1,4 +1,20 @@
 .UploadAvatar {
+  position: relative;
+
+  &:hover {
+    .UploadAvatar {
+      &-overlay {
+        opacity: 1
+      }
+    }
+  }
+
+  &-overlay {
+    @include fullAbsolute;
+    z-index: 3;
+    opacity: 0;
+    transition: $common-transition;
+  }
 
   .Upload-wrapper,
   &-wrapper {

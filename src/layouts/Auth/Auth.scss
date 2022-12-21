@@ -1,8 +1,16 @@
 .Auth {
+  &-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 5;
+  }
+
   &-body {
     position: relative;
     min-height: 96rem;
-    padding: 10rem 0;
+    padding: 18rem 0;
   }
 
   &-background {

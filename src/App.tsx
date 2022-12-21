@@ -30,6 +30,7 @@ const App: React.FC = () => {
         <Guest path={LayoutPaths.Guest}>
           <PublicRoute path={Paths.Home} component={Pages.Home} />
           <PublicRoute path={Paths.Profile} component={Pages.Profile} />
+          <PublicRoute path={Paths.ProfileEdit} component={Pages.ProfileEdit} />
           <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.Home}`} />
         </Guest>
 

@@ -28,6 +28,7 @@ const ChangePassword = lazy(() => retryLoadComponent(() => import('@/pages/Chang
 
 const Dashboard = lazy(() => retryLoadComponent(() => import('@/pages/Dashboard')));
 const Profile = lazy(() => retryLoadComponent(() => import('@/pages/Profile')));
+const ProfileEdit = lazy(() => retryLoadComponent(() => import('@/pages/ProfileEdit')));
 
 export const LayoutPaths = {
   Guest: '/',
@@ -46,6 +47,7 @@ export const Paths = {
 
   Dashboard: '/',
   Profile: '/profile',
+  ProfileEdit: '/profile/edit',
 
   Rest: '*',
 };
@@ -59,6 +61,7 @@ export const Pages = {
 
   Dashboard,
   Profile,
+  ProfileEdit,
 };
 
 interface IRouteProps extends RouteComponentProps {

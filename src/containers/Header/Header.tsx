@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 
 import { Link, navigate, useLocation } from '@reach/router';
@@ -27,6 +27,9 @@ const Header: React.FC<THeaderProps> = () => {
     {
       value: 'edit-profile',
       label: 'Chỉnh sửa thông tin',
+      onClick: (): void => {
+        navigate(Paths.ProfileEdit);
+      },
     },
     {
       value: 'line-1',

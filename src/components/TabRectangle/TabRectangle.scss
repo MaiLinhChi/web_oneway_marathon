@@ -24,6 +24,32 @@
     }
   }
 
+  &.VERTICAL {
+    .TabRectangle {
+      &-list {
+        flex-direction: column;
+      }
+
+      &-item {
+        width: 100%;
+        padding: 1.6rem 3.2rem;
+        font-style: italic;
+        font-size: 1.4rem;
+        line-height: 1.6rem;
+        font-weight: 500;
+
+        &:hover {
+          color: $blue-ribbon;
+        }
+
+        &.active {
+          color: $blue-ribbon;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+
 
   &-list {
     user-select: none;

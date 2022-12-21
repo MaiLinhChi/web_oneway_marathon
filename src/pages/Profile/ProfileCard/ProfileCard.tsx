@@ -6,6 +6,7 @@ import Button from '@/components/Button';
 
 import { TProfileCardProps } from './ProfileCard.types';
 import './ProfileCard.scss';
+import { Paths } from '@/pages/routers';
 
 const ProfileCard: React.FC<TProfileCardProps> = () => {
   return (
@@ -21,7 +22,7 @@ const ProfileCard: React.FC<TProfileCardProps> = () => {
       <div className="ProfileCard-btns">
         <Row gutter={[24, 24]}>
           <Col span={12}>
-            <Button title="Chỉnh sửa" type="primary" />
+            <Button title="Chỉnh sửa" type="primary" link={Paths.ProfileEdit} />
           </Col>
           <Col span={12}>
             <Button title="Chia sẻ" type="text" />
