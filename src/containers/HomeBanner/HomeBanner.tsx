@@ -23,7 +23,7 @@ const HomeBanner: React.FC<THomeBannerProps> = () => {
                 <span style={{ textShadow: `.8rem .8rem 0 ${item.color}` }}>{item.title}</span>
               </h1>
               <div className="HomeBanner-item-btn">
-                <Button title="Xem chi tiết" />
+                <Button title="Xem chi tiết" link={item.link} />
               </div>
             </div>
           </div>

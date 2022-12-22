@@ -123,3 +123,18 @@ a {
     color: $blue-ribbon;
   }
 }
+
+.ant-form {
+  .ant-form-item {
+    &-label {
+      &>label {
+        font-size: 1.4rem;
+        line-height: 2rem;
+        font-weight: 600;
+        font-style: italic;
+        color: $dove-gray;
+        padding-left: .4rem;
+      }
+    }
+  }
+}

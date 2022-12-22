@@ -1,0 +1,130 @@
+.TournamentEvent {
+  padding: 4.8rem 0;
+
+  &-title {
+    font-style: italic;
+    font-weight: 900;
+    color: $cod-gray;
+    font-size: 3.2rem;
+    line-height: 3.8rem;
+    text-transform: uppercase;
+    margin-bottom: 2.4rem;
+
+    span {
+      font-size: 3.2rem;
+      line-height: 3.8rem;
+      color: $blue-ribbon;
+      margin-left: 0.4rem;
+      display: inline-block;
+      text-transform: none;
+    }
+  }
+
+  &-main {
+    &-item {
+      &:nth-child(odd) {
+        .TournamentEvent-main-item {
+          &-day {
+            background: $persian-green;
+          }
+
+          &-timeline {
+            background: $aqua-haze;
+          }
+        }
+      }
+
+      &:nth-child(even) {
+        .TournamentEvent-main-item {
+          &-day {
+            background: darken($persian-green, 6%);
+          }
+
+          &-timeline {
+            background: $porcelain;
+          }
+        }
+      }
+
+      &-day {
+        flex: 0 0 36rem;
+        max-width: 36rem;
+        padding: 4rem;
+
+        &-title {
+          font-family: 'Montserrat', sans-serif;
+          font-size: 4rem;
+          line-height: 4.8rem;
+          font-weight: 900;
+          font-style: italic;
+          margin-bottom: 2.4rem;
+          color: $white;
+        }
+
+        &-description {
+          font-size: 1.6rem;
+          font-weight: 500;
+          line-height: 2.6rem;
+          color: $white;
+        }
+      }
+
+      &-timeline {
+        padding: 4rem;
+
+        &-item {
+          column-gap: 2.4rem;
+
+          &:last-child {
+            .TournamentEvent-main-item-timeline-item-line {
+              display: none;
+            }
+          }
+
+          &-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            font-style: italic;
+            line-height: 2.6rem;
+            min-width: 19rem;
+            color: $persian-green;
+          }
+
+          &-description {
+            font-size: 1.6rem;
+            line-height: 2.4rem;
+            font-weight: 500;
+            font-style: italic;
+            color: $tundora;
+          }
+
+          &-circle {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background: $persian-green;
+
+            &-wrapper {
+              position: relative;
+              max-width: 2rem;
+              flex: 0 0 2rem;
+            }
+          }
+
+          &-line {
+            position: absolute;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 1px dashed $persian-green;
+            height: calc(100% + 2.4rem);
+          }
+
+          &:not(:last-child) {
+            margin-bottom: 2.5rem;
+          }
+        }
+      }
+    }
+  }
+}

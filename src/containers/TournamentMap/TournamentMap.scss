@@ -1,0 +1,116 @@
+.TournamentMap {
+  padding: 4.8rem 0;
+
+  &-title {
+    font-style: italic;
+    font-weight: 900;
+    color: $cod-gray;
+    font-size: 3.2rem;
+    line-height: 3.8rem;
+    text-transform: uppercase;
+    margin-bottom: 2.4rem;
+
+    span {
+      font-size: 3.2rem;
+      line-height: 3.8rem;
+      color: $blue-ribbon;
+      margin-left: 0.4rem;
+      display: inline-block;
+      text-transform: none;
+    }
+  }
+
+  &-tab {
+    margin-bottom: 1.8rem;
+    column-gap: 2.4rem;
+
+    &-item {
+      position: relative;
+      color: $regent-gray;
+      transition: $common-transition;
+      padding: .4rem 0;
+      font-style: italic;
+      cursor: pointer;
+      font-size: 1.4rem;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -0.1rem;
+
+      span {
+        letter-spacing: initial;
+      }
+
+      &-line {
+        position: absolute;
+        height: 2px;
+        width: 100%;
+        transition: $common-transition;
+        transform: scaleX(0);
+        top: 100%;
+        left: 0;
+      }
+
+      &:hover {
+        color: $cod-gray;
+      }
+
+      &.active {
+        color: $cod-gray;
+
+        .TournamentMap-tab-item {
+          &-line {
+            transform: scaleX(1);
+          }
+        }
+      }
+    }
+  }
+
+  &-main {
+    &-info {
+      padding: 3.2rem 4rem;
+      flex: 0 0 36rem;
+      max-width: 36rem;
+      min-height: 51rem;
+
+      &-title {
+        color: $white;
+        font-size: 6.4rem;
+        font-weight: 900;
+        font-style: italic;
+        line-height: 7.8rem;
+        letter-spacing: -0.6rem;
+        font-family: 'Montserrat', sans-serif;
+        margin-bottom: 1.2rem;
+
+        span {
+          font-size: 2.8rem;
+          letter-spacing: normal;
+          line-height: 3.4rem;
+          display: inline-block;
+          text-transform: uppercase;
+          transform: translate(10%, -60%);
+        }
+      }
+
+      &-list {
+        list-style-type: decimal;
+        padding-left: 2rem;
+
+        li {
+          font-size: 1.4rem;
+          line-height: 2.2rem;
+          color: $white;
+        }
+      }
+    }
+
+    &-map {
+      &-image {
+        overflow: hidden;
+        height: 100%;
+        @include centerScaleImage;
+      }
+    }
+  }
+}

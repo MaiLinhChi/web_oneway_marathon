@@ -23,6 +23,9 @@ const Button: React.FC<TButtonProps> = ({
   disabled,
   loading,
   fontWeight,
+  titleColor,
+  backgroundColor,
+  borderColor,
   onClick,
 }) => {
   const handleClickButton = (): void => {
@@ -39,15 +42,18 @@ const Button: React.FC<TButtonProps> = ({
         danger={danger}
         disabled={disabled}
         loading={loading}
+        style={{ backgroundColor, borderColor }}
       >
         {iconName && (
           <div className="Button-icon">
             <Icon name={iconName} color={iconColor} />
           </div>
         )}
-        <span className="Button-title" style={{ fontWeight }}>
-          {title}
-        </span>
+        {title && (
+          <span className="Button-title" style={{ fontWeight, color: titleColor }}>
+            {title}
+          </span>
+        )}
       </AntdButton>
     </div>
   );

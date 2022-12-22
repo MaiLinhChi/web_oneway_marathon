@@ -1,1 +1,29 @@
-.DatePicker {}
+.DatePicker {
+  .ant-picker {
+    width: 100%;
+    padding: 1.2rem;
+    border: none;
+    background: $aqua-haze;
+    transform: skew(-12deg);
+    height: 4.8rem;
+    border-radius: 0;
+
+    input {
+      font-size: 1.6rem;
+      line-height: 2rem;
+      color: $cod-gray;
+
+      &::placeholder {
+        color: $regent-gray;
+      }
+    }
+
+    .ant-picker-suffix {
+      .Icon {
+        width: 2.4rem;
+        height: 2.4rem;
+        transform: skew(12deg);
+      }
+    }
+  }
+}

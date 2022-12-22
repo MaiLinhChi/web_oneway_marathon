@@ -25,7 +25,7 @@ const TournamentSystem: React.FC<TTournamentSystemProps> = () => {
               <h4 className="TournamentSystem-item-title">{item.title}</h4>
               <p className="TournamentSystem-item-description">{item.description}</p>
               <div className="TournamentSystem-item-btn">
-                <Button type="primary" title="Xem chi tiết" />
+                <Button type="primary" title="Xem chi tiết" link={item.link} />
               </div>
             </div>
             <div className="TournamentSystem-item-image">

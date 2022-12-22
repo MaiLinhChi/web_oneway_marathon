@@ -11,6 +11,10 @@ import Google from './Google';
 import Facebook from './Facebook';
 import Eye from './Eye';
 import EyeClosed from './EyeClosed';
+import Calendar from './Calendar';
+import AngleDown from './AngleDown';
+import AngleLeft from './AngleLeft';
+import AngleRight from './AngleRight';
 
 const Icon: React.FC<TIconProps> = ({ name, className, color, onClick }) => {
   const renderIcon = (): React.ReactElement => {
@@ -27,6 +31,14 @@ const Icon: React.FC<TIconProps> = ({ name, className, color, onClick }) => {
         return <Eye color={color} />;
       case EIconName.EyeClosed:
         return <EyeClosed color={color} />;
+      case EIconName.Calendar:
+        return <Calendar color={color} />;
+      case EIconName.AngleDown:
+        return <AngleDown color={color} />;
+      case EIconName.AngleLeft:
+        return <AngleLeft color={color} />;
+      case EIconName.AngleRight:
+        return <AngleRight color={color} />;
       default:
         return <></>;
     }

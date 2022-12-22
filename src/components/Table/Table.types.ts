@@ -7,7 +7,6 @@ export type TTableProps = {
   rowKey?: string;
   loading?: boolean;
   title?: () => React.ReactElement;
-  onPaginationChange: (page: number, pageSize?: number) => void;
   onSearch?: (keyword: string) => void;
 };
 

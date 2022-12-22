@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { Col, Row } from 'antd';
 import IconReward from '@/assets/icons/icon-reward.svg';
 
 import { TAchievementsProps } from './Achievements.types';

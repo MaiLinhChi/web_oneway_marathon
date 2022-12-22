@@ -6,6 +6,7 @@ import { getTotalPage, searchString } from '@/utils/functions';
 import { useDebounce } from '@/utils/hooks';
 import { ETimeoutDebounce } from '@/common/enums';
 import WrapperLazyLoad from '@/components/WrapperLazyLoad';
+import Icon, { EIconName } from '@/components/Icon';
 
 import { TSelectProps } from './Select.types';
 import './Select.scss';
@@ -14,7 +15,7 @@ const Select: React.FC<TSelectProps> = ({
   placeholder,
   disabled,
   options = [],
-  showSearch = true,
+  showSearch,
   value,
   className,
   defaultValue,
@@ -82,16 +83,17 @@ const Select: React.FC<TSelectProps> = ({
         labelInValue
         allowClear={allowClear}
         filterOption={onSearch ? false : filterOption}
-        onSearch={handleSearch}
+        onSearch={showSearch ? handleSearch : undefined}
         options={options}
         searchValue={keyword}
         dropdownClassName={classNames('Select-dropdown', dropdownClassName)}
-        getPopupContainer={(trigger: HTMLElement): HTMLElement => trigger}
+        getPopupContainer={(trigger: HTMLElement): HTMLElement => trigger?.parentNode as any}
         onChange={onChange}
         onClear={handleClear}
         dropdownRender={dropdownRender}
         disabled={disabled}
         virtual={false}
+        suffixIcon={<Icon name={EIconName.AngleDown} />}
       />
     </div>
   );

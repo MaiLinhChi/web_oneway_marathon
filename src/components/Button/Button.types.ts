@@ -19,5 +19,8 @@ export type TButtonProps = {
   reverse?: boolean;
   disabled?: boolean;
   loading?: boolean;
+  titleColor?: string;
+  backgroundColor?: string;
+  borderColor?: string;
   onClick?: () => void;
 };

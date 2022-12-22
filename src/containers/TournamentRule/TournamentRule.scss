@@ -1,0 +1,73 @@
+.TournamentRule {
+  padding: 4.8rem 0;
+
+  &-title {
+    font-style: italic;
+    font-weight: 900;
+    color: $cod-gray;
+    font-size: 3.2rem;
+    line-height: 3.8rem;
+    text-transform: uppercase;
+    margin-bottom: 2.4rem;
+
+    span {
+      font-size: 3.2rem;
+      line-height: 3.8rem;
+      color: $blue-ribbon;
+      margin-left: 0.4rem;
+      display: inline-block;
+      text-transform: none;
+    }
+  }
+
+  &-main {
+    padding: 4.8rem;
+    background: $aqua-haze;
+
+    h4 {
+      font-size: 2rem;
+      line-height: 2.6rem;
+      font-weight: 800;
+      color: $cod-gray;
+    }
+
+    p,
+    li {
+      font-size: 1.8rem;
+      line-height: 2.6rem;
+      font-weight: 500;
+      color: $tundora;
+    }
+
+    li {
+      &:not(:last-child) {
+        margin-bottom: 0.4rem;
+      }
+    }
+
+    a {
+      color: $blue-ribbon;
+      text-decoration: underline;
+    }
+
+    h4,
+    p,
+    ul,
+    ol {
+      margin-bottom: 2rem;
+    }
+
+    ul,
+    ol {
+      padding-left: 2rem;
+    }
+
+    ol {
+      list-style: decimal;
+    }
+
+    ul {
+      list-style: disc;
+    }
+  }
+}

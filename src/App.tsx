@@ -29,6 +29,8 @@ const App: React.FC = () => {
       <Router primary={false}>
         <Guest path={LayoutPaths.Guest}>
           <PublicRoute path={Paths.Home} component={Pages.Home} />
+          <PublicRoute path={Paths.OneWayMarathonCatBa} component={Pages.OneWayMarathonCatBa} />
+          <PublicRoute path={Paths.OneWayMarathonVungTau} component={Pages.OneWayMarathonVungTau} />
           <PublicRoute path={Paths.Profile} component={Pages.Profile} />
           <PublicRoute path={Paths.ProfileEdit} component={Pages.ProfileEdit} />
           <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.Home}`} />

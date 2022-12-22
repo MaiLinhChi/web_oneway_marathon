@@ -1,1 +1,61 @@
-.Table {}
+.Table {
+  .ant-table {
+    .ant-table-thead {
+      &>tr {
+        &>th {
+          background: $blue-ribbon;
+          font-style: italic;
+          font-weight: 900;
+          font-size: 1.8rem;
+          line-height: 2.6rem;
+          padding: 1.2rem;
+          color: $white;
+          text-align: center;
+
+          &::before {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .ant-table-tbody {
+      &>tr {
+        &:nth-child(odd) {
+          td {
+            background: $athens-gray;
+
+            &:first-child {
+              background: #EDEEF1;
+            }
+          }
+        }
+
+        &:nth-child(even) {
+          td {
+            background: $white;
+
+            &:first-child {
+              background: #FAFAFA;
+            }
+          }
+        }
+
+        &>td {
+          padding: 1rem .8rem;
+          font-size: 1.6rem;
+          line-height: 2rem;
+          color: $black;
+          text-align: center;
+          font-weight: 400;
+          font-style: italic;
+          border: none;
+
+          &:first-child {
+            font-weight: 800;
+          }
+        }
+      }
+    }
+  }
+}

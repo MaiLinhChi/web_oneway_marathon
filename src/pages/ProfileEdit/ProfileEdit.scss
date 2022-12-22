@@ -3,12 +3,15 @@
   padding-top: 4.8rem;
   padding-bottom: 25.6rem;
 
+
   .ant-form-item {
     margin-bottom: 0;
   }
 
   &-wrapper {
     background: $white;
+    max-width: 102.4rem;
+    margin: 0 auto;
   }
 
   &-sidebar {
@@ -19,6 +22,6 @@
   }
 
   &-main {
-    padding: 4.8rem;
+    padding: 4.8rem 4.8rem 12.8rem;
   }
 }

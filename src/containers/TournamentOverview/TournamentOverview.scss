@@ -1,0 +1,179 @@
+.TournamentOverview {
+  &-nav {
+    padding: 0rem 1.6rem;
+
+    &-list {
+      column-gap: .4rem;
+
+      &-item {
+        a {
+          font-size: 1.4rem;
+          line-height: 2rem;
+          font-style: italic;
+          font-weight: 600;
+          color: $white;
+          padding: 1.8rem;
+          display: block;
+          text-transform: uppercase;
+
+          &:hover {
+            color: $white;
+            transform: scale(1.1);
+          }
+        }
+      }
+    }
+  }
+
+  &-banner {
+    position: relative;
+
+    &-background {
+      z-index: 1;
+      @include fullAbsolute;
+      @include centerScaleImage;
+
+      &:before {
+        @include fullAbsolute;
+        content: '';
+        z-index: 2;
+        background: rgba($black, 0.5);
+      }
+    }
+
+    &-wrapper {
+      position: relative;
+      z-index: 3;
+      height: 62rem;
+    }
+
+    &-title {
+      font-size: 6.4rem;
+      font-weight: 900;
+      color: $white;
+      line-height: 7.7rem;
+      font-style: italic;
+      margin-bottom: 2.4rem;
+
+      span {
+        font-size: 9.6rem;
+        line-height: 11.6rem;
+        text-transform: uppercase;
+      }
+    }
+
+    &-countdown {
+      padding: 2.4rem 4.8rem;
+      border-radius: 10rem;
+      background: rgba($black, 0.7);
+      font-size: 2rem;
+      line-height: 2.4rem;
+      font-style: italic;
+      color: $white;
+      margin-bottom: 2.4rem;
+      column-gap: 2.4rem;
+
+      span {
+        margin-right: 0.4rem;
+        letter-spacing: -0.1rem;
+      }
+
+      strong {
+        font-weight: 900;
+      }
+    }
+
+    &-btns {
+      column-gap: 2.4rem;
+      width: 100%;
+
+      .Button {
+        width: 100%;
+        max-width: 19rem;
+
+        .ant-btn {
+          width: 100%;
+        }
+
+        &:first-child {
+          .ant-btn {
+            background: $white;
+            border-color: $white;
+
+            &:hover {
+              background: darken($white, 5%);
+              border-color: darken($white, 5%);
+            }
+          }
+        }
+
+        &:last-child {
+          .ant-btn {
+            background: $electric-violet;
+            border-color: $electric-violet;
+            color: $white;
+
+            &:hover {
+              background: darken($electric-violet, 5%);
+              border-color: darken($electric-violet, 5%);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &-step-kilometer {
+    background: $black;
+    column-gap: 10rem;
+    padding: 2rem 1.6rem;
+
+    &-item {
+      color: $white;
+      font-size: 6.4rem;
+      font-weight: 900;
+      font-style: italic;
+      line-height: 7.8rem;
+      letter-spacing: -0.6rem;
+      font-family: 'Montserrat', sans-serif;
+
+      span {
+        font-size: 2.8rem;
+        letter-spacing: normal;
+        line-height: 3.4rem;
+        display: inline-block;
+        text-transform: uppercase;
+        transform: translate(45%, -60%);
+      }
+    }
+  }
+
+  &-info {
+    padding: 4.8rem 0;
+
+    &-description {
+      margin-bottom: 1.6rem;
+      font-size: 1.6rem;
+      line-height: 2.4rem;
+      color: $white;
+      text-align: justify;
+      font-style: italic;
+    }
+
+    &-detail {
+      &-item {
+        font-size: 2rem;
+        line-height: 2.4rem;
+        color: $white;
+        font-style: italic;
+        font-weight: 500;
+
+        span {
+          font-size: 2.4rem;
+          line-height: 3rem;
+          font-weight: 900;
+        }
+      }
+    }
+  }
+}

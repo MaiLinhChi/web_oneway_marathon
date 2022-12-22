@@ -5,6 +5,10 @@ export enum EIconName {
   Facebook = 'Facebook',
   EyeClosed = 'EyeClosed',
   Eye = 'Eye',
+  Calendar = 'Calendar',
+  AngleDown = 'AngleDown',
+  AngleLeft = 'AngleLeft',
+  AngleRight = 'AngleRight',
 }
 
 export enum EIconColor {

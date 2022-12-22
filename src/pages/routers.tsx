@@ -21,6 +21,8 @@ const retryLoadComponent = (fn: () => Promise<unknown>, retriesLeft = 5, interva
   });
 
 const Home = lazy(() => retryLoadComponent(() => import('@/pages/Home')));
+const OneWayMarathonCatBa = lazy(() => retryLoadComponent(() => import('@/pages/OneWayMarathonCatBa')));
+const OneWayMarathonVungTau = lazy(() => retryLoadComponent(() => import('@/pages/OneWayMarathonVungTau')));
 
 const Login = lazy(() => retryLoadComponent(() => import('@/pages/Login')));
 const ForgotPassword = lazy(() => retryLoadComponent(() => import('@/pages/ForgotPassword')));
@@ -40,6 +42,8 @@ export const ModulePaths = {};
 
 export const Paths = {
   Home: '/',
+  OneWayMarathonCatBa: '/detail/oneway-marathon-catba',
+  OneWayMarathonVungTau: '/detail/oneway-marathon-vungtau',
 
   Login: '/',
   ForgotPassword: '/forgot-password',
@@ -54,6 +58,8 @@ export const Paths = {
 
 export const Pages = {
   Home,
+  OneWayMarathonCatBa,
+  OneWayMarathonVungTau,
 
   Login,
   ForgotPassword,

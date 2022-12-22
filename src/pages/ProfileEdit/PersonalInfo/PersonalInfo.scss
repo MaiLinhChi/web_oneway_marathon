@@ -1,1 +1,65 @@
-.PersonalInfo {}
+.PersonalInfo {
+  .ant-form-item {
+    margin-bottom: 0;
+  }
+
+  &-title {
+    font-style: italic;
+    font-weight: 900;
+    color: $cod-gray;
+    font-size: 2.4rem;
+    line-height: 4rem;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+
+    span {
+      font-size: 2rem;
+      line-height: 4rem;
+      color: $blue-ribbon;
+      margin-left: 0.4rem;
+      display: inline-block;
+      text-transform: none;
+    }
+  }
+
+  &-header {
+    margin-bottom: 2.4rem;
+    column-gap: 2.4rem;
+  }
+
+  &-group {
+    &:not(:last-child) {
+      margin-bottom: 4.8rem;
+    }
+  }
+
+  &-avatar {
+    flex: 0 0 11.2rem;
+    max-width: 11.2rem;
+
+    .UploadAvatar {
+      width: 11.2rem;
+      height: 11.2rem;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+  }
+
+  &-info {
+    &-title {
+      font-size: 2rem;
+      font-style: italic;
+      line-height: 2.4rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    &-description {
+      font-size: 1.4rem;
+      line-height: 2rem;
+      font-weight: 500;
+      font-style: italic;
+      color: $dove-gray;
+    }
+  }
+}
