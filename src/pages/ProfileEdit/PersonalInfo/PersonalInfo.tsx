@@ -117,15 +117,19 @@ const PersonalInfo: React.FC<TPersonalInfoProps> = () => {
                   </Col>
                 </Row>
               </Col>
-              <Col span={12}>
-                <Form.Item name="nameEmergencyContact" label="Liên hệ khẩn cấp">
-                  <Input placeholder="Tên người liên hệ khẩn cấp" />
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item name="phoneEmergencyContact" label=" ">
-                  <Input placeholder="Số điện thoại người liên hệ" />
-                </Form.Item>
+              <Col span={24}>
+                <Row gutter={[4, 24]}>
+                  <Col span={12}>
+                    <Form.Item name="nameEmergencyContact" label="Liên hệ khẩn cấp">
+                      <Input placeholder="Tên người liên hệ khẩn cấp" />
+                    </Form.Item>
+                  </Col>
+                  <Col span={12}>
+                    <Form.Item name="phoneEmergencyContact" label=" ">
+                      <Input placeholder="Số điện thoại người liên hệ" />
+                    </Form.Item>
+                  </Col>
+                </Row>
               </Col>
             </Row>
           </div>

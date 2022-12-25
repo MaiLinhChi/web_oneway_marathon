@@ -33,6 +33,9 @@ const App: React.FC = () => {
           <PublicRoute path={Paths.OneWayMarathonVungTau} component={Pages.OneWayMarathonVungTau} />
           <PublicRoute path={Paths.Profile} component={Pages.Profile} />
           <PublicRoute path={Paths.ProfileEdit} component={Pages.ProfileEdit} />
+          <PublicRoute path={Paths.TournamentRegister} component={Pages.TournamentRegister} />
+          <PublicRoute path={Paths.TournamentDetail()} component={Pages.TournamentDetail} />
+          <PublicRoute path={Paths.TournamentPayment()} component={Pages.TournamentPayment} />
           <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.Home}`} />
         </Guest>
 

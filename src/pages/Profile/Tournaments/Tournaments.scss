@@ -17,6 +17,12 @@
     &-list {
       &-item {
         @include centerScaleImage;
+        transition: $common-transition;
+
+        &:hover {
+          cursor: pointer;
+          opacity: 0.7;
+        }
       }
     }
   }

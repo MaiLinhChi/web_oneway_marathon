@@ -31,6 +31,9 @@ const ChangePassword = lazy(() => retryLoadComponent(() => import('@/pages/Chang
 const Dashboard = lazy(() => retryLoadComponent(() => import('@/pages/Dashboard')));
 const Profile = lazy(() => retryLoadComponent(() => import('@/pages/Profile')));
 const ProfileEdit = lazy(() => retryLoadComponent(() => import('@/pages/ProfileEdit')));
+const TournamentDetail = lazy(() => retryLoadComponent(() => import('@/pages/TournamentDetail')));
+const TournamentRegister = lazy(() => retryLoadComponent(() => import('@/pages/TournamentRegisterPage')));
+const TournamentPayment = lazy(() => retryLoadComponent(() => import('@/pages/TournamentPayment')));
 
 export const LayoutPaths = {
   Guest: '/',
@@ -52,6 +55,9 @@ export const Paths = {
   Dashboard: '/',
   Profile: '/profile',
   ProfileEdit: '/profile/edit',
+  TournamentDetail: (id?: string): string => `/tournaments/${id || ':id'}`,
+  TournamentRegister: `/tournaments/register`,
+  TournamentPayment: (id?: string): string => `/tournaments/payment/${id || ':id'}`,
 
   Rest: '*',
 };
@@ -68,6 +74,9 @@ export const Pages = {
   Dashboard,
   Profile,
   ProfileEdit,
+  TournamentDetail,
+  TournamentRegister,
+  TournamentPayment,
 };
 
 interface IRouteProps extends RouteComponentProps {

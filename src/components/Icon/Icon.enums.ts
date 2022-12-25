@@ -9,6 +9,8 @@ export enum EIconName {
   AngleDown = 'AngleDown',
   AngleLeft = 'AngleLeft',
   AngleRight = 'AngleRight',
+  Copy = 'Copy',
+  MinusCircle = 'MinusCircle',
 }
 
 export enum EIconColor {
@@ -17,4 +19,5 @@ export enum EIconColor {
   COD_GRAY = '#1E1E1E',
   BLUE_RIBBON = '#1964FF',
   PERSIAN_GREEN = '#00AF89',
+  RED_ORANGE = '#FF2E2E',
 }

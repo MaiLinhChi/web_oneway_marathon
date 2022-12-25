@@ -1,0 +1,98 @@
+.TournamentPaymentForm {
+  .ant-form-item {
+    margin-bottom: 0;
+  }
+
+  .TournamentRegisterPage {
+    &-card {
+      &-title {
+        margin-bottom: 1.6rem;
+      }
+
+      &-description {
+        padding: 2.4rem 3.2rem;
+
+        &.bg-soft-blue {
+          background: $zircon;
+        }
+
+        &.bg-gray {
+          background: $aqua-haze;
+        }
+
+        ul {
+          padding-left: 2rem;
+          list-style: disc;
+        }
+
+        strong {
+          font-weight: 700;
+        }
+
+        p,
+        li {
+          font-size: 1.6rem;
+          line-height: 2.4rem;
+          font-style: italic;
+          font-weight: 500;
+          color: $dove-gray;
+        }
+      }
+    }
+  }
+
+  .SelectDistance {
+    margin: 2.4rem 0 4.8rem;
+  }
+
+  &-voucher {
+    margin-bottom: 4.8rem;
+
+    &-form {
+      margin: 2.4rem 0;
+
+      .Input {
+        flex: 1;
+      }
+    }
+
+    &-list {
+      &-item {
+        column-gap: 1.6rem;
+
+        &:not(:last-child) {
+          margin-bottom: 1.6rem;
+        }
+
+        .Icon {
+          flex: 0 0 2.4rem;
+          max-width: 2.4rem;
+          height: 2.4rem;
+          cursor: pointer;
+        }
+
+        span {
+          font-size: 1.8rem;
+          line-height: 2.6rem;
+          font-style: italic;
+          font-weight: 600;
+          color: $cod-gray;
+        }
+      }
+    }
+  }
+
+  &-submit {
+    margin: 4.8rem 0 2.4rem;
+
+    .Button {
+      .ant-btn {
+        font-weight: 500;
+
+        strong {
+          font-weight: 900;
+        }
+      }
+    }
+  }
+}

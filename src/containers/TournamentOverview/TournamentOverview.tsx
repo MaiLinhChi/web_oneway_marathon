@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import Button from '@/components/Button';
 import Countdown from '@/components/Countdown';
+import { Paths } from '@/pages/routers';
+import { EKeyTabTournamentRegisterPage } from '@/pages/TournamentRegisterPage/TournamentRegisterPage.enums';
 
 import { TTournamentOverviewProps } from './TournamentOverview.types.d';
 import './TournamentOverview.scss';
@@ -87,8 +89,15 @@ const TournamentOverview: React.FC<TTournamentOverviewProps> = ({
 
           {typeof isExpired === 'boolean' && !isExpired && (
             <div className="TournamentOverview-banner-btns flex items-center justify-center">
-              <Button title="Đăng ký nhóm" titleColor={color} />
-              <Button title="Đăng ký cá nhân" />
+              <Button
+                title="Đăng ký nhóm"
+                titleColor={color}
+                link={`${Paths.TournamentRegister}?tab=${EKeyTabTournamentRegisterPage.MULTIPLE}`}
+              />
+              <Button
+                title="Đăng ký cá nhân"
+                link={`${Paths.TournamentRegister}?tab=${EKeyTabTournamentRegisterPage.SINGLE}`}
+              />
             </div>
           )}
         </div>

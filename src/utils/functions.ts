@@ -181,6 +181,7 @@ export const copyText = (text: string): void => {
   el.select();
   document.execCommand('copy');
   document.body.removeChild(el);
+  showNotification(ETypeNotification.SUCCESS, 'Đã sao chép liên kết.');
 };
 
 export const handleErrorImageUrl = (e: SyntheticEvent<HTMLImageElement, Event>): void => {

@@ -6,10 +6,10 @@ import UploadAvatar from '@/components/UploadAvatar';
 import ProfileCard from '@/pages/Profile/ProfileCard';
 import Tournaments from '@/pages/Profile/Tournaments';
 import Achievements from '@/pages/Profile/Achievements';
+import Button from '@/components/Button';
 
 import { ETabProfileKey } from './Profile.enums';
 import './Profile.scss';
-import Button from '@/components/Button';
 
 const Profile: React.FC = () => {
   const dataTabProfile = [

@@ -11,5 +11,5 @@ export type TStepKilometerTournamentMap = {
   value: string;
   label: string;
   image: string;
-  list: TSelectOption[];
+  list?: TSelectOption[];
 };

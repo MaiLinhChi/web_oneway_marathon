@@ -27,16 +27,19 @@ const TournamentMap: React.FC<TTournamentMapProps> = ({ title, stepKilometer = [
             ))}
           </div>
           <div className="TournamentMap-main flex" style={{ background: color }}>
-            <div className="TournamentMap-main-info">
-              <h4 className="TournamentMap-main-info-title">
-                {activeTab?.label} <span>KM</span>
-              </h4>
-              <ol className="TournamentMap-main-info-list">
-                {activeTab?.list?.map((item) => (
-                  <li>{item.label}</li>
-                ))}
-              </ol>
-            </div>
+            {activeTab?.list && (
+              <div className="TournamentMap-main-info">
+                <h4 className="TournamentMap-main-info-title">
+                  {activeTab?.label} <span>KM</span>
+                </h4>
+                <ol className="TournamentMap-main-info-list">
+                  {activeTab?.list?.map((item) => (
+                    <li>{item.label}</li>
+                  ))}
+                </ol>
+              </div>
+            )}
+
             <div className="TournamentMap-main-map">
               <div className="TournamentMap-main-map-image">
                 <img src={activeTab?.image} alt="" />

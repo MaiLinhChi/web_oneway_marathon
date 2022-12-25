@@ -15,6 +15,8 @@ import Calendar from './Calendar';
 import AngleDown from './AngleDown';
 import AngleLeft from './AngleLeft';
 import AngleRight from './AngleRight';
+import MinusCircle from './MinusCircle';
+import Copy from './Copy';
 
 const Icon: React.FC<TIconProps> = ({ name, className, color, onClick }) => {
   const renderIcon = (): React.ReactElement => {
@@ -39,6 +41,11 @@ const Icon: React.FC<TIconProps> = ({ name, className, color, onClick }) => {
         return <AngleLeft color={color} />;
       case EIconName.AngleRight:
         return <AngleRight color={color} />;
+      case EIconName.MinusCircle:
+        return <MinusCircle color={color} />;
+      case EIconName.Copy:
+        return <Copy color={color} />;
+
       default:
         return <></>;
     }
