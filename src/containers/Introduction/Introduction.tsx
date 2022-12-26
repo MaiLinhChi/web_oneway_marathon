@@ -2,11 +2,16 @@ import React from 'react';
 import { Col, Row } from 'antd';
 
 import ImageIntroduction from '@/assets/images/image-introduction.png';
+import ImageIntroductionMobile from '@/assets/images/image-introduction-mobile.png';
 
 import { TIntroductionProps } from './Introduction.types.d';
 import './Introduction.scss';
+import { useSelector } from 'react-redux';
+import { TRootState } from '@/redux/reducers';
 
 const Introduction: React.FC<TIntroductionProps> = () => {
+  const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
+  console.log('isMobile', isMobile);
   return (
     <section className="Introduction">
       <div className="container">
@@ -33,7 +38,7 @@ const Introduction: React.FC<TIntroductionProps> = () => {
             </Col>
             <Col span={7}>
               <div className="Introduction-image">
-                <img src={ImageIntroduction} alt="" />
+                <img src={ImageIntroductionMobile} alt="" />
               </div>
             </Col>
           </Row>
