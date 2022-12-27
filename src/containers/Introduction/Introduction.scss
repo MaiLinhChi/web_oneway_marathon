@@ -1,7 +1,9 @@
 .Introduction {
   position: relative;
   padding: 9.6rem 0;
-
+  @media (max-width:992px) {
+    padding: 2.6rem 0;
+  }
   .ant-col {
     position: unset;
   }
@@ -14,7 +16,7 @@
     line-height: 7.7rem;
     text-transform: uppercase;
     margin-bottom: 3.2rem;
-
+    
     span {
       font-size: 5.6rem;
       line-height: 6.7rem;
@@ -22,6 +24,13 @@
       margin-left: 1rem;
       display: inline-block;
       text-transform: none;
+    }
+    @media (max-width:992px) {
+      font-size: 2rem;
+      margin-bottom: 0;
+      span {
+        font-size: 2rem;
+      }
     }
   }
 
@@ -31,6 +40,9 @@
     font-style: italic;
     color: $dove-gray;
     text-align: justify;
+    @media (max-width:992px) {
+      font-size: 1.4rem;
+    }
   }
 
   &-image {
@@ -42,5 +54,11 @@
     clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
     max-width: 44rem;
     @include centerScaleImage;
+    @media (max-width:992px) {
+      position: static;
+      transform: unset;
+      clip-path: none;
+      max-width: 100%;
+    }
   }
 }

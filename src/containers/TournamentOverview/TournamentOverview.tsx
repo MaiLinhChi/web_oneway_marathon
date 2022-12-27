@@ -57,12 +57,11 @@ const TournamentOverview: React.FC<TTournamentOverviewProps> = ({
               onFinish={(isEnd): void => setIsExpired(isEnd)}
               render={({ years, months, days, hours, minutes, seconds }): React.ReactNode => {
                 const arrMap = [
-                  { label: 'năm', value: years, hideInZero: true },
-                  { label: 'tháng', value: months, hideInZero: true },
+                  // { label: 'năm', value: years, hideInZero: true },
+                  // { label: 'tháng', value: months, hideInZero: true },
                   { label: 'ngày', value: days, hideInZero: true },
                   { label: 'giờ', value: hours },
                   { label: 'phút', value: minutes },
-                  { label: 'giây', value: seconds },
                 ];
                 return (
                   <div className="TournamentOverview-banner-countdown flex items-center">

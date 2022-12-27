@@ -14,7 +14,7 @@ const Activities: React.FC<TActivitiesProps> = () => {
         <div className="Activities-wrapper">
           <Row gutter={[24, 24]}>
             {[1, 2, 3].map((item) => (
-              <Col key={item} span={8}>
+              <Col key={item} xs={{ span: 12 }} lg={{ span: 8 }}>
                 <div className="Activities-item">
                   <div className="Activities-item-image" />
                   <h3 className="Activities-item-title">Đêm nhạc EDM</h3>

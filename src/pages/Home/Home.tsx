@@ -16,7 +16,7 @@ const Home: React.FC = () => {
       <Introduction />
       <Activities />
       <TournamentSystem />
-      <NewsList />
+      {/* <NewsList /> */}
       <Banner id="hinhanh" image={ImageBanner2} />
       <PartnersCarousel />
     </div>

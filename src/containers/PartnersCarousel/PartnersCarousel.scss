@@ -1,10 +1,19 @@
 .PartnersCarousel {
+  @media (max-width:767px) {
+    padding: 2rem 0;
+  }
   &-item {
     padding: 7.6rem 1.6rem;
-
+    @media (max-width:767px) {
+      padding: 0;
+    }
     a {
       height: 5.6rem;
       @include centerOriginImage;
+      @media (max-width:767px) {
+        height: 3.7rem;
+        margin: 0 .5rem;
+      }
     }
   }
 }

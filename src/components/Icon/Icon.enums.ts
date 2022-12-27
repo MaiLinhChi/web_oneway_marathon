@@ -11,6 +11,8 @@ export enum EIconName {
   AngleRight = 'AngleRight',
   Copy = 'Copy',
   MinusCircle = 'MinusCircle',
+  Bars = 'Bars',
+  Close = 'Close',
 }
 
 export enum EIconColor {

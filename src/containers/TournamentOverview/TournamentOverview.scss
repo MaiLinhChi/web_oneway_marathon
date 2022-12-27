@@ -1,11 +1,22 @@
 .TournamentOverview {
   &-nav {
     padding: 0rem 1.6rem;
-
+    @media (max-width:992px) {
+      margin-top: 19px;
+    }
     &-list {
       column-gap: .4rem;
-
+      @media (max-width:992px) {
+        white-space: nowrap;
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+      }
+      
       &-item {
+        @media (max-width:992px) {
+          display: inline-block;
+        }
         a {
           font-size: 1.4rem;
           line-height: 2rem;
@@ -15,7 +26,9 @@
           padding: 1.8rem;
           display: block;
           text-transform: uppercase;
-
+         @media (max-width:992px) {
+           padding: 1.2rem;
+         }
           &:hover {
             color: $white;
             transform: scale(1.1);
@@ -51,14 +64,20 @@
       font-size: 6.4rem;
       font-weight: 900;
       color: $white;
-      line-height: 7.7rem;
+      line-height: 1rem;
       font-style: italic;
       margin-bottom: 2.4rem;
-
+      @media (max-width:992px) {
+        font-size: 3rem;
+        margin-bottom:0;
+      }
       span {
         font-size: 9.6rem;
         line-height: 11.6rem;
         text-transform: uppercase;
+        @media (max-width:992px) {
+          font-size: 4rem;
+        }
       }
     }
 
@@ -86,16 +105,23 @@
     &-btns {
       column-gap: 2.4rem;
       width: 100%;
-
+      @media (max-width:767px) {
+        flex-wrap: wrap;
+      }
       .Button {
         width: 100%;
         max-width: 19rem;
-
+        @media (max-width:992px) {
+          max-width: 33rem;
+        }
         .ant-btn {
           width: 100%;
         }
 
         &:first-child {
+          @media (max-width:767px) {
+            margin-bottom: 16px;
+          }
           .ant-btn {
             background: $white;
             border-color: $white;
@@ -127,7 +153,10 @@
     background: $black;
     column-gap: 10rem;
     padding: 2rem 1.6rem;
-
+    @media (max-width:992px) {
+      column-gap: 4rem;
+      justify-content: space-around;
+    }
     &-item {
       color: $white;
       font-size: 6.4rem;
@@ -136,7 +165,13 @@
       line-height: 7.8rem;
       letter-spacing: -0.6rem;
       font-family: 'Montserrat', sans-serif;
+      @media (max-width:992px) {
+        font-size: 3rem;
+        letter-spacing: .1rem;
+        line-height: 2.8rem;
+      }
 
+     
       span {
         font-size: 2.8rem;
         letter-spacing: normal;
@@ -144,6 +179,10 @@
         display: inline-block;
         text-transform: uppercase;
         transform: translate(45%, -60%);
+        @media (max-width:992px) {
+          font-size: 1.5rem;
+        }
+        
       }
     }
   }

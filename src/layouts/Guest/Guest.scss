@@ -9,5 +9,8 @@
 
   &-body {
     padding-top: 8rem;
+    @media screen {
+      padding-top: 7rem;
+    }
   }
 }

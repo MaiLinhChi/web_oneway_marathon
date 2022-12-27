@@ -67,12 +67,20 @@
   }
 
   &-main {
+    @media (max-width:992px) {
+      flex-wrap: wrap;
+    }
+   
     &-info {
       padding: 3.2rem 4rem;
       flex: 0 0 36rem;
       max-width: 36rem;
       min-height: 51rem;
-
+      @media (max-width:992px) {
+        flex: 0 0 100%;
+        max-width: 100%;
+        min-height: auto;
+      }
       &-title {
         color: $white;
         font-size: 6.4rem;

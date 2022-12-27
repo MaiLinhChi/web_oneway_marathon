@@ -1,7 +1,11 @@
 .Footer {
   background: $black;
   padding: 8rem 0 6.4rem;
-
+  &-wrapper{
+    .ant-row{
+      row-gap: 14px!important;
+    }
+  }
   &-logo {
     max-width: 31.2rem;
     @include centerOriginImage;
@@ -19,6 +23,9 @@
     color: $white;
     line-height: 2.4rem;
     margin-bottom: 2.4rem;
+    @media (max-width:767px) {
+      font-size:1.5rem;
+    }
   }
 
   &-link {
@@ -36,7 +43,10 @@
     color: $white;
     font-weight: 500;
     font-style: italic;
-
+    @media (max-width:767px) {
+      font-size:1.2rem;
+      font-weight: 400;
+    }
     a {
       color: $white;
 

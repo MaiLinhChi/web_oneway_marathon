@@ -132,7 +132,11 @@
     table {
       width: 100%;
       border-collapse: collapse;
-
+     @media (max-width:992px) {
+      display: block;
+      width: 100%;
+      overflow-x: auto;
+     }
       thead {
         th {
           text-align: center;

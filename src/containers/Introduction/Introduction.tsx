@@ -6,18 +6,14 @@ import ImageIntroductionMobile from '@/assets/images/image-introduction-mobile.p
 
 import { TIntroductionProps } from './Introduction.types.d';
 import './Introduction.scss';
-import { useSelector } from 'react-redux';
-import { TRootState } from '@/redux/reducers';
 
 const Introduction: React.FC<TIntroductionProps> = () => {
-  const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
-  console.log('isMobile', isMobile);
   return (
     <section className="Introduction">
       <div className="container">
         <div className="Introduction-wrapper">
           <Row gutter={[64, 24]}>
-            <Col span={17}>
+            <Col xs={{ span: 24 }} lg={{ span: 17 }}>
               <h2 className="Introduction-title">
                 Giới thiệu
                 <span>OneWay Marathon</span>
@@ -36,7 +32,7 @@ const Introduction: React.FC<TIntroductionProps> = () => {
                 chọn một trong ba cự ly thi đấu, bao gồm: Milestone: 5km, Breakthrough: 10km và Half-marathon: 21km.
               </div>
             </Col>
-            <Col span={7}>
+            <Col xs={{ span: 24 }} lg={{ span: 7 }}>
               <div className="Introduction-image">
                 <img src={ImageIntroductionMobile} alt="" />
               </div>

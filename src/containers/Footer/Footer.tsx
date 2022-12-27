@@ -14,12 +14,12 @@ const Footer: React.FC<TFooterProps> = () => {
       <div className="container">
         <div className="Footer-wrapper">
           <Row gutter={[24, 24]}>
-            <Col span={7}>
+            <Col xs={{ span: 24 }} lg={{ span: 7 }}>
               <div className="Footer-logo">
                 <img src={ImageBoCongThuong} alt="" />
               </div>
             </Col>
-            <Col span={17}>
+            <Col xs={{ span: 24 }} lg={{ span: 17 }}>
               <h4 className="Footer-title">CÔNG TY CỔ PHẦN ĐẦU TƯ CÔNG NGHỆ TRUYỀN THÔNG ONEBIT</h4>
               <p className="Footer-description">
                 MST: 0317061594 do Sở Kế hoạch và Đầu tư Thành phố Hồ Chí Minh cấp ngày 03/12/2021.
@@ -35,7 +35,7 @@ const Footer: React.FC<TFooterProps> = () => {
               <div className="Footer-line" />
             </Col>
             {dataFooterLinks.map((item) => (
-              <Col span={8}>
+              <Col xs={{ span: 24 }} lg={{ span: 8 }}>
                 <Link to={item.link} className="Footer-description Footer-link">
                   {item.title}
                 </Link>

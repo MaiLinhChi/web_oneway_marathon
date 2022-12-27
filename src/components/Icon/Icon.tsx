@@ -17,6 +17,8 @@ import AngleLeft from './AngleLeft';
 import AngleRight from './AngleRight';
 import MinusCircle from './MinusCircle';
 import Copy from './Copy';
+import Bars from './Bars';
+import Close from './Close';
 
 const Icon: React.FC<TIconProps> = ({ name, className, color, onClick }) => {
   const renderIcon = (): React.ReactElement => {
@@ -45,6 +47,10 @@ const Icon: React.FC<TIconProps> = ({ name, className, color, onClick }) => {
         return <MinusCircle color={color} />;
       case EIconName.Copy:
         return <Copy color={color} />;
+      case EIconName.Bars:
+        return <Bars color={color} />;
+      case EIconName.Close:
+        return <Close color={color} />;
 
       default:
         return <></>;
