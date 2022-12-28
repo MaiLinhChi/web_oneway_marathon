@@ -16,7 +16,7 @@ const Tournaments: React.FC<TTournamentsProps> = () => {
         <div className="Tournaments-group-list">
           <Row gutter={[24, 24]}>
             {[1, 2].map((item) => (
-              <Col span={8} key={item}>
+              <Col lg={{ span: 8 }} xs={{ span: 12 }} key={item}>
                 <div
                   className="Tournaments-group-list-item"
                   onClick={(): void => {
@@ -36,7 +36,7 @@ const Tournaments: React.FC<TTournamentsProps> = () => {
         <div className="Tournaments-group-list">
           <Row gutter={[24, 24]}>
             {[1, 2, 3].map((item) => (
-              <Col span={8} key={item}>
+              <Col lg={{ span: 8 }} xs={{ span: 12 }} key={item}>
                 <div
                   className="Tournaments-group-list-item"
                   onClick={(): void => {

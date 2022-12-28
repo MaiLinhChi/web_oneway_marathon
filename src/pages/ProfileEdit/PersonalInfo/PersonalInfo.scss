@@ -25,6 +25,10 @@
   &-header {
     margin-bottom: 2.4rem;
     column-gap: 2.4rem;
+    @media (max-width:992px) {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
   }
 
   &-group {
@@ -36,7 +40,7 @@
   &-avatar {
     flex: 0 0 11.2rem;
     max-width: 11.2rem;
-
+    
     .UploadAvatar {
       width: 11.2rem;
       height: 11.2rem;
@@ -46,6 +50,10 @@
   }
 
   &-info {
+    @media (max-width:992px) {
+      text-align: center;
+      margin: 1rem 0;
+    }
     &-title {
       font-size: 2rem;
       font-style: italic;

@@ -10,8 +10,11 @@ import Button from '@/components/Button';
 import { copyText } from '@/utils/functions';
 
 import './TournamentDetail.scss';
+import { useSelector } from 'react-redux';
+import { TRootState } from '@/redux/reducers';
 
 const TournamentDetail: React.FC = () => {
+  const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
   return (
     <div className="TournamentDetail">
       <div className="container">
@@ -20,15 +23,19 @@ const TournamentDetail: React.FC = () => {
             <img src={ImageHomeBanner1} alt="" />
           </div>
 
-          <div className="TournamentDetail-status flex">
-            <div className="TournamentDetail-status-item cancel">Đã huỷ</div>
-            <div className="TournamentDetail-status-item pending">Chờ thanh toán</div>
-            <div className="TournamentDetail-status-item success">Đã thanh toán</div>
-          </div>
+          {!isMobile ? (
+            <div className="TournamentDetail-status flex">
+              {/* <div className="TournamentDetail-status-item cancel">Đã huỷ</div> */}
+              <div className="TournamentDetail-status-item pending">Chờ thanh toán</div>
+              {/* <div className="TournamentDetail-status-item success">Đã thanh toán</div> */}
+            </div>
+          ) : (
+            ''
+          )}
 
           <div className="TournamentDetail-main">
-            <Row gutter={[48, 48]}>
-              <Col span={16}>
+            <Row gutter={{ xs: 0, lg: 48 }}>
+              <Col xs={{ order: 2, span: 24 }} lg={{ order: 1, span: 16 }}>
                 <h1 className="TournamentDetail-title">
                   OneWay
                   <span>Cát Bà 2022</span>
@@ -186,7 +193,7 @@ const TournamentDetail: React.FC = () => {
                   </div>
                 </div>
               </Col>
-              <Col span={8}>
+              <Col xs={{ order: 1, span: 24 }} lg={{ order: 2, span: 8 }}>
                 <div className="TournamentDetail-ticket">
                   <h2 className="TournamentDetail-subtitle">Vé của bạn:</h2>
                   <div className="TournamentDetail-table expand-x">
@@ -222,6 +229,15 @@ const TournamentDetail: React.FC = () => {
                     </table>
                   </div>
                 </div>
+                {isMobile ? (
+                  <div className="TournamentDetail-status flex">
+                    {/* <div className="TournamentDetail-status-item cancel">Đã huỷ</div> */}
+                    <div className="TournamentDetail-status-item pending">Chờ thanh toán</div>
+                    {/* <div className="TournamentDetail-status-item success">Đã thanh toán</div> */}
+                  </div>
+                ) : (
+                  ''
+                )}
               </Col>
             </Row>
           </div>

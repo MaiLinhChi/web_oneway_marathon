@@ -25,7 +25,7 @@ const TournamentPartner: React.FC<TTournamentPartnerProps> = ({ color, title }) 
 
           <div className="TournamentPartner-main">
             <Row gutter={[24, 24]}>
-              <Col span={8}>
+              <Col lg={{ span: 8 }} xs={{ span: 24 }}>
                 <div className="TournamentPartner-card">
                   <div className="TournamentPartner-card-header">Nhà tài trợ kim cương</div>
                   <div className="TournamentPartner-card-body">
@@ -42,7 +42,7 @@ const TournamentPartner: React.FC<TTournamentPartnerProps> = ({ color, title }) 
                 </div>
               </Col>
 
-              <Col span={8}>
+              <Col lg={{ span: 8 }} xs={{ span: 24 }}>
                 <div className="TournamentPartner-card">
                   <div className="TournamentPartner-card-header">Nhà tài trợ bạch kim</div>
                   <div className="TournamentPartner-card-body">
@@ -59,7 +59,7 @@ const TournamentPartner: React.FC<TTournamentPartnerProps> = ({ color, title }) 
                 </div>
               </Col>
 
-              <Col span={8}>
+              <Col lg={{ span: 8 }} xs={{ span: 24 }}>
                 <div className="TournamentPartner-card">
                   <div className="TournamentPartner-card-header">Nhà tài trợ năng lượng sạch</div>
                   <div className="TournamentPartner-card-body">
@@ -76,7 +76,7 @@ const TournamentPartner: React.FC<TTournamentPartnerProps> = ({ color, title }) 
                 </div>
               </Col>
 
-              <Col span={15}>
+              <Col lg={{ span: 15 }} xs={{ span: 24 }}>
                 <div className="TournamentPartner-card">
                   <div className="TournamentPartner-card-header">Nhà tài trợ sản phẩm</div>
                   <div className="TournamentPartner-card-body">
@@ -114,7 +114,7 @@ const TournamentPartner: React.FC<TTournamentPartnerProps> = ({ color, title }) 
                 </div>
               </Col>
 
-              <Col span={9}>
+              <Col lg={{ span: 9 }} xs={{ span: 24 }}>
                 <div className="TournamentPartner-card">
                   <div className="TournamentPartner-card-header">Bảo trợ truyền thông</div>
                   <div className="TournamentPartner-card-body">

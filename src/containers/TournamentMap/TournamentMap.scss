@@ -18,6 +18,12 @@
       display: inline-block;
       text-transform: none;
     }
+    @media (max-width:767px) {
+      font-size: 1.8rem;
+      span{
+        font-size: 1.6rem;
+      }
+    }
   }
 
   &-tab {
@@ -76,10 +82,12 @@
       flex: 0 0 36rem;
       max-width: 36rem;
       min-height: 51rem;
+      order: 1;
       @media (max-width:992px) {
         flex: 0 0 100%;
         max-width: 100%;
         min-height: auto;
+        order: 2;
       }
       &-title {
         color: $white;
@@ -114,6 +122,10 @@
     }
 
     &-map {
+      order: 2;
+      @media (max-width:992px) {
+        order: 1;
+      }
       &-image {
         overflow: hidden;
         height: 100%;

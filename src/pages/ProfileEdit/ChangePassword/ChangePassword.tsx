@@ -17,12 +17,12 @@ const ChangePassword: React.FC<TChangePasswordProps> = () => {
     <div className="ChangePassword">
       <Form form={form} onValuesChange={setFormValues}>
         <Row gutter={[32, 24]}>
-          <Col span={12}>
+          <Col lg={{ span: 12 }} xs={{ span: 24 }}>
             <Form.Item name="oldPassword" rules={[validationRules.required()]}>
               <Input type="password" placeholder="Mật khẩu hiện tại" />
             </Form.Item>
           </Col>
-          <Col span={12}>
+          <Col lg={{ span: 12 }} xs={{ span: 24 }}>
             <Form.Item name="newPassword" rules={[validationRules.required()]}>
               <Input type="password" placeholder="Mật khẩu hiện tại" />
             </Form.Item>

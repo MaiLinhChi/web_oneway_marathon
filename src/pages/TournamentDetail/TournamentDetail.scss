@@ -4,6 +4,9 @@
   &-banner {
     @include centerScaleImage;
     margin-bottom: 4.8rem;
+    @media (max-width: 767px) {
+      margin-bottom: 0;
+    }
   }
 
   &-status {
@@ -49,6 +52,13 @@
       margin-left: 1rem;
       display: inline-block;
       text-transform: none;
+    }
+    @media (max-width:767px) {
+      font-size: 2rem;
+      span{
+        font-size: 1.8rem;
+        margin-left: .5rem;
+      }
     }
   }
 
@@ -250,7 +260,15 @@
     top: calc(8rem + 1.6rem);
     padding: 3.2rem 2.4rem;
     background: $aqua-haze;
-
+    @media (max-width: 767px) {
+      position: relative;
+      padding: 2.2rem 2.4rem;
+      background: #F2F6F8;
+      width: 37.5rem;
+      transform: translateY(-24%);
+      margin: auto;
+      top: 1.6rem;
+    }
     .TournamentDetail {
       &-table {
         margin-bottom: 0;

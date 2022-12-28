@@ -18,6 +18,12 @@
       display: inline-block;
       text-transform: none;
     }
+    @media (max-width:767px) {
+      font-size: 1.8rem;
+      span{
+        font-size: 1.6rem;
+      }
+    }
   }
 
   &-main {
@@ -55,6 +61,7 @@
         @media (max-width:992px) {
           flex: 0 0 100%;
           max-width: 100%;
+          padding: 1rem;
         }
         &-title {
           font-family: 'Montserrat', sans-serif;
@@ -64,6 +71,10 @@
           font-style: italic;
           margin-bottom: 2.4rem;
           color: $white;
+          @media (max-width:767px) {
+            font-size: 2rem;
+            margin-bottom: 0;
+          }
         }
 
         &-description {
@@ -71,15 +82,22 @@
           font-weight: 500;
           line-height: 2.6rem;
           color: $white;
+          @media (max-width:767px) {
+            font-size: 1.4rem;
+          }
         }
       }
 
       &-timeline {
-        padding: 4rem;
-
+        padding: 4rem; 
+        @media (max-width:992px) {
+          padding: 10px;
+        }
         &-item {
           column-gap: 2.4rem;
-
+          @media (max-width:992px) {
+            column-gap: 0.4rem;
+          }
           &:last-child {
             .TournamentEvent-main-item-timeline-item-line {
               display: none;
@@ -93,6 +111,9 @@
             line-height: 2.6rem;
             min-width: 19rem;
             color: $persian-green;
+            @media (max-width:767px) {
+              min-width: 13rem;
+            }
           }
 
           &-description {
@@ -101,6 +122,7 @@
             font-weight: 500;
             font-style: italic;
             color: $tundora;
+            
           }
 
           &-circle {
@@ -127,6 +149,9 @@
 
           &:not(:last-child) {
             margin-bottom: 2.5rem;
+            @media (max-width:992px) {
+              margin-bottom: 1.5rem;
+            }
           }
         }
       }

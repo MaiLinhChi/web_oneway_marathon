@@ -18,12 +18,20 @@
       display: inline-block;
       text-transform: none;
     }
+    @media (max-width:767px) {
+      font-size: 1.8rem;
+      span{
+        font-size: 1.6rem;
+      }
+    }
   }
 
   &-main {
     padding: 4.8rem;
     background: $aqua-haze;
-
+    @media (max-width:767px) {
+      padding: 1.8rem;
+    }
     h4 {
       font-size: 2rem;
       line-height: 2.6rem;
@@ -37,6 +45,10 @@
       line-height: 2.6rem;
       font-weight: 500;
       color: $tundora;
+      @media (max-width:767px) {
+        font-size: 1.4rem;
+        line-height: 2rem;
+      }
     }
 
     li {

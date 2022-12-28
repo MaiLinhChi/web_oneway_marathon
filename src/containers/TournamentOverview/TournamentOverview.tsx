@@ -114,7 +114,7 @@ const TournamentOverview: React.FC<TTournamentOverviewProps> = ({
           <p className="TournamentOverview-info-description">{description}</p>
           <div className="TournamentOverview-info-detail flex items-center justify-around">
             <div className="TournamentOverview-info-detail-item">
-              Ngày đua: <span>{dateTournament}</span>
+              <strong>Ngày đua:</strong> <span>{dateTournament}</span>
             </div>
             <div className="TournamentOverview-info-detail-item">
               Địa điểm: <span>{locationTournament}</span>

@@ -9,11 +9,13 @@ import Select from '@/components/Select';
 
 import { TPersonalInfoProps } from './PersonalInfo.types';
 import './PersonalInfo.scss';
+import { useSelector } from 'react-redux';
+import { TRootState } from '@/redux/reducers';
 
 const PersonalInfo: React.FC<TPersonalInfoProps> = () => {
   const [form] = Form.useForm();
   const [, setFormValues] = useState({});
-
+  const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
   return (
     <div className="PersonalInfo">
       <Form form={form} onValuesChange={setFormValues} layout="vertical">
@@ -43,17 +45,17 @@ const PersonalInfo: React.FC<TPersonalInfoProps> = () => {
             </div>
 
             <Row gutter={[24, 24]}>
-              <Col span={24}>
+              <Col lg={{ span: 24 }} xs={{ span: 24 }}>
                 <Form.Item name="fullName" label="Họ và tên">
                   <Input placeholder="Họ và tên" />
                 </Form.Item>
               </Col>
-              <Col span={12}>
+              <Col lg={{ span: 12 }} xs={{ span: 24 }}>
                 <Form.Item name="dateOfBirth" label="Ngày sinh">
                   <DatePicker placeholder="Ngày sinh" />
                 </Form.Item>
               </Col>
-              <Col span={12}>
+              <Col lg={{ span: 12 }} xs={{ span: 24 }}>
                 <Form.Item name="gender" label="Giới tính">
                   <Select
                     placeholder="Giới tính"
@@ -64,12 +66,12 @@ const PersonalInfo: React.FC<TPersonalInfoProps> = () => {
                   />
                 </Form.Item>
               </Col>
-              <Col span={12}>
+              <Col lg={{ span: 12 }} xs={{ span: 24 }}>
                 <Form.Item name="email" label="Email">
                   <Input placeholder="Email" />
                 </Form.Item>
               </Col>
-              <Col span={12}>
+              <Col lg={{ span: 12 }} xs={{ span: 24 }}>
                 <Form.Item name="phoneNumber" label="Số điện thoại">
                   <Input placeholder="Số điện thoại" />
                 </Form.Item>
@@ -83,49 +85,71 @@ const PersonalInfo: React.FC<TPersonalInfoProps> = () => {
             </div>
 
             <Row gutter={[24, 24]}>
-              <Col span={12}>
+              <Col lg={{ span: 12 }} xs={{ span: 24 }}>
                 <Form.Item name="creditNumber" label="Số CMND/Hộ chiếu">
                   <Input placeholder="Số CMND/Hộ chiếu" />
                 </Form.Item>
               </Col>
-              <Col span={12}>
+              <Col lg={{ span: 12 }} xs={{ span: 24 }}>
                 <Form.Item name="nationality" label="Quốc tịch">
                   <Select placeholder="Quốc tịch" />
                 </Form.Item>
               </Col>
               <Col span={24}>
                 <Row gutter={[4, 24]}>
-                  <Col span={6}>
+                  <Col lg={{ span: 6 }} md={{ span: 24 }} xs={{ span: 24 }}>
                     <Form.Item name="city" label="Địa chỉ">
                       <Select placeholder="Thành phố" />
                     </Form.Item>
                   </Col>
-                  <Col span={6}>
-                    <Form.Item name="province" label=" ">
-                      <Select placeholder="Quận" />
-                    </Form.Item>
-                  </Col>
-                  <Col span={6}>
-                    <Form.Item name="state" label=" ">
-                      <Select placeholder="Phường" />
-                    </Form.Item>
-                  </Col>
-                  <Col span={6}>
-                    <Form.Item name="address" label=" ">
-                      <Select placeholder="Số nhà/Đường" />
-                    </Form.Item>
-                  </Col>
+                  {!isMobile ? (
+                    <>
+                      <Col lg={{ span: 6 }} md={{ span: 6 }} xs={{ span: 24 }}>
+                        <Form.Item name="province" label=" ">
+                          <Select placeholder="Quận" />
+                        </Form.Item>
+                      </Col>
+                      <Col lg={{ span: 6 }} md={{ span: 6 }} xs={{ span: 24 }}>
+                        <Form.Item name="state" label=" ">
+                          <Select placeholder="Phường" />
+                        </Form.Item>
+                      </Col>
+                      <Col lg={{ span: 6 }} md={{ span: 6 }} xs={{ span: 24 }}>
+                        <Form.Item name="address" label=" ">
+                          <Select placeholder="Số nhà/Đường" />
+                        </Form.Item>
+                      </Col>
+                    </>
+                  ) : (
+                    <>
+                      <Col lg={{ span: 6 }} md={{ span: 12 }} xs={{ span: 24 }}>
+                        <Form.Item name="province">
+                          <Select placeholder="Quận" />
+                        </Form.Item>
+                      </Col>
+                      <Col lg={{ span: 6 }} md={{ span: 12 }} xs={{ span: 24 }}>
+                        <Form.Item name="state">
+                          <Select placeholder="Phường" />
+                        </Form.Item>
+                      </Col>
+                      <Col lg={{ span: 6 }} md={{ span: 12 }} xs={{ span: 24 }}>
+                        <Form.Item name="address">
+                          <Select placeholder="Số nhà/Đường" />
+                        </Form.Item>
+                      </Col>
+                    </>
+                  )}
                 </Row>
               </Col>
               <Col span={24}>
                 <Row gutter={[4, 24]}>
-                  <Col span={12}>
+                  <Col lg={{ span: 12 }} md={{ span: 12 }} xs={{ span: 24 }}>
                     <Form.Item name="nameEmergencyContact" label="Liên hệ khẩn cấp">
                       <Input placeholder="Tên người liên hệ khẩn cấp" />
                     </Form.Item>
                   </Col>
-                  <Col span={12}>
-                    <Form.Item name="phoneEmergencyContact" label=" ">
+                  <Col lg={{ span: 12 }} md={{ span: 12 }} xs={{ span: 24 }}>
+                    <Form.Item name="phoneEmergencyContact" label="Người liên hệ ">
                       <Input placeholder="Số điện thoại người liên hệ" />
                     </Form.Item>
                   </Col>

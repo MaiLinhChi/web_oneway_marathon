@@ -10,6 +10,8 @@ import Button from '@/components/Button';
 
 import { ETabProfileKey } from './Profile.enums';
 import './Profile.scss';
+import { TRootState } from '@/redux/reducers';
+import { useSelector } from 'react-redux';
 
 const Profile: React.FC = () => {
   const dataTabProfile = [
@@ -24,7 +26,7 @@ const Profile: React.FC = () => {
   ];
 
   const [activeTab, setActiveTab] = useState<TTabRectangleValue>(dataTabProfile[0]);
-
+  const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
   return (
     <div className="Profile">
       <div className="Profile-background">
@@ -32,8 +34,8 @@ const Profile: React.FC = () => {
           overlay={
             <div className="Profile-background-overlay">
               <Row gutter={[48, 48]}>
-                <Col span={8} />
-                <Col span={16}>
+                {!isMobile ? <Col lg={{ span: 8 }} xs={{ span: 24 }} /> : ''}
+                <Col lg={{ span: 16 }} xs={{ span: 24 }}>
                   <div className="Profile-background-overlay-btns flex items-center justify-center">
                     <Button title="Đổi ảnh bìa" type="primary" />
                     <div onClick={(e): void => e.stopPropagation()}>
@@ -48,11 +50,11 @@ const Profile: React.FC = () => {
       </div>
       <div className="container">
         <div className="Profile-wrapper">
-          <Row gutter={[48, 48]}>
-            <Col span={8}>
+          <Row gutter={{ xs: 0, lg: 48 }}>
+            <Col lg={{ span: 8 }} xs={{ span: 24 }}>
               <ProfileCard />
             </Col>
-            <Col span={16}>
+            <Col lg={{ span: 16 }} xs={{ span: 24 }}>
               <TabRectangle value={activeTab} onChange={setActiveTab} options={dataTabProfile} />
 
               {activeTab.value === ETabProfileKey.TOURNAMENT && <Tournaments />}

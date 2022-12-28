@@ -26,8 +26,8 @@ const ProfileEdit: React.FC = () => {
     <div className="ProfileEdit">
       <div className="container">
         <div className="ProfileEdit-wrapper">
-          <Row wrap={false}>
-            <Col>
+          <Row>
+            <Col xs={{ span: 24 }} lg={{ span: 6 }}>
               <div className="ProfileEdit-sidebar">
                 <TabRectangle
                   value={activeTab}
@@ -37,7 +37,7 @@ const ProfileEdit: React.FC = () => {
                 />
               </div>
             </Col>
-            <Col flex={1}>
+            <Col xs={{ span: 24 }} lg={{ span: 18 }}>
               <div className="ProfileEdit-main">
                 {activeTab.value === ETabProfileEditKey.PERSONAL_INFO && <PersonalInfo />}
                 {activeTab.value === ETabProfileEditKey.CHANGE_PASSWORD && <ChangePassword />}

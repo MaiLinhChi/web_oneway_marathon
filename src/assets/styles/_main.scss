@@ -26,6 +26,7 @@ body {
   width: 100%;
   height: 100%;
   margin: 0px;
+  overflow-x: hidden;
   padding: 0px;
 }
 
@@ -133,7 +134,7 @@ a {
   }
 }
 .ant-table table {
- @media (max-width:992px) {
+ @media (max-width:767px) {
   display: block;
   overflow-x: auto;
  }

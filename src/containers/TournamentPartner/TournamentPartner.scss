@@ -18,6 +18,12 @@
       display: inline-block;
       text-transform: none;
     }
+    @media (max-width:767px) {
+      font-size: 1.8rem;
+      span{
+        font-size: 1.6rem;
+      }
+    }
   }
 
   &-card {
@@ -45,6 +51,9 @@
       a {
         @include centerOriginImage;
         height: 5.5rem;
+        @media (max-width:767px) {
+          height: 2.5rem;
+        }
       }
     }
   }

@@ -18,6 +18,12 @@
       display: inline-block;
       text-transform: none;
     }
+    @media (max-width:767px) {
+      font-size: 1.8rem;
+      span{
+        font-size: 1.6rem;
+      }
+    }
   }
 
   &-table {}

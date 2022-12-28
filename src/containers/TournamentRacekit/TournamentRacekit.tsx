@@ -18,7 +18,7 @@ const TournamentRacekit: React.FC<TTournamentRacekitProps> = ({ color, colors = 
           <div className="TournamentRacekit-main">
             <Row>
               {dataTournamentRacekit.map((item, index) => (
-                <Col span={6}>
+                <Col xs={{ span: 12 }} lg={{ span: 6 }}>
                   <div className="TournamentRacekit-main-image" style={{ background: colors[index] }}>
                     <img src={item.image} alt="" />
                   </div>
