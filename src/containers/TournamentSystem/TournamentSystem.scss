@@ -22,8 +22,11 @@
     }
     @media (max-width:767px) {
       font-size: 1.8rem;
+      margin-bottom:0;
+      line-height: 0;
       span{
         font-size: 1.6rem;
+        margin-left: .5rem;
       }
     }
   }
@@ -108,7 +111,7 @@
         font-size: 12px;
         margin-bottom: .8rem;
       }
-      
+
     }
 
     &-image {
