@@ -43,6 +43,10 @@
       font-size: 1.8rem;
       line-height: 2.2rem;
       height: 5.6rem;
+      @media (max-width:992px) {
+        font-size: 1.5rem;
+        height: 4rem;
+      }
     }
 
     &.ant-btn-ghost {

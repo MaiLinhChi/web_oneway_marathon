@@ -49,7 +49,7 @@ const TournamentDetail: React.FC = () => {
                 </p>
 
                 <h2 className="TournamentDetail-subtitle">Thông tin chi tiết</h2>
-                <div className="TournamentDetail-table striped">
+                <div className="TournamentDetail-table striped race">
                   <table>
                     <tr>
                       <td>Ngày đua</td>

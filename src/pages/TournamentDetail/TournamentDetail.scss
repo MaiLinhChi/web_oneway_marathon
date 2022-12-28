@@ -69,7 +69,10 @@
     font-style: italic;
     color: $dove-gray;
     margin-bottom: 4.8rem;
-
+    @media (max-width:767px) {
+      font-size: 1.4rem;
+      
+    }
     a {
       font-weight: 600;
       color: $blue-ribbon;
@@ -88,6 +91,9 @@
     font-style: italic;
     text-transform: uppercase;
     margin-bottom: 1.6rem;
+    @media (max-width:767px) {
+      font-size: 1.6rem; 
+    }
   }
 
   &-table {
@@ -110,10 +116,13 @@
         }
       }
     }
-
+    
     table {
       width: 100%;
-
+      @media (max-width:575px) {
+        display: inline-block;
+        overflow: scroll;
+      }
       td {
         font-style: italic;
         font-weight: 500;
@@ -123,7 +132,9 @@
         padding: .8rem 1.2rem;
         white-space: nowrap;
         vertical-align: middle;
-
+        @media (max-width:767px) {
+          font-size: 1.4rem; 
+        }
         .Icon {
           width: 2.4rem;
           height: 2.4rem;
@@ -133,6 +144,13 @@
         strong {
           font-weight: 600;
           color: $cod-gray;
+        }
+      }
+    }
+    &.race{
+      table{
+        @media (max-width:575px) {
+          display: inline-table;
         }
       }
     }
@@ -155,7 +173,9 @@
 
     &-edit {
       margin-bottom: -2.4rem;
-
+      @media (max-width:767px) {
+        margin-bottom: -3.4rem;
+      }
       .Button {
         .ant-btn {
           &.ant-btn-ghost {
@@ -179,6 +199,9 @@
       font-weight: 900;
       color: $cod-gray;
       margin-bottom: 1.2rem;
+      @media (max-width:767px) {
+        font-size: 1.4rem; 
+      }
     }
 
     &-link {
@@ -222,6 +245,9 @@
           font-style: italic;
           font-weight: 500;
           color: $dove-gray;
+          @media (max-width:767px) {
+            font-size: 1.4rem; 
+          }
         }
       }
     }
