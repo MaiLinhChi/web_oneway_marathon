@@ -1,0 +1,65 @@
+.Content {
+  background: $wild-sand;
+  padding: 9.6rem 0;
+
+  &-wrapper {
+    background: $white;
+    max-width: 76.8rem;
+    margin: 0 auto;
+    padding: 6.4rem 2.4rem;
+
+    h1 {
+      font-size: 3.6rem;
+      line-height: 4.2rem;
+      color: $cod-gray;
+      margin-bottom: 3.6rem;
+      font-style: italic;
+      font-weight: 900;
+    }
+
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-size: 1.8rem;
+      line-height: 2.4rem;
+      font-weight: 700;
+      font-style: italic;
+      color: $cod-gray;
+    }
+
+    li {
+      margin-bottom: 0;
+
+      &:not(:last-child) {
+        margin-bottom: .8rem;
+      }
+    }
+
+    a {
+      color: $blue-ribbon;
+
+      &:hover {
+        text-decoration: underlinen;
+      }
+    }
+
+    a,
+    li,
+    p {
+      font-size: 1.6rem;
+      line-height: 2.4rem;
+      font-weight: 500;
+      font-style: italic;
+      color: $dove-gray;
+      text-align: justify;
+      margin-bottom: 3.6rem;
+    }
+
+    img {
+      width: 100%;
+      margin: 0 auto 3.6rem;
+    }
+  }
+}

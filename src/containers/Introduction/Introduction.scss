@@ -1,7 +1,7 @@
 .Introduction {
   position: relative;
   padding: 9.6rem 0;
-  @media (max-width:992px) {
+  @media (max-width:991px) {
     padding: 2.6rem 0;
   }
   .ant-col {
@@ -25,7 +25,7 @@
       display: inline-block;
       text-transform: none;
     }
-    @media (max-width:992px) {
+    @media (max-width:991px) {
       font-size: 2rem;
       margin-bottom: 0;
       span {
@@ -40,7 +40,7 @@
     font-style: italic;
     color: $dove-gray;
     text-align: justify;
-    @media (max-width:992px) {
+    @media (max-width:991px) {
       font-size: 1.4rem;
     }
   }
@@ -54,7 +54,7 @@
     clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
     max-width: 44rem;
     @include centerScaleImage;
-    @media (max-width:992px) {
+    @media (max-width:991px) {
       position: static;
       transform: unset;
       clip-path: none;

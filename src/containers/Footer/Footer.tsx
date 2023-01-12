@@ -1,6 +1,7 @@
 import React from 'react';
 import { Col, Row } from 'antd';
-import { Link } from '@reach/router';
+import classNames from 'classnames';
+import { Link, useLocation } from '@reach/router';
 
 import ImageBoCongThuong from '@/assets/images/image-bo-cong-thuong.png';
 
@@ -9,6 +10,8 @@ import { TFooterProps } from './Footer.types.d';
 import './Footer.scss';
 
 const Footer: React.FC<TFooterProps> = () => {
+  const { pathname } = useLocation();
+
   return (
     <div className="Footer">
       <div className="container">
@@ -36,7 +39,10 @@ const Footer: React.FC<TFooterProps> = () => {
             </Col>
             {dataFooterLinks.map((item) => (
               <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-                <Link to={item.link} className="Footer-description Footer-link">
+                <Link
+                  to={item.link}
+                  className={classNames('Footer-description Footer-link', { active: item.link === pathname })}
+                >
                   {item.title}
                 </Link>
               </Col>

@@ -1,0 +1,44 @@
+.NotFound {
+  text-align: center;
+  padding: 7.2rem 0 12.8rem;
+
+  &-code {
+    font-size: 12.8rem;
+    font-style: italic;
+    font-weight: 900;
+    color: $regent-gray;
+    margin-bottom: 1.6rem;
+    padding: 0 1.6rem;
+
+    @media (max-width: 575px) {
+      font-size: 9.6rem;
+    }
+  }
+
+  &-title {
+    font-size: 3.6rem;
+    font-weight: 900;
+    font-style: italic;
+    margin-bottom: 7.2rem;
+    color: $cod-gray;
+    line-height: 4.2rem;
+    padding: 0 1.6rem;
+  }
+
+  &-description {
+    margin-bottom: 2.4rem;
+    line-height: 2.8rem;
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: $dove-gray;
+    padding: 0 1.6rem;
+  }
+
+  &-image {
+    margin-bottom: 7.2rem;
+
+    img {
+      width: 100%;
+    }
+  }
+}

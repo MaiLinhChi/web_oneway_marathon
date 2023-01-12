@@ -36,19 +36,28 @@ const App: React.FC = () => {
           <PublicRoute path={Paths.TournamentRegister} component={Pages.TournamentRegister} />
           <PublicRoute path={Paths.TournamentDetail()} component={Pages.TournamentDetail} />
           <PublicRoute path={Paths.TournamentPayment()} component={Pages.TournamentPayment} />
-          <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.Home}`} />
+          <PublicRoute path={Paths.RollBib} component={Pages.RollBib} />
+          <PublicRoute path={Paths.BuyOnlineTicketTutorials} component={Pages.BuyOnlineTicketTutorials} />
+          <PublicRoute path={Paths.PrivacyPayment} component={Pages.PrivacyPayment} />
+          <PublicRoute path={Paths.PrivacySolvedProblem} component={Pages.PrivacySolvedProblem} />
+          <PublicRoute path={Paths.PrivacyRefund} component={Pages.PrivacyRefund} />
+          <PublicRoute path={Paths.PrivacyPrivate} component={Pages.PrivacyPrivate} />
+          <PublicRoute path={Paths.PrivacyDelivery} component={Pages.PrivacyDelivery} />
+
+          <PublicRoute path={Paths.NotFound} component={Pages.NotFound} />
+          <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.NotFound}`} />
         </Guest>
 
         <Auth path={LayoutPaths.Auth}>
           <AuthRoute path={Paths.Login} component={Pages.Login} />
           <AuthRoute path={Paths.ForgotPassword} component={Pages.ForgotPassword} />
           <AuthRoute path={Paths.ChangePassword} component={Pages.ChangePassword} />
-          <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Auth}${Paths.Login}`} />
+          <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.NotFound}`} />
         </Auth>
 
         <Admin path={LayoutPaths.Admin}>
           <ProtectedRoute path={Paths.Dashboard} component={Pages.Dashboard} />
-          <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Admin}${Paths.Dashboard}`} />
+          <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.NotFound}`} />
         </Admin>
       </Router>
     </div>

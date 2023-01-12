@@ -9,7 +9,8 @@
 
   &-body {
     padding-top: 8rem;
-    @media screen {
+
+    @media (max-width: 991px) {
       padding-top: 7rem;
     }
   }
