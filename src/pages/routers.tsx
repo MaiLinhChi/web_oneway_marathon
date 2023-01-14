@@ -56,7 +56,7 @@ export const Paths = {
   OneWayMarathonCatBa: '/detail/oneway-marathon-catba',
   OneWayMarathonVungTau: '/detail/oneway-marathon-vungtau',
 
-  Login: '/',
+  Login: '/login',
   ForgotPassword: '/forgot-password',
   ChangePassword: '/change-password',
 

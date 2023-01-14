@@ -15,6 +15,6 @@ export type TAuthLoginResponse = unknown;
 // FUNCTION
 
 export const authLogin = async ({ params, body }: TAuthLoginMaterials): Promise<TAuthLoginResponse> => {
-  const response = await ApiService.post(`/auth/login`, body, { params });
+  const response = await ApiService.post(`/api/login`, body, { params });
   return response.data;
 };

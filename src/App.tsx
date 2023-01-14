@@ -52,7 +52,7 @@ const App: React.FC = () => {
           <AuthRoute path={Paths.Login} component={Pages.Login} />
           <AuthRoute path={Paths.ForgotPassword} component={Pages.ForgotPassword} />
           <AuthRoute path={Paths.ChangePassword} component={Pages.ChangePassword} />
-          <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.NotFound}`} />
+          <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Auth}${Paths.Login}`} />
         </Auth>
 
         <Admin path={LayoutPaths.Admin}>

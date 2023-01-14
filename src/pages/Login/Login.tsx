@@ -1,20 +1,35 @@
 import React from 'react';
 import { Form } from 'antd';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { LayoutPaths, Paths } from '@/pages/routers';
-import { Link } from '@reach/router';
-import { validationRules } from '@/utils/functions';
+import { Link, navigate } from '@reach/router';
+import { showNotification, validationRules } from '@/utils/functions';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 import { EIconName } from '@/components/Icon';
+import { TAuthLoginResponse } from '@/services/api';
+import { authLoginAction, EAuthLoginAction } from '@/redux/actions';
+import { ETypeNotification } from '@/common/enums';
 
 const Login: React.FC = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
+  const loginLoading = useSelector((state: any) => state.loadingReducer[EAuthLoginAction.AUTH_LOGIN]);
+  const handleSubmit = (values: any): void => {
+    const body = { ...values };
 
-  const handleSubmit = (values: any): void => {};
+    dispatch(authLoginAction.request({ body }, (response): TAuthLoginResponse => handleLoginSuccess(response)));
+  };
 
+  const handleLoginSuccess = (response: any): void => {
+    if (response.status === true) {
+      showNotification(ETypeNotification.SUCCESS, 'Login Successfully');
+      navigate(Paths.Home);
+    } else {
+      showNotification(ETypeNotification.ERROR, response.error);
+    }
+  };
   return (
     <div className="Login">
       <div className="container">
@@ -24,10 +39,10 @@ const Login: React.FC = () => {
               <div className="Auth-form-wrapper">
                 <div className="Auth-form-title">Đăng nhập</div>
 
-                <Form.Item name="username" rules={[validationRules.required()]}>
+                <Form.Item name="userName" rules={[validationRules.required()]}>
                   <Input placeholder="Tên đăng nhập/email cá nhân *" />
                 </Form.Item>
-                <Form.Item name="username" rules={[validationRules.required()]}>
+                <Form.Item name="password" rules={[validationRules.required()]}>
                   <Input type="password" placeholder="Mật khẩu *" />
                 </Form.Item>
 
@@ -36,7 +51,7 @@ const Login: React.FC = () => {
                 </Link>
 
                 <div className="Auth-form-submit">
-                  <Button title="Đăng nhập" size="large" htmlType="submit" type="primary" />
+                  <Button title="Đăng nhập" size="large" loading={loginLoading} htmlType="submit" type="primary" />
                 </div>
 
                 <div className="Auth-form-or">

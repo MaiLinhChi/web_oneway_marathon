@@ -124,7 +124,7 @@ const Header: React.FC<THeaderProps> = () => {
               ''
             )}
             <div className="Header-login">
-              <Button title="Đăng nhập" type="primary" size="large" link={LayoutPaths.Auth} />
+              <Button title="Đăng nhập" type="primary" size="large" link={`${LayoutPaths.Auth}${Paths.Login}`} />
             </div>
           </div>
         </div>
