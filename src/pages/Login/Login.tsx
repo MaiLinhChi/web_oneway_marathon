@@ -10,7 +10,7 @@ import Button from '@/components/Button';
 import { EIconName } from '@/components/Icon';
 import { TAuthLoginResponse } from '@/services/api';
 import { authLoginAction, EAuthLoginAction } from '@/redux/actions';
-import { ETypeNotification } from '@/common/enums';
+import { EResponseCode, ETypeNotification } from '@/common/enums';
 
 const Login: React.FC = () => {
   const [form] = Form.useForm();
@@ -19,15 +19,16 @@ const Login: React.FC = () => {
   const handleSubmit = (values: any): void => {
     const body = { ...values };
 
-    dispatch(authLoginAction.request({ body }, (response): TAuthLoginResponse => handleLoginSuccess(response)));
+    dispatch(authLoginAction.request({ body }, (response): void => handleLoginSuccess(response)));
   };
 
   const handleLoginSuccess = (response: any): void => {
-    if (response.status === true) {
+    if (response.status === EResponseCode.OK) {
       showNotification(ETypeNotification.SUCCESS, 'Login Successfully');
       navigate(Paths.Home);
     } else {
-      showNotification(ETypeNotification.ERROR, response.error);
+      console.log('response', response);
+      showNotification(ETypeNotification.ERROR, response.message);
     }
   };
   return (

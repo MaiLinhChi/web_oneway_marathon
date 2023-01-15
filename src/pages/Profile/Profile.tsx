@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import { Col, Row } from 'antd';
 
 import TabRectangle, { TTabRectangleValue } from '@/components/TabRectangle';
@@ -11,9 +11,15 @@ import Button from '@/components/Button';
 import { ETabProfileKey } from './Profile.enums';
 import './Profile.scss';
 import { TRootState } from '@/redux/reducers';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import {EUpdateProfileAction, getProfileAction} from '@/redux/actions/profile';
 
 const Profile: React.FC = () => {
+  const dispatch = useDispatch();
+  const profileState = useSelector((state: TRootState) => state.profileReducer.getProfileResponse)?.data;
+  const updateProfileLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[EUpdateProfileAction.UPDATE_PROFILE],
+  );
   const dataTabProfile = [
     {
       value: ETabProfileKey.TOURNAMENT,
@@ -27,6 +33,13 @@ const Profile: React.FC = () => {
 
   const [activeTab, setActiveTab] = useState<TTabRectangleValue>(dataTabProfile[0]);
   const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
+  const getProfile = useCallback(() => {
+    dispatch(getProfileAction.request({}));
+  }, [dispatch]);
+
+  useEffect(() => {
+    getProfile();
+  }, [getProfile, profileState]);
   return (
     <div className="Profile">
       <div className="Profile-background">
