@@ -32,6 +32,6 @@ export type TGetProfileResponse = TCommonResponse & {
 // FUNCTION
 
 export const getProfile = async ({ params }: TGetProfileMaterials): Promise<TGetProfileResponse> => {
-  const response = await ApiService.post(`/users/profile`, { params });
+  const response = await ApiService.post(`/api/users/profile`, { params });
   return response.data;
 };

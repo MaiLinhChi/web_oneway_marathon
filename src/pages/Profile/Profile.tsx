@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Col, Row } from 'antd';
 
 import TabRectangle, { TTabRectangleValue } from '@/components/TabRectangle';
@@ -12,7 +12,7 @@ import { ETabProfileKey } from './Profile.enums';
 import './Profile.scss';
 import { TRootState } from '@/redux/reducers';
 import { useDispatch, useSelector } from 'react-redux';
-import {EUpdateProfileAction, getProfileAction} from '@/redux/actions/profile';
+import { EUpdateProfileAction, getProfileAction } from '@/redux/actions/profile';
 
 const Profile: React.FC = () => {
   const dispatch = useDispatch();
@@ -33,13 +33,7 @@ const Profile: React.FC = () => {
 
   const [activeTab, setActiveTab] = useState<TTabRectangleValue>(dataTabProfile[0]);
   const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
-  const getProfile = useCallback(() => {
-    dispatch(getProfileAction.request({}));
-  }, [dispatch]);
-
-  useEffect(() => {
-    getProfile();
-  }, [getProfile, profileState]);
+  console.log('profileState', profileState);
   return (
     <div className="Profile">
       <div className="Profile-background">
@@ -65,7 +59,11 @@ const Profile: React.FC = () => {
         <div className="Profile-wrapper">
           <Row gutter={{ xs: 0, lg: 48 }}>
             <Col lg={{ span: 8 }} xs={{ span: 24 }}>
-              <ProfileCard />
+              <ProfileCard
+                name={profileState?.user.name}
+                email={profileState?.user.email}
+                avatar={profileState?.user.avatar}
+              />
             </Col>
             <Col lg={{ span: 16 }} xs={{ span: 24 }}>
               <TabRectangle value={activeTab} onChange={setActiveTab} options={dataTabProfile} />

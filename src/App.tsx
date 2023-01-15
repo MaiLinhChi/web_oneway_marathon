@@ -6,12 +6,13 @@ import { AuthRoute, LayoutPaths, Pages, Paths, ProtectedRoute, PublicRoute } fro
 import Guest from '@/layouts/Guest';
 import Auth from '@/layouts/Auth';
 import Admin from '@/layouts/Admin';
-import { uiActions } from '@/redux/actions';
+import { getProfileAction, uiActions } from '@/redux/actions';
 import { scrollToTop } from '@/utils/functions';
+import AuthHelpers from '@/services/helpers';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-
+  const atk = AuthHelpers.getAccessToken();
   globalHistory.listen(() => {
     scrollToTop();
   });
@@ -23,7 +24,6 @@ const App: React.FC = () => {
     window.addEventListener('resize', updateSize);
     return (): void => window.removeEventListener('resize', updateSize);
   }, [dispatch]);
-
   return (
     <div className="App">
       <Router primary={false}>
@@ -31,8 +31,8 @@ const App: React.FC = () => {
           <PublicRoute path={Paths.Home} component={Pages.Home} />
           <PublicRoute path={Paths.OneWayMarathonCatBa} component={Pages.OneWayMarathonCatBa} />
           <PublicRoute path={Paths.OneWayMarathonVungTau} component={Pages.OneWayMarathonVungTau} />
-          <PublicRoute path={Paths.Profile} component={Pages.Profile} />
-          <PublicRoute path={Paths.ProfileEdit} component={Pages.ProfileEdit} />
+          <ProtectedRoute path={Paths.Profile} component={Pages.Profile} />
+          <ProtectedRoute path={Paths.ProfileEdit} component={Pages.ProfileEdit} />
           <PublicRoute path={Paths.TournamentRegister} component={Pages.TournamentRegister} />
           <PublicRoute path={Paths.TournamentDetail()} component={Pages.TournamentDetail} />
           <PublicRoute path={Paths.TournamentPayment()} component={Pages.TournamentPayment} />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import classNames from 'classnames';
 
 import { Link, navigate, useLocation } from '@reach/router';
@@ -12,13 +12,29 @@ import DropdownMenu from '@/components/DropdownMenu';
 import { dataHeaderNav } from './Header.data';
 import { THeaderProps } from './Header.types.d';
 import './Header.scss';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { TRootState } from '@/redux/reducers';
 import Icon, { EIconName } from '@/components/Icon';
+import AuthHelpers from '@/services/helpers';
+import { authLogoutAction, getProfileAction } from '@/redux/actions';
+import { showNotification } from '@/utils/functions';
+import { ETypeNotification } from '@/common/enums';
 
 const Header: React.FC<THeaderProps> = () => {
+  const dispatch = useDispatch();
   const { pathname } = useLocation();
   const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
+  const atk = AuthHelpers.getAccessToken();
+  const handleLogout = (): void => {
+    dispatch(authLogoutAction.request({}, handleAuthLogoutSuccess));
+  };
+
+  const handleAuthLogoutSuccess = (): void => {
+    AuthHelpers.clearTokens();
+    dispatch(getProfileAction.success(undefined));
+    showNotification(ETypeNotification.SUCCESS, 'Đăng xuất tài khoản thành công !');
+    navigate(Paths.Home);
+  };
   const dataAccountMenu = [
     {
       value: 'profile',
@@ -52,9 +68,18 @@ const Header: React.FC<THeaderProps> = () => {
       value: 'logout',
       label: 'Đăng xuất',
       danger: true,
+      onClick: (): void => {
+        handleLogout();
+      },
     },
   ];
-
+  const getProfile = useCallback(() => {
+    if (atk) dispatch(getProfileAction.request({}));
+  }, [dispatch, atk]);
+  const profileState = useSelector((state: TRootState) => state.profileReducer.getProfileResponse?.data);
+  useEffect(() => {
+    getProfile();
+  }, [getProfile]);
   return (
     <header className={classNames('Header')}>
       <div className="container">
@@ -109,7 +134,11 @@ const Header: React.FC<THeaderProps> = () => {
           )}
 
           <div className="Header-actions flex items-center">
-            {!isMobile ? (
+            {!profileState ? (
+              <div className="Header-login">
+                <Button title="Đăng nhập" type="primary" size="large" link={`${LayoutPaths.Auth}${Paths.Login}`} />
+              </div>
+            ) : (
               <>
                 <div className="Header-language">
                   <img src={ImageVietnamFlag} alt="" />
@@ -120,12 +149,7 @@ const Header: React.FC<THeaderProps> = () => {
                   </DropdownMenu>
                 </div>
               </>
-            ) : (
-              ''
             )}
-            <div className="Header-login">
-              <Button title="Đăng nhập" type="primary" size="large" link={`${LayoutPaths.Auth}${Paths.Login}`} />
-            </div>
           </div>
         </div>
       </div>

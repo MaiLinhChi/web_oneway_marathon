@@ -24,7 +24,7 @@ const Login: React.FC = () => {
 
   const handleLoginSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {
-      showNotification(ETypeNotification.SUCCESS, 'Login Successfully');
+      showNotification(ETypeNotification.SUCCESS, 'Đăng nhập thành công !');
       navigate(Paths.Home);
     } else {
       console.log('response', response);
