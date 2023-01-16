@@ -4,7 +4,7 @@ import RegistersService from '@/services/registers';
 
 export type TRegisterGroupParams = unknown;
 export type TRegisterGroupBody = {
-  race_slug?: number;
+  race_slug?: string;
   group_name?: string;
   group_password?: string;
   full_name?: string;
@@ -22,6 +22,7 @@ export type TRegisterGroupResponse = unknown;
 // FUNCTION
 
 export const registerGroup = async ({ params, body }: TRegisterGroupMaterials): Promise<TRegisterGroupResponse> => {
+  console.log('body-api', body);
   const response = await RegistersService.post(`api/group/create`, body, { params });
   return response.data;
 };

@@ -11,23 +11,20 @@ import './TournamentRegisterGroupForm.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { ERegisterGroupAction, registerGroupAction } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
-import { navigate } from '@reach/router';
-import { Paths } from '@/pages/routers';
+// import { navigate } from '@reach/router';
+// import { Paths } from '@/pages/routers';
 
 const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const registerLoading = useSelector((state: any) => state.loadingReducer[ERegisterGroupAction.REGISTER_GROUP]);
   const handleSubmit = (values: any): void => {
-    const body = { 
-      ...values 
-    };
-
+    const body = { ...values, race_slug: 'cat-ba' };
     dispatch(registerGroupAction.request({ body }, (response): void => handleRegitserSuccess(response)));
   };
   const handleRegitserSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {
-      showNotification(ETypeNotification.SUCCESS, 'Đăng ký thành công !');
+      showNotification(ETypeNotification.SUCCESS, 'Đăng ký nhóm thành công !');
       // navigate(Paths.Home);
     } else {
       console.log('response', response);
@@ -54,7 +51,7 @@ const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> =
           <div className="TournamentRegisterGroupForm-group">
             <div className="TournamentRegisterPage-card-title">Lựa chọn số lượng thành viên</div>
 
-            <Form.Item name="distance" rules={[validationRules.required()]}>
+            <Form.Item rules={[validationRules.required()]}>
               <SelectDistance
                 data={[
                   { value: '-', label: '-', description: '2-9 thành viên', suffix: '' },
@@ -130,7 +127,7 @@ const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> =
             </Row>
           </div>
           <div className="TournamentRegisterGroupForm-submit flex justify-end">
-            <Button title="Xác nhận" type="primary" size="large" htmlType="submit" />
+            <Button title="Xác nhận" type="primary" size="large" htmlType="submit" loading={registerLoading} />
           </div>
         </div>
       </Form>
