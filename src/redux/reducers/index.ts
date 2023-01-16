@@ -2,16 +2,18 @@ import { combineReducers } from 'redux';
 
 import { loadingReducer, errorReducer, successReducer } from './status';
 import authReducer from './auth';
-import uiReducer from './ui';
 import profileReducer from './profile';
+import registerGroupReducer from './register-group';
+import uiReducer from './ui';
 
 const rootReducer = combineReducers({
   loadingReducer,
   errorReducer,
   successReducer,
   authReducer,
-  uiReducer,
   profileReducer,
+  registerGroupReducer,
+  uiReducer,
 });
 
 export default rootReducer;

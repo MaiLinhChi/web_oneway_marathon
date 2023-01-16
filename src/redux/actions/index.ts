@@ -1,3 +1,4 @@
 export * from './auth';
-export * from './ui';
 export * from './profile';
+export * from './register-group';
+export * from './ui';

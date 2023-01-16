@@ -2,19 +2,41 @@ import React from 'react';
 import { Col, Form, Row } from 'antd';
 
 import SelectDistance from '@/components/SelectDistance';
-import { validationRules } from '@/utils/functions';
+import { showNotification, validationRules } from '@/utils/functions';
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 
 import { TTournamentRegisterGroupFormProps } from './TournamentRegisterGroupForm.types';
 import './TournamentRegisterGroupForm.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { ERegisterGroupAction, registerGroupAction } from '@/redux/actions';
+import { EResponseCode, ETypeNotification } from '@/common/enums';
+import { navigate } from '@reach/router';
+import { Paths } from '@/pages/routers';
 
 const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> = () => {
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
+  const registerLoading = useSelector((state: any) => state.loadingReducer[ERegisterGroupAction.REGISTER_GROUP]);
+  const handleSubmit = (values: any): void => {
+    const body = { 
+      ...values 
+    };
 
+    dispatch(registerGroupAction.request({ body }, (response): void => handleRegitserSuccess(response)));
+  };
+  const handleRegitserSuccess = (response: any): void => {
+    if (response.status === EResponseCode.OK) {
+      showNotification(ETypeNotification.SUCCESS, 'Đăng ký thành công !');
+      // navigate(Paths.Home);
+    } else {
+      console.log('response', response);
+      showNotification(ETypeNotification.ERROR, response.message);
+    }
+  };
   return (
     <div className="TournamentRegisterGroupForm">
-      <Form layout="vertical" form={form}>
+      <Form layout="vertical" form={form} onFinish={handleSubmit}>
         <div className="TournamentRegisterPage-card">
           <div className="TournamentRegisterGroupForm-description">
             <p>Hướng dẫn: Để đăng ký theo nhóm (từ 2 người) bạn cần làm theo các bước sau:</p>
@@ -55,7 +77,7 @@ const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> =
                 </div>
               </Col>
               <Col span={18}>
-                <Form.Item name="nameGroup">
+                <Form.Item name="group_name">
                   <Input placeholder="Tên nhóm" />
                 </Form.Item>
               </Col>
@@ -65,7 +87,7 @@ const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> =
                 </div>
               </Col>
               <Col span={18}>
-                <Form.Item name="passwordGroup">
+                <Form.Item name="group_password">
                   <Input type="password" placeholder="Mật khẩu" />
                 </Form.Item>
               </Col>
@@ -81,7 +103,7 @@ const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> =
                 </div>
               </Col>
               <Col span={18}>
-                <Form.Item name="fullName">
+                <Form.Item name="full_name">
                   <Input placeholder="Họ và tên" />
                 </Form.Item>
               </Col>
@@ -91,7 +113,7 @@ const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> =
                 </div>
               </Col>
               <Col span={18}>
-                <Form.Item name="phoneNumber">
+                <Form.Item name="phone">
                   <Input placeholder="Điện thoại" />
                 </Form.Item>
               </Col>

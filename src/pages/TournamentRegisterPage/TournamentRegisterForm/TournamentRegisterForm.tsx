@@ -11,10 +11,27 @@ import Checkbox from '@/components/Checkbox';
 
 import { TTournamentRegisterFormProps } from './TournamentRegisterForm.types';
 import './TournamentRegisterForm.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { ERegisterrGroupAction } from '@/redux/actions';
 
 const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = () => {
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
+  const loginLoading = useSelector((state: any) => state.loadingReducer[EResgis]);
+  const handleSubmit = (values: any): void => {
+    const body = { ...values };
 
+    dispatch(authLoginAction.request({ body }, (response): void => handleLoginSuccess(response)));
+  };
+
+  const handleLoginSuccess = (response: any): void => {
+    if (response.status === EResponseCode.OK) {
+      showNotification(ETypeNotification.SUCCESS, 'Đăng nhập thành công !');
+      navigate(Paths.Home);
+    } else {
+      console.log('response', response);
+      showNotification(ETypeNotification.ERROR, response.message);
+    }
   return (
     <div className="TournamentRegisterForm">
       <Form layout="vertical" form={form}>
