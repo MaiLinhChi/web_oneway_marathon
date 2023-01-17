@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Form, Row } from 'antd';
 
 import SelectDistance from '@/components/SelectDistance';
-import { validationRules } from '@/utils/functions';
+import { showNotification, validationRules } from '@/utils/functions';
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 import Select from '@/components/Select';
@@ -11,25 +11,49 @@ import Checkbox from '@/components/Checkbox';
 
 import { TTournamentRegisterFormProps } from './TournamentRegisterForm.types';
 import './TournamentRegisterForm.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { ERegisterTicketAction, getTicketsAction, registerTicketAction } from '@/redux/actions';
+import { EResponseCode, ETypeNotification } from '@/common/enums';
 
 const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = () => {
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
+  const registerLoading = useSelector((state: any) => state.loadingReducer[ERegisterTicketAction.REGISTER_TICKET]);
+  const handleSubmit = (values: any): void => {
+    const body = { ...values, race_slug: 'cat-ba' };
+    dispatch(registerTicketAction.request({ body }, (response): void => handleRegitserSuccess(response)));
+  };
+  const handleRegitserSuccess = (response: any): void => {
+    if (response.status === EResponseCode.OK) {
+      showNotification(ETypeNotification.SUCCESS, 'Đăng ký vé thành công !');
+      // navigate(Paths.Home);
+    } else {
+      console.log('response', response);
+      showNotification(ETypeNotification.ERROR, response.message);
+    }
+  };
+  const [tickets, setTickets] = useState([]);
+  useEffect(() => {
+    const body = { slug: 'cat-ba' };
+    dispatch(getTicketsAction.request({ body }, (response): void => setTickets(response.data)));
+    console.log('tickets', tickets);
+  });
   return (
     <div className="TournamentRegisterForm">
-      <Form layout="vertical" form={form}>
+      <Form layout="vertical" form={form} onFinish={handleSubmit}>
         <div className="TournamentRegisterPage-card">
           <div className="TournamentRegisterPage-card-title">Chọn cự ly</div>
           <div className="TournamentRegisterPage-card-description">
             Loại vé hiện tại là <strong>Regular</strong> <a href="#">Xem bảng giá</a>{' '}
           </div>
 
-          <Form.Item name="distance" rules={[validationRules.required()]}>
+          <Form.Item name="ticketId" rules={[validationRules.required()]}>
             <SelectDistance
               data={[
-                { value: '5', label: '5', description: '420.000 VND', suffix: 'KM' },
-                { value: '10', label: '10', description: '420.000 VND', suffix: 'KM' },
-                { value: '21', label: '21', description: '420.000 VND', suffix: 'KM' },
-                { value: '42', label: '42', description: '420.000 VND', suffix: 'KM' },
+                { value: '1', label: '5', description: '420.000 VND', suffix: 'KM' },
+                { value: '2', label: '10', description: '420.000 VND', suffix: 'KM' },
+                { value: '3', label: '21', description: '420.000 VND', suffix: 'KM' },
+                { value: '4', label: '42', description: '420.000 VND', suffix: 'KM' },
               ]}
             />
           </Form.Item>
@@ -159,7 +183,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = () => {
 
             <Col span={24}>
               <div className="TournamentRegisterForm-submit flex justify-end">
-                <Button title="Tiếp tục" type="primary" size="large" htmlType="submit" />
+                <Button title="Tiếp tục" type="primary" size="large" htmlType="submit" loading={registerLoading} />
               </div>
             </Col>
             <Col span={24} />

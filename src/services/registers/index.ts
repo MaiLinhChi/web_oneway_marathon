@@ -5,3 +5,4 @@ const RegistersService = AuthorizedInstance(env.api.baseUrl.service);
 
 export default RegistersService;
 export * from './register-group';
+export * from './register';
