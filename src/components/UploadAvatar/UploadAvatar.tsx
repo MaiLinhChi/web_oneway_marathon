@@ -4,11 +4,17 @@ import classNames from 'classnames';
 import Upload from '@/components/Upload/Upload';
 import { handleErrorImageUrl } from '@/utils/functions';
 import { REGEX } from '@/common/constants';
-
+import LoadingSpin from '@/assets/icons/icon-loading-spin.svg';
 import { TUploadAvatarProps } from './UploadAvatar.types.d';
 import './UploadAvatar.scss';
 
-const UploadAvatar: React.FC<TUploadAvatarProps> = ({ value, onChange, overlay, typePreview = 'scale' }) => {
+const UploadAvatar: React.FC<TUploadAvatarProps> = ({
+  value,
+  onChange,
+  overlay,
+  typePreview = 'scale',
+  uploadLoading,
+}) => {
   const [previewImage, setPreviewImage] = useState<string>();
   const [isChanged, setIsChanged] = useState<boolean>(false);
 
@@ -37,11 +43,16 @@ const UploadAvatar: React.FC<TUploadAvatarProps> = ({ value, onChange, overlay, 
 
   return (
     <div className="UploadAvatar">
-      <Upload accept=".jpg, .png, .jpeg" onChange={handleUploadChange}>
+      <Upload disabled={uploadLoading} accept=".jpg, .png, .jpeg" onChange={handleUploadChange}>
         <div className="UploadAvatar-wrapper">
           {previewImage ? (
             <div className={classNames('UploadAvatar-preview', typePreview)}>
               <img src={previewImage} alt="" onError={handleErrorImageUrl} />
+              {uploadLoading && (
+                <div className="UploadAvatar-loading flex items-center justify-center">
+                  <img src={LoadingSpin} alt="" />
+                </div>
+              )}
             </div>
           ) : (
             <div className="UploadAvatar-placeholder flex items-center justify-center" />

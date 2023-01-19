@@ -33,11 +33,14 @@ const Profile: React.FC = () => {
 
   const [activeTab, setActiveTab] = useState<TTabRectangleValue>(dataTabProfile[0]);
   const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
-  console.log('profileState', profileState);
+  const onChangeUploadBanner = (files: any): void => {
+    console.log('files', files);
+  };
   return (
     <div className="Profile">
       <div className="Profile-background">
         <UploadAvatar
+          onChange={onChangeUploadBanner}
           overlay={
             <div className="Profile-background-overlay">
               <Row gutter={[48, 48]}>
