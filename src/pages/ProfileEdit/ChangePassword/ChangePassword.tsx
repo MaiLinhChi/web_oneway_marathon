@@ -14,13 +14,13 @@ import { EResponseCode, ETypeNotification } from '@/common/enums';
 const ChangePassword: React.FC<TChangePasswordProps> = () => {
   const [form] = Form.useForm();
   const [, setFormValues] = useState({});
-  const { new_password } = form.getFieldsValue();
+  const { newPassword } = form.getFieldsValue();
   const dispatch = useDispatch();
   const loading = useSelector(
     (state: any) => state.loadingReducer[EChangePasswordProfileAction.CHANGE_PASSWORD_PROFILE],
   );
   const handleSubmit = (values: any): void => {
-    const body = { password: values.password, new_password: new_password };
+    const body = { ...values };
 
     dispatch(changePasswordProfileAction.request({ body }, (response): void => handlerChangePasswordSuccess(response)));
   };
@@ -42,14 +42,14 @@ const ChangePassword: React.FC<TChangePasswordProps> = () => {
             </Form.Item>
           </Col>
           <Col lg={{ span: 12 }} xs={{ span: 24 }}>
-            <Form.Item name="new_password" rules={[validationRules.required()]}>
+            <Form.Item name="newPassword" rules={[validationRules.required()]}>
               <Input type="password" placeholder="Mật khẩu mới" />
             </Form.Item>
           </Col>
           <Col span={24}>
             <Form.Item
-              name="confirmNewPassword"
-              rules={[validationRules.required(), validationRules.confirmPassword(new_password)]}
+              name="newPasswordConfirmation"
+              rules={[validationRules.required(), validationRules.confirmPassword(newPassword)]}
             >
               <Input type="password" placeholder="Nhập lại mật khẩu mới" />
             </Form.Item>

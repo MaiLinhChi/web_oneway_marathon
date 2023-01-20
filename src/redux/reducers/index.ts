@@ -6,6 +6,8 @@ import profileReducer from './profile';
 import registerReducer from './register';
 import registerGroupReducer from './register-group';
 import uiReducer from './ui';
+import uploadReducer from './upload';
+import addressReducer from './address/address';
 
 const rootReducer = combineReducers({
   loadingReducer,
@@ -16,6 +18,8 @@ const rootReducer = combineReducers({
   registerReducer,
   registerGroupReducer,
   uiReducer,
+  uploadReducer,
+  addressReducer,
 });
 
 export default rootReducer;

@@ -12,7 +12,7 @@ const ProfileCard: React.FC<TProfileCardProps> = ({ name, email, avatar }) => {
   return (
     <div className="ProfileCard">
       <div className="ProfileCard-avatar flex justify-center">
-        <Avatar image={avatar} size={112} />
+        <Avatar image={'https://api-dev.onewaymarathon.com' + avatar} size={112} />
       </div>
       <div className="ProfileCard-title">{name}</div>
       <div className="ProfileCard-description">{email}</div>

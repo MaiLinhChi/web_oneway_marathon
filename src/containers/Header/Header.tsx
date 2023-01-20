@@ -145,7 +145,7 @@ const Header: React.FC<THeaderProps> = () => {
                 </div>
                 <div className="Header-account">
                   <DropdownMenu options={dataAccountMenu} minWidth="24rem" placement="bottomRight">
-                    <Avatar size={40} />
+                    <Avatar image={process.env.REACT_APP_SERVICE_BASE_URL + profileState?.user.avatar} size={40} />
                   </DropdownMenu>
                 </div>
               </>
