@@ -12,14 +12,16 @@ import { ETabProfileKey } from './Profile.enums';
 import './Profile.scss';
 import { TRootState } from '@/redux/reducers';
 import { useDispatch, useSelector } from 'react-redux';
-import { EUpdateProfileAction, getProfileAction } from '@/redux/actions/profile';
+import { getRaceAction } from '@/redux/actions';
+import raceReducer from '@/redux/reducers/races';
 
 const Profile: React.FC = () => {
   const dispatch = useDispatch();
   const profileState = useSelector((state: TRootState) => state.profileReducer.getProfileResponse)?.data;
-  const updateProfileLoading = useSelector(
-    (state: TRootState) => state.loadingReducer[EUpdateProfileAction.UPDATE_PROFILE],
-  );
+  const raceState = useSelector((state: TRootState) => state.raceReducer.getRaceResponse)?.data;
+  const getRaces = useCallback(() => {
+    dispatch(getRaceAction.request({}));
+  }, [dispatch]);
   const dataTabProfile = [
     {
       value: ETabProfileKey.TOURNAMENT,
@@ -36,6 +38,9 @@ const Profile: React.FC = () => {
   const onChangeUploadBanner = (files: any): void => {
     console.log('files', files);
   };
+  useEffect(() => {
+    getRaces();
+  }, [dispatch, getRaces]);
   return (
     <div className="Profile">
       <div className="Profile-background">
@@ -71,7 +76,7 @@ const Profile: React.FC = () => {
             <Col lg={{ span: 16 }} xs={{ span: 24 }}>
               <TabRectangle value={activeTab} onChange={setActiveTab} options={dataTabProfile} />
 
-              {activeTab.value === ETabProfileKey.TOURNAMENT && <Tournaments />}
+              {activeTab.value === ETabProfileKey.TOURNAMENT && <Tournaments data={raceState} />}
               {activeTab.value === ETabProfileKey.ACHIEVEMENTS && <Achievements />}
             </Col>
           </Row>

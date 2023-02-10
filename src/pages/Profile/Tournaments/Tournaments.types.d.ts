@@ -1,1 +1,1 @@
-export type TTournamentsProps = unknown;
+export type TTournamentsProps = any;

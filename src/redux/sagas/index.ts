@@ -6,6 +6,7 @@ import registerSaga from './register';
 import registerGroupSaga from './register-group';
 import uploadSaga from './upload';
 import addressSaga from './address';
+import getRaceSaga from './races';
 
 const rootSaga = function* root(): Generator {
   yield all([
@@ -15,6 +16,7 @@ const rootSaga = function* root(): Generator {
     fork(registerGroupSaga),
     fork(uploadSaga),
     fork(addressSaga),
+    fork(getRaceSaga),
   ]);
 };
 

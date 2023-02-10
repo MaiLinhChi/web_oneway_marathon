@@ -8,6 +8,7 @@ import registerGroupReducer from './register-group';
 import uiReducer from './ui';
 import uploadReducer from './upload';
 import addressReducer from './address/address';
+import raceReducer from './races';
 
 const rootReducer = combineReducers({
   loadingReducer,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   uiReducer,
   uploadReducer,
   addressReducer,
+  raceReducer,
 });
 
 export default rootReducer;

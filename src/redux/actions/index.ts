@@ -5,3 +5,4 @@ export * from './register-group';
 export * from './ui';
 export * from './upload';
 export * from './address';
+export * from './races';
