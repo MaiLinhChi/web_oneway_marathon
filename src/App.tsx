@@ -29,12 +29,12 @@ const App: React.FC = () => {
       <Router primary={false}>
         <Guest path={LayoutPaths.Guest}>
           <PublicRoute path={Paths.Home} component={Pages.Home} />
-          <PublicRoute path={Paths.OneWayMarathonCatBa} component={Pages.OneWayMarathonCatBa} />
+          {/*<PublicRoute path={Paths.OneWayMarathonCatBa} component={Pages.OneWayMarathonCatBa} />*/}
           <PublicRoute path={Paths.OneWayMarathonVungTau} component={Pages.OneWayMarathonVungTau} />
           <ProtectedRoute path={Paths.Profile} component={Pages.Profile} />
           <ProtectedRoute path={Paths.ProfileEdit} component={Pages.ProfileEdit} />
           <PublicRoute path={Paths.TournamentRegister} component={Pages.TournamentRegister} />
-          <PublicRoute path={Paths.TournamentDetail()} component={Pages.TournamentDetail} />
+          <PublicRoute path={Paths.TournamentDetail()} component={Pages.OneWayMarathonCatBa} />
           <PublicRoute path={Paths.TournamentPayment()} component={Pages.TournamentPayment} />
           <PublicRoute path={Paths.RollBib} component={Pages.RollBib} />
           <PublicRoute path={Paths.BuyOnlineTicketTutorials} component={Pages.BuyOnlineTicketTutorials} />

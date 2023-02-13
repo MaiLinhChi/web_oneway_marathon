@@ -53,8 +53,8 @@ export const ModulePaths = {};
 
 export const Paths = {
   Home: '/',
-  OneWayMarathonCatBa: '/detail/oneway-marathon-catba',
-  OneWayMarathonVungTau: '/detail/oneway-marathon-vungtau',
+  OneWayMarathonCatBa: '/cat-ba',
+  OneWayMarathonVungTau: '/vung-tau',
 
   Login: '/login',
   ForgotPassword: '/forgot-password',
@@ -63,7 +63,7 @@ export const Paths = {
   Dashboard: '/',
   Profile: '/profile',
   ProfileEdit: '/profile/edit',
-  TournamentDetail: (id?: string): string => `/tournaments/${id || ':id'}`,
+  TournamentDetail: (id?: string): string => `/${id || ':id'}`,
   TournamentRegister: `/tournaments/register`,
   TournamentPayment: (id?: string): string => `/tournaments/payment/${id || ':id'}`,
   RollBib: '/bib',

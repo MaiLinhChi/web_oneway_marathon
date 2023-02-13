@@ -318,7 +318,7 @@ export const groupDataByField = (inputArray: any[], keyGroup: string): Array<{ k
   return groupsArray;
 };
 export const formatISODateToMomment = (date?: string): Moment | undefined => {
-  return date ? moment(date) : undefined;
+  return date ? moment(date) : moment(date);
 };
 export const formatMomentToString = (date?: Moment): string | undefined => {
   return date ? moment(date).format(EFormat.DATE) : undefined;

@@ -78,27 +78,7 @@ const TournamentDetail: React.FC = () => {
                   </table>
                 </div>
 
-                <TournamentMap
-                  color={EIconColor.BLUE_RIBBON}
-                  title="OneWay Cát Bà"
-                  stepKilometer={[
-                    {
-                      label: '5',
-                      value: '5',
-                      image: ImageTournamentMap1,
-                    },
-                    {
-                      label: '10',
-                      value: '10',
-                      image: ImageTournamentMap1,
-                    },
-                    {
-                      label: '21',
-                      value: '21',
-                      image: ImageTournamentMap1,
-                    },
-                  ]}
-                />
+                <TournamentMap color={EIconColor.BLUE_RIBBON} title="OneWay Cát Bà" stepKilometer={[]} />
 
                 <h2 className="TournamentDetail-subtitle">Nhóm đã tạo</h2>
                 <div className="TournamentDetail-card">

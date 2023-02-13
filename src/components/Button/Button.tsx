@@ -29,6 +29,7 @@ const Button: React.FC<TButtonProps> = ({
   onClick,
 }) => {
   const handleClickButton = (): void => {
+    console.log('link', link);
     if (link) navigate(link);
     else onClick?.();
   };

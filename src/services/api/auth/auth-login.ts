@@ -3,7 +3,7 @@ import { TCommonResponse } from '@/common/types';
 
 // TYPES
 
-export type TAuthLoginParams = unknown;
+export type TAuthLoginParams = { id: string };
 export type TAuthLoginBody = unknown;
 
 export type TAuthLoginMaterials = {

@@ -10,48 +10,50 @@ import { Paths } from '@/pages/routers';
 
 const Tournaments: React.FC<TTournamentsProps> = ({ data }) => {
   return (
-    <div className="Tournaments">
-      <div className="Tournaments-group">
-        <div className="Tournaments-group-title">Sắp diễn ra</div>
-        <div className="Tournaments-group-list">
-          <Row gutter={[24, 24]}>
-            {data &&
-              data.races.map((item: any) => (
+    <>
+      <div className="Tournaments">
+        <div className="Tournaments-group">
+          <div className="Tournaments-group-title">Sắp diễn ra</div>
+          <div className="Tournaments-group-list">
+            <Row gutter={[24, 24]}>
+              {data &&
+                data.races.map((item: any) => (
+                  <Col lg={{ span: 8 }} xs={{ span: 12 }} key={item}>
+                    <div
+                      className="Tournaments-group-list-item"
+                      onClick={(): void => {
+                        navigate(Paths.TournamentDetail(item.slug == 'cat-ba' ? 'cat-ba' : item.slug));
+                      }}
+                    >
+                      <img src={process.env.REACT_APP_SERVICE_BASE_URL + item.image} alt="" />
+                    </div>
+                  </Col>
+                ))}
+            </Row>
+          </div>
+        </div>
+
+        <div className="Tournaments-group">
+          <div className="Tournaments-group-title">Đã diễn ra</div>
+          <div className="Tournaments-group-list">
+            <Row gutter={[24, 24]}>
+              {[1, 2, 3].map((item) => (
                 <Col lg={{ span: 8 }} xs={{ span: 12 }} key={item}>
                   <div
                     className="Tournaments-group-list-item"
                     onClick={(): void => {
-                      navigate(Paths.TournamentDetail(item.slug));
+                      navigate(Paths.TournamentDetail('1'));
                     }}
                   >
-                    <img src={process.env.REACT_APP_SERVICE_BASE_URL + item.image} alt="" />
+                    <img src={ImageTournament1} alt="" />
                   </div>
                 </Col>
               ))}
-          </Row>
+            </Row>
+          </div>
         </div>
       </div>
-
-      <div className="Tournaments-group">
-        <div className="Tournaments-group-title">Đã diễn ra</div>
-        <div className="Tournaments-group-list">
-          <Row gutter={[24, 24]}>
-            {[1, 2, 3].map((item) => (
-              <Col lg={{ span: 8 }} xs={{ span: 12 }} key={item}>
-                <div
-                  className="Tournaments-group-list-item"
-                  onClick={(): void => {
-                    navigate(Paths.TournamentDetail('1'));
-                  }}
-                >
-                  <img src={ImageTournament1} alt="" />
-                </div>
-              </Col>
-            ))}
-          </Row>
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 

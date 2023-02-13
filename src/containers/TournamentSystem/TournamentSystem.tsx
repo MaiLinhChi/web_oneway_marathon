@@ -7,6 +7,7 @@ import { dataTournamentSystem, dataTournamentSystemMobile } from './TournamentSy
 import './TournamentSystem.scss';
 import { useSelector } from 'react-redux';
 import { TRootState } from '@/redux/reducers';
+import { Paths } from '@/pages/routers';
 
 const TournamentSystem: React.FC<TTournamentSystemProps> = () => {
   const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
@@ -29,7 +30,7 @@ const TournamentSystem: React.FC<TTournamentSystemProps> = () => {
                   <h4 className="TournamentSystem-item-title">{item.title}</h4>
                   <p className="TournamentSystem-item-description">{item.description}</p>
                   <div className="TournamentSystem-item-btn">
-                    <Button type="primary" title="Xem chi tiết" link={item.link} />
+                    <Button type="primary" title="Xem chi tiết" link={Paths.TournamentDetail('cat-ba')} />
                   </div>
                 </div>
                 <div className="TournamentSystem-item-image">
@@ -43,7 +44,7 @@ const TournamentSystem: React.FC<TTournamentSystemProps> = () => {
                   <h4 className="TournamentSystem-item-title">{item.title}</h4>
                   <p className="TournamentSystem-item-description">{item.description}</p>
                   <div className="TournamentSystem-item-btn">
-                    <Button type="primary" title="Xem chi tiết" link={item.link} />
+                    <Button type="primary" title="Xem chi tiết" link={Paths.TournamentDetail('cat-ba')} />
                   </div>
                 </div>
                 <div className="TournamentSystem-item-image">

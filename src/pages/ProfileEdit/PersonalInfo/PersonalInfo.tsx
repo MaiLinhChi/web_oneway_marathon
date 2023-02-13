@@ -20,7 +20,8 @@ import {
   wardAction,
 } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
-import { formatMomentToString, showNotification } from '@/utils/functions';
+import { formatISODateToMomment, showNotification } from '@/utils/functions';
+import moment from 'moment';
 
 const PersonalInfo: React.FC<TPersonalInfoProps> = () => {
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ const PersonalInfo: React.FC<TPersonalInfoProps> = () => {
       ...profileState,
       avatar: profileState?.avatar || undefined,
       gender: profileState?.gender.toString(),
-      birthday: '',
+      birthday: moment(profileState?.birthday, 'DD/MM/YYYY'),
       name: profileState?.name,
       id_card: profileState?.id_card,
       phone: profileState?.phone,
