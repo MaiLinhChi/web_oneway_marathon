@@ -133,3 +133,32 @@
     }
   }
 }
+.Login-wrapper {
+  .ant-row {
+    justify-content: space-between;
+  }
+  h2 {
+    font-weight: 900;
+    font-size: 56px;
+    line-height: 80px;
+    letter-spacing: -0.02em;
+    color: #3CFCF5;
+  }
+  p {
+    font-size: 16px;
+    line-height: 24px;
+    text-align: justify;
+    color: #fff;
+    margin-bottom: 32px;
+    display: block;
+    span {
+      font-weight: 500;
+      color: #3CFCF5;
+      cursor: pointer;
+      &:hover {
+        color: #fff;
+        text-decoration: underline;
+      }
+    }
+  }
+}

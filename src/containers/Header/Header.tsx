@@ -173,7 +173,7 @@ const Header: React.FC<THeaderProps> = () => {
                       title="Tạo tài khoản"
                       type="primary"
                       size="large"
-                      link={`${LayoutPaths.Auth}${Paths.Login}`}
+                      link={`${LayoutPaths.Auth}${Paths.Register}`}
                     />
                   </div>
                 ) : (

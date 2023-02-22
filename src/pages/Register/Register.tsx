@@ -12,7 +12,7 @@ import { TAuthLoginResponse } from '@/services/api';
 import { authLoginAction, EAuthLoginAction } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 
-const Login: React.FC = () => {
+const Register: React.FC = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const loginLoading = useSelector((state: any) => state.loadingReducer[EAuthLoginAction.AUTH_LOGIN]);
@@ -102,4 +102,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default Register;

@@ -27,6 +27,7 @@ const OneWayMarathonVungTau = lazy(() => retryLoadComponent(() => import('@/page
 const Login = lazy(() => retryLoadComponent(() => import('@/pages/Login')));
 const ForgotPassword = lazy(() => retryLoadComponent(() => import('@/pages/ForgotPassword')));
 const ChangePassword = lazy(() => retryLoadComponent(() => import('@/pages/ChangePassword')));
+const Register = lazy(() => retryLoadComponent(() => import('@/pages/Register')));
 
 const Dashboard = lazy(() => retryLoadComponent(() => import('@/pages/Dashboard')));
 const Profile = lazy(() => retryLoadComponent(() => import('@/pages/Profile')));
@@ -59,7 +60,7 @@ export const Paths = {
   Login: '/login',
   ForgotPassword: '/forgot-password',
   ChangePassword: '/change-password',
-
+  Register: '/register',
   Dashboard: '/',
   Profile: '/profile',
   ProfileEdit: '/profile/edit',
@@ -86,7 +87,7 @@ export const Pages = {
   Login,
   ForgotPassword,
   ChangePassword,
-
+  Register,
   Dashboard,
   Profile,
   ProfileEdit,
