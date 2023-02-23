@@ -11,13 +11,16 @@ import './TournamentRegisterGroupForm.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { ERegisterGroupAction, registerGroupAction } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
-// import { navigate } from '@reach/router';
-// import { Paths } from '@/pages/routers';
+import { navigate } from '@reach/router';
+import { Paths } from '@/pages/routers';
 
 const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const registerLoading = useSelector((state: any) => state.loadingReducer[ERegisterGroupAction.REGISTER_GROUP]);
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const handleSubmit = (values: any): void => {
     const body = { ...values, race_slug: 'cat-ba' };
     dispatch(registerGroupAction.request({ body }, (response): void => handleRegitserSuccess(response)));
@@ -25,7 +28,7 @@ const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> =
   const handleRegitserSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {
       showNotification(ETypeNotification.SUCCESS, 'Đăng ký nhóm thành công !');
-      // navigate(Paths.Home);
+      navigate(Paths.TournamentRegisterGroupSuccess);
     } else {
       console.log('response', response);
       showNotification(ETypeNotification.ERROR, response.message);

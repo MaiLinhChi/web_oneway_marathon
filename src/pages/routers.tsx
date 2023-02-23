@@ -43,6 +43,12 @@ const PrivacySolvedProblem = lazy(() => retryLoadComponent(() => import('@/pages
 const PrivacyRefund = lazy(() => retryLoadComponent(() => import('@/pages/PrivacyRefund')));
 const PrivacyPrivate = lazy(() => retryLoadComponent(() => import('@/pages/PrivacyPrivate')));
 const PrivacyDelivery = lazy(() => retryLoadComponent(() => import('@/pages/PrivacyDelivery')));
+const TournamentRegisterGroupSuccess = lazy(() =>
+  retryLoadComponent(() => import('@/pages/TournamentRegisterPage/TournamentRegisterGroupSuccess')),
+);
+const TournamentRegisterGroupConfirm = lazy(() =>
+  retryLoadComponent(() => import('@/pages/TournamentRegisterPage/TournamentRegisterGroupConfirm')),
+);
 
 export const LayoutPaths = {
   Guest: '/',
@@ -75,6 +81,8 @@ export const Paths = {
   PrivacyRefund: '/privacy-refund',
   PrivacyPrivate: '/privacy-private',
   PrivacyDelivery: '/privacy-delivery',
+  TournamentRegisterGroupSuccess: '/register-group/success',
+  TournamentRegisterGroupConfirm: (id?: string): string => `/group/cat-ba/${id || ':id'}`,
 
   Rest: '*',
 };
@@ -102,6 +110,8 @@ export const Pages = {
   PrivacyRefund,
   PrivacyPrivate,
   PrivacyDelivery,
+  TournamentRegisterGroupSuccess,
+  TournamentRegisterGroupConfirm,
 };
 
 interface IRouteProps extends RouteComponentProps {

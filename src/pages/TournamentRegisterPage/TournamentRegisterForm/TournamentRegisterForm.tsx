@@ -28,7 +28,6 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = () => {
       showNotification(ETypeNotification.SUCCESS, 'Đăng ký vé thành công !');
       // navigate(Paths.Home);
     } else {
-      console.log('response', response);
       showNotification(ETypeNotification.ERROR, response.message);
     }
   };
@@ -36,7 +35,6 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = () => {
   useEffect(() => {
     const body = { slug: 'cat-ba' };
     dispatch(getTicketsAction.request({ body }, (response): void => setTickets(response.data)));
-    console.log('tickets', tickets);
   });
   return (
     <div className="TournamentRegisterForm">
