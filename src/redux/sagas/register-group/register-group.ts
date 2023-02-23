@@ -11,7 +11,7 @@ export function* registerGroupSaga(action: ActionType<typeof registerGroupAction
   try {
     const response = yield call(registerGroup, materials);
     const registerGroupResponse: TRegisterGroupResponse = response as TRegisterGroupResponse;
-    yield put(registerGroupAction.success(registerGroupResponse));
+    yield put(registerGroupAction.success(registerGroupResponse?.data));
     successCallback?.(registerGroupResponse);
   } catch (err) {
     yield put(registerGroupAction.failure(err));

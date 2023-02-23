@@ -17,7 +17,7 @@ export type TRegisterGroupMaterials = {
   body?: TRegisterGroupBody;
 };
 
-export type TRegisterGroupResponse = unknown;
+export type TRegisterGroupResponse = any;
 
 // FUNCTION
 

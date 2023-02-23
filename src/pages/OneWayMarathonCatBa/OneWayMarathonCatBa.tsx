@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import ImageHomeBanner2 from '@/assets/images/image-home-banner-2.png';
-import ImageTournamentMap1 from '@/assets/images/image-tournament-map-1.png';
 import { EIconColor } from '@/components/Icon';
 import TournamentOverview from '@/containers/TournamentOverview';
 import TournamentMap from '@/containers/TournamentMap';
@@ -15,7 +14,7 @@ import TournamentAchievements from '@/containers/TournamentAchievements';
 import './OneWayMarathonCatBa.scss';
 import { navigate, useParams } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { detailRaceAction } from '@/redux/actions';
+import { detailRaceAction, EDetailRaceAction } from '@/redux/actions';
 import { showNotification } from '@/utils/functions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 import { Paths } from '@/pages/routers';
@@ -25,6 +24,7 @@ const OneWayMarathonCatBa: React.FC = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const raceDetailState = useSelector((state: TRootState) => state.raceReducer.detailRaceResponse)?.data;
+  const raceLoading = useSelector((state: any) => state.loadingReducer[EDetailRaceAction.DETAIL_RACE]);
   const getRaceBySlug = useCallback(() => {
     if (id)
       dispatch(detailRaceAction.request({ paths: { id } }, (response): void => handlerGetRaceBySlugSuccess(response)));
@@ -40,6 +40,7 @@ const OneWayMarathonCatBa: React.FC = () => {
   useEffect(() => {
     getRaceBySlug();
   }, [getRaceBySlug]);
+  console.log('raceDetailState?.race.ward', raceDetailState?.race.ward);
   return (
     <div className="OneWayMarathonCatBa">
       <TournamentOverview
@@ -76,8 +77,16 @@ const OneWayMarathonCatBa: React.FC = () => {
           title="OneWay Cát Bà"
           stepKilometer={raceDetailState?.race.tickets}
         />
-
-        <TournamentReward color={EIconColor.BLUE_RIBBON} title="OneWay Cát Bà" />
+        {raceDetailState?.race.award && raceDetailState?.race.award.length > 0 ? (
+          <TournamentReward
+            award={raceDetailState?.race.award}
+            loading={raceLoading}
+            color={EIconColor.BLUE_RIBBON}
+            title="OneWay Cát Bà"
+          />
+        ) : (
+          ''
+        )}
 
         <TournamentRacekit
           color={EIconColor.BLUE_RIBBON}

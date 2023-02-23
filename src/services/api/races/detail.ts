@@ -25,9 +25,18 @@ export type TDetailRaceResponse = TCommonResponse & {
       start: string;
       end?: string;
       tickets?: any;
+      ward?: string;
+      award?: Array<TDetailAward>;
       description?: string;
     };
   };
+};
+export type TDetailAward = {
+  name?: string;
+  first?: string;
+  fourth?: string;
+  second?: string;
+  third?: string;
 };
 
 // FUNCTION

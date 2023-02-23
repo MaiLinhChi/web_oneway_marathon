@@ -3,7 +3,7 @@ import React from 'react';
 export type TTableProps = {
   className?: string;
   columns: TTableColumn[];
-  dataSources: Array<any>;
+  dataSources: Array<any> | undefined;
   rowKey?: string;
   loading?: boolean;
   title?: () => React.ReactElement;

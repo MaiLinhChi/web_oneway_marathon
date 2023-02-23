@@ -34,6 +34,5 @@ export type TGetTicketsResponse = {
 
 export const getTickets = async ({ body, params }: TGetTicketsMaterials): Promise<TGetTicketsResponse> => {
   const response = await RegistersService.post(`api/races`, body, { params });
-  console.log('response', response);
   return response.data;
 };
