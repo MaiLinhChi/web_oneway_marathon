@@ -58,6 +58,7 @@ const App: React.FC = () => {
           <AuthRoute path={Paths.Login} component={Pages.Login} />
           <AuthRoute path={Paths.ForgotPassword} component={Pages.ForgotPassword} />
           <AuthRoute path={Paths.ChangePassword} component={Pages.ChangePassword} />
+          <AuthRoute path={Paths.Register} component={Pages.Register} />
           <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Auth}${Paths.Login}`} />
         </Auth>
 

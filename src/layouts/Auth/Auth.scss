@@ -45,6 +45,46 @@
     @media (max-width:991px) {
       padding: 3.2rem 2.4rem 4.8rem;
     }
+    &-register {
+      width: 100%;
+      margin: 0 auto;
+      background: $white;
+      padding: 5.6rem 0 9.6rem;
+      padding-bottom: 26rem;
+      margin-top: 6rem;
+      @media (max-width:991px) {
+        margin-top: 3rem;
+        .Button .ant-btn.ant-btn-lg {
+          margin-top: 24px;
+          width: 100%;
+        }
+      }
+      .Auth-form{
+        &-group {
+          margin-bottom: 2rem;
+          @media (max-width:991px) {
+            margin-bottom: 4rem;
+          }
+          .ant-row {
+            row-gap: 0 !important;
+          }
+        }
+        &-title {
+          display: block;
+          margin-right: 16px;
+          text-align: left;
+          margin-bottom: 16px;
+          span {
+            color: $blue-ribbon;
+            text-transform: lowercase;
+          }
+        }
+        &-wrapper {
+          max-width: 100%;
+
+        }
+      } 
+    }
     &-title {
       margin-bottom: 3.2rem;
       font-style: italic;
@@ -54,6 +94,9 @@
       color: $cod-gray;
       text-align: center;
       text-transform: uppercase;
+      @media (max-width:991px) {
+        font-size: 1.5rem;
+      }
     }
 
     &-wrapper {
@@ -139,20 +182,36 @@
   }
   h2 {
     font-weight: 900;
-    font-size: 56px;
-    line-height: 80px;
+    font-size: 4.5rem;
+    line-height: 6rem;
     letter-spacing: -0.02em;
     color: #3CFCF5;
+    font-style: italic;
+    margin-bottom: 0.8rem;
+    display: block;
+    margin-right: 16px;
+    span {
+      color: #fff;
+      text-transform: uppercase;
+      font-size: 5rem;
+    }
+    @media (max-width:991px) {
+      font-size: 1.5rem;
+      line-height: 3rem;
+      span {
+        font-size: 2rem;
+      }
+    }
   }
   p {
     font-size: 16px;
     line-height: 24px;
     text-align: justify;
     color: #fff;
-    margin-bottom: 32px;
+    margin-bottom: 1.5rem;
     display: block;
-    span {
-      font-weight: 500;
+    span, a {
+      font-weight: 700;
       color: #3CFCF5;
       cursor: pointer;
       &:hover {

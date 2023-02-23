@@ -1,4 +1,30 @@
 .Input {
+  position: relative;
+  &.required {
+    .ant-input-password + .label,
+    .ant-input + .label {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      cursor: default;
+      text-decoration: none;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+      letter-spacing: -0.02em;
+      color: $regent-gray;
+      z-index: 1;
+      padding-right: 8px;
+      &:after {
+        content: '\00a0 *';
+        color: red;
+      }
+    }
+  }
+  
   .ant-input-affix-wrapper {
     height: 4.8rem;
     padding: 1.2rem;
@@ -39,4 +65,7 @@
       color: $regent-gray;
     }
   }
+}
+.ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input, .ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input:hover {
+  background: $aqua-haze;
 }

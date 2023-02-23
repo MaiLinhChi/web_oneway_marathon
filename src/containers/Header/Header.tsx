@@ -167,12 +167,15 @@ const Header: React.FC<THeaderProps> = () => {
 
             <div className="Header-actions flex items-center">
               {!profileState ? (
-                pathname === '/auth/login' ? (
+                pathname === Paths.Login ? (
                   <div className="Header-login">
                     <Button
                       title="Tạo tài khoản"
                       type="primary"
                       size="large"
+                      backgroundColor="#E8EFFF"
+                      borderColor="#E8EFFF"
+                      titleColor="#1964FF"
                       link={`${LayoutPaths.Auth}${Paths.Register}`}
                     />
                   </div>

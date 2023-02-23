@@ -1,4 +1,7 @@
 .Button {
+  &:hover {
+    opacity: 0.7;
+  }
   &.reverse {
     .ant-btn {
       flex-direction: row-reverse;

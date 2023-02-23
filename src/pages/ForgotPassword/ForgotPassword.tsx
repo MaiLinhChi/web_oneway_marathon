@@ -24,7 +24,7 @@ const ForgotPassword: React.FC = () => {
                 <div className="Auth-form-title">Quên mật khẩu</div>
 
                 <Form.Item name="username" rules={[validationRules.required()]}>
-                  <Input placeholder="Tên đăng nhập/email cá nhân *" />
+                  <Input placeholder="Tên đăng nhập/email cá nhân" required={true} />
                 </Form.Item>
 
                 <div className="Auth-form-submit">

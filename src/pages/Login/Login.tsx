@@ -43,7 +43,7 @@ const Login: React.FC = () => {
                 dàng nhất.
               </p>
               <p>
-                Bạn chưa có tài khoản? <span>Tạo tài khoản</span>
+                Bạn chưa có tài khoản? <a href={`${LayoutPaths.Auth}${Paths.Register}`}>Tạo tài khoản</a>
               </p>
             </Col>
             <Col lg={13} xs={24}>
@@ -53,10 +53,10 @@ const Login: React.FC = () => {
                     <div className="Auth-form-title">Đăng nhập</div>
 
                     <Form.Item name="userName" rules={[validationRules.required()]}>
-                      <Input placeholder="Tên đăng nhập/email cá nhân *" />
+                      <Input placeholder="Tên đăng nhập/email cá nhân" required={true} />
                     </Form.Item>
                     <Form.Item name="password" rules={[validationRules.required()]}>
-                      <Input type="password" placeholder="Mật khẩu *" />
+                      <Input type="password" placeholder="Mật khẩu" required={true} />
                     </Form.Item>
 
                     <Link to={`${LayoutPaths.Auth}${Paths.ForgotPassword}`} className="Auth-form-link text-right">
