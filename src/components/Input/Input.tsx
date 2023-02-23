@@ -54,16 +54,24 @@ const Input: React.FC<TInputProps> = ({
               </div>
             )}
           />
-          <label className="label" style={{ 'display': value ? 'none' : 'block' }}>
-            {placeholder}
-          </label>
+          {placeholder ? (
+            <label className="label" style={{ 'display': value ? 'none' : 'block' }}>
+              {placeholder}
+            </label>
+          ) : (
+            ''
+          )}
         </>
       ) : (
         <>
           <AntdInput {...commonProps} />
-          <label className="label" style={{ 'display': value ? 'none' : 'block' }}>
-            {placeholder}
-          </label>
+          {placeholder ? (
+            <label className="label" style={{ 'display': value ? 'none' : 'block' }}>
+              {placeholder}
+            </label>
+          ) : (
+            ''
+          )}
         </>
       )}
     </div>
