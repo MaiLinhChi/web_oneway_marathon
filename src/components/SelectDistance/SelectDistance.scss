@@ -5,7 +5,9 @@
     cursor: pointer;
     transform: skew(-12deg);
     background: $aqua-haze;
-
+    @media (max-width:991px) {
+      padding: 0.8rem 0;
+    }
     &:hover {
       .SelectDistance {
         &-item {
@@ -46,7 +48,6 @@
       font-family: 'Montserrat', sans-serif;
       transition: $common-transition;
       text-align: center;
-
       span {
         font-size: 2.8rem;
         letter-spacing: normal;
@@ -54,6 +55,16 @@
         display: inline-block;
         text-transform: uppercase;
         transform: translate(10%, -60%);
+      }
+      @media (max-width:991px) {
+        font-size: 3.4rem;
+        letter-spacing: normal;
+        min-width: 120px;
+        line-height: 5.8rem;
+        span {
+          font-size: 1.8rem;
+          transform: translate(-20%, -60%);
+        }
       }
     }
 

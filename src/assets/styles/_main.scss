@@ -132,6 +132,9 @@ a {
         display: block;
         letter-spacing: -0.02em;
         min-height: 20px;
+        @media (max-width: 991px) {
+          min-height: 0;
+         }
         &.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
           content: none;
         }

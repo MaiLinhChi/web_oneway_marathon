@@ -82,22 +82,22 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
           </div>
 
           <Row gutter={[24, 24]}>
-            <Col span={12}>
+            <Col span={24} lg={12}>
               <Form.Item name="email" label="Email" rules={[{ required: true }]}>
                 <Input placeholder="Email" />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col span={24} lg={12}>
               <Form.Item name="fullName" label="Họ và tên" rules={[{ required: true }]}>
                 <Input placeholder="Họ và tên" />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col span={24} lg={12}>
               <Form.Item name="birthday" label="Ngày sinh" rules={[{ required: true }]}>
                 <DatePicker placeholder="Ngày sinh" />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col span={24} lg={12}>
               <Form.Item name="gender" label="Giới tính" rules={[{ required: true }]}>
                 <Select
                   placeholder="Giới tính"
@@ -108,12 +108,12 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                 />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col span={24} lg={12}>
               <Form.Item name="nationality" label="Quốc tịch" rules={[{ required: true }]}>
                 <Select placeholder="Quốc tịch" />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col span={24} lg={12}>
               <Form.Item name="idCard" label="Số CMND/Hộ chiếu" rules={[{ required: true }]}>
                 <Input placeholder="Số CMND/Hộ chiếu" />
               </Form.Item>
@@ -125,34 +125,34 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
             </Col>
             <Col span={24}>
               <Row gutter={[4, 24]}>
-                <Col span={6}>
+                <Col span={24} lg={6}>
                   <Form.Item name="city" label="Địa chỉ" rules={[{ required: true }]}>
                     <Select placeholder="Thành phố" />
                   </Form.Item>
                 </Col>
-                <Col span={6}>
+                <Col span={24} lg={6}>
                   <Form.Item name="province" label=" ">
                     <Select placeholder="Quận" />
                   </Form.Item>
                 </Col>
-                <Col span={6}>
+                <Col span={24} lg={6}>
                   <Form.Item name="district" label=" ">
                     <Select placeholder="Phường" />
                   </Form.Item>
                 </Col>
-                <Col span={6}>
+                <Col span={24} lg={6}>
                   <Form.Item name="ward" label=" ">
                     <Select placeholder="Số nhà/Đường" />
                   </Form.Item>
                 </Col>
               </Row>
             </Col>
-            <Col span={12}>
+            <Col span={24} lg={12}>
               <Form.Item name="emergencyContactName" label="Liên hệ khẩn cấp" rules={[{ required: true }]}>
                 <Input placeholder="Tên người liên hệ khẩn cấp" />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col span={24} lg={12}>
               <Form.Item
                 name="emergencyContactPhone"
                 label="Số điện thoại của người liên hệ khẩn cấp"
@@ -161,7 +161,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                 <Input placeholder="Số điện thoại người liên hệ" />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col span={24} lg={12}>
               <div
                 className="TournamentRegisterPage-card-description text-right"
                 style={{ fontSize: '1.4rem', position: 'relative', zIndex: 1, marginBottom: '-2rem' }}
@@ -172,7 +172,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                 <Select placeholder="Chọn size áo" options={[]} />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col span={24} lg={12}>
               <Form.Item name="nameBIB" label="Tên trên BIB" rules={[{ required: true }]}>
                 <Input placeholder="Tên trên BIB" />
               </Form.Item>
@@ -217,12 +217,12 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                 </Col>
                 {billRequest && (
                   <>
-                    <Col span={12}>
+                    <Col span={24} lg={12}>
                       <Form.Item name="taxID">
                         <Input placeholder="Mã số thuế" />
                       </Form.Item>
                     </Col>
-                    <Col span={12}>
+                    <Col span={24} lg={12}>
                       <Form.Item name="taxNameCompany">
                         <Input placeholder="Tên công ty" />
                       </Form.Item>
@@ -239,14 +239,14 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
               ''
             )}
 
-            <Col span={24} />
+            <Col lg={24} />
 
             <Col span={24}>
               <div className="TournamentRegisterForm-submit flex justify-end">
                 <Button title="Tiếp tục" type="primary" size="large" htmlType="submit" loading={registerLoading} />
               </div>
             </Col>
-            <Col span={24} />
+            <Col lg={24} />
           </Row>
         </div>
       </Form>

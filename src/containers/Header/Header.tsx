@@ -186,9 +186,9 @@ const Header: React.FC<THeaderProps> = () => {
                 )
               ) : (
                 <>
-                  <div className="Header-language">
+                  {/* <div className="Header-language">
                     <img src={ImageVietnamFlag} alt="" />
-                  </div>
+                  </div> */}
                   <div className="Header-account">
                     <DropdownMenu options={dataAccountMenu} minWidth="24rem" placement="bottomRight">
                       <Avatar image={process.env.REACT_APP_SERVICE_BASE_URL + profileState?.user.avatar} size={40} />
