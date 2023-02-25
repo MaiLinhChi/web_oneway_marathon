@@ -49,6 +49,9 @@ const TournamentRegisterGroupSuccess = lazy(() =>
 const TournamentRegisterGroupConfirm = lazy(() =>
   retryLoadComponent(() => import('@/pages/TournamentRegisterPage/TournamentRegisterGroupConfirm')),
 );
+const TournamentRegisterGroupJoin = lazy(() =>
+  retryLoadComponent(() => import('@/pages/TournamentRegisterPage/TournamentRegisterGroupJoin')),
+);
 
 export const LayoutPaths = {
   Guest: '/',
@@ -83,6 +86,7 @@ export const Paths = {
   PrivacyDelivery: '/privacy-delivery',
   TournamentRegisterGroupSuccess: '/register-group/success',
   TournamentRegisterGroupConfirm: (id?: string): string => `/group/cat-ba/${id || ':id'}`,
+  TournamentRegisterGroupJoin: '/register-group/join',
 
   Rest: '*',
 };
@@ -112,6 +116,7 @@ export const Pages = {
   PrivacyDelivery,
   TournamentRegisterGroupSuccess,
   TournamentRegisterGroupConfirm,
+  TournamentRegisterGroupJoin,
 };
 
 interface IRouteProps extends RouteComponentProps {

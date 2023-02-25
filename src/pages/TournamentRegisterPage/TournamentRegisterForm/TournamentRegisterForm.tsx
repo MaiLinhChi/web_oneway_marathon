@@ -12,16 +12,32 @@ import Checkbox from '@/components/Checkbox';
 import { TTournamentRegisterFormProps } from './TournamentRegisterForm.types';
 import './TournamentRegisterForm.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { ERegisterTicketAction, getTicketsAction, registerTicketAction } from '@/redux/actions';
+import {
+  ERegisterTicketAction,
+  getTicketsAction,
+  registerTicketAction,
+  runnerRegisterGroupAction,
+} from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 
-const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = () => {
+const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGroup }) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const registerLoading = useSelector((state: any) => state.loadingReducer[ERegisterTicketAction.REGISTER_TICKET]);
   const handleSubmit = (values: any): void => {
-    const body = { ...values, race_slug: 'cat-ba' };
-    dispatch(registerTicketAction.request({ body }, (response): void => handleRegitserSuccess(response)));
+    const body = { ...values, ticketId: values.ticketId.value };
+    if (isGroup) {
+      dispatch(runnerRegisterGroupAction.request({ body }, (response): void => handleRunnerRegitserSuccess(response)));
+    } else {
+      dispatch(registerTicketAction.request({ body }, (response): void => handleRegitserSuccess(response)));
+    }
+  };
+  const handleRunnerRegitserSuccess = (response: any): void => {
+    if (response.status === EResponseCode.OK) {
+      showNotification(ETypeNotification.SUCCESS, 'Đăng ký tạo nhóm thành công !');
+    } else {
+      showNotification(ETypeNotification.ERROR, response.message);
+    }
   };
   const handleRegitserSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {
@@ -32,10 +48,10 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = () => {
     }
   };
   const [tickets, setTickets] = useState([]);
-  useEffect(() => {
-    const body = { slug: 'cat-ba' };
-    dispatch(getTicketsAction.request({ body }, (response): void => setTickets(response.data)));
-  });
+  // useEffect(() => {
+  //   const body = { slug: 'cat-ba' };
+  //   dispatch(getTicketsAction.request({ body }, (response): void => setTickets(response.data)));
+  // });
   return (
     <div className="TournamentRegisterForm">
       <Form layout="vertical" form={form} onFinish={handleSubmit}>
@@ -72,7 +88,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = () => {
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item name="dateOfBirth" label="Ngày sinh">
+              <Form.Item name="birthday" label="Ngày sinh">
                 <DatePicker placeholder="Ngày sinh" />
               </Form.Item>
             </Col>
@@ -81,8 +97,8 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = () => {
                 <Select
                   placeholder="Giới tính"
                   options={[
-                    { label: 'Nam', value: 'male' },
-                    { label: 'Nữ', value: 'female' },
+                    { label: 'Nam', value: '0' },
+                    { label: 'Nữ', value: '1' },
                   ]}
                 />
               </Form.Item>
@@ -93,12 +109,12 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = () => {
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item name="phoneNumber" label="Số điện thoại">
+              <Form.Item name="phone" label="Số điện thoại">
                 <Input placeholder="Số điện thoại" />
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item name="creditNumber" label="Số CMND/Hộ chiếu">
+              <Form.Item name="idCard" label="Số CMND/Hộ chiếu">
                 <Input placeholder="Số CMND/Hộ chiếu" />
               </Form.Item>
             </Col>
@@ -120,12 +136,12 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = () => {
                   </Form.Item>
                 </Col>
                 <Col span={6}>
-                  <Form.Item name="state" label=" ">
+                  <Form.Item name="district" label=" ">
                     <Select placeholder="Phường" />
                   </Form.Item>
                 </Col>
                 <Col span={6}>
-                  <Form.Item name="address" label=" ">
+                  <Form.Item name="ward" label=" ">
                     <Select placeholder="Số nhà/Đường" />
                   </Form.Item>
                 </Col>
@@ -134,12 +150,12 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = () => {
             <Col span={24}>
               <Row gutter={[4, 24]}>
                 <Col span={12}>
-                  <Form.Item name="nameEmergencyContact" label="Liên hệ khẩn cấp">
+                  <Form.Item name="emergencyContactName" label="Liên hệ khẩn cấp">
                     <Input placeholder="Tên người liên hệ khẩn cấp" />
                   </Form.Item>
                 </Col>
                 <Col span={12}>
-                  <Form.Item name="phoneEmergencyContact" label=" ">
+                  <Form.Item name="emergencyContactPhone" label=" ">
                     <Input placeholder="Số điện thoại người liên hệ" />
                   </Form.Item>
                 </Col>
@@ -153,25 +169,32 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = () => {
               >
                 <a href="#">Bảng kích thước</a>
               </div>
-              <Form.Item name="phoneEmergencyContact" label="Size áo">
+              <Form.Item name="size" label="Size áo">
                 <Select placeholder="Chọn size áo" options={[]} />
               </Form.Item>
             </Col>
-            <Col span={24}>
-              <Form.Item name="exportBill">
-                <Checkbox label="Yêu cầu xuất hóa đơn" />
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item name="taxID">
-                <Input placeholder="Mã số thuế" />
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item name="taxNameCompany">
-                <Input placeholder="Tên công ty" />
-              </Form.Item>
-            </Col>
+            {!isGroup ? (
+              <>
+                <Col span={24}>
+                  <Form.Item name="exportBill">
+                    <Checkbox label="Yêu cầu xuất hóa đơn" />
+                  </Form.Item>
+                </Col>
+                <Col span={12}>
+                  <Form.Item name="taxID">
+                    <Input placeholder="Mã số thuế" />
+                  </Form.Item>
+                </Col>
+                <Col span={12}>
+                  <Form.Item name="taxNameCompany">
+                    <Input placeholder="Tên công ty" />
+                  </Form.Item>
+                </Col>
+              </>
+            ) : (
+              ''
+            )}
+
             <Col span={24}>
               <Form.Item name="taxAddress">
                 <Input placeholder="Địa chỉ" />

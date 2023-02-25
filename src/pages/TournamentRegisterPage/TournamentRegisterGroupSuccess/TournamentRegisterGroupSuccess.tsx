@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './TournamentRegisterGroupSuccess.scss';
 import { Col, Row } from 'antd';
 import TournamentRegisterInformation from '@/pages/TournamentRegisterPage/TournamentRegisterInformation';
@@ -9,12 +9,16 @@ import { useSelector } from 'react-redux';
 import { TRootState } from '@/redux/reducers';
 import { Paths } from '@/pages/routers';
 import { navigate } from '@reach/router';
+import { EKeyTabTournamentRegisterPage } from '@/pages/TournamentRegisterPage/TournamentRegisterPage.enums';
 
 const TournamentRegisterGroupSuccess: React.FC = () => {
   const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.registerGroupResponse);
   const handlerClick = (): void => {
     navigate(Paths.TournamentRegisterGroupConfirm(registerGroup?.group.slug));
   };
+  // useEffect(() => {
+  //   if (!registerGroup) navigate(`${Paths.TournamentRegister}?tab=${EKeyTabTournamentRegisterPage.MULTIPLE}`);
+  // }, [registerGroup]);
   return (
     <div className="TournamentRegisterPage">
       <div className="TournamentRegisterPage-background">

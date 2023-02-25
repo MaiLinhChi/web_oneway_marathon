@@ -49,7 +49,7 @@ const App: React.FC = () => {
             path={Paths.TournamentRegisterGroupConfirm()}
             component={Pages.TournamentRegisterGroupConfirm}
           />
-
+          <PublicRoute path={Paths.TournamentRegisterGroupJoin} component={Pages.TournamentRegisterGroupJoin} />
           <PublicRoute path={Paths.NotFound} component={Pages.NotFound} />
           <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.NotFound}`} />
         </Guest>
