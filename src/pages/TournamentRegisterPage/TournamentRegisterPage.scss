@@ -57,11 +57,13 @@
 
     }
   }
-
+  &-main {
+    justify-content: space-between;
+  }
   &-card {
     background: $white;
     padding: 3.2rem 4rem;
-
+    margin-bottom: 24px;
     &.sticky {
       position: sticky;
       top: calc(8rem + 1.6rem);
