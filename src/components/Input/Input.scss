@@ -1,6 +1,7 @@
 .Input {
   position: relative;
     .ant-input-password + .label,
+    .ant-input-affix-wrapper + .label,
     .ant-input + .label {
       position: absolute;
       left: 12px;
@@ -20,6 +21,7 @@
   }
   &.required {
     .ant-input-password + .label,
+    .ant-input-affix-wrapper + .label,
     .ant-input + .label {
       &:after {
         content: '\00a0 *';

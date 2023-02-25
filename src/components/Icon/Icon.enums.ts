@@ -14,6 +14,7 @@ export enum EIconName {
   Bars = 'Bars',
   Close = 'Close',
   CheckCircle = 'CheckCircle',
+  Clock = 'Clock',
 }
 
 export enum EIconColor {

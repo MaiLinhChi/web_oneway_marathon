@@ -20,6 +20,7 @@ import Copy from './Copy';
 import Bars from './Bars';
 import Close from './Close';
 import CheckCircle from './CheckCircle';
+import Clock from './Clock';
 
 const Icon: React.FC<TIconProps> = ({ name, className, color, onClick }) => {
   const renderIcon = (): React.ReactElement => {
@@ -54,7 +55,8 @@ const Icon: React.FC<TIconProps> = ({ name, className, color, onClick }) => {
         return <Close color={color} />;
       case EIconName.CheckCircle:
         return <CheckCircle color={color} />;
-
+      case EIconName.Clock:
+        return <Clock color={color} />;
       default:
         return <></>;
     }
