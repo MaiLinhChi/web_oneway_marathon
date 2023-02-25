@@ -1,6 +1,5 @@
 .Input {
   position: relative;
-  &.required {
     .ant-input-password + .label,
     .ant-input + .label {
       position: absolute;
@@ -18,13 +17,16 @@
       color: $regent-gray;
       z-index: 1;
       padding-right: 8px;
+  }
+  &.required {
+    .ant-input-password + .label,
+    .ant-input + .label {
       &:after {
         content: '\00a0 *';
         color: red;
       }
-    }
   }
-  
+}
   .ant-input-affix-wrapper {
     height: 4.8rem;
     padding: 1.2rem;
