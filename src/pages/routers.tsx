@@ -87,7 +87,6 @@ export const Paths = {
   TournamentRegisterGroupSuccess: '/register-group/success',
   TournamentRegisterGroupConfirm: (id?: string): string => `/group/cat-ba/${id || ':id'}`,
   TournamentRegisterGroupJoin: '/register-group/join',
-
   Rest: '*',
 };
 
