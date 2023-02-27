@@ -29,7 +29,7 @@ const TournamentPaymentSucces: React.FC = () => {
           <h2 className="TournamentRegisterPage-title">Đăng ký tham gia OneWay Vũng Tàu 2023</h2>
 
           <div className="TournamentRegisterPage-main">
-                        <Row gutter={[24, 24]} className="reverse">
+            <Row gutter={[24, 24]} className="reverse">
               <Col span={24} lg={16}>
                 <div className="TournamentRegisterPage-main-success">
                   <div className="TournamentRegisterPage-main-success-header">
