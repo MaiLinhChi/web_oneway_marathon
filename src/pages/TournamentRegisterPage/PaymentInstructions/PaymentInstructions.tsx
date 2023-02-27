@@ -30,8 +30,8 @@ const PaymentInstructions: React.FC = () => {
           <h2 className="PaymentInstructions-title">Hướng dẫn hoàn tất thanh toán</h2>
 
           <div className="PaymentInstructions-main">
-            <Row gutter={[24, 24]}>
-              <Col span={17}>
+            <Row gutter={[24, 24]} className="reverse">
+              <Col span={24} lg={16}>
                 <div className="PaymentInstructions-main-success">
                   <div className="PaymentInstructions-main-success-body">
                     <p className="des-title">
@@ -95,7 +95,7 @@ const PaymentInstructions: React.FC = () => {
                   </div>
                 </div>
               </Col>
-              <Col span={7}>
+              <Col span={24} lg={7}>
                 <TournamentRegisterInformation />
               </Col>
             </Row>

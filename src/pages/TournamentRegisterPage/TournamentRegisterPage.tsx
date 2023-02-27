@@ -63,7 +63,9 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = ({ paymen
             {isMobile ? (
               ''
             ) : (
-              <Col span={7}>{payment ? <TournamentRegisterGroup /> : <TournamentRegisterInformation />}</Col>
+              <Col span={24} lg={7}>
+                {payment ? <TournamentRegisterGroup /> : <TournamentRegisterInformation />}
+              </Col>
             )}
           </Row>
         </Row>

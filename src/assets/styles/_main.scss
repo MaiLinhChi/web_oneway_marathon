@@ -162,3 +162,8 @@ a {
   overflow-x: auto;
  }
 }
+.ant-row.reverse {
+  @media (max-width:767px) {
+    flex-direction: column-reverse;
+   }
+}

@@ -50,8 +50,8 @@ const TournamentRegisterGroupConfirm: React.FC = () => {
           <h2 className="TournamentRegisterPage-title">Đăng ký tham gia OneWay Vũng Tàu 2023</h2>
 
           <div className="TournamentRegisterPage-main">
-            <Row gutter={[24, 24]}>
-              <Col span={17}>
+            <Row gutter={[24, 24]} className="reverse">
+              <Col span={24} lg={16}>
                 <div className="TournamentRegisterPage-main-success">
                   <div className="TournamentRegisterPage-main-success-header">
                     <span>Tạo nhóm thành công</span>
@@ -92,7 +92,7 @@ const TournamentRegisterGroupConfirm: React.FC = () => {
                   </div>
                 </div>
               </Col>
-              <Col span={7}>
+              <Col span={24} lg={7}>
                 <TournamentRegisterInformation />
               </Col>
             </Row>

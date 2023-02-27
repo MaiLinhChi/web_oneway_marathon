@@ -22,11 +22,11 @@ const TournamentRegisterGroupJoin: React.FC = () => {
           <h2 className="TournamentRegisterPage-title">Đăng ký tham gia nhóm {registerGroup?.group.group_name}</h2>
 
           <div className="TournamentRegisterPage-main">
-            <Row gutter={[24, 24]}>
-              <Col span={17}>
+            <Row gutter={[24, 24]} className="reverse">
+              <Col span={24} lg={16}>
                 <TournamentRegisterForm isGroup />
               </Col>
-              <Col span={7}>
+              <Col span={24} lg={7}>
                 <TournamentRegisterInformation />
               </Col>
             </Row>
