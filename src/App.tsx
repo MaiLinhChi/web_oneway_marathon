@@ -41,6 +41,7 @@ const App: React.FC = () => {
           <PublicRoute path={Paths.PrivacyRefund} component={Pages.PrivacyRefund} />
           <PublicRoute path={Paths.PrivacyPrivate} component={Pages.PrivacyPrivate} />
           <PublicRoute path={Paths.PrivacyDelivery} component={Pages.PrivacyDelivery} />
+          <ProtectedRoute path={Paths.PaymentInstructions} component={Pages.PaymentInstructions} />
           <ProtectedRoute
             path={Paths.TournamentRegisterGroupSuccess}
             component={Pages.TournamentRegisterGroupSuccess}

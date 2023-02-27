@@ -4,9 +4,9 @@ import './TournamentRegisterInformation.scss';
 
 const TournamentRegisterInformation: React.FC = () => {
   return (
-    <div className="TournamentRegisterPage-card sticky">
-      <div className="TournamentRegisterPage-card-title">Thông tin cuộc đua</div>
-      <div className="TournamentRegisterPage-card-table expand-x">
+    <div className="TournamentRegisterInformation-card sticky">
+      <div className="TournamentRegisterInformation-card-title">Thông tin cuộc đua</div>
+      <div className="TournamentRegisterInformation-card-table expand-x">
         <table>
           <tr>
             <td>Địa điểm</td>

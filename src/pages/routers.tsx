@@ -43,6 +43,9 @@ const PrivacySolvedProblem = lazy(() => retryLoadComponent(() => import('@/pages
 const PrivacyRefund = lazy(() => retryLoadComponent(() => import('@/pages/PrivacyRefund')));
 const PrivacyPrivate = lazy(() => retryLoadComponent(() => import('@/pages/PrivacyPrivate')));
 const PrivacyDelivery = lazy(() => retryLoadComponent(() => import('@/pages/PrivacyDelivery')));
+const PaymentInstructions = lazy(() =>
+  retryLoadComponent(() => import('@/pages/TournamentRegisterPage/PaymentInstructions')),
+);
 const TournamentRegisterGroupSuccess = lazy(() =>
   retryLoadComponent(() => import('@/pages/TournamentRegisterPage/TournamentRegisterGroupSuccess')),
 );
@@ -84,6 +87,7 @@ export const Paths = {
   PrivacyRefund: '/privacy-refund',
   PrivacyPrivate: '/privacy-private',
   PrivacyDelivery: '/privacy-delivery',
+  PaymentInstructions: '/payment-instructions',
   TournamentRegisterGroupSuccess: '/register-group/success',
   TournamentRegisterGroupConfirm: (id?: string): string => `/group/cat-ba/${id || ':id'}`,
   TournamentRegisterGroupJoin: '/register-group/join',
@@ -113,6 +117,7 @@ export const Pages = {
   PrivacyRefund,
   PrivacyPrivate,
   PrivacyDelivery,
+  PaymentInstructions,
   TournamentRegisterGroupSuccess,
   TournamentRegisterGroupConfirm,
   TournamentRegisterGroupJoin,
