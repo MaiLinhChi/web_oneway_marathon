@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Col, Form, Row } from 'antd';
 
 import SelectDistance from '@/components/SelectDistance';
@@ -14,24 +14,61 @@ import { TTournamentRegisterFormProps } from './TournamentRegisterForm.types';
 import './TournamentRegisterForm.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  addressAction,
+  cityAction,
+  districtAction,
   ERegisterTicketAction,
+  ERunnerRegisterGroupAction,
   getTicketsAction,
   registerTicketAction,
   runnerRegisterGroupAction,
+  wardAction,
 } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
+import { TRootState } from '@/redux/reducers';
 
 const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGroup }) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const [billRequest, setBillRequest] = useState(false);
   const registerLoading = useSelector((state: any) => state.loadingReducer[ERegisterTicketAction.REGISTER_TICKET]);
+  const registerRunnerLoading = useSelector(
+    (state: any) => state.loadingReducer[ERunnerRegisterGroupAction.RUNNER_REISTER_GROUP],
+  );
+  const addressCountriesState = useSelector((state: TRootState) => state.addressReducer.countries);
+  const addressCityState = useSelector((state: TRootState) => state.addressReducer.cities);
+  const addressDistrictState = useSelector((state: TRootState) => state.addressReducer.districts);
+  const addressWardState = useSelector((state: TRootState) => state.addressReducer.wards);
+  const getAddress = useCallback(() => {
+    dispatch(addressAction.request({}));
+  }, [dispatch]);
+  useEffect(() => {
+    getAddress();
+  }, [dispatch, getAddress]);
+  const handleChangeCountries = (values: any): void => {
+    const body = {
+      country_id: values,
+    };
+    dispatch(cityAction.request({ body }, (response): void => {}));
+  };
+  const handleChangeDistrict = (values: any): void => {
+    const body = {
+      city_id: values,
+    };
+    dispatch(districtAction.request({ body }, (response): void => {}));
+  };
+  const handleChangeWard = (values: any): void => {
+    const body = {
+      district_id: values,
+    };
+    dispatch(wardAction.request({ body }, (response): void => {}));
+  };
   const handleSubmit = (values: any): void => {
-    const body = { ...values, ticketId: values.ticketId.value };
+    const body = { ...values };
     if (isGroup) {
       dispatch(runnerRegisterGroupAction.request({ body }, (response): void => handleRunnerRegitserSuccess(response)));
     } else {
-      dispatch(registerTicketAction.request({ body }, (response): void => handleRegitserSuccess(response)));
+      // dispatch(registerTicketAction.request({ body }, (response): void => handleRegitserSuccess(response)));
     }
   };
   const handleRunnerRegitserSuccess = (response: any): void => {
@@ -83,22 +120,22 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
 
           <Row gutter={[24, 24]}>
             <Col span={24} lg={12}>
-              <Form.Item name="email" label="Email" rules={[{ required: true }]}>
+              <Form.Item name="email" label="Email">
                 <Input placeholder="Email" />
               </Form.Item>
             </Col>
             <Col span={24} lg={12}>
-              <Form.Item name="fullName" label="Họ và tên" rules={[{ required: true }]}>
+              <Form.Item name="fullName" label="Họ và tên">
                 <Input placeholder="Họ và tên" />
               </Form.Item>
             </Col>
             <Col span={24} lg={12}>
-              <Form.Item name="birthday" label="Ngày sinh" rules={[{ required: true }]}>
+              <Form.Item name="birthday" label="Ngày sinh">
                 <DatePicker placeholder="Ngày sinh" />
               </Form.Item>
             </Col>
             <Col span={24} lg={12}>
-              <Form.Item name="gender" label="Giới tính" rules={[{ required: true }]}>
+              <Form.Item name="gender" label="Giới tính">
                 <Select
                   placeholder="Giới tính"
                   options={[
@@ -109,55 +146,63 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
               </Form.Item>
             </Col>
             <Col span={24} lg={12}>
-              <Form.Item name="nationality" label="Quốc tịch" rules={[{ required: true }]}>
-                <Select placeholder="Quốc tịch" />
+              <Form.Item name="nationality" label="Quốc tịch">
+                <Select
+                  placeholder="Quốc tịch"
+                  options={addressCountriesState}
+                  onChange={(option): void => handleChangeCountries(option?.value)}
+                />
               </Form.Item>
             </Col>
             <Col span={24} lg={12}>
-              <Form.Item name="idCard" label="Số CMND/Hộ chiếu" rules={[{ required: true }]}>
+              <Form.Item name="idCard" label="Số CMND/Hộ chiếu">
                 <Input placeholder="Số CMND/Hộ chiếu" />
               </Form.Item>
             </Col>
             <Col span={24}>
-              <Form.Item name="phone" label="Số điện thoại" rules={[{ required: true }]}>
+              <Form.Item name="phone" label="Số điện thoại">
                 <Input placeholder="Số điện thoại" />
               </Form.Item>
             </Col>
             <Col span={24}>
               <Row gutter={[4, 24]}>
                 <Col span={24} lg={6}>
-                  <Form.Item name="city" label="Địa chỉ" rules={[{ required: true }]}>
-                    <Select placeholder="Thành phố" />
-                  </Form.Item>
-                </Col>
-                <Col span={24} lg={6}>
-                  <Form.Item name="province" label=" ">
-                    <Select placeholder="Quận" />
+                  <Form.Item name="city" label="Địa chỉ">
+                    <Select
+                      placeholder="Thành phố"
+                      options={addressCityState}
+                      onChange={(option): void => handleChangeDistrict(option?.value)}
+                    />
                   </Form.Item>
                 </Col>
                 <Col span={24} lg={6}>
                   <Form.Item name="district" label=" ">
-                    <Select placeholder="Phường" />
+                    <Select
+                      placeholder="Quận/Huyện"
+                      options={addressDistrictState}
+                      onChange={(option): void => handleChangeWard(option?.value)}
+                    />
                   </Form.Item>
                 </Col>
                 <Col span={24} lg={6}>
                   <Form.Item name="ward" label=" ">
-                    <Select placeholder="Số nhà/Đường" />
+                    <Select placeholder="Phường/Xã" options={addressWardState} />
+                  </Form.Item>
+                </Col>
+                <Col span={24} lg={6}>
+                  <Form.Item name="address" label=" ">
+                    <Input placeholder="Số nhà/Đường" />
                   </Form.Item>
                 </Col>
               </Row>
             </Col>
             <Col span={24} lg={12}>
-              <Form.Item name="emergencyContactName" label="Liên hệ khẩn cấp" rules={[{ required: true }]}>
+              <Form.Item name="emergencyContactName" label="Liên hệ khẩn cấp">
                 <Input placeholder="Tên người liên hệ khẩn cấp" />
               </Form.Item>
             </Col>
             <Col span={24} lg={12}>
-              <Form.Item
-                name="emergencyContactPhone"
-                label="Số điện thoại của người liên hệ khẩn cấp"
-                rules={[{ required: true }]}
-              >
+              <Form.Item name="emergencyContactPhone" label="Số điện thoại của người liên hệ khẩn cấp">
                 <Input placeholder="Số điện thoại người liên hệ" />
               </Form.Item>
             </Col>
@@ -168,12 +213,12 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
               >
                 <a href="#">Bảng kích thước</a>
               </div>
-              <Form.Item name="size" label="Size áo" rules={[{ required: true }]}>
+              <Form.Item name="size" label="Size áo">
                 <Select placeholder="Chọn size áo" options={[]} />
               </Form.Item>
             </Col>
             <Col span={24} lg={12}>
-              <Form.Item name="nameBIB" label="Tên trên BIB" rules={[{ required: true }]}>
+              <Form.Item name="nameBIB" label="Tên trên BIB">
                 <Input placeholder="Tên trên BIB" />
               </Form.Item>
             </Col>
@@ -243,7 +288,13 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
 
             <Col span={24}>
               <div className="TournamentRegisterForm-submit flex justify-end">
-                <Button title="Tiếp tục" type="primary" size="large" htmlType="submit" loading={registerLoading} />
+                <Button
+                  title="Tiếp tục"
+                  type="primary"
+                  size="large"
+                  htmlType="submit"
+                  loading={isGroup ? registerRunnerLoading : registerLoading}
+                />
               </div>
             </Col>
             <Col lg={24} />
