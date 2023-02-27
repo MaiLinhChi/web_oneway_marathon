@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import './TournamentPaymentSucces.scss';
 import { Col, Row } from 'antd';
 import TournamentRegisterInformation from '@/pages/TournamentRegisterPage/TournamentRegisterInformation';
 import BackgroundRegisterPage from '@/assets/images/image-home-banner-3.png';
@@ -10,6 +9,7 @@ import { TRootState } from '@/redux/reducers';
 import { Paths } from '@/pages/routers';
 import { navigate } from '@reach/router';
 import { EKeyTabTournamentRegisterPage } from '@/pages/TournamentRegisterPage/TournamentRegisterPage.enums';
+import './TournamentPaymentSucces.scss';
 
 const TournamentPaymentSucces: React.FC = () => {
   const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.registerGroupResponse);
