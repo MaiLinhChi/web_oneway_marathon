@@ -1,17 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './TournamentRegisterGroupJoin.scss';
 import BackgroundRegisterPage from '@/assets/images/image-home-banner-3.png';
 import { Col, Row } from 'antd';
-import Icon, { EIconColor, EIconName } from '@/components/Icon';
-import Button from '@/components/Button';
 import TournamentRegisterInformation from '@/pages/TournamentRegisterPage/TournamentRegisterInformation';
 import TournamentRegisterForm from '@/pages/TournamentRegisterPage/TournamentRegisterForm';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { TRootState } from '@/redux/reducers';
 
 const TournamentRegisterGroupJoin: React.FC = () => {
   const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.registerGroupResponse);
-  console.log('registerGroup', registerGroup);
   return (
     <div className="TournamentRegisterPage">
       <div className="TournamentRegisterPage-background">
