@@ -5,7 +5,7 @@ import TournamentRegisterInformation from '@/pages/TournamentRegisterPage/Tourna
 import BackgroundRegisterPage from '@/assets/images/image-home-banner-3.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { TRootState } from '@/redux/reducers';
-import { showNotification, validationRules } from '@/utils/functions';
+import { showNotification } from '@/utils/functions';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 import { EIconColor } from '@/components/Icon';
@@ -37,9 +37,9 @@ const TournamentRegisterGroupConfirm: React.FC = () => {
       showNotification(ETypeNotification.ERROR, response.message);
     }
   };
-  // useEffect(() => {
-  //   if (!registerGroup) navigate(`${Paths.TournamentRegister}?tab=${EKeyTabTournamentRegisterPage.MULTIPLE}`);
-  // }, [registerGroup]);
+  useEffect(() => {
+    if (!registerGroup) navigate(`${Paths.TournamentRegister}?tab=${EKeyTabTournamentRegisterPage.MULTIPLE}`);
+  }, [registerGroup]);
   return (
     <div className="TournamentRegisterPage">
       <div className="TournamentRegisterPage-background">

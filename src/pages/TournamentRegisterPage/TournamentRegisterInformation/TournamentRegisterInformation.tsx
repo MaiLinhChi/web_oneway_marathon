@@ -11,11 +11,11 @@ const TournamentRegisterInformation: React.FC = () => {
           <tr>
             <td>Địa điểm</td>
             <td style={{ width: '100%' }}>
-              <strong>Thời gian</strong>
+              <strong>Vũng Tàu</strong>
             </td>
           </tr>
           <tr>
-            <td>Vũng Tàu</td>
+            <td>Thời gian</td>
             <td style={{ width: '100%' }}>
               <strong>4/4/2023</strong>
             </td>

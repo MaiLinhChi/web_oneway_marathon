@@ -30,7 +30,6 @@ const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> =
       showNotification(ETypeNotification.SUCCESS, 'Đăng ký nhóm thành công !');
       navigate(Paths.TournamentRegisterGroupSuccess);
     } else {
-      console.log('response', response);
       showNotification(ETypeNotification.ERROR, response.message);
     }
   };

@@ -19,13 +19,13 @@ import {
   districtAction,
   ERegisterTicketAction,
   ERunnerRegisterGroupAction,
-  getTicketsAction,
-  registerTicketAction,
   runnerRegisterGroupAction,
   wardAction,
 } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 import { TRootState } from '@/redux/reducers';
+import { navigate } from '@reach/router';
+import { Paths } from '@/pages/routers';
 
 const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGroup }) => {
   const [form] = Form.useForm();
@@ -39,6 +39,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   const addressCityState = useSelector((state: TRootState) => state.addressReducer.cities);
   const addressDistrictState = useSelector((state: TRootState) => state.addressReducer.districts);
   const addressWardState = useSelector((state: TRootState) => state.addressReducer.wards);
+  const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.registerGroupResponse);
   const getAddress = useCallback(() => {
     dispatch(addressAction.request({}));
   }, [dispatch]);
@@ -49,23 +50,37 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
     const body = {
       country_id: values,
     };
+    form.setFieldsValue({ city: null, district: null, ward: null });
     dispatch(cityAction.request({ body }, (response): void => {}));
   };
   const handleChangeDistrict = (values: any): void => {
     const body = {
       city_id: values,
     };
+    form.setFieldsValue({ district: null, ward: null });
     dispatch(districtAction.request({ body }, (response): void => {}));
   };
   const handleChangeWard = (values: any): void => {
     const body = {
       district_id: values,
     };
+    form.setFieldsValue({ ward: null });
     dispatch(wardAction.request({ body }, (response): void => {}));
   };
   const handleSubmit = (values: any): void => {
-    const body = { ...values };
     if (isGroup) {
+      const body = {
+        ...values,
+        city: values.city.value,
+        district: values.district.value,
+        gender: values.gender.value,
+        country: values.country.value,
+        ticketId: values.ticketId.value,
+        ward: values.ward.value,
+        group_slug: registerGroup?.group.slug,
+        nationality: values?.country.value,
+      };
+      console.log('body', body);
       dispatch(runnerRegisterGroupAction.request({ body }, (response): void => handleRunnerRegitserSuccess(response)));
     } else {
       // dispatch(registerTicketAction.request({ body }, (response): void => handleRegitserSuccess(response)));
@@ -74,6 +89,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   const handleRunnerRegitserSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {
       showNotification(ETypeNotification.SUCCESS, 'Đăng ký tạo nhóm thành công !');
+      navigate(Paths.TournamentRegisterGroupEnd);
     } else {
       showNotification(ETypeNotification.ERROR, response.message);
     }
@@ -89,11 +105,6 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   const handleSetBill = (value: boolean): void => {
     setBillRequest(value);
   };
-  const [tickets, setTickets] = useState([]);
-  // useEffect(() => {
-  //   const body = { slug: 'cat-ba' };
-  //   dispatch(getTicketsAction.request({ body }, (response): void => setTickets(response.data)));
-  // });
   return (
     <div className="TournamentRegisterForm">
       <Form layout="vertical" form={form} onFinish={handleSubmit}>
@@ -146,7 +157,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
               </Form.Item>
             </Col>
             <Col span={24} lg={12}>
-              <Form.Item name="nationality" label="Quốc tịch">
+              <Form.Item name="country" label="Quốc tịch">
                 <Select
                   placeholder="Quốc tịch"
                   options={addressCountriesState}
@@ -240,7 +251,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
             </Col>
             <Col span={24}>
               <Form.Item
-                name="times"
+                name="timeEstimation"
                 label={
                   <>
                     <div className="mainlabel">Thời gian dự kiến hoàn thành cự ly</div>
