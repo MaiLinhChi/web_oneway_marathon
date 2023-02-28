@@ -1,6 +1,6 @@
 import React from 'react';
 import './TournamentRegisterGroupJoin.scss';
-import BackgroundRegisterPage from '@/assets/images/image-home-banner-3.png';
+import BackgroundRegisterPage from '@/assets/images/image-home-banner-3.jpg';
 import { Col, Row } from 'antd';
 import TournamentRegisterInformation from '@/pages/TournamentRegisterPage/TournamentRegisterInformation';
 import TournamentRegisterForm from '@/pages/TournamentRegisterPage/TournamentRegisterForm';

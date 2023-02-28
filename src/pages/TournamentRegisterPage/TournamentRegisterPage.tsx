@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Col, Row } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
-import BackgroundRegisterPage from '@/assets/images/image-home-banner-3.png';
+import BackgroundRegisterPage from '@/assets/images/image-home-banner-3.jpg';
 import { TSelectOption } from '@/components/Select';
 import TabRectangle from '@/components/TabRectangle';
 import TournamentRegisterForm from '@/pages/TournamentRegisterPage/TournamentRegisterForm';

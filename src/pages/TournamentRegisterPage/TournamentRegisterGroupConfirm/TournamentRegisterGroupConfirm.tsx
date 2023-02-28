@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import './TournamentRegisterGroupConfirm.scss';
 import { Col, Form, Row } from 'antd';
 import TournamentRegisterInformation from '@/pages/TournamentRegisterPage/TournamentRegisterInformation';
-import BackgroundRegisterPage from '@/assets/images/image-home-banner-3.png';
+import BackgroundRegisterPage from '@/assets/images/image-home-banner-3.jpg';
 import { useDispatch, useSelector } from 'react-redux';
 import { TRootState } from '@/redux/reducers';
 import { showNotification } from '@/utils/functions';

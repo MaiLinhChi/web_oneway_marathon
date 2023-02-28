@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './TournamentRegisterGroupEnd.scss';
 import { Col, Row } from 'antd';
-import BackgroundRegisterPage from '@/assets/images/image-home-banner-3.png';
+import BackgroundRegisterPage from '@/assets/images/image-home-banner-3.jpg';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import Button from '@/components/Button';
 import { useSelector } from 'react-redux';

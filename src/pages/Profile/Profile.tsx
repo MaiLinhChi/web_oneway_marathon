@@ -7,6 +7,7 @@ import ProfileCard from '@/pages/Profile/ProfileCard';
 import Tournaments from '@/pages/Profile/Tournaments';
 import Achievements from '@/pages/Profile/Achievements';
 import Button from '@/components/Button';
+import BackgroundProfile from '@/assets/images/bg-profile.jpg';
 
 import { ETabProfileKey } from './Profile.enums';
 import './Profile.scss';
@@ -44,6 +45,7 @@ const Profile: React.FC = () => {
   return (
     <div className="Profile">
       <div className="Profile-background">
+        <div className="Profile-background-img" style={{ backgroundImage: `url(${BackgroundProfile})` }} />
         <UploadAvatar
           onChange={onChangeUploadBanner}
           overlay={
