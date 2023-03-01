@@ -9,7 +9,6 @@ import Select from '@/components/Select';
 import DatePicker from '@/components/DatePicker';
 import Checkbox from '@/components/Checkbox';
 import Icon, { EIconName } from '@/components/Icon';
-
 import { TTournamentRegisterFormProps } from './TournamentRegisterForm.types';
 import './TournamentRegisterForm.scss';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,6 +20,7 @@ import {
   ERunnerRegisterGroupAction,
   runnerRegisterGroupAction,
   wardAction,
+  registerTicketAction,
 } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 import { TRootState } from '@/redux/reducers';
@@ -67,23 +67,49 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
     form.setFieldsValue({ ward: null });
     dispatch(wardAction.request({ body }, (response): void => {}));
   };
+  const formatDate = (date: any): string => {
+    const d = new Date(date);
+    let month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate();
+    const year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+    return [year, month, day].join('-');
+  };
   const handleSubmit = (values: any): void => {
+    let body = null;
     if (isGroup) {
-      const body = {
+      body = {
         ...values,
-        city: values.city.value,
-        district: values.district.value,
-        gender: values.gender.value,
-        country: values.country.value,
-        ticketId: values.ticketId.value,
-        ward: values.ward.value,
-        group_slug: registerGroup?.group.slug,
+        birthday: formatDate(values?.birthday),
+        city: values?.city?.value,
+        district: values?.district?.value,
+        gender: values?.gender?.value,
+        country: values?.country?.value,
+        ticketId: values?.ticketId?.value,
+        ward: values?.ward?.value,
+        group_slug: registerGroup?.group?.slug,
         nationality: values?.country.value,
+        checkVat: values?.checkVat ? values?.checkVat.value : false,
       };
       console.log('body', body);
       dispatch(runnerRegisterGroupAction.request({ body }, (response): void => handleRunnerRegitserSuccess(response)));
     } else {
-      // dispatch(registerTicketAction.request({ body }, (response): void => handleRegitserSuccess(response)));
+      body = {
+        ...values,
+        birthday: formatDate(values?.birthday),
+        city: values?.city?.value,
+        district: values?.district?.value,
+        gender: values?.gender?.value,
+        country: values?.country?.value,
+        ticketId: values?.ticketId?.value,
+        ward: values?.ward?.value,
+        nationality: values?.country?.value,
+        checkVat: values?.checkVat ? true : false,
+      };
+      console.log('body', body);
+      dispatch(registerTicketAction.request({ body }, (response): void => handleRegitserSuccess(response)));
     }
   };
   const handleRunnerRegitserSuccess = (response: any): void => {
@@ -267,7 +293,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
             {!isGroup ? (
               <>
                 <Col span={24}>
-                  <Form.Item name="exportBill">
+                  <Form.Item name="checkVat">
                     <Checkbox label="Yêu cầu xuất hóa đơn" value={billRequest} onChange={handleSetBill} />
                   </Form.Item>
                 </Col>
@@ -279,12 +305,12 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                       </Form.Item>
                     </Col>
                     <Col span={24} lg={12}>
-                      <Form.Item name="taxNameCompany">
+                      <Form.Item name="companyName">
                         <Input placeholder="Tên công ty" />
                       </Form.Item>
                     </Col>
                     <Col span={24}>
-                      <Form.Item name="taxAddress">
+                      <Form.Item name="companyAddress">
                         <Input placeholder="Địa chỉ" />
                       </Form.Item>
                     </Col>

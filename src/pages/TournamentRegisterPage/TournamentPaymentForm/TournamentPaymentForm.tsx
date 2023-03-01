@@ -4,6 +4,7 @@ import { Col, Form, Row } from 'antd';
 import { validationRules } from '@/utils/functions';
 import Checkbox from '@/components/Checkbox';
 import Radio from '@/components/Radio';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { TTournamentPaymentFormProps } from './TournamentPaymentForm.types';
 import './TournamentPaymentForm.scss';
@@ -13,10 +14,18 @@ import Icon, { EIconColor, EIconName } from '@/components/Icon';
 
 const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
   const [form] = Form.useForm();
+  // const registerLoading = useSelector((state: any) => state.loadingReducer[ERegisterGroupAction.REGISTER_GROUP]);
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const handleSubmit = (values: any): void => {
+    console.log(values);
+    // const body = { ...values, race_slug: 'cat-ba' };
+    // dispatch(registerGroupAction.request({ body }, (response): void => handleRegitserSuccess(response)));
+  };
   return (
     <div className="TournamentPaymentForm">
-      <Form layout="vertical" form={form}>
+      <Form layout="vertical" form={form} onFinish={handleSubmit}>
         <div className="TournamentRegisterPage-card">
           <div className="TournamentRegisterPage-card-title">Thông tin hoá đơn</div>
           <div className="TournamentRegisterPage-card-table expand-x">
@@ -167,6 +176,7 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
             <Button
               size="large"
               type="primary"
+              htmlType="submit"
               title={
                 <>
                   Thanh toán <strong>2.295.000 đ</strong>
