@@ -93,7 +93,6 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
         nationality: values?.country.value,
         checkVat: values?.checkVat ? values?.checkVat.value : false,
       };
-      console.log('body', body);
       dispatch(runnerRegisterGroupAction.request({ body }, (response): void => handleRunnerRegitserSuccess(response)));
     } else {
       body = {
@@ -108,7 +107,6 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
         nationality: values?.country?.value,
         checkVat: values?.checkVat ? true : false,
       };
-      console.log('body', body);
       dispatch(registerTicketAction.request({ body }, (response): void => handleRegitserSuccess(response)));
     }
   };
@@ -123,7 +121,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   const handleRegitserSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {
       showNotification(ETypeNotification.SUCCESS, 'Đăng ký vé thành công !');
-      // navigate(Paths.Home);
+      navigate(Paths.TournamentPayment(response.data.order.code));
     } else {
       showNotification(ETypeNotification.ERROR, response.message);
     }
@@ -300,7 +298,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                 {billRequest && (
                   <>
                     <Col span={24} lg={12}>
-                      <Form.Item name="taxID">
+                      <Form.Item name="taxId">
                         <Input placeholder="Mã số thuế" />
                       </Form.Item>
                     </Col>
