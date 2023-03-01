@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Col, Form, Row } from 'antd';
 
-import { validationRules } from '@/utils/functions';
+import { showNotification, validationRules } from '@/utils/functions';
 import Checkbox from '@/components/Checkbox';
 import Radio from '@/components/Radio';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,18 +11,72 @@ import './TournamentPaymentForm.scss';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
+import { navigate, useParams } from '@reach/router';
+import { getOrderDetailAction, getPaymentMethodAction, updatePromotionAction } from '@/redux/actions';
+import { EResponseCode, ETypeNotification } from '@/common/enums';
+import { Paths } from '@/pages/routers';
+import { TRootState } from '@/redux/reducers';
 
 const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
+  const dispatch = useDispatch();
+  const [promotion, setPromotion] = useState('');
+  const [paymentMethodList, setPayMentMethod] = useState({});
   const [form] = Form.useForm();
-  // const registerLoading = useSelector((state: any) => state.loadingReducer[ERegisterGroupAction.REGISTER_GROUP]);
-
+  const { id } = useParams();
+  const orderState = useSelector((state: TRootState) => state.orderDetailReducer.getOrderDetailResponse);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const handleSubmit = (values: any): void => {
-    console.log(values);
-    // const body = { ...values, race_slug: 'cat-ba' };
-    // dispatch(registerGroupAction.request({ body }, (response): void => handleRegitserSuccess(response)));
+  const handlerChange = (e): void => {
+    setPromotion(e.target.value);
   };
+  const handleSubmit = (values: any): void => {
+    const body = { ...values, order_code: id, payment_method: values?.payment_method.value };
+    dispatch(getPaymentMethodAction.request({ body }, (response): void => handlerGetPaymentMethodSuccess(response)));
+  };
+  const getOrderDetail = useCallback(() => {
+    if (id)
+      dispatch(
+        getOrderDetailAction.request({ paths: { id } }, (response): void => handlerGetOrderDetailSuccess(response)),
+      );
+  }, [dispatch, id]);
+  // const getPaymentMethod = useCallback(() => {
+  //   dispatch(getPaymentMethodAction.request({}, (response): void => handlerGetPaymentMethodSuccess(response)));
+  // }, [dispatch]);
+  const handlerGetOrderDetailSuccess = (response: any): void => {
+    if (response.status === EResponseCode.OK) {
+      showNotification(ETypeNotification.SUCCESS, 'Lấy chi tiết đơn hàng thành công !');
+    } else {
+      showNotification(ETypeNotification.ERROR, response.message);
+      navigate(Paths.Home);
+    }
+  };
+  // console.log('paymentMethodList', paymentMethodList);
+  const handlerGetPaymentMethodSuccess = (response: any): void => {
+    if (response.status === EResponseCode.OK) {
+      showNotification(ETypeNotification.SUCCESS, 'Thanh toán thành công');
+      navigate(response.data.payment);
+    } else {
+      showNotification(ETypeNotification.ERROR, response.message);
+      // navigate(Paths.Home);
+    }
+  };
+  const handlerClickApplyPromotion = (): void => {
+    const body = {
+      promotionCode: promotion,
+      orderShortCode: orderState.data.order.shortCode,
+    };
+    dispatch(updatePromotionAction.request({ body }, (response): void => handlerClickApplyPromotionSuccess(response)));
+  };
+  const handlerClickApplyPromotionSuccess = (response: any): void => {
+    if (response.status === EResponseCode.OK) {
+      showNotification(ETypeNotification.SUCCESS, 'Áp dụng mã giảm giá thành công !');
+    } else {
+      showNotification(ETypeNotification.ERROR, response.message);
+    }
+  };
+  useEffect(() => {
+    getOrderDetail();
+  }, [getOrderDetail]);
   return (
     <div className="TournamentPaymentForm">
       <Form layout="vertical" form={form} onFinish={handleSubmit}>
@@ -65,8 +119,8 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
 
           <div className="TournamentPaymentForm-voucher">
             <div className="TournamentPaymentForm-voucher-form flex">
-              <Input placeholder="Nhập mã giảm giá" />
-              <Button title="Áp dụng" type="primary" />
+              <Input onChange={handlerChange} />
+              <Button title="Áp dụng" type="primary" htmlType="button" onClick={handlerClickApplyPromotion} />
             </div>
 
             <div className="TournamentPaymentForm-voucher-list">
@@ -81,13 +135,13 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
 
           <div className="TournamentRegisterPage-card-title">Hình thức thanh toán</div>
 
-          <Form.Item name="paymentType" rules={[validationRules.required()]}>
+          <Form.Item name="payment_method" rules={[validationRules.required()]}>
             <Radio
               spacing={16}
               options={[
-                { value: 'atm', label: 'Thẻ ATM nội địa' },
-                { value: 'visa/mastercard', label: 'Thẻ VISA/Mastercard' },
-                { value: 'transfer', label: 'Chuyển khoản trực tiếp' },
+                { value: 'one_pay_atm', label: 'Thẻ ATM nội địa' },
+                { value: 'one_pay_credit', label: 'Thẻ VISA/Mastercard' },
+                { value: 'internet_banking', label: 'Chuyển khoản trực tiếp' },
               ]}
             />
           </Form.Item>
@@ -151,12 +205,12 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
           </div>
           <Row gutter={[12, 12]}>
             <Col span={24}>
-              <Form.Item name="check1">
+              <Form.Item name="agree_bib">
                 <Checkbox label="Tôi đã đọc và đồng ý với điều khoản thanh toán số báo danh thi đấu BIB" />
               </Form.Item>
             </Col>
             <Col span={24}>
-              <Form.Item name="check2">
+              <Form.Item name="agree_policy">
                 <Checkbox
                   label={
                     <>
@@ -167,7 +221,7 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
               </Form.Item>
             </Col>
             <Col span={24}>
-              <Form.Item name="check3">
+              <Form.Item name="agree_correct_info">
                 <Checkbox label="Tôi xin cam kết thông tin mà tôi đã khai là đúng sự thật, nếu sai tôi xin chịu hoàn toàn trách nhiệm" />
               </Form.Item>
             </Col>

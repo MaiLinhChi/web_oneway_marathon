@@ -40,7 +40,6 @@ const OneWayMarathonCatBa: React.FC = () => {
   useEffect(() => {
     getRaceBySlug();
   }, [getRaceBySlug]);
-  console.log('raceDetailState?.race.ward', raceDetailState?.race.ward);
   return (
     <div className="OneWayMarathonCatBa">
       <TournamentOverview

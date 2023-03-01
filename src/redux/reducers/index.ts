@@ -9,6 +9,9 @@ import uiReducer from './ui';
 import uploadReducer from './upload';
 import addressReducer from './address/address';
 import raceReducer from './races';
+import orderDetailReducer from './orders';
+import promotionReducer from './promotion';
+import paymentMethodReducer from './payments';
 
 const rootReducer = combineReducers({
   loadingReducer,
@@ -22,6 +25,9 @@ const rootReducer = combineReducers({
   uploadReducer,
   addressReducer,
   raceReducer,
+  orderDetailReducer,
+  promotionReducer,
+  paymentMethodReducer,
 });
 
 export default rootReducer;
