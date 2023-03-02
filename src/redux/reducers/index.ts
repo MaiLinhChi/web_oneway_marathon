@@ -18,6 +18,7 @@ const rootReducer = combineReducers({
   errorReducer,
   successReducer,
   authReducer,
+  paymentMethodReducer,
   profileReducer,
   registerReducer,
   registerGroupReducer,
@@ -27,7 +28,6 @@ const rootReducer = combineReducers({
   raceReducer,
   orderDetailReducer,
   promotionReducer,
-  paymentMethodReducer,
 });
 
 export default rootReducer;
