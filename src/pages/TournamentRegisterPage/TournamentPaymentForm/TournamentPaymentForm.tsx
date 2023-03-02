@@ -20,6 +20,7 @@ import { TRootState } from '@/redux/reducers';
 const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
   const dispatch = useDispatch();
   const [promotion, setPromotion] = useState('');
+  const [arrPromotion, setArrPromotion] = useState(['']);
   const [paymentMethodList, setPayMentMethod] = useState({});
   const [form] = Form.useForm();
   const { id } = useParams();
@@ -53,8 +54,12 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
   // console.log('paymentMethodList', paymentMethodList);
   const handlerGetPaymentMethodSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {
-      showNotification(ETypeNotification.SUCCESS, 'Thanh toán thành công');
-      navigate(response.data.payment);
+      showNotification(ETypeNotification.SUCCESS, 'Chuyển trang thanh toán');
+      if (response.data.payment.length < 80) {
+        navigate(Paths.PaymentInstructions);
+      } else {
+        navigate(response.data.payment);
+      }
     } else {
       showNotification(ETypeNotification.ERROR, response.message);
       // navigate(Paths.Home);
@@ -65,14 +70,22 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
       promotionCode: promotion,
       orderShortCode: orderState.data.order.shortCode,
     };
-    dispatch(updatePromotionAction.request({ body }, (response): void => handlerClickApplyPromotionSuccess(response)));
+    dispatch(
+      updatePromotionAction.request({ body }, (response): void =>
+        handlerClickApplyPromotionSuccess(response, promotion),
+      ),
+    );
   };
-  const handlerClickApplyPromotionSuccess = (response: any): void => {
+  const handlerClickApplyPromotionSuccess = (response: any, code: string): void => {
     if (response.status === EResponseCode.OK) {
+      setArrPromotion([code]);
       showNotification(ETypeNotification.SUCCESS, 'Áp dụng mã giảm giá thành công !');
     } else {
       showNotification(ETypeNotification.ERROR, response.message);
     }
+  };
+  const handleCannelPromote = (): void => {
+    setArrPromotion(['']);
   };
   useEffect(() => {
     getOrderDetail();
@@ -124,12 +137,13 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
             </div>
 
             <div className="TournamentPaymentForm-voucher-list">
-              {[1, 2].map((item) => (
-                <div key={item} className="TournamentPaymentForm-voucher-list-item flex items-center">
-                  <Icon name={EIconName.MinusCircle} color={EIconColor.RED_ORANGE} />
-                  <span>SHSOIE343D</span>
-                </div>
-              ))}
+              {arrPromotion[0] !== '' &&
+                arrPromotion.map((item) => (
+                  <div key={item} className="TournamentPaymentForm-voucher-list-item flex items-center">
+                    <Icon name={EIconName.MinusCircle} color={EIconColor.RED_ORANGE} onClick={handleCannelPromote} />
+                    <span>{item}</span>
+                  </div>
+                ))}
             </div>
           </div>
 

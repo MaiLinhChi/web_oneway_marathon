@@ -4,19 +4,25 @@ import TournamentRegisterInformation from '@/pages/TournamentRegisterPage/Tourna
 import BackgroundRegisterPage from '@/assets/images/image-home-banner-3.jpg';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import Button from '@/components/Button';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { TRootState } from '@/redux/reducers';
 import { Paths } from '@/pages/routers';
-import { navigate } from '@reach/router';
+import { navigate, useLocation } from '@reach/router';
 import './TournamentPaymentSuccess.scss';
+import { getPaymentSuccessAction } from '@/redux/actions';
 const TournamentPaymentSucces: React.FC = () => {
-  const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.registerGroupResponse);
-  const handlerClick = (): void => {
-    navigate(Paths.TournamentRegisterGroupConfirm(registerGroup?.group.slug));
+  const dispatch = useDispatch();
+  const location = useLocation();
+  // const handlerClick = (): void => {
+  // };
+  useEffect(() => {
+    const body = { code: location.pathname.split('/')[2] };
+    dispatch(getPaymentSuccessAction.request({ body }, (response): void => handleFieldData(response)));
+    console.log(body);
+  }, [location, dispatch]);
+  const handleFieldData = (data: any): void => {
+    console.log(data);
   };
-  // useEffect(() => {
-  //   if (!registerGroup) navigate(`${Paths.TournamentRegister}?tab=${EKeyTabTournamentRegisterPage.MULTIPLE}`);
-  // }, [registerGroup]);
   return (
     <div className="TournamentPaymentSucces">
       <div className="TournamentPaymentSucces-background">
@@ -46,6 +52,7 @@ const TournamentPaymentSucces: React.FC = () => {
                         titleColor={EIconColor.WHITE}
                         borderColor={EIconColor.PERSIAN_GREEN}
                         backgroundColor={EIconColor.PERSIAN_GREEN}
+                        link={Paths.Home}
                       />
                     </div>
                   </div>
