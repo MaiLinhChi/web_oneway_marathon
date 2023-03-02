@@ -17,6 +17,7 @@
   &-wrapper {
     position: relative;
     z-index: 2;
+
   }
 
   &-title {
@@ -206,6 +207,11 @@
              width: unset;
            }
          }
+         &.fail {
+          .TournamentPaymentSucces-main-success-header {
+            background: #FF2E2E;
+          }
+        }
           &-body{
             background: white;
             padding: 36px;

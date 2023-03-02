@@ -21,7 +21,9 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
   const dispatch = useDispatch();
   const [promotion, setPromotion] = useState('');
   const [arrPromotion, setArrPromotion] = useState(['']);
-  const [paymentMethodList, setPayMentMethod] = useState({});
+  const [info, setInfo] = useState(['']);
+  const [total, settotal] = useState('');
+  const [paymentItems, setPaymentItems] = useState(['']);
   const [form] = Form.useForm();
   const { id } = useParams();
   const orderState = useSelector((state: TRootState) => state.orderDetailReducer.getOrderDetailResponse);
@@ -46,12 +48,16 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
   const handlerGetOrderDetailSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {
       showNotification(ETypeNotification.SUCCESS, 'Lấy chi tiết đơn hàng thành công !');
+      setInfo(response.data.order.items[0]);
+      settotal(response.data.order.total);
+      setPaymentItems(response.data.order.items);
+      setArrPromotion(response.data.order.promotionCodeUsages);
     } else {
       showNotification(ETypeNotification.ERROR, response.message);
       navigate(Paths.Home);
     }
   };
-  // console.log('paymentMethodList', paymentMethodList);
+  // console.log('total', total);
   const handlerGetPaymentMethodSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {
       showNotification(ETypeNotification.SUCCESS, 'Chuyển trang thanh toán');
@@ -97,34 +103,33 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
           <div className="TournamentRegisterPage-card-title">Thông tin hoá đơn</div>
           <div className="TournamentRegisterPage-card-table expand-x">
             <table>
-              <tr>
-                <td>Super Early Bird - 10km</td>
-                <td>x1</td>
-                <td className="text-right">
-                  <strong>549.000 VNĐ</strong>
-                </td>
-              </tr>
-              <tr className="spacing-bottom">
-                <td>Super Early Bird - 10km</td>
-                <td>x2</td>
-                <td className="text-right">
-                  <strong>549.000 VNĐ</strong>
-                </td>
-              </tr>
-              <tr className="border-top border-bottom">
-                <td>Giảm 8% cho nhóm 2-9 người</td>
-                <td />
-                <td className="text-right">
-                  <strong>-100.000 VNĐ</strong>
-                </td>
-              </tr>
+              {paymentItems[0] !== '' &&
+                paymentItems.map((e: any, i: number) => (
+                  <tr className="spacing-bottom" key={i}>
+                    <td>{e.info.ticket}</td>
+                    <td />
+                    <td className="text-right">
+                      <strong>{parseInt(e.amount).toLocaleString('ES-es')} VNĐ</strong>
+                    </td>
+                  </tr>
+                ))}
+              {arrPromotion[0] !== '' &&
+                arrPromotion.map((e: any, i) => (
+                  <tr className="border-top border-bottom">
+                    <td>
+                      Giảm {parseInt(e.discount).toLocaleString('ES-es')} {e.discountType === 'percent' ? '%' : 'VNĐ'}
+                    </td>
+                    <td />
+                    <td className="text-right">
+                      <strong>- {parseInt(e.discountAmount).toLocaleString('ES-es')} VNĐ</strong>
+                    </td>
+                  </tr>
+                ))}
               <tr className="spacing-top">
                 <td>Tổng thanh toán</td>
                 <td />
                 <td className="text-right">
-                  <strong>
-                    <span>-100.000 VNĐ</span>
-                  </strong>
+                  <strong>{parseInt(total).toLocaleString('ES-es')} VNĐ</strong>
                 </td>
               </tr>
             </table>
@@ -138,10 +143,10 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
 
             <div className="TournamentPaymentForm-voucher-list">
               {arrPromotion[0] !== '' &&
-                arrPromotion.map((item) => (
-                  <div key={item} className="TournamentPaymentForm-voucher-list-item flex items-center">
+                arrPromotion.map((e: any, i) => (
+                  <div key={i} className="TournamentPaymentForm-voucher-list-item flex items-center">
                     <Icon name={EIconName.MinusCircle} color={EIconColor.RED_ORANGE} onClick={handleCannelPromote} />
-                    <span>{item}</span>
+                    <span>{e.code}</span>
                   </div>
                 ))}
             </div>
@@ -247,7 +252,7 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
               htmlType="submit"
               title={
                 <>
-                  Thanh toán <strong>2.295.000 đ</strong>
+                  Thanh toán <strong>{parseInt(total).toLocaleString('ES-es')} VNĐ</strong>
                 </>
               }
             />

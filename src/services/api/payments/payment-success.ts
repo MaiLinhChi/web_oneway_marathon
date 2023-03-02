@@ -17,5 +17,5 @@ export const getPaymentSuccess = async ({
   body,
 }: TGetPaymentSuccessMaterials): Promise<TGetPaymentSuccessResponse> => {
   const response = await ApiService.post(`api/payment/detail`, body, { params });
-  return response.data;
+  return response.data.data;
 };
