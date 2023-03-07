@@ -1,0 +1,36 @@
+.Select {
+  .ant-select {
+    .ant-select-selector {
+      height: 4.8rem;
+      padding: 1.2rem;
+      font-size: 1.6rem;
+      line-height: 2rem;
+      color: $cod-gray;
+      background: $aqua-haze;
+      transform: skew(-12deg);
+      border: none;
+      border-radius: 0;
+
+      .ant-select-selection-item {
+        line-height: 1.6;
+      }
+
+      .ant-select-selection-search-input {
+        height: 100%;
+      }
+
+      .ant-select-selection-placeholder {
+        line-height: 1.6;
+        color: $regent-gray;
+      }
+    }
+  }
+
+  &-dropdown {
+    .ant-select-item {
+      font-size: 1.6rem;
+      line-height: 2rem;
+      padding: .8rem 1.2rem;
+    }
+  }
+}

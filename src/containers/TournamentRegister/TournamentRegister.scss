@@ -1,0 +1,169 @@
+.TournamentRegister {
+  padding: 4.8rem 0;
+
+  &-title {
+    font-style: italic;
+    font-weight: 900;
+    color: $cod-gray;
+    font-size: 3.2rem;
+    line-height: 3.8rem;
+    text-transform: uppercase;
+    margin-bottom: 2.4rem;
+
+    span {
+      font-size: 3.2rem;
+      line-height: 3.8rem;
+      color: $blue-ribbon;
+      margin-left: 0.4rem;
+      display: inline-block;
+      text-transform: none;
+    }
+    @media (max-width:767px) {
+      font-size: 1.8rem;
+      span{
+        font-size: 1.6rem;
+      }
+    }
+  }
+
+  &-table {
+    margin-bottom: 2.4rem;
+
+    &.single {
+      tr {
+        th {
+
+          &:nth-child(1),
+          &:nth-child(2),
+          &:nth-child(4) {
+            background: $persian-green;
+          }
+
+          &:nth-child(3) {
+            background: $electric-violet;
+          }
+
+          &:nth-child(5) {
+            background: $cutty-sark;
+          }
+        }
+
+        &:nth-child(odd) {
+          td {
+
+            &:nth-child(1),
+            &:nth-child(2),
+            &:nth-child(4) {
+              background: darken($persian-green, 6%);
+            }
+
+            &:nth-child(3) {
+              background: darken($electric-violet, 6%);
+            }
+
+            &:nth-child(5) {
+              background: darken($cutty-sark, 6%);
+            }
+          }
+        }
+
+        &:nth-child(even) {
+          td {
+
+            &:nth-child(1),
+            &:nth-child(2),
+            &:nth-child(4) {
+              background: $persian-green;
+            }
+
+            &:nth-child(3) {
+              background: $electric-violet;
+            }
+
+            &:nth-child(5) {
+              background: $cutty-sark;
+            }
+          }
+        }
+      }
+    }
+
+    &.multiple {
+      tr {
+        th {
+          &:nth-child(odd) {
+            background: darken($electric-violet, 6%);
+          }
+
+          &:nth-child(even) {
+            background: $electric-violet;
+          }
+        }
+      }
+
+      .TournamentRegister-table {
+        &-description {
+          text-align: left;
+        }
+
+        &-title {
+          text-align: right;
+          margin: .4rem 0 0 0;
+        }
+      }
+    }
+
+    &-title {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: $white;
+      line-height: 3rem;
+      margin-bottom: 0.4rem;
+      font-style: italic;
+
+      span {
+        font-size: 3.6rem;
+        line-height: 4.3rem;
+      }
+    }
+
+    &-description {
+      font-style: italic;
+      font-size: 1.4rem;
+      line-height: 1;
+      font-weight: 500;
+      color: $white;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+     @media (max-width:991px) {
+      display: block;
+      width: 100%;
+      overflow-x: auto;
+     }
+      thead {
+        th {
+          text-align: center;
+          padding: 1.6rem;
+        }
+      }
+
+      tbody {
+        td {
+          color: $white;
+          font-size: 1.4rem;
+          font-style: italic;
+          line-height: 1.4rem;
+          text-align: center;
+          padding: 1.2rem;
+
+          &:first-child {
+            font-weight: 800;
+          }
+        }
+      }
+    }
+  }
+}

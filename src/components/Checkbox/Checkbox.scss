@@ -1,0 +1,52 @@
+.Checkbox {
+
+
+
+  .ant-checkbox {
+    top: 0;
+
+    &.ant-checkbox-checked {
+      &::after {
+        display: none;
+      }
+
+      .ant-checkbox-inner {
+        border-color: $blue-ribbon;
+
+        &::after {
+          transform: translate(-50%, -60%) rotate(45deg) scale(1);
+        }
+      }
+    }
+
+    &-wrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    .ant-checkbox-inner {
+      width: 3.2rem;
+      height: 3.2rem;
+      border-radius: .8rem;
+      border: 2px solid $mystic;
+
+      &::after {
+        width: .8rem;
+        height: 1.6rem;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -60%) rotate(45deg) scale(0);
+      }
+    }
+
+    &+span {
+      padding-right: 1.2rem;
+      padding-left: 1.2rem;
+      font-size: 1.6rem;
+      line-height: 2rem;
+      font-weight: 500;
+      color: $cod-gray;
+      font-style: italic;
+    }
+  }
+}

@@ -1,0 +1,80 @@
+.RollBibCardRollSuccess {
+  max-width: 76.8rem;
+  margin: 0 auto;
+
+  &-header {
+    padding: 2.4rem 4.8rem;
+    column-gap: 1.6rem;
+    font-size: 2.4rem;
+    line-height: 4rem;
+    font-style: italic;
+    font-weight: 900;
+    color: $white;
+
+    @media (max-width: 991px) {
+      padding: 2.4rem;
+      font-size: 2rem;
+    }
+
+    .Icon {
+      flex: 0 0 4.8rem;
+      max-width: 4.8rem;
+    }
+  }
+
+  &-body {
+    padding: 3.6rem 3.6rem 4.8rem;
+    background: $white;
+
+    @media (max-width: 991px) {
+      padding: 3.6rem 1.6rem 4.8rem;
+    }
+  }
+
+  &-title {
+    font-size: 1.8rem;
+    line-height: 2.6rem;
+    font-weight: 900;
+    font-style: italic;
+    margin-bottom: 1.2rem;
+    color: $cod-gray;
+  }
+
+  &-table {
+    margin: 0 -.8rem;
+
+    table {
+      width: 100%;
+
+      td {
+        font-size: 1.6rem;
+        color: $dove-gray;
+        line-height: 4rem;
+        font-weight: 500;
+        font-style: italic;
+        padding: .8rem;
+
+        &:last-child {
+          color: $cod-gray;
+          font-weight: 600;
+        }
+
+        span {
+          color: $blue-ribbon;
+        }
+      }
+    }
+  }
+
+
+
+  &-btn {
+    margin-top: 3.2rem;
+
+    .Button {
+      .ant-btn {
+        width: 100%;
+      }
+    }
+  }
+}

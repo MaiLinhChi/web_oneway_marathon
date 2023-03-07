@@ -1,0 +1,65 @@
+@import '@/assets/styles/_global.scss';
+
+.TabRectangle {
+  &.width-auto {
+    width: fit-content;
+  }
+
+  &.NORMAL {
+    .TabRectangle {
+      &-item {
+        padding: .8rem 2.4rem;
+        color: $regent-gray;
+        transform: skew(-12deg);
+
+        &:hover {
+          color: $blue-ribbon;
+        }
+
+        &.active {
+          color: $white;
+          background: $blue-ribbon;
+        }
+      }
+    }
+  }
+
+  &.VERTICAL {
+    .TabRectangle {
+      &-list {
+        flex-direction: column;
+      }
+
+      &-item {
+        width: 100%;
+        padding: 1.6rem 3.2rem;
+        font-style: italic;
+        font-size: 1.4rem;
+        line-height: 1.6rem;
+        font-weight: 500;
+
+        &:hover {
+          color: $blue-ribbon;
+        }
+
+        &.active {
+          color: $blue-ribbon;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+
+
+  &-list {
+    user-select: none;
+  }
+
+  &-item {
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: $common-transition;
+  }
+}

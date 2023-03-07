@@ -1,0 +1,123 @@
+.TournamentSystem {
+  padding: 9.6rem 0;
+  @media (max-width:767px) {
+    padding: 3.6rem 0;
+  }
+  &-title {
+    font-style: italic;
+    font-weight: 900;
+    color: $cod-gray;
+    font-size: 6.4rem;
+    line-height: 7.7rem;
+    text-transform: uppercase;
+    margin-bottom: 5.6rem;
+
+    span {
+      font-size: 5.6rem;
+      line-height: 6.7rem;
+      color: $blue-ribbon;
+      margin-left: 2rem;
+      display: inline-block;
+      text-transform: none;
+    }
+    @media (max-width:767px) {
+      font-size: 1.8rem;
+      margin-bottom:0;
+      line-height: 0;
+      span{
+        font-size: 1.6rem;
+        margin-left: .5rem;
+      }
+    }
+  }
+
+  &-item {
+    position: relative;
+    column-gap: 1.6rem;
+
+    &:not(:last-child) {
+      margin-bottom: 4.8rem;
+    }
+
+    &:nth-child(even) {
+      flex-direction: row-reverse;
+
+      .TournamentSystem-item {
+        &-image {
+          clip-path: polygon(0 0, 100% 0, 92% 100%, 0 100%);
+        }
+
+        &-info {
+          padding-right: 8vw;
+          padding-left: 0;
+        }
+
+        &-title,
+        &-description {
+          text-align: right;
+        }
+
+        &-btn {
+          display: flex;
+          justify-content: flex-end;
+        }
+      }
+    }
+
+    &-info,
+    &-image {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+    @media (max-width:767px) {
+      &-info{
+        flex: 0 0 70%;
+        max-width: 70%;
+      }
+      &-image {
+        flex: 0 0 30%;
+        max-width: 30%;
+      }
+    }
+    &-info {
+      padding-left: 8vw;
+      @media (max-width:767px) {
+        padding-left: 5vw;
+      }
+    }
+
+    &-title {
+      font-size: 3.6rem;
+      font-weight: 600;
+      line-height: 4.2rem;
+      color: $cod-gray;
+      margin-bottom: 1.6rem;
+      font-style: italic;
+      @media (max-width:991px) {
+        font-size: 14px;
+        margin-bottom: 0;
+      }
+    }
+
+    &-description {
+      font-weight: 500;
+      color: $dove-gray;
+      line-height: 2.4rem;
+      font-size: 1.6rem;
+      margin-bottom: 2.4rem;
+      font-style: italic;
+      @media (max-width:991px) {
+        line-height: 1.6rem;
+        font-size: 12px;
+        margin-bottom: .8rem;
+      }
+
+    }
+
+    &-image {
+      overflow: hidden;
+      clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%);
+      @include centerScaleImage;
+    }
+  }
+}

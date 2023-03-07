@@ -1,0 +1,37 @@
+.Activities {
+  &-wrapper {
+    margin-top: 4.8rem;
+    @media (max-width:767px) {
+      margin-top: 3.4rem;
+    }
+  }
+
+  &-item {
+    &-image {
+      width: 25.6rem;
+      height: 25.6rem;
+      margin: 0 auto 2.4rem;
+      border-radius: 50%;
+      overflow: hidden;
+      background: $alto;
+      @include centerScaleImage;
+      @media (max-width:767px) {
+        width: 12rem;
+        height: 12rem;
+        margin: 0 auto 1.2rem;
+      }
+    }
+
+    &-title {
+      font-size: 2.4rem;
+      font-style: italic;
+      font-weight: 700;
+      color: $white;
+      line-height: 3rem;
+      text-align: center;
+      @media (max-width:767px) {
+        font-size: 1.4rem;
+      }
+    }
+  }
+}

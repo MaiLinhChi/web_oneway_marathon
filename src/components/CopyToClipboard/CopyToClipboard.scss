@@ -1,0 +1,13 @@
+.CopyToClipboard {
+  color: $blue-ribbon;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+  }
+  .size {
+    transform: scale(.9);
+  }
+}

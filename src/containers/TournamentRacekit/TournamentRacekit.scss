@@ -1,0 +1,35 @@
+.TournamentRacekit {
+  padding: 4.8rem 0;
+
+  &-title {
+    font-style: italic;
+    font-weight: 900;
+    color: $cod-gray;
+    font-size: 3.2rem;
+    line-height: 3.8rem;
+    text-transform: uppercase;
+    margin-bottom: 2.4rem;
+
+    span {
+      font-size: 3.2rem;
+      line-height: 3.8rem;
+      color: $blue-ribbon;
+      margin-left: 0.4rem;
+      display: inline-block;
+      text-transform: none;
+    }
+    @media (max-width:767px) {
+      font-size: 1.8rem;
+      span{
+        font-size: 1.6rem;
+      }
+    }
+  }
+
+  &-main {
+    &-image {
+      @include centerScaleImage;
+      height: 100%;
+    }
+  }
+}

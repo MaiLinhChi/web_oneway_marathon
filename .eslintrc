@@ -1,0 +1,68 @@
+{
+  "extends": [
+    "airbnb-typescript",
+    "airbnb/hooks",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "plugins": ["react", "@typescript-eslint", "prettier"],
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jest": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "project": "tsconfig.json"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "arrow-body-style": "off",
+    "import/prefer-default-export": "off",
+    "@typescript-eslint/no-empty-interface": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/naming-convention": [
+      "error",
+      { "selector": "interface", "format": ["PascalCase"], "prefix": ["I"] },
+      { "selector": "typeAlias", "format": ["PascalCase"], "prefix": ["T"] }
+    ],
+    "@typescript-eslint/no-empty-function": [
+      "error",
+      {
+        "allow": ["arrowFunctions"]
+      }
+    ],
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/no-unused-expressions": ["error", { "allowShortCircuit": true, "allowTernary": true }],
+    "@typescript-eslint/explicit-function-return-type": ["error"],
+    "@typescript-eslint/default-param-last": "off",
+    "react/prop-types": "off",
+    "react/jsx-props-no-spreading": "off",
+    "no-shadow": "off",
+    "click-events-have-key-events": "off",
+    "no-static-element-interactions": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "import/extensions": "off",
+    "radix": "off",
+    "react/self-closing-comp": "error",
+    "react/button-has-type": "off",
+    "import/no-extraneous-dependencies": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
+  }
+}

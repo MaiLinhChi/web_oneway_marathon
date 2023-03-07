@@ -1,0 +1,57 @@
+.TournamentGallery {
+  padding: 4.8rem 0;
+
+  &-title {
+    font-style: italic;
+    font-weight: 900;
+    color: $cod-gray;
+    font-size: 3.2rem;
+    line-height: 3.8rem;
+    text-transform: uppercase;
+    margin-bottom: 2.4rem;
+
+    span {
+      font-size: 3.2rem;
+      line-height: 3.8rem;
+      color: $blue-ribbon;
+      margin-left: 0.4rem;
+      display: inline-block;
+      text-transform: none;
+    }
+  }
+
+  &-gallery {
+    height: 64rem;
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+      'image1 image3 image3 image4'
+      'image2 image3 image3 image5';
+
+
+    &-item {
+      @include centerScaleImage;
+
+      &:nth-child(1) {
+        grid-area: image1;
+      }
+
+      &:nth-child(2) {
+        grid-area: image2;
+      }
+
+      &:nth-child(3) {
+        grid-area: image3;
+      }
+
+      &:nth-child(4) {
+        grid-area: image4;
+      }
+
+      &:nth-child(5) {
+        grid-area: image5;
+      }
+    }
+  }
+}

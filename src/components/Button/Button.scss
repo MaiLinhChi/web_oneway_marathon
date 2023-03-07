@@ -1,0 +1,75 @@
+.Button {
+  &:hover {
+    opacity: 0.7;
+  }
+  &.reverse {
+    .ant-btn {
+      flex-direction: row-reverse;
+    }
+  }
+
+  .ant-btn {
+    min-height: unset;
+    height: unset;
+    transform: skew(-12deg);
+    border-radius: 0;
+    padding: 1.2rem 2.4rem;
+    height: 4.8rem;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 1rem;
+    @media (max-width:991px) {
+      height: 4rem;
+    }
+    .Icon {
+      transform: skew(12deg);
+    }
+
+
+    &.ant-btn-default {
+      background: $aquamarine;
+      border-color: $aquamarine;
+      font-size: 1.6rem;
+      line-height: 2rem;
+      color: $stratos;
+
+      &:hover {
+        background-color: lighten($aquamarine, 5%);
+        border-color: lighten($aquamarine, 5%);
+      }
+    }
+
+    &.ant-btn-lg {
+      padding: 1.6rem 3.6rem;
+      font-size: 1.8rem;
+      line-height: 2.2rem;
+      height: 5.6rem;
+      @media (max-width:991px) {
+        font-size: 1.5rem;
+        height: 4rem;
+      }
+    }
+
+    &.ant-btn-ghost {
+      color: $cod-gray;
+      border-color: $mystic;
+
+      &:hover {
+        border-color: $blue-ribbon;
+      }
+    }
+
+    &.ant-btn-text {
+      background: $aqua-haze;
+      border-color: $aqua-haze;
+      color: $cod-gray;
+
+      &:hover {
+        background: darken($aqua-haze, 5%);
+        border-color: darken($aqua-haze, 5%);
+      }
+    }
+  }
+}

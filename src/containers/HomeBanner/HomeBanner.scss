@@ -1,0 +1,134 @@
+.HomeBanner {
+  .Carousels {
+    .slick-arrow {
+      z-index: 4;
+      width: unset;
+      height: unset;
+
+      &:hover {
+        .ant-btn {
+          background: $black;
+        }
+      }
+
+      &::before {
+        display: none;
+      }
+
+      &.slick-prev {
+        left: 8rem;
+        @media (max-width:991px) {
+          left: 2.6rem;
+          transform: translate(0, -100%);
+          top: 92%;
+        }
+      }
+
+      &.slick-next {
+        right: 8rem;
+        @media (max-width:991px) {
+          right: 2.6rem;
+          transform: translate(0, -100%);
+          top: 92%;
+        }
+      }
+      .ant-btn {
+        width: 4.8rem;
+        border: none;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba($black, 0.5);
+
+        .Icon {
+          transform: skew(12deg);
+        }
+      }
+    }
+
+  }
+
+  .slick-dots {
+    z-index: 4;
+    bottom: 4.8rem;
+
+    li {
+      width: unset;
+      height: unset;
+
+      &.slick-active,
+      &:hover {
+        button {
+          background: $white;
+        }
+      }
+
+      button {
+        width: 1.2rem;
+        height: 1.2rem;
+        border-radius: 50%;
+        background: rgba($white, 0.5);
+        transition: $common-transition;
+        cursor: pointer;
+
+        &::before {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &-item {
+    position: relative;
+
+    &-background {
+      z-index: 1;
+      @include fullAbsolute;
+      @include centerScaleImage;
+
+      &:before {
+        @include fullAbsolute;
+        content: '';
+        z-index: 2;
+        background: rgba($black, 0.5);
+      }
+    }
+
+    &-wrapper {
+      position: relative;
+      z-index: 3;
+      height: 62rem;
+      @media (max-width:991px) {
+        height: 37rem;
+      }
+    }
+
+    &-title {
+      font-size: 6.4rem;
+      font-weight: 900;
+      color: $white;
+      line-height: 7.7rem;
+      font-style: italic;
+      @media (max-width:991px) {
+        font-size: 2.5rem;
+        line-height: 0;
+      }
+      span {
+        font-size: 9.6rem;
+        line-height: 11.6rem;
+        text-transform: uppercase;
+        @media (max-width:991px) {
+          font-size: 4rem;
+        }
+      }
+    }
+
+    &-btn {
+      margin: 15rem 0 -6rem;
+      @media (max-width:991px) {
+        margin: 0;
+      }
+    }
+  }
+}

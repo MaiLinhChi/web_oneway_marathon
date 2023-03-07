@@ -1,0 +1,33 @@
+.Radio {
+  .ant-radio {
+    top: 0;
+
+    &-wrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    .ant-radio-inner {
+      width: 3.2rem;
+      height: 3.2rem;
+      border-width: 2px;
+
+      &::after {
+        width: 3.2rem;
+        height: 3.2rem;
+        margin-top: -1.6rem;
+        margin-left: -1.6rem;
+      }
+    }
+  }
+
+  span.ant-radio+* {
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 500;
+    color: $cod-gray;
+    font-style: italic;
+  }
+}

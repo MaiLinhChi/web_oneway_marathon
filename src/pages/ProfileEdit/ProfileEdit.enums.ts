@@ -1,0 +1,4 @@
+export enum ETabProfileEditKey {
+  PERSONAL_INFO = 'PERSONAL_INFO',
+  CHANGE_PASSWORD = 'CHANGE_PASSWORD',
+}

@@ -1,0 +1,60 @@
+.Pagination {
+  .ant-pagination {
+    .Button {
+      .ant-btn {
+        width: 3.2rem;
+        height: 3.2rem;
+        padding: 0;
+        transform: none;
+        border: none;
+        background: transparent;
+
+        .Icon {
+          width: 2.4rem;
+          height: 2.4rem;
+          transform: none;
+        }
+      }
+    }
+
+    .ant-pagination-item-ellipsis {
+      transform: translateX(-25%) scale(0.8);
+      color: $blue-ribbon;
+    }
+
+    .ant-pagination-item-link-icon {
+      color: $white !important;
+    }
+
+    .ant-pagination-jump-next,
+    .ant-pagination-item {
+      min-width: 3.2rem;
+      height: 3.2rem;
+      background: rgba($blue-ribbon, 0.1);
+      border: none;
+      margin-right: .2rem;
+      transition: $common-transition;
+
+      &.ant-pagination-item-active,
+      &:hover {
+        background: $blue-ribbon;
+
+        a {
+          color: $white;
+        }
+      }
+
+      a {
+        font-size: 1.2rem;
+        font-style: italic;
+        line-height: 2.4rem;
+        color: $blue-ribbon;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        transition: $common-transition;
+      }
+    }
+  }
+}
