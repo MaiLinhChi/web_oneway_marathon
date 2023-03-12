@@ -8,27 +8,24 @@ import { Link, navigate } from '@reach/router';
 import { showNotification, validationRules } from '@/utils/functions';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
-import { EIconName } from '@/components/Icon';
-import { TAuthLoginResponse } from '@/services/api';
-import { authLoginAction, EAuthLoginAction } from '@/redux/actions';
+import { authSignUpAction, EAuthSignUpAction } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 
 const Register: React.FC = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
-  const loginLoading = useSelector((state: any) => state.loadingReducer[EAuthLoginAction.AUTH_LOGIN]);
+  const loginLoading = useSelector((state: any) => state.loadingReducer[EAuthSignUpAction.SIGNUP]);
   const handleSubmit = (values: any): void => {
     const body = { ...values };
 
-    dispatch(authLoginAction.request({ body }, (response): void => handleLoginSuccess(response)));
+    dispatch(authSignUpAction.request({ body }, (response): void => handleSignUpSuccess(response)));
   };
 
-  const handleLoginSuccess = (response: any): void => {
+  const handleSignUpSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {
-      showNotification(ETypeNotification.SUCCESS, 'Đăng nhập thành công !');
-      navigate(Paths.Home);
+      showNotification(ETypeNotification.SUCCESS, 'Đăng ký tài khoản thành công !');
+      navigate(Paths.Login);
     } else {
-      console.log('response', response);
       showNotification(ETypeNotification.ERROR, response.message);
     }
   };
@@ -57,10 +54,10 @@ const Register: React.FC = () => {
                   <Form.Item name="userName" rules={[validationRules.required()]}>
                     <Input placeholder="Tên đăng nhập" required={true} />
                   </Form.Item>
-                  <Form.Item name="userName" rules={[validationRules.required()]}>
+                  <Form.Item name="fullName" rules={[validationRules.required()]}>
                     <Input placeholder="Họ và tên" required={true} />
                   </Form.Item>
-                  <Form.Item name="userName" rules={[validationRules.required()]}>
+                  <Form.Item name="email" rules={[validationRules.required()]}>
                     <Input placeholder="Email cá nhân" required={true} />
                   </Form.Item>
                 </div>
@@ -69,7 +66,7 @@ const Register: React.FC = () => {
                   <Row gutter={[32, 24]}>
                     <Col lg={{ span: 12 }} xs={{ span: 24 }}>
                       <Form.Item
-                        name="newPassword"
+                        name="password"
                         // rules={[validationRules.required()]}
                       >
                         <Input type="password" placeholder="Mật khẩu mới" required={true} />
@@ -77,7 +74,7 @@ const Register: React.FC = () => {
                     </Col>
                     <Col lg={{ span: 12 }} xs={{ span: 24 }}>
                       <Form.Item
-                        name="newPasswordConfirmation"
+                        name="passwordConfirmation"
                         // rules={[validationRules.required(), validationRules.confirmPassword(newPassword)]}
                       >
                         <Input type="password" placeholder="Nhập lại mật khẩu mới" required={true} />
@@ -86,7 +83,7 @@ const Register: React.FC = () => {
                     <Col span={24} />
                   </Row>
                 </div>
-                <Form.Item name="check2">
+                <Form.Item name="policyAgreed">
                   <Checkbox
                     label={
                       <>
