@@ -1,4 +1,7 @@
 .Button {
+  &:hover {
+    opacity: 0.7;
+  }
   &.reverse {
     .ant-btn {
       flex-direction: row-reverse;
@@ -17,7 +20,7 @@
     align-items: center;
     justify-content: center;
     column-gap: 1rem;
-    @media (max-width:992px) {
+    @media (max-width:991px) {
       height: 4rem;
     }
     .Icon {
@@ -43,7 +46,7 @@
       font-size: 1.8rem;
       line-height: 2.2rem;
       height: 5.6rem;
-      @media (max-width:992px) {
+      @media (max-width:991px) {
         font-size: 1.5rem;
         height: 4rem;
       }

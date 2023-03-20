@@ -1,1 +1,3 @@
-export type TTournamentRegisterFormProps = unknown;
+export type TTournamentRegisterFormProps = {
+  isGroup?: boolean;
+};

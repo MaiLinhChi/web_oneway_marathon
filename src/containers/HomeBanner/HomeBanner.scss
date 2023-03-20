@@ -17,7 +17,7 @@
 
       &.slick-prev {
         left: 8rem;
-        @media (max-width:992px) {
+        @media (max-width:991px) {
           left: 2.6rem;
           transform: translate(0, -100%);
           top: 92%;
@@ -26,7 +26,7 @@
 
       &.slick-next {
         right: 8rem;
-        @media (max-width:992px) {
+        @media (max-width:991px) {
           right: 2.6rem;
           transform: translate(0, -100%);
           top: 92%;
@@ -99,7 +99,7 @@
       position: relative;
       z-index: 3;
       height: 62rem;
-      @media (max-width:992px) {
+      @media (max-width:991px) {
         height: 37rem;
       }
     }
@@ -110,7 +110,7 @@
       color: $white;
       line-height: 7.7rem;
       font-style: italic;
-      @media (max-width:992px) {
+      @media (max-width:991px) {
         font-size: 2.5rem;
         line-height: 0;
       }
@@ -118,7 +118,7 @@
         font-size: 9.6rem;
         line-height: 11.6rem;
         text-transform: uppercase;
-        @media (max-width:992px) {
+        @media (max-width:991px) {
           font-size: 4rem;
         }
       }
@@ -126,7 +126,7 @@
 
     &-btn {
       margin: 15rem 0 -6rem;
-      @media (max-width:992px) {
+      @media (max-width:991px) {
         margin: 0;
       }
     }

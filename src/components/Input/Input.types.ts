@@ -10,6 +10,7 @@ export type TInputProps = {
   prefix?: React.ReactNode;
   suffix?: React.ReactNode;
   readOnly?: boolean;
+  required?: boolean;
   size?: SizeType;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   onEnter?: () => void;

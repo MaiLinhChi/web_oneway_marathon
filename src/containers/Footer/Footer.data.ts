@@ -12,30 +12,31 @@ import ImageVOV from '@/assets/images/image-vov.png';
 import ImageVuonUom from '@/assets/images/image-vuon-uom.png';
 import ImageVuonUomDark from '@/assets/images/image-vuon-uom-dark.png';
 import { TFooterPartnerLink } from '@/containers/Footer/Footer.types';
+import { Paths } from '@/pages/routers';
 
 export const dataFooterLinks = [
   {
-    link: '#',
+    link: Paths.BuyOnlineTicketTutorials,
     title: 'Hướng dẫn mua vé trực tuyến',
   },
   {
-    link: '#',
+    link: Paths.PrivacyRefund,
     title: 'Chính sách đổi trả, hoàn tiền',
   },
   {
-    link: '#',
+    link: Paths.PrivacyPrivate,
     title: 'Chính sách bảo mật thông tin',
   },
   {
-    link: '#',
+    link: Paths.PrivacyPayment,
     title: 'Chính sách thanh toán',
   },
   {
-    link: '#',
+    link: Paths.PrivacyDelivery,
     title: 'Chính sách vận chuyển, giao nhận',
   },
   {
-    link: '#',
+    link: Paths.PrivacySolvedProblem,
     title: 'Quy trình tiếp nhận và giải quyết khiếu nại',
   },
 ];

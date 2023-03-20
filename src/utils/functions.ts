@@ -2,7 +2,7 @@
 import { SyntheticEvent } from 'react';
 import { notification } from 'antd';
 import { Rule } from 'antd/lib/form';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 
 import { EFormat, ETypeNotification } from '@/common/enums';
 import { REGEX } from '@/common/constants';
@@ -41,7 +41,7 @@ export const removeAccents = (str: string): string => {
   return '';
 };
 
-export const showNotification = (type: ETypeNotification, description: string): void => {
+export const showNotification = (type: string, description: string): void => {
   const options = {
     message: '',
     description,
@@ -316,4 +316,10 @@ export const groupDataByField = (inputArray: any[], keyGroup: string): Array<{ k
   );
 
   return groupsArray;
+};
+export const formatISODateToMomment = (date?: string): Moment | undefined => {
+  return date ? moment(date) : moment(date);
+};
+export const formatMomentToString = (date?: Moment): string | undefined => {
+  return date ? moment(date).format(EFormat.DATE) : undefined;
 };

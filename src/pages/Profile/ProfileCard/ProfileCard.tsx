@@ -8,17 +8,14 @@ import { TProfileCardProps } from './ProfileCard.types';
 import './ProfileCard.scss';
 import { Paths } from '@/pages/routers';
 
-const ProfileCard: React.FC<TProfileCardProps> = () => {
+const ProfileCard: React.FC<TProfileCardProps> = ({ name, email, avatar }) => {
   return (
     <div className="ProfileCard">
       <div className="ProfileCard-avatar flex justify-center">
-        <Avatar size={112} />
+        <Avatar image={'https://api-dev.onewaymarathon.com' + avatar} size={112} />
       </div>
-      <div className="ProfileCard-title">Trần Xuân Hoàng</div>
-      <div className="ProfileCard-description">
-        Bio Max 3 row (Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim)
-      </div>
+      <div className="ProfileCard-title">{name}</div>
+      <div className="ProfileCard-description">{email}</div>
       <div className="ProfileCard-btns">
         <Row gutter={[24, 24]}>
           <Col span={12}>

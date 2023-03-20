@@ -113,7 +113,7 @@ body {
 
 a {
   transition: $common-transition;
-
+  word-break: break-all;
   &:hover {
     color: $blue-ribbon;
   }
@@ -123,19 +123,47 @@ a {
   .ant-form-item {
     &-label {
       &>label {
-        font-size: 1.4rem;
+        font-size: 1.6rem;
         line-height: 2rem;
         font-weight: 600;
         font-style: italic;
         color: $dove-gray;
         padding-left: .4rem;
+        display: block;
+        letter-spacing: -0.02em;
+        min-height: 20px;
+        @media (max-width: 991px) {
+          min-height: 0;
+         }
+        &.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+          content: none;
+        }
+        &.ant-form-item-required:not(.ant-form-item-required-mark-optional)::after {
+          display: inline-block;
+          margin-left: 4px;
+          color: #ff4d4f;
+          font-size: 14px;
+          font-family: SimSun, sans-serif;
+          line-height: 1;
+          content: '*';
+        }
+        .sublabel {
+          font-weight: 400;
+          font-size: 1.2rem;
+        }
       }
     }
   }
 }
+.ant-form-item-label > label
 .ant-table table {
  @media (max-width:767px) {
   display: block;
   overflow-x: auto;
  }
+}
+.ant-row.reverse {
+  @media (max-width: 991px) {
+    flex-direction: column-reverse;
+   }
 }

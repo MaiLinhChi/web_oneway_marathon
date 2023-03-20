@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Col, Row } from 'antd';
 
 import TabRectangle, { TTabRectangleValue } from '@/components/TabRectangle';
@@ -7,13 +7,22 @@ import ProfileCard from '@/pages/Profile/ProfileCard';
 import Tournaments from '@/pages/Profile/Tournaments';
 import Achievements from '@/pages/Profile/Achievements';
 import Button from '@/components/Button';
+import BackgroundProfile from '@/assets/images/bg-profile.jpg';
 
 import { ETabProfileKey } from './Profile.enums';
 import './Profile.scss';
 import { TRootState } from '@/redux/reducers';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getRaceAction } from '@/redux/actions';
+import raceReducer from '@/redux/reducers/races';
 
 const Profile: React.FC = () => {
+  const dispatch = useDispatch();
+  const profileState = useSelector((state: TRootState) => state.profileReducer.getProfileResponse)?.data;
+  const raceState = useSelector((state: TRootState) => state.raceReducer.getRaceResponse)?.data;
+  const getRaces = useCallback(() => {
+    dispatch(getRaceAction.request({}));
+  }, [dispatch]);
   const dataTabProfile = [
     {
       value: ETabProfileKey.TOURNAMENT,
@@ -27,10 +36,18 @@ const Profile: React.FC = () => {
 
   const [activeTab, setActiveTab] = useState<TTabRectangleValue>(dataTabProfile[0]);
   const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
+  const onChangeUploadBanner = (files: any): void => {
+    console.log('files', files);
+  };
+  useEffect(() => {
+    getRaces();
+  }, [dispatch, getRaces]);
   return (
     <div className="Profile">
       <div className="Profile-background">
+        <div className="Profile-background-img" style={{ backgroundImage: `url(${BackgroundProfile})` }} />
         <UploadAvatar
+          onChange={onChangeUploadBanner}
           overlay={
             <div className="Profile-background-overlay">
               <Row gutter={[48, 48]}>
@@ -52,12 +69,12 @@ const Profile: React.FC = () => {
         <div className="Profile-wrapper">
           <Row gutter={{ xs: 0, lg: 48 }}>
             <Col lg={{ span: 8 }} xs={{ span: 24 }}>
-              <ProfileCard />
+              <ProfileCard name={profileState?.username} email={profileState?.email} avatar={profileState?.avatar} />
             </Col>
             <Col lg={{ span: 16 }} xs={{ span: 24 }}>
               <TabRectangle value={activeTab} onChange={setActiveTab} options={dataTabProfile} />
 
-              {activeTab.value === ETabProfileKey.TOURNAMENT && <Tournaments />}
+              {activeTab.value === ETabProfileKey.TOURNAMENT && <Tournaments data={raceState} />}
               {activeTab.value === ETabProfileKey.ACHIEVEMENTS && <Achievements />}
             </Col>
           </Row>

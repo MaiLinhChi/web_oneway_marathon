@@ -5,13 +5,13 @@ import Table from '@/components/Table';
 import { TTournamentRewardProps } from './TournamentReward.types.d';
 import './TournamentReward.scss';
 
-const TournamentReward: React.FC<TTournamentRewardProps> = ({ title, color }) => {
+const TournamentReward: React.FC<TTournamentRewardProps> = ({ title, color, loading, award }) => {
   const columns = [
     {
-      key: 'tournament',
-      dataIndex: 'tournament',
+      key: 'name',
+      dataIndex: 'name',
       title: '',
-      render: (_: string, __: any, index: number): string => `42 km ${index % 2 !== 0 ? 'Nam' : 'Nữ'}`,
+      render: (row: any, index: number): string => row.name,
       onHeaderCell: (): any => {
         return {
           style: { background: color },
@@ -19,10 +19,9 @@ const TournamentReward: React.FC<TTournamentRewardProps> = ({ title, color }) =>
       },
     },
     {
-      key: 'prize1',
-      dataIndex: 'prize1',
+      key: 'first',
+      dataIndex: 'first',
       title: 'Hạng Nhất',
-      render: (): string => `8.000.000 đ`,
       onHeaderCell: (): any => {
         return {
           style: { background: color },
@@ -30,10 +29,9 @@ const TournamentReward: React.FC<TTournamentRewardProps> = ({ title, color }) =>
       },
     },
     {
-      key: 'prize2',
-      dataIndex: 'prize2',
+      key: 'second',
+      dataIndex: 'second',
       title: 'Hạng Nhì',
-      render: (): string => `4.600.000 đ`,
       onHeaderCell: (): any => {
         return {
           style: { background: color },
@@ -41,10 +39,9 @@ const TournamentReward: React.FC<TTournamentRewardProps> = ({ title, color }) =>
       },
     },
     {
-      key: 'prize3',
-      dataIndex: 'prize3',
+      key: 'third',
+      dataIndex: 'third',
       title: 'Hạng Ba',
-      render: (): string => `3.500.000 đ`,
       onHeaderCell: (): any => {
         return {
           style: { background: color },
@@ -52,10 +49,9 @@ const TournamentReward: React.FC<TTournamentRewardProps> = ({ title, color }) =>
       },
     },
     {
-      key: 'prize4',
-      dataIndex: 'prize4',
+      key: 'fourth',
+      dataIndex: 'fourth',
       title: 'Hạng Tư',
-      render: (): string => `2.400.000 đ`,
       onHeaderCell: (): any => {
         return {
           style: { background: color },
@@ -74,7 +70,7 @@ const TournamentReward: React.FC<TTournamentRewardProps> = ({ title, color }) =>
         </div>
 
         <div className="TournamentReward-table">
-          <Table columns={columns} dataSources={[1, 2, 3, 4, 5, 6, 7, 8]} />
+          <Table loading={loading} columns={columns} dataSources={award} />
         </div>
       </div>
     </div>

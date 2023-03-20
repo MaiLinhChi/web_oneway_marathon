@@ -18,7 +18,7 @@ const Avatar: React.FC<TAvatarProps> = ({ image, size, className }) => {
     <div className={classNames('Avatar', className)}>
       <AntdAvatar
         size={size}
-        src={isError ? ImageAvatarDefault : image || ImageAvatarDefault}
+        src={isError || image ? ImageAvatarDefault : image || ImageAvatarDefault}
         onError={(): boolean => {
           setIsError(true);
           return true;

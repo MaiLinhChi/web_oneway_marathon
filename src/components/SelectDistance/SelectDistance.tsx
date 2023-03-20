@@ -17,7 +17,7 @@ const SelectDistance: React.FC<TSelectDistanceProps> = ({ value, onChange, data 
     <div className="SelectDistance">
       <Row gutter={[2, 2]}>
         {data.map((item) => (
-          <Col key={item.value} span={24 / data.length}>
+          <Col key={item.value} span={12} sm={8} lg={24 / data.length}>
             <div
               className={classNames('SelectDistance-item', { active: value?.value === item.value })}
               onClick={(): void => onChange?.(item)}

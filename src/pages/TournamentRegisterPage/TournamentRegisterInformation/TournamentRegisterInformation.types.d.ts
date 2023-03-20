@@ -1,1 +1,3 @@
-export type TTournamentRegisterInformationProps = unknown;
+export type TTournamentRegisterInformationProps = {
+  payment?: boolean;
+};

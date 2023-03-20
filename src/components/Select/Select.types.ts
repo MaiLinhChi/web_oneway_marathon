@@ -19,6 +19,7 @@ export type TSelectProps = {
 };
 
 export type TSelectOption = {
+  id?: number;
   label: string;
   value: string;
   data?: any;

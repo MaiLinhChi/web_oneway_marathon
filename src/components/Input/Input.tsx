@@ -15,6 +15,7 @@ const Input: React.FC<TInputProps> = ({
   prefix,
   suffix,
   readOnly,
+  required,
   onChange,
   onEnter,
   value,
@@ -28,9 +29,9 @@ const Input: React.FC<TInputProps> = ({
   const commonProps = {
     type,
     size,
-    placeholder,
     value,
     readOnly,
+    required,
     prefix: prefix && <div className="Input-prefix">{prefix}</div>,
     suffix: suffix && <div className="Input-suffix">{suffix}</div>,
     onChange,
@@ -38,22 +39,40 @@ const Input: React.FC<TInputProps> = ({
   };
 
   return (
-    <div className={classNames('Input', className, { affix: suffix || prefix })}>
+    <div className={classNames('Input', className, { affix: suffix || prefix }, required ? 'required' : '')}>
       {type === 'password' ? (
-        <AntdInput.Password
-          {...commonProps}
-          iconRender={(visible): React.ReactNode => (
-            <div>
-              <Icon
-                className="cursor-pointer"
-                name={visible ? EIconName.EyeClosed : EIconName.Eye}
-                color={EIconColor.COD_GRAY}
-              />
-            </div>
+        <>
+          <AntdInput.Password
+            {...commonProps}
+            iconRender={(visible): React.ReactNode => (
+              <div>
+                <Icon
+                  className="cursor-pointer"
+                  name={visible ? EIconName.EyeClosed : EIconName.Eye}
+                  color={EIconColor.COD_GRAY}
+                />
+              </div>
+            )}
+          />
+          {placeholder ? (
+            <label className="label" style={{ 'display': value ? 'none' : 'block' }}>
+              {placeholder}
+            </label>
+          ) : (
+            ''
           )}
-        />
+        </>
       ) : (
-        <AntdInput {...commonProps} />
+        <>
+          <AntdInput {...commonProps} />
+          {placeholder ? (
+            <label className="label" style={{ 'display': value ? 'none' : 'block' }}>
+              {placeholder}
+            </label>
+          ) : (
+            ''
+          )}
+        </>
       )}
     </div>
   );

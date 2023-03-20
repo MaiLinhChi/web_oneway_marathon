@@ -1,6 +1,7 @@
 import React from 'react';
 import { Col, Row } from 'antd';
-import { Link } from '@reach/router';
+import classNames from 'classnames';
+import { Link, useLocation } from '@reach/router';
 
 import ImageBoCongThuong from '@/assets/images/image-bo-cong-thuong.png';
 
@@ -9,6 +10,8 @@ import { TFooterProps } from './Footer.types.d';
 import './Footer.scss';
 
 const Footer: React.FC<TFooterProps> = () => {
+  const { pathname } = useLocation();
+
   return (
     <div className="Footer">
       <div className="container">
@@ -34,9 +37,12 @@ const Footer: React.FC<TFooterProps> = () => {
             <Col span={24}>
               <div className="Footer-line" />
             </Col>
-            {dataFooterLinks.map((item) => (
-              <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-                <Link to={item.link} className="Footer-description Footer-link">
+            {dataFooterLinks.map((item, index) => (
+              <Col xs={{ span: 24 }} lg={{ span: 8 }} key={index}>
+                <Link
+                  to={item.link}
+                  className={classNames('Footer-description Footer-link', { active: item.link === pathname })}
+                >
                   {item.title}
                 </Link>
               </Col>
@@ -46,8 +52,8 @@ const Footer: React.FC<TFooterProps> = () => {
             </Col>
             <Col span={24}>
               <div className="Footer-partner flex flex-wrap items-center justify-center">
-                {dataFooterPartnerLinks().map((item) => (
-                  <div className="Footer-partner-item" style={{ maxWidth: item.maxWidth }}>
+                {dataFooterPartnerLinks().map((item, index) => (
+                  <div className="Footer-partner-item" style={{ maxWidth: item.maxWidth }} key={index}>
                     <Link to={item.link}>
                       <img src={item.logo} alt="" />
                     </Link>

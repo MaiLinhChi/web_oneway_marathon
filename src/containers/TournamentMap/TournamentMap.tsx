@@ -5,8 +5,8 @@ import { TStepKilometerTournamentMap, TTournamentMapProps } from './TournamentMa
 import './TournamentMap.scss';
 
 const TournamentMap: React.FC<TTournamentMapProps> = ({ title, stepKilometer = [], color }) => {
-  const [activeTab, setActiveTab] = useState<TStepKilometerTournamentMap>(stepKilometer?.[0]);
-
+  const [activeTab, setActiveTab] = useState<TStepKilometerTournamentMap>(stepKilometer[0]);
+  console.log('stepKilometer[0]', stepKilometer[0]);
   return (
     <div className="TournamentMap">
       <div className="container">
@@ -17,32 +17,29 @@ const TournamentMap: React.FC<TTournamentMapProps> = ({ title, stepKilometer = [
           <div className="TournamentMap-tab flex items-center">
             {stepKilometer.map((item) => (
               <div
-                key={item.value}
-                className={classNames('TournamentMap-tab-item', { active: item.value === activeTab?.value })}
+                key={item.id}
+                className={classNames('TournamentMap-tab-item', { active: item.distance === activeTab?.distance })}
                 onClick={(): void => setActiveTab(item)}
               >
                 <div className="TournamentMap-tab-item-line" style={{ background: color }} />
-                {item.label} <span>KM</span>
+                {item.name}
               </div>
             ))}
           </div>
           <div className="TournamentMap-main flex" style={{ background: color }}>
-            {activeTab?.list && (
-              <div className="TournamentMap-main-info">
-                <h4 className="TournamentMap-main-info-title">
-                  {activeTab?.label} <span>KM</span>
-                </h4>
-                <ol className="TournamentMap-main-info-list">
-                  {activeTab?.list?.map((item) => (
-                    <li>{item.label}</li>
-                  ))}
-                </ol>
-              </div>
-            )}
+            <div className="TournamentMap-main-info">
+              <h4 className="TournamentMap-main-info-title">
+                {activeTab?.distance} <span>KM</span>
+              </h4>
+              <div
+                className="TournamentMap-main-info-list"
+                dangerouslySetInnerHTML={{ __html: activeTab?.description }}
+              />
+            </div>
 
             <div className="TournamentMap-main-map">
               <div className="TournamentMap-main-map-image">
-                <img src={activeTab?.image} alt="" />
+                <img src={'https://api-dev.onewaymarathon.com' + activeTab?.road_map_image} alt="" />
               </div>
             </div>
           </div>
