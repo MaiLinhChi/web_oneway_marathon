@@ -7,6 +7,7 @@ import { REGEX } from '@/common/constants';
 import LoadingSpin from '@/assets/icons/icon-loading-spin.svg';
 import { TUploadAvatarProps } from './UploadAvatar.types.d';
 import './UploadAvatar.scss';
+import AuthHelpers from '@/services/helpers';
 import { getProfileAction } from '@/redux/actions';
 import { useDispatch } from 'react-redux';
 
@@ -20,6 +21,7 @@ const UploadAvatar: React.FC<TUploadAvatarProps> = ({
   const dispatch = useDispatch();
   const [previewImage, setPreviewImage] = useState<string>();
   const [isChanged, setIsChanged] = useState<boolean>(false);
+  const atk = AuthHelpers.getAccessToken();
   const handleUploadChange = (file: any): void => {
     if (file) {
       setPreviewImage(process.env.REACT_APP_SERVICE_BASE_URL + file?.avatar);
@@ -29,8 +31,11 @@ const UploadAvatar: React.FC<TUploadAvatarProps> = ({
     }
   };
   const getProfile = useCallback(() => {
-    dispatch(getProfileAction.request({}));
-  }, [dispatch]);
+    const params = {
+      authorization: `Bearer ${atk}`,
+    };
+    dispatch(getProfileAction.request({ params }));
+  }, [dispatch, atk]);
   useEffect(() => {
     if (!isChanged) {
       if (REGEX.url.test(value)) {

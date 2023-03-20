@@ -52,7 +52,7 @@ const Login: React.FC = () => {
                   <div className="Auth-form-wrapper">
                     <div className="Auth-form-title">Đăng nhập</div>
 
-                    <Form.Item name="userName" rules={[validationRules.required()]}>
+                    <Form.Item name="username" rules={[validationRules.required()]}>
                       <Input placeholder="Tên đăng nhập/email cá nhân" required={true} />
                     </Form.Item>
                     <Form.Item name="password" rules={[validationRules.required()]}>

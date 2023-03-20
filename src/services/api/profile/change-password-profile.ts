@@ -2,7 +2,11 @@ import ApiService from '@/services/api';
 
 // TYPES
 
-export type TChangePasswordProfileParams = unknown;
+export type TChangePasswordProfileParams = {
+  params: {
+    authorization: string;
+  };
+};
 export type TChangePasswordProfileBody = {
   password: string;
   new_password: string;
@@ -13,7 +17,7 @@ export type TChangePasswordProfileMaterials = {
   body?: TChangePasswordProfileBody;
 };
 
-export type TChangePasswordProfileResponse = unknown;
+export type TChangePasswordProfileResponse = any;
 
 // FUNCTION
 
@@ -21,6 +25,6 @@ export const changePasswordProfile = async ({
   params,
   body,
 }: TChangePasswordProfileMaterials): Promise<TChangePasswordProfileResponse> => {
-  const response = await ApiService.put(`/api/users/update-pass`, body, { params });
-  return response.data;
+  const response = await ApiService.put(`/password`, body, { params });
+  return response;
 };

@@ -10,19 +10,27 @@ import './ChangePassword.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { changePasswordProfileAction, EChangePasswordProfileAction } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
+import AuthHelpers from '@/services/helpers';
 
 const ChangePassword: React.FC<TChangePasswordProps> = () => {
   const [form] = Form.useForm();
   const [, setFormValues] = useState({});
   const { newPassword } = form.getFieldsValue();
   const dispatch = useDispatch();
+  const atk = AuthHelpers.getAccessToken();
   const loading = useSelector(
     (state: any) => state.loadingReducer[EChangePasswordProfileAction.CHANGE_PASSWORD_PROFILE],
   );
   const handleSubmit = (values: any): void => {
     const body = { ...values };
-
-    dispatch(changePasswordProfileAction.request({ body }, (response): void => handlerChangePasswordSuccess(response)));
+    const params = {
+      params: {
+        authorization: `Bearer ${atk}`,
+      },
+    };
+    dispatch(
+      changePasswordProfileAction.request({ body, params }, (response): void => handlerChangePasswordSuccess(response)),
+    );
   };
   const handlerChangePasswordSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {
@@ -37,23 +45,23 @@ const ChangePassword: React.FC<TChangePasswordProps> = () => {
       <Form form={form} onValuesChange={setFormValues} onFinish={handleSubmit}>
         <Row gutter={[32, 24]}>
           <Col lg={{ span: 12 }} xs={{ span: 24 }}>
-            <Form.Item name="password" rules={[validationRules.required()]}>
+            <Form.Item name="oldPassword" rules={[validationRules.minLength(8)]}>
               <Input type="password" placeholder="Mật khẩu hiện tại" />
             </Form.Item>
           </Col>
           <Col lg={{ span: 12 }} xs={{ span: 24 }}>
-            <Form.Item name="newPassword" rules={[validationRules.required()]}>
+            <Form.Item name="newPassword" rules={[validationRules.minLength(8)]}>
               <Input type="password" placeholder="Mật khẩu mới" />
             </Form.Item>
           </Col>
-          <Col span={24}>
+          {/* <Col span={24}>
             <Form.Item
               name="newPasswordConfirmation"
               rules={[validationRules.required(), validationRules.confirmPassword(newPassword)]}
             >
               <Input type="password" placeholder="Nhập lại mật khẩu mới" />
             </Form.Item>
-          </Col>
+          </Col> */}
           <Col span={24} />
           <Col span={24}>
             <div className="flex justify-end">

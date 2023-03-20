@@ -11,8 +11,8 @@ const HomeBanner: React.FC<THomeBannerProps> = () => {
   return (
     <div className="HomeBanner">
       <Carousels slidesToShow={1} slidesToScroll={1} infinite autoplay dots arrows>
-        {dataHomeBannerCarousel.map((item) => (
-          <div className="HomeBanner-item">
+        {dataHomeBannerCarousel.map((item, index) => (
+          <div className="HomeBanner-item" key={index}>
             <div className="HomeBanner-item-background">
               <img src={item.background} alt="" />
             </div>

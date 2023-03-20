@@ -37,8 +37,8 @@ const Footer: React.FC<TFooterProps> = () => {
             <Col span={24}>
               <div className="Footer-line" />
             </Col>
-            {dataFooterLinks.map((item) => (
-              <Col xs={{ span: 24 }} lg={{ span: 8 }}>
+            {dataFooterLinks.map((item, index) => (
+              <Col xs={{ span: 24 }} lg={{ span: 8 }} key={index}>
                 <Link
                   to={item.link}
                   className={classNames('Footer-description Footer-link', { active: item.link === pathname })}
@@ -52,8 +52,8 @@ const Footer: React.FC<TFooterProps> = () => {
             </Col>
             <Col span={24}>
               <div className="Footer-partner flex flex-wrap items-center justify-center">
-                {dataFooterPartnerLinks().map((item) => (
-                  <div className="Footer-partner-item" style={{ maxWidth: item.maxWidth }}>
+                {dataFooterPartnerLinks().map((item, index) => (
+                  <div className="Footer-partner-item" style={{ maxWidth: item.maxWidth }} key={index}>
                     <Link to={item.link}>
                       <img src={item.logo} alt="" />
                     </Link>

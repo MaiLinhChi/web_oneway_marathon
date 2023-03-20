@@ -69,11 +69,7 @@ const Profile: React.FC = () => {
         <div className="Profile-wrapper">
           <Row gutter={{ xs: 0, lg: 48 }}>
             <Col lg={{ span: 8 }} xs={{ span: 24 }}>
-              <ProfileCard
-                name={profileState?.user.name}
-                email={profileState?.user.email}
-                avatar={profileState?.user.avatar}
-              />
+              <ProfileCard name={profileState?.username} email={profileState?.email} avatar={profileState?.avatar} />
             </Col>
             <Col lg={{ span: 16 }} xs={{ span: 24 }}>
               <TabRectangle value={activeTab} onChange={setActiveTab} options={dataTabProfile} />

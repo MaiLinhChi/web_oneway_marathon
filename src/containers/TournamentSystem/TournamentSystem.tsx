@@ -24,8 +24,8 @@ const TournamentSystem: React.FC<TTournamentSystemProps> = () => {
 
       <div className="TournamentSystem-main">
         {!isMobile
-          ? dataTournamentSystem.map((item) => (
-              <div className="TournamentSystem-item flex items-center">
+          ? dataTournamentSystem.map((item, index) => (
+              <div className="TournamentSystem-item flex items-center" key={index}>
                 <div className="TournamentSystem-item-info">
                   <h4 className="TournamentSystem-item-title">{item.title}</h4>
                   <p className="TournamentSystem-item-description">{item.description}</p>
@@ -38,8 +38,8 @@ const TournamentSystem: React.FC<TTournamentSystemProps> = () => {
                 </div>
               </div>
             ))
-          : dataTournamentSystemMobile.map((item) => (
-              <div className="TournamentSystem-item flex items-center">
+          : dataTournamentSystemMobile.map((item, index) => (
+              <div className="TournamentSystem-item flex items-center" key={index}>
                 <div className="TournamentSystem-item-info">
                   <h4 className="TournamentSystem-item-title">{item.title}</h4>
                   <p className="TournamentSystem-item-description">{item.description}</p>

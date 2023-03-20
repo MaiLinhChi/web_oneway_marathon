@@ -15,6 +15,6 @@ export type TAuthSignUpResponse = unknown;
 // FUNCTION
 
 export const authSignUp = async ({ params, body }: TAuthSignUpMaterials): Promise<TAuthSignUpResponse> => {
-  const response = await ApiService.post(`/api/signup`, body, { params });
-  return response.data;
+  const response = await ApiService.post(`/users`, body, { params });
+  return response;
 };

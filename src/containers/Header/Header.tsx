@@ -12,13 +12,14 @@ import { useOnClickOutside } from 'usehooks-ts';
 import { dataHeaderNav } from './Header.data';
 import { THeaderProps } from './Header.types.d';
 import './Header.scss';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import { TRootState } from '@/redux/reducers';
 import Icon, { EIconName } from '@/components/Icon';
 import AuthHelpers from '@/services/helpers';
 import { authLogoutAction, getProfileAction } from '@/redux/actions';
 import { showNotification } from '@/utils/functions';
 import { ETypeNotification } from '@/common/enums';
+import { handleErrorImageUrl } from '@/utils/functions';
 
 const Header: React.FC<THeaderProps> = () => {
   const dispatch = useDispatch();
@@ -27,8 +28,9 @@ const Header: React.FC<THeaderProps> = () => {
   const ref = useRef(null);
   const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
   const atk = AuthHelpers.getAccessToken();
+  const store = useStore();
   const handleLogout = (): void => {
-    dispatch(authLogoutAction.request({}, handleAuthLogoutSuccess));
+    dispatch(authLogoutAction.success(handleAuthLogoutSuccess()));
   };
   const openMenuToggle = (): void => {
     setOpen(!open);
@@ -36,6 +38,12 @@ const Header: React.FC<THeaderProps> = () => {
   const closeMenu = (): void => {
     setOpen(false);
   };
+  // const handleAuthLogoutSuccess = (): void => {
+  //   AuthHelpers.clearTokens();
+  //   dispatch(getProfileAction.success(undefined));
+  //   showNotification(ETypeNotification.SUCCESS, 'Đăng xuất tài khoản thành công !');
+  //   navigate(Paths.Home);
+  // };
   const handleAuthLogoutSuccess = (): void => {
     AuthHelpers.clearTokens();
     dispatch(getProfileAction.success(undefined));
@@ -81,7 +89,12 @@ const Header: React.FC<THeaderProps> = () => {
     },
   ];
   const getProfile = useCallback(() => {
-    if (atk) dispatch(getProfileAction.request({}));
+    if (atk) {
+      const params = {
+        authorization: `Bearer ${atk}`,
+      };
+      dispatch(getProfileAction.request({ params }));
+    }
   }, [dispatch, atk]);
   const profileState = useSelector((state: TRootState) => state.profileReducer.getProfileResponse?.data);
   useEffect(() => {
@@ -97,8 +110,8 @@ const Header: React.FC<THeaderProps> = () => {
               <Icon name={EIconName.Close} />
             </div>
             <ul className="Header-nav-list flex">
-              {dataHeaderNav.map((item) => (
-                <li className="Header-nav-list-item">
+              {dataHeaderNav.map((item, index) => (
+                <li className="Header-nav-list-item" key={index}>
                   {item.hash && pathname === Paths.Home ? (
                     <a href={item.hash}>{item.title}</a>
                   ) : (
@@ -132,8 +145,8 @@ const Header: React.FC<THeaderProps> = () => {
             ) : (
               <nav className="Header-nav">
                 <ul className="Header-nav-list flex items-center">
-                  {dataHeaderNav.map((item) => (
-                    <li className="Header-nav-list-item">
+                  {dataHeaderNav.map((item, index) => (
+                    <li className="Header-nav-list-item" key={index}>
                       {item.hash && pathname === Paths.Home ? (
                         <a href={item.hash}>{item.title}</a>
                       ) : (
@@ -148,8 +161,8 @@ const Header: React.FC<THeaderProps> = () => {
             {!isMobile ? (
               <nav className="Header-nav">
                 <ul className="Header-nav-list flex items-center">
-                  {dataHeaderNav.map((item) => (
-                    <li className="Header-nav-list-item">
+                  {dataHeaderNav.map((item, index) => (
+                    <li className="Header-nav-list-item" key={index}>
                       {item.hash && pathname === Paths.Home ? (
                         <a href={item.hash}>{item.title}</a>
                       ) : (
@@ -191,7 +204,7 @@ const Header: React.FC<THeaderProps> = () => {
                   </div> */}
                   <div className="Header-account">
                     <DropdownMenu options={dataAccountMenu} minWidth="24rem" placement="bottomRight">
-                      <Avatar image={process.env.REACT_APP_SERVICE_BASE_URL + profileState?.user.avatar} size={40} />
+                      <Avatar image={process.env.REACT_APP_SERVICE_BASE_URL + profileState?.avatar} size={40} />
                     </DropdownMenu>
                   </div>
                 </>

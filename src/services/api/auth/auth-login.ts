@@ -11,16 +11,18 @@ export type TAuthLoginMaterials = {
   body?: TAuthLoginBody;
 };
 
-export type TAuthLoginResponse = TCommonResponse & {
-  status?: number;
-  data: {
-    token?: string;
-  };
-};
+// export type TAuthLoginResponse = TCommonResponse & {
+//   status?: number;
+//   data: {
+//     token?: string;
+//   };
+// };
+
+export type TAuthLoginResponse = TCommonResponse & any;
 
 // FUNCTION
 
 export const authLogin = async ({ params, body }: TAuthLoginMaterials): Promise<TAuthLoginResponse> => {
-  const response = await ApiService.post(`/api/login`, body, { params });
-  return response.data;
+  const response = await ApiService.post(`/authenticate`, body, { params });
+  return response;
 };
