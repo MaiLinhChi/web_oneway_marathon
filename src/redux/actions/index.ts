@@ -9,3 +9,4 @@ export * from './races';
 export * from './orders';
 export * from './promotion';
 export * from './payments';
+export * from './forgot-password';

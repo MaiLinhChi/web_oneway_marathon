@@ -8,7 +8,6 @@ import { LayoutPaths, Paths } from '@/pages/routers';
 import './Auth.scss';
 
 const Auth: React.FC<TAuthProps> = ({ children }) => {
-  console.log(children);
   return (
     <div className="Auth">
       <div className="Auth-header">
