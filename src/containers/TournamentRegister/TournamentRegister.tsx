@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Button from '@/components/Button';
 import { EIconColor } from '@/components/Icon';
@@ -6,7 +6,17 @@ import { EIconColor } from '@/components/Icon';
 import { TTournamentRegisterProps } from './TournamentRegister.types.d';
 import './TournamentRegister.scss';
 
-const TournamentRegister: React.FC<TTournamentRegisterProps> = ({ color, multiple }) => {
+const TournamentRegister: React.FC<TTournamentRegisterProps> = ({ color, multiple, data, registerGroup }) => {
+  const longest = (arr: any): [] => {
+    if (arr.length === 0) {
+      return [];
+    }
+    const newArr = arr.reduce(function (a: any, b: any) {
+      return a.price.length > b.price.length ? a : b;
+    });
+    return newArr.price;
+  };
+  console.log(registerGroup);
   return (
     <div className="TournamentRegister">
       <div className="container">
@@ -20,36 +30,16 @@ const TournamentRegister: React.FC<TTournamentRegisterProps> = ({ color, multipl
               <table>
                 <thead>
                   <tr>
-                    <th>
-                      <div className="TournamentRegister-table-description">Nhóm từ 10-29 người</div>
-                      <div className="TournamentRegister-table-title">
-                        giảm <span>5%</span>
-                      </div>
-                    </th>
-                    <th>
-                      <div className="TournamentRegister-table-description">Nhóm từ 30-49 người</div>
-                      <div className="TournamentRegister-table-title">
-                        giảm <span>8%</span>
-                      </div>
-                    </th>
-                    <th>
-                      <div className="TournamentRegister-table-description">Nhóm từ 50-99 người</div>
-                      <div className="TournamentRegister-table-title">
-                        giảm <span>10%</span>
-                      </div>
-                    </th>
-                    <th>
-                      <div className="TournamentRegister-table-description">Nhóm từ 100-199 người</div>
-                      <div className="TournamentRegister-table-title">
-                        giảm <span>20%</span>
-                      </div>
-                    </th>
-                    <th>
-                      <div className="TournamentRegister-table-description">Nhóm từ 200 người</div>
-                      <div className="TournamentRegister-table-title">
-                        giảm <span>25%</span>
-                      </div>
-                    </th>
+                    {registerGroup.map((item: any, index: any) => (
+                      <th key={index}>
+                        <div className="TournamentRegister-table-description">
+                          Nhóm từ {item.numberPerson.from}-{item.numberPerson.to} người
+                        </div>
+                        <div className="TournamentRegister-table-title">
+                          giảm <span>{item.percent}%</span>
+                        </div>
+                      </th>
+                    ))}
                   </tr>
                 </thead>
               </table>
@@ -60,32 +50,21 @@ const TournamentRegister: React.FC<TTournamentRegisterProps> = ({ color, multipl
                 <thead>
                   <tr>
                     <th />
-                    <th>
-                      <div className="TournamentRegister-table-title">Super Early Bird</div>
-                      <div className="TournamentRegister-table-description">Áp dụng trước ngày 10/2/2023</div>
-                    </th>
-                    <th>
-                      <div className="TournamentRegister-table-title">Early Bird</div>
-                      <div className="TournamentRegister-table-description">Áp dụng trước ngày 10/2/2023</div>
-                    </th>
-                    <th>
-                      <div className="TournamentRegister-table-title">Regular</div>
-                      <div className="TournamentRegister-table-description">Áp dụng trước ngày 10/2/2023</div>
-                    </th>
-                    <th>
-                      <div className="TournamentRegister-table-title">Late (Front Door)</div>
-                      <div className="TournamentRegister-table-description">Áp dụng trước ngày 10/2/2023</div>
-                    </th>
+                    {longest(data).map((item: any, index) => (
+                      <th key={index}>
+                        <div className="TournamentRegister-table-title">{item.name}</div>
+                        <div className="TournamentRegister-table-description">Áp dụng trước ngày {item.startSell}</div>
+                      </th>
+                    ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {['42', '21', '10', '5'].map((item) => (
-                    <tr>
-                      <td>{item} KM</td>
-                      <td>250.000 VND</td>
-                      <td>250.000 VND</td>
-                      <td>250.000 VND</td>
-                      <td>250.000 VND</td>
+                  {data.map((item: any, index: any) => (
+                    <tr key={index}>
+                      <td>{item.distance} KM</td>
+                      {item.price?.map((price: any, key: any) => (
+                        <td key={key}>{price.individual} VND</td>
+                      ))}
                     </tr>
                   ))}
                 </tbody>

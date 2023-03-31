@@ -2,6 +2,7 @@ import { EIconColor } from '@/components/Icon';
 
 export type TTournamentMapProps = {
   title?: string;
+  data?: any;
   stepKilometer?: Array<TStepKilometerTournamentMap>;
   color?: EIconColor;
 };
@@ -9,7 +10,7 @@ export type TTournamentMapProps = {
 export type TStepKilometerTournamentMap = {
   id?: any;
   name: string;
-  description: string;
+  routeMap: string;
   distance?: number;
-  road_map_image?: string;
+  image?: string;
 };

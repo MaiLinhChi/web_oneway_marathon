@@ -1,16 +1,61 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import Button from '@/components/Button';
 
 import { TTournamentSystemProps } from './TournamentSystem.types.d';
-import { dataTournamentSystem, dataTournamentSystemMobile } from './TournamentSystem.data';
 import './TournamentSystem.scss';
 import { useSelector } from 'react-redux';
 import { TRootState } from '@/redux/reducers';
 import { Paths } from '@/pages/routers';
+import { getMarathons } from '@/services/api';
+import { Link } from '@reach/router';
 
 const TournamentSystem: React.FC<TTournamentSystemProps> = () => {
+  const [data, setData] = useState([]);
+  const initLimit = 3;
+  const [limit, setLimit] = useState(initLimit);
+  const [totalRecord, setTotalRecord] = useState(0);
   const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
+  const getData = useCallback(async () => {
+    const requests = {
+      params: {
+        limit,
+        status: 'active',
+      },
+    };
+    const res = await getMarathons({ requests });
+    setData(res.data);
+    setTotalRecord(res.totalRecord);
+  }, [limit]);
+  useEffect(() => {
+    getData();
+  }, [limit, getData]);
+  const getShowMarathonBtn = (): any => {
+    let btn;
+    if (totalRecord > limit && limit > initLimit) {
+      btn = (
+        <div className="TournamentSystem-btn">
+          <Button type="primary" onClick={(): void => setLimit(limit + 1)} title="Show more" />
+          <Button type="primary" onClick={(): void => setLimit(limit - 1)} title="Show less" />
+        </div>
+      );
+    } else if (totalRecord > limit) {
+      btn = (
+        <div className="TournamentSystem-btn">
+          <Button type="primary" onClick={(): void => setLimit(limit + 1)} title="Show more" />;
+        </div>
+      );
+    } else if ((data.length && totalRecord < limit) || limit > initLimit) {
+      btn = (
+        <div className="TournamentSystem-btn">
+          <Button type="primary" onClick={(): void => setLimit(limit - 1)} title="Show less" />;
+        </div>
+      );
+    } else {
+      btn = null;
+    }
+    return btn;
+  };
   return (
     <section className="TournamentSystem" id="hethonggiaidau">
       <div className="container">
@@ -23,36 +68,24 @@ const TournamentSystem: React.FC<TTournamentSystemProps> = () => {
       </div>
 
       <div className="TournamentSystem-main">
-        {!isMobile
-          ? dataTournamentSystem.map((item, index) => (
-              <div className="TournamentSystem-item flex items-center" key={index}>
-                <div className="TournamentSystem-item-info">
-                  <h4 className="TournamentSystem-item-title">{item.title}</h4>
-                  <p className="TournamentSystem-item-description">{item.description}</p>
-                  <div className="TournamentSystem-item-btn">
-                    <Button type="primary" title="Xem chi tiết" link={Paths.TournamentDetail('cat-ba')} />
-                  </div>
-                </div>
-                <div className="TournamentSystem-item-image">
-                  <img src={item.image} alt="" />
-                </div>
+        {data.map((item: any, index) => (
+          <div className="TournamentSystem-item flex items-center" key={index}>
+            <div className="TournamentSystem-item-info">
+              <h4 className="TournamentSystem-item-title">{item.name}</h4>
+              <p className="TournamentSystem-item-description">{item.description}</p>
+              <div className="TournamentSystem-item-btn">
+                <Link to={Paths.MarathonsDetail} state={item} style={{ color: 'white' }}>
+                  <Button type="primary" title="Xem chi tiết" />
+                </Link>
               </div>
-            ))
-          : dataTournamentSystemMobile.map((item, index) => (
-              <div className="TournamentSystem-item flex items-center" key={index}>
-                <div className="TournamentSystem-item-info">
-                  <h4 className="TournamentSystem-item-title">{item.title}</h4>
-                  <p className="TournamentSystem-item-description">{item.description}</p>
-                  <div className="TournamentSystem-item-btn">
-                    <Button type="primary" title="Xem chi tiết" link={Paths.TournamentDetail('cat-ba')} />
-                  </div>
-                </div>
-                <div className="TournamentSystem-item-image">
-                  <img src={item.image} alt="" />
-                </div>
-              </div>
-            ))}
+            </div>
+            <div className="TournamentSystem-item-image">
+              <img src={item.image} alt="" />
+            </div>
+          </div>
+        ))}
       </div>
+      {getShowMarathonBtn()}
     </section>
   );
 };

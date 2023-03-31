@@ -5,7 +5,8 @@ import { TTournamentRacekitProps } from './TournamentRacekit.types.d';
 import { dataTournamentRacekit } from './TournamentRacekit.data';
 import './TournamentRacekit.scss';
 
-const TournamentRacekit: React.FC<TTournamentRacekitProps> = ({ color, colors = [] }) => {
+const TournamentRacekit: React.FC<TTournamentRacekitProps> = ({ color, colors = [], data }) => {
+  console.log(colors);
   return (
     <div className="TournamentRacekit">
       <div className="container">
@@ -14,11 +15,10 @@ const TournamentRacekit: React.FC<TTournamentRacekitProps> = ({ color, colors = 
             Race
             <span style={{ color }}>KIT</span>
           </h2>
-
           <div className="TournamentRacekit-main">
             <Row>
-              {dataTournamentRacekit.map((item, index) => (
-                <Col xs={{ span: 12 }} lg={{ span: 6 }}>
+              {data.map((item: any, index: any) => (
+                <Col xs={{ span: 12 }} lg={{ span: 6 }} key={index}>
                   <div className="TournamentRacekit-main-image" style={{ background: colors[index] }}>
                     <img src={item.image} alt="" />
                   </div>
