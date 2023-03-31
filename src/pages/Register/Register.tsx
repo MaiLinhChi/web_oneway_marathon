@@ -63,8 +63,8 @@ const Register: React.FC = () => {
                   <Form.Item name="mobile" rules={[validationRules.minLength(10)]}>
                     <Input placeholder="Số điện thoại cá nhân" required={true} />
                   </Form.Item>
-                  <Form.Item name="avatar" rules={[validationRules.required()]}>
-                    <Input placeholder="Hình ảnh cá nhân" required={true} />
+                  <Form.Item name="avatar">
+                    <Input placeholder="Hình ảnh cá nhân" />
                   </Form.Item>
                 </div>
                 <div className="Auth-form-group">
