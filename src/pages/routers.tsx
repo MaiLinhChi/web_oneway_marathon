@@ -22,7 +22,7 @@ const retryLoadComponent = (fn: () => Promise<unknown>, retriesLeft = 5, interva
 
 const Home = lazy(() => retryLoadComponent(() => import('@/pages/Home')));
 const OneWayMarathonCatBa = lazy(() => retryLoadComponent(() => import('@/pages/OneWayMarathonCatBa')));
-const OneWayMarathonVungTau = lazy(() => retryLoadComponent(() => import('@/pages/OneWayMarathonVungTau')));
+const OneWayMarathonDetail = lazy(() => retryLoadComponent(() => import('@/pages/OneWayMarathonDetail')));
 
 const Login = lazy(() => retryLoadComponent(() => import('@/pages/Login')));
 const ForgotPassword = lazy(() => retryLoadComponent(() => import('@/pages/ForgotPassword')));
@@ -82,6 +82,7 @@ export const Paths = {
   Profile: '/profile',
   ProfileEdit: '/profile/edit',
   TournamentDetail: (id?: string): string => `/${id || ':id'}`,
+  MarathonsDetail: '/marathons/detail',
   TournamentRegister: `/tournaments/register`,
   TournamentPayment: (id?: string): string => `/tournaments/payment/${id || ':id'}`,
   RollBib: '/bib',
@@ -104,7 +105,7 @@ export const Paths = {
 export const Pages = {
   Home,
   OneWayMarathonCatBa,
-  OneWayMarathonVungTau,
+  OneWayMarathonDetail,
 
   Login,
   ForgotPassword,

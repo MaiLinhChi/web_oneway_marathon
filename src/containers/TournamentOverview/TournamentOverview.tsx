@@ -21,13 +21,12 @@ const TournamentOverview: React.FC<TTournamentOverviewProps> = ({
   date,
 }) => {
   const [isExpired, setIsExpired] = useState<boolean>();
-
   return (
     <div className="TournamentOverview">
       <nav className="TournamentOverview-nav" style={{ background: color }}>
         <ul className="TournamentOverview-nav-list flex items-center justify-center">
-          {dataNav.map((item) => (
-            <li className="TournamentOverview-nav-list-item">
+          {dataNav.map((item, index) => (
+            <li className="TournamentOverview-nav-list-item" key={index}>
               <a href={item.link}>{item.title}</a>
             </li>
           ))}
@@ -50,10 +49,9 @@ const TournamentOverview: React.FC<TTournamentOverviewProps> = ({
               <strong>Đã kết thúc</strong>
             </div>
           )}
-
           {!isExpired && (
             <Countdown
-              dateFrom={date}
+              dateTo={date}
               onFinish={(isEnd): void => setIsExpired(isEnd)}
               render={({ years, months, days, hours, minutes, seconds }): React.ReactNode => {
                 const arrMap = [
@@ -65,14 +63,14 @@ const TournamentOverview: React.FC<TTournamentOverviewProps> = ({
                 ];
                 return (
                   <div className="TournamentOverview-banner-countdown flex items-center">
-                    {arrMap.map((item) => {
+                    {arrMap.map((item, index) => {
                       const isHide = item.hideInZero && item.value === 0;
                       const showValue = item.value < 10 ? `0${item.value}` : item.value;
 
                       return isHide ? (
                         <></>
                       ) : (
-                        <div>
+                        <div key={index}>
                           <strong>
                             <span style={{ color }}>{showValue}</span>
                           </strong>
@@ -102,9 +100,9 @@ const TournamentOverview: React.FC<TTournamentOverviewProps> = ({
         </div>
       </div>
       <div className="TournamentOverview-step-kilometer flex items-center justify-center">
-        {stepKilometer.map((item) => (
-          <div key={item.value} className="TournamentOverview-step-kilometer-item">
-            {item.label}
+        {stepKilometer.map((item: any, index) => (
+          <div key={index} className="TournamentOverview-step-kilometer-item">
+            {item.distance}
             <span>km</span>
           </div>
         ))}

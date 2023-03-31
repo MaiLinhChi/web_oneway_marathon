@@ -3,7 +3,7 @@ import React from 'react';
 import { TTournamentEventProps } from './TournamentEvent.types.d';
 import './TournamentEvent.scss';
 
-const TournamentEvent: React.FC<TTournamentEventProps> = ({ color }) => {
+const TournamentEvent: React.FC<TTournamentEventProps> = ({ color, data }) => {
   const dataTimeline = [
     {
       value: '08:00 - 10:00',
@@ -73,23 +73,21 @@ const TournamentEvent: React.FC<TTournamentEventProps> = ({ color }) => {
           </h2>
 
           <div className="TournamentEvent-main">
-            {[1, 2].map((item) => (
-              <div key={item} className="TournamentEvent-main-item flex">
+            {data.map((item: any, index: any) => (
+              <div key={index} className="TournamentEvent-main-item flex">
                 <div className="TournamentEvent-main-item-day">
-                  <div className="TournamentEvent-main-item-day-title">Ngày {item}</div>
-                  <div className="TournamentEvent-main-item-day-description">
-                    Quảng trường trung tâm Cát Bà, đường Một tháng tư, đảo Cát Bà, huyện Cát Hải, thành phố Hải Phòng
-                  </div>
+                  <div className="TournamentEvent-main-item-day-title">{item.title}</div>
+                  <div className="TournamentEvent-main-item-day-description">{item.description}</div>
                 </div>
                 <div className="TournamentEvent-main-item-timeline">
-                  {dataTimeline.map((timeline) => (
-                    <div className="TournamentEvent-main-item-timeline-item flex">
-                      <div className="TournamentEvent-main-item-timeline-item-title">{timeline.value}</div>
+                  {item.detail.map((detail: any, key: any) => (
+                    <div className="TournamentEvent-main-item-timeline-item flex" key={key}>
+                      <div className="TournamentEvent-main-item-timeline-item-title">{detail.time}</div>
                       <div className="TournamentEvent-main-item-timeline-item-circle-wrapper">
                         <div className="TournamentEvent-main-item-timeline-item-circle" />
                         <div className="TournamentEvent-main-item-timeline-item-line" />
                       </div>
-                      <div className="TournamentEvent-main-item-timeline-item-description">{timeline.label}</div>
+                      <div className="TournamentEvent-main-item-timeline-item-description">{detail.description}</div>
                     </div>
                   ))}
                 </div>
