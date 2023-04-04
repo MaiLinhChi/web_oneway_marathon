@@ -6,7 +6,6 @@ import { dataTournamentRacekit } from './TournamentRacekit.data';
 import './TournamentRacekit.scss';
 
 const TournamentRacekit: React.FC<TTournamentRacekitProps> = ({ color, colors = [], data }) => {
-  console.log(colors);
   return (
     <div className="TournamentRacekit">
       <div className="container">
