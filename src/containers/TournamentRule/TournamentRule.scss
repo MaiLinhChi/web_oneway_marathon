@@ -27,8 +27,11 @@
   }
 
   &-main {
-    padding: 4.8rem;
+    padding: 4.8rem 4.8rem 1px 4.8rem;
     background: $aqua-haze;
+    &:last-child {
+      padding-bottom: 4.8rem;
+    }
     @media (max-width:767px) {
       padding: 1.8rem;
     }
@@ -63,7 +66,6 @@
     }
 
     h4,
-    p,
     ul,
     ol {
       margin-bottom: 2rem;

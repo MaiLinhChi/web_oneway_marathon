@@ -16,7 +16,6 @@ const TournamentRegister: React.FC<TTournamentRegisterProps> = ({ color, multipl
     });
     return newArr.price;
   };
-  console.log(registerGroup);
   return (
     <div className="TournamentRegister">
       <div className="container">

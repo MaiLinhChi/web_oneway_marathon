@@ -112,8 +112,10 @@
       }
 
       &-list {
-        list-style-type: decimal;
         padding-left: 2rem;
+        ol, ul {
+          list-style: decimal !important;
+        }
 
         li {
           font-size: 1.4rem;
