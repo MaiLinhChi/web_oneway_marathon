@@ -19,6 +19,7 @@ const TournamentOverview: React.FC<TTournamentOverviewProps> = ({
   locationTournament,
   typeTournament,
   date,
+  id,
 }) => {
   const [isExpired, setIsExpired] = useState<boolean>();
   return (
@@ -33,7 +34,7 @@ const TournamentOverview: React.FC<TTournamentOverviewProps> = ({
         </ul>
       </nav>
 
-      <div className="TournamentOverview-banner">
+      <div className="TournamentOverview-banner" id={id}>
         <div className="TournamentOverview-banner-background">
           <img src={background} alt="" />
         </div>
