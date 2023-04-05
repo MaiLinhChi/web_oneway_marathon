@@ -14,7 +14,7 @@ const TournamentMap: React.FC<TTournamentMapProps> = ({ data, stepKilometer = []
             Cung đường <span style={{ color }}>{data.name}</span>
           </h2>
           <div className="TournamentMap-tab flex items-center">
-            {data.race.map((item: any) => (
+            {data.race?.map((item: any) => (
               <div
                 key={item._id}
                 className={classNames('TournamentMap-tab-item', { active: item.distance === activeTab?.distance })}

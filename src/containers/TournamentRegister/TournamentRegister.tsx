@@ -8,7 +8,7 @@ import './TournamentRegister.scss';
 
 const TournamentRegister: React.FC<TTournamentRegisterProps> = ({ color, multiple, data, registerGroup }) => {
   const longest = (arr: any): [] => {
-    if (arr.length === 0) {
+    if (arr?.length === 0) {
       return [];
     }
     const newArr = arr.reduce(function (a: any, b: any) {
@@ -49,7 +49,7 @@ const TournamentRegister: React.FC<TTournamentRegisterProps> = ({ color, multipl
                 <thead>
                   <tr>
                     <th />
-                    {longest(data).map((item: any, index) => (
+                    {longest(data)?.map((item: any, index) => (
                       <th key={index}>
                         <div className="TournamentRegister-table-title">{item.name}</div>
                         <div className="TournamentRegister-table-description">Áp dụng trước ngày {item.startSell}</div>
@@ -58,10 +58,10 @@ const TournamentRegister: React.FC<TTournamentRegisterProps> = ({ color, multipl
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map((item: any, index: any) => (
+                  {data?.map((item: any, index: any) => (
                     <tr key={index}>
                       <td>{item.distance} KM</td>
-                      {item.price?.map((price: any, key: any) => (
+                      {item?.price?.map((price: any, key: any) => (
                         <td key={key}>{price.individual} VND</td>
                       ))}
                     </tr>
