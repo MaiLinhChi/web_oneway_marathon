@@ -5,4 +5,5 @@ export type TTournamentRewardProps = {
   color?: EIconColor;
   loading?: boolean;
   award?: Array<any>;
+  id?: string;
 };

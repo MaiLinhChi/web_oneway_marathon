@@ -5,8 +5,9 @@ import { EIconColor } from '@/components/Icon';
 
 import { TTournamentRegisterProps } from './TournamentRegister.types.d';
 import './TournamentRegister.scss';
+import { Paths } from '@/pages/routers';
 
-const TournamentRegister: React.FC<TTournamentRegisterProps> = ({ color, multiple, data, registerGroup }) => {
+const TournamentRegister: React.FC<TTournamentRegisterProps> = ({ color, multiple, data, registerGroup, id }) => {
   const longest = (arr: any): [] => {
     if (arr?.length === 0) {
       return [];
@@ -17,7 +18,7 @@ const TournamentRegister: React.FC<TTournamentRegisterProps> = ({ color, multipl
     return newArr.price;
   };
   return (
-    <div className="TournamentRegister">
+    <div className="TournamentRegister" id={id}>
       <div className="container">
         <div className="TournamentRegister-wrapper">
           <h2 className="TournamentRegister-title">
@@ -49,7 +50,7 @@ const TournamentRegister: React.FC<TTournamentRegisterProps> = ({ color, multipl
                 <thead>
                   <tr>
                     <th />
-                    {longest(data)?.map((item: any, index) => (
+                    {longest(data.race)?.map((item: any, index) => (
                       <th key={index}>
                         <div className="TournamentRegister-table-title">{item.name}</div>
                         <div className="TournamentRegister-table-description">Áp dụng trước ngày {item.startSell}</div>
@@ -58,9 +59,9 @@ const TournamentRegister: React.FC<TTournamentRegisterProps> = ({ color, multipl
                   </tr>
                 </thead>
                 <tbody>
-                  {data?.map((item: any, index: any) => (
+                  {data.race?.map((item: any, index: any) => (
                     <tr key={index}>
-                      <td>{item.distance} KM</td>
+                      <td>{item.distance} M</td>
                       {item?.price?.map((price: any, key: any) => (
                         <td key={key}>{price.individual} VND</td>
                       ))}
@@ -78,6 +79,7 @@ const TournamentRegister: React.FC<TTournamentRegisterProps> = ({ color, multipl
               titleColor={EIconColor.WHITE}
               borderColor={color}
               backgroundColor={color}
+              link={Paths.TournamentRegister(data._id)}
             />
           </div>
         </div>

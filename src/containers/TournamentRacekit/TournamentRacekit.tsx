@@ -5,9 +5,9 @@ import { TTournamentRacekitProps } from './TournamentRacekit.types.d';
 import { dataTournamentRacekit } from './TournamentRacekit.data';
 import './TournamentRacekit.scss';
 
-const TournamentRacekit: React.FC<TTournamentRacekitProps> = ({ color, colors = [], data }) => {
+const TournamentRacekit: React.FC<TTournamentRacekitProps> = ({ color, colors = [], data, id }) => {
   return (
-    <div className="TournamentRacekit">
+    <div className="TournamentRacekit" id={id}>
       <div className="container">
         <div className="TournamentRacekit-wrapper">
           <h2 className="TournamentRacekit-title">

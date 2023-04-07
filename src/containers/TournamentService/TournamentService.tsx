@@ -7,9 +7,9 @@ import { EIconColor } from '@/components/Icon';
 import { TTournamentServiceProps } from './TournamentService.types.d';
 import './TournamentService.scss';
 
-const TournamentService: React.FC<TTournamentServiceProps> = ({ color, buttonProps, data }) => {
+const TournamentService: React.FC<TTournamentServiceProps> = ({ color, buttonProps, data, id }) => {
   return (
-    <div className="TournamentService">
+    <div className="TournamentService" id={id}>
       <div className="container">
         <div className="TournamentService-wrapper">
           <h2 className="TournamentService-title">

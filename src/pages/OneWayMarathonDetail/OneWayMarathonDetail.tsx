@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, navigate, useLocation } from '@reach/router';
 
 import ImageHomeBanner1 from '@/assets/images/image-home-banner-1.png';
-import ImageTournamentMap2 from '@/assets/images/image-tournament-map-2.png';
 import { EIconColor } from '@/components/Icon';
 import TournamentOverview from '@/containers/TournamentOverview';
 import TournamentMap from '@/containers/TournamentMap';
@@ -30,17 +29,17 @@ const OneWayMarathonDetail: any = ({ location }: any) => {
         background={ImageHomeBanner1}
         color={EIconColor.PERSIAN_GREEN}
         dataNav={[
-          { title: 'Giới thiệu', link: '#gioithieu' },
-          { title: 'Đăng ký', link: '#' },
-          { title: 'Cung đường', link: '#' },
-          { title: 'Giải thưởng', link: '#' },
-          { title: 'RACEKIT', link: '#' },
-          { title: 'Dịch vụ liên quan', link: '#' },
-          { title: 'Đối tác', link: '#' },
-          { title: 'Lịch trình sự kiện', link: '#' },
-          { title: 'Quy định và thể lệ ', link: '#' },
+          { title: 'Giới thiệu', link: '#introduction' },
+          { title: 'Đăng ký', link: '#register' },
+          { title: 'Cung đường', link: '#map' },
+          { title: 'Giải thưởng', link: '#reward' },
+          { title: 'RACEKIT', link: '#racekit' },
+          { title: 'Dịch vụ liên quan', link: '#service' },
+          { title: 'Đối tác', link: '#partner' },
+          { title: 'Lịch trình sự kiện', link: '#schedule' },
+          { title: 'Quy định và thể lệ ', link: '#regulation' },
         ]}
-        id={{ title: 'Giới thiệu', link: '#gioithieu' }}
+        id="gioithieu"
         stepKilometer={data?.race}
         description={data?.description}
         dateTournament={data?.startTime}
@@ -49,18 +48,13 @@ const OneWayMarathonDetail: any = ({ location }: any) => {
       />
 
       <div className="OneWayMarathonVungTau-wrapper">
-        <TournamentRegister color={EIconColor.PERSIAN_GREEN} data={data?.race} />
+        <TournamentRegister color={EIconColor.PERSIAN_GREEN} data={data} id="register" />
 
-        <TournamentRegister
-          color={EIconColor.PERSIAN_GREEN}
-          multiple
-          data={data?.race}
-          registerGroup={data?.registerGroup}
-        />
+        <TournamentRegister color={EIconColor.PERSIAN_GREEN} multiple data={data} registerGroup={data?.registerGroup} />
 
-        <TournamentMap color={EIconColor.PERSIAN_GREEN} data={data} stepKilometer={[]} />
+        <TournamentMap color={EIconColor.PERSIAN_GREEN} data={data} stepKilometer={[]} id="map" />
 
-        <TournamentReward color={EIconColor.PERSIAN_GREEN} title="OneWay Vũng Tàu" />
+        <TournamentReward color={EIconColor.PERSIAN_GREEN} title="OneWay Vũng Tàu" id="reward" />
 
         <TournamentRacekit
           color={EIconColor.PERSIAN_GREEN}
@@ -71,15 +65,21 @@ const OneWayMarathonDetail: any = ({ location }: any) => {
             'linear-gradient(to right, #00AF89, #00AF89)',
           ]}
           data={data?.raceKit}
+          id="racekit"
         />
 
-        <TournamentService color={EIconColor.PERSIAN_GREEN} buttonProps={{ title: 'Đặt combo' }} data={data?.service} />
+        <TournamentService
+          color={EIconColor.PERSIAN_GREEN}
+          buttonProps={{ title: 'Đặt combo' }}
+          data={data?.service}
+          id="service"
+        />
 
-        <TournamentPartner title="OneWay Vũng Tàu" color={EIconColor.PERSIAN_GREEN} />
+        <TournamentPartner title="OneWay Vũng Tàu" color={EIconColor.PERSIAN_GREEN} id="partner" />
 
-        <TournamentEvent color={EIconColor.PERSIAN_GREEN} data={data?.schedule} />
+        <TournamentEvent color={EIconColor.PERSIAN_GREEN} data={data?.schedule} id="schedule" />
 
-        <TournamentRule color={EIconColor.PERSIAN_GREEN} data={data?.regulation} />
+        <TournamentRule color={EIconColor.PERSIAN_GREEN} data={data?.regulation} id="regulation" />
       </div>
     </div>
   );

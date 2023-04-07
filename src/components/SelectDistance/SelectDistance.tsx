@@ -8,24 +8,23 @@ import './SelectDistance.scss';
 const SelectDistance: React.FC<TSelectDistanceProps> = ({ value, onChange, data = [] }) => {
   useEffect(() => {
     if (!value) {
-      onChange?.(data?.[0]);
+      onChange?.({ price: data?.[0]?.price, distance: data?.[0]?.distance });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, value]);
-
   return (
     <div className="SelectDistance">
       <Row gutter={[2, 2]}>
-        {data.map((item) => (
-          <Col key={item.value} span={12} sm={8} lg={24 / data.length}>
+        {data.map((item, index) => (
+          <Col key={index} span={12} sm={8} lg={24 / data.length}>
             <div
-              className={classNames('SelectDistance-item', { active: value?.value === item.value })}
-              onClick={(): void => onChange?.(item)}
+              className={classNames('SelectDistance-item', { active: value?.distance === item.distance })}
+              onClick={(): void => onChange?.({ price: item.individual, distance: item.distance })}
             >
               <div className="SelectDistance-item-distance">
-                {item.label} <span>{item.suffix}</span>
+                {item.distance} <span>M</span>
               </div>
-              <div className="SelectDistance-item-description">{item.description}</div>
+              <div className="SelectDistance-item-description">{item.individual} VND</div>
             </div>
           </Col>
         ))}

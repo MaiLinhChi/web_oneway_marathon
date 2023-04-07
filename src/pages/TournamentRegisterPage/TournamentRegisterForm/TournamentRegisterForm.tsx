@@ -27,7 +27,7 @@ import { TRootState } from '@/redux/reducers';
 import { navigate } from '@reach/router';
 import { Paths } from '@/pages/routers';
 
-const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGroup }) => {
+const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGroup, data }) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const [billRequest, setBillRequest] = useState(false);
@@ -35,38 +35,8 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   const registerRunnerLoading = useSelector(
     (state: any) => state.loadingReducer[ERunnerRegisterGroupAction.RUNNER_REISTER_GROUP],
   );
-  const addressCountriesState = useSelector((state: TRootState) => state.addressReducer.countries);
-  const addressCityState = useSelector((state: TRootState) => state.addressReducer.cities);
-  const addressDistrictState = useSelector((state: TRootState) => state.addressReducer.districts);
-  const addressWardState = useSelector((state: TRootState) => state.addressReducer.wards);
   const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.registerGroupResponse);
-  const getAddress = useCallback(() => {
-    dispatch(addressAction.request({}));
-  }, [dispatch]);
-  useEffect(() => {
-    getAddress();
-  }, [dispatch, getAddress]);
-  const handleChangeCountries = (values: any): void => {
-    const body = {
-      country_id: values,
-    };
-    form.setFieldsValue({ city: null, district: null, ward: null });
-    dispatch(cityAction.request({ body }, (response): void => {}));
-  };
-  const handleChangeDistrict = (values: any): void => {
-    const body = {
-      city_id: values,
-    };
-    form.setFieldsValue({ district: null, ward: null });
-    dispatch(districtAction.request({ body }, (response): void => {}));
-  };
-  const handleChangeWard = (values: any): void => {
-    const body = {
-      district_id: values,
-    };
-    form.setFieldsValue({ ward: null });
-    dispatch(wardAction.request({ body }, (response): void => {}));
-  };
+
   const formatDate = (date: any): string => {
     const d = new Date(date);
     let month = '' + (d.getMonth() + 1),
@@ -76,6 +46,15 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
     if (month.length < 2) month = '0' + month;
     if (day.length < 2) day = '0' + day;
     return [year, month, day].join('-');
+  };
+  const getPrice = (value: any): any => {
+    const today = new Date();
+    const a = value?.map((item: any) => {
+      return item?.price?.find((price: any) => new Date(price.startSell).getTime() >= today.getTime());
+    });
+    return a?.map((item: any, index: any) => {
+      return { ...item, distance: value[index].distance };
+    });
   };
   const handleSubmit = (values: any): void => {
     let body = null;
@@ -97,15 +76,10 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
     } else {
       body = {
         ...values,
+        ...values.distance,
         birthday: formatDate(values?.birthday),
-        city: values?.city?.value,
-        district: values?.district?.value,
+        marathon: data.name,
         gender: values?.gender?.value,
-        country: values?.country?.value,
-        ticketId: values?.ticketId?.value,
-        ward: values?.ward?.value,
-        nationality: values?.country?.value,
-        checkVat: values?.checkVat ? true : false,
       };
       dispatch(registerTicketAction.request({ body }, (response): void => handleRegitserSuccess(response)));
     }
@@ -121,7 +95,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   const handleRegitserSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {
       showNotification(ETypeNotification.SUCCESS, 'Đăng ký vé thành công !');
-      navigate(Paths.TournamentPayment(response.data.order.code));
+      // navigate(Paths.TournamentPayment(response.data.order.code));
     } else {
       showNotification(ETypeNotification.ERROR, response.message);
     }
@@ -135,18 +109,11 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
         <div className="TournamentRegisterPage-card">
           <div className="TournamentRegisterPage-card-title">Chọn cự ly</div>
           <div className="TournamentRegisterPage-card-description">
-            Loại vé hiện tại là <strong>Regular</strong> <a href="#">Xem bảng giá</a>{' '}
+            Loại vé hiện tại là <strong>{getPrice(data.race)?.[0]?.name}</strong> <a href="#">Xem bảng giá</a>{' '}
           </div>
 
-          <Form.Item name="ticketId" rules={[validationRules.required()]}>
-            <SelectDistance
-              data={[
-                { value: '1', label: '5', description: '420.000 VND', suffix: 'KM' },
-                { value: '2', label: '10', description: '420.000 VND', suffix: 'KM' },
-                { value: '3', label: '21', description: '420.000 VND', suffix: 'KM' },
-                { value: '4', label: '42', description: '420.000 VND', suffix: 'KM' },
-              ]}
-            />
+          <Form.Item name="distance" rules={[validationRules.required()]}>
+            <SelectDistance data={getPrice(data.race)} />
           </Form.Item>
           <div className="TournamentRegisterPage-card-title flex items-center justify-between">
             Nhập thông tin vận động viên
@@ -155,32 +122,32 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
 
           <Row gutter={[24, 24]}>
             <Col span={24} lg={12}>
-              <Form.Item name="email" label="Email">
+              <Form.Item name="email" label="Email" rules={[validationRules.email(), validationRules.required()]}>
                 <Input placeholder="Email" />
               </Form.Item>
             </Col>
             <Col span={24} lg={12}>
-              <Form.Item name="fullName" label="Họ và tên">
+              <Form.Item name="fullName" label="Họ và tên" rules={[validationRules.required()]}>
                 <Input placeholder="Họ và tên" />
               </Form.Item>
             </Col>
             <Col span={24} lg={12}>
-              <Form.Item name="birthday" label="Ngày sinh">
+              <Form.Item name="birthday" label="Ngày sinh" rules={[validationRules.required()]}>
                 <DatePicker placeholder="Ngày sinh" />
               </Form.Item>
             </Col>
             <Col span={24} lg={12}>
-              <Form.Item name="gender" label="Giới tính">
+              <Form.Item name="gender" label="Giới tính" rules={[validationRules.required()]}>
                 <Select
                   placeholder="Giới tính"
                   options={[
-                    { label: 'Nam', value: '0' },
-                    { label: 'Nữ', value: '1' },
+                    { label: 'Nam', value: 'male' },
+                    { label: 'Nữ', value: 'female' },
                   ]}
                 />
               </Form.Item>
             </Col>
-            <Col span={24} lg={12}>
+            {/* <Col span={24} lg={12}>
               <Form.Item name="country" label="Quốc tịch">
                 <Select
                   placeholder="Quốc tịch"
@@ -188,20 +155,25 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                   onChange={(option): void => handleChangeCountries(option?.value)}
                 />
               </Form.Item>
+            </Col> */}
+            <Col span={24} lg={12}>
+              <Form.Item name="nationality" label="Quốc tịch" rules={[validationRules.required()]}>
+                <Input placeholder="Quốc tịch" />
+              </Form.Item>
             </Col>
             <Col span={24} lg={12}>
-              <Form.Item name="idCard" label="Số CMND/Hộ chiếu">
+              <Form.Item name="passport" label="Số CMND/Hộ chiếu" rules={[validationRules.required()]}>
                 <Input placeholder="Số CMND/Hộ chiếu" />
               </Form.Item>
             </Col>
             <Col span={24}>
-              <Form.Item name="phone" label="Số điện thoại">
-                <Input placeholder="Số điện thoại" />
+              <Form.Item name="phone" label="Số điện thoại" rules={[validationRules.required()]}>
+                <Input placeholder="Số điện thoại" type="number" />
               </Form.Item>
             </Col>
             <Col span={24}>
               <Row gutter={[4, 24]}>
-                <Col span={24} lg={6}>
+                {/* <Col span={24} lg={6}>
                   <Form.Item name="city" label="Địa chỉ">
                     <Select
                       placeholder="Thành phố"
@@ -209,8 +181,8 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                       onChange={(option): void => handleChangeDistrict(option?.value)}
                     />
                   </Form.Item>
-                </Col>
-                <Col span={24} lg={6}>
+                </Col> */}
+                {/* <Col span={24} lg={6}>
                   <Form.Item name="district" label=" ">
                     <Select
                       placeholder="Quận/Huyện"
@@ -218,27 +190,31 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                       onChange={(option): void => handleChangeWard(option?.value)}
                     />
                   </Form.Item>
-                </Col>
-                <Col span={24} lg={6}>
+                </Col> */}
+                {/* <Col span={24} lg={6}>
                   <Form.Item name="ward" label=" ">
                     <Select placeholder="Phường/Xã" options={addressWardState} />
                   </Form.Item>
-                </Col>
-                <Col span={24} lg={6}>
-                  <Form.Item name="address" label=" ">
-                    <Input placeholder="Số nhà/Đường" />
+                </Col> */}
+                <Col span={24}>
+                  <Form.Item name="address" label="Địa chỉ" rules={[validationRules.required()]}>
+                    <Input placeholder="Địa chỉ" />
                   </Form.Item>
                 </Col>
               </Row>
             </Col>
             <Col span={24} lg={12}>
-              <Form.Item name="emergencyContactName" label="Liên hệ khẩn cấp">
+              <Form.Item name="emergencyContactName" label="Liên hệ khẩn cấp" rules={[validationRules.required()]}>
                 <Input placeholder="Tên người liên hệ khẩn cấp" />
               </Form.Item>
             </Col>
             <Col span={24} lg={12}>
-              <Form.Item name="emergencyContactPhone" label="Số điện thoại của người liên hệ khẩn cấp">
-                <Input placeholder="Số điện thoại người liên hệ" />
+              <Form.Item
+                name="emergencyContactPhone"
+                label="Số điện thoại của người liên hệ khẩn cấp"
+                rules={[validationRules.required()]}
+              >
+                <Input placeholder="Số điện thoại người liên hệ" type="number" />
               </Form.Item>
             </Col>
             <Col span={24} lg={12}>
@@ -248,16 +224,19 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
               >
                 <a href="#">Bảng kích thước</a>
               </div>
-              <Form.Item name="size" label="Size áo">
+              {/* <Form.Item name="size" label="Size áo">
                 <Select placeholder="Chọn size áo" options={[]} />
+              </Form.Item> */}
+              <Form.Item name="shirtSize" label="Size áo" rules={[validationRules.required()]}>
+                <Input placeholder="Chọn size áo" />
               </Form.Item>
             </Col>
             <Col span={24} lg={12}>
-              <Form.Item name="nameBIB" label="Tên trên BIB">
+              <Form.Item name="nameBib" label="Tên trên BIB" rules={[validationRules.required()]}>
                 <Input placeholder="Tên trên BIB" />
               </Form.Item>
             </Col>
-            <Col span={24}>
+            {/* <Col span={24}>
               <Form.Item
                 name="club"
                 label={
@@ -272,7 +251,10 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
               >
                 <Select placeholder="Chọn câu lạc bộ" options={[]} />
               </Form.Item>
-            </Col>
+              <Form.Item name="club">
+                <Checkbox label="Câu lạc bộ" value={billRequest} onChange={handleSetBill} />
+              </Form.Item>
+            </Col> */}
             <Col span={24}>
               <Form.Item
                 name="timeEstimation"
@@ -284,17 +266,18 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                     </div>
                   </>
                 }
+                rules={[validationRules.required()]}
               >
                 <Input placeholder="hh:mm (Ví dụ: 02:30)" suffix={<Icon name={EIconName.Clock} />} />
               </Form.Item>
             </Col>
             {!isGroup ? (
               <>
-                <Col span={24}>
+                {/* <Col span={24}>
                   <Form.Item name="checkVat">
                     <Checkbox label="Yêu cầu xuất hóa đơn" value={billRequest} onChange={handleSetBill} />
                   </Form.Item>
-                </Col>
+                </Col> */}
                 {billRequest && (
                   <>
                     <Col span={24} lg={12}>

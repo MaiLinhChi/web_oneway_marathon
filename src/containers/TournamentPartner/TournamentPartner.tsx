@@ -14,9 +14,9 @@ import ImageTournamentPartner9 from '@/assets/images/image-tournament-partner-9.
 import { TTournamentPartnerProps } from './TournamentPartner.types.d';
 import './TournamentPartner.scss';
 
-const TournamentPartner: React.FC<TTournamentPartnerProps> = ({ color, title }) => {
+const TournamentPartner: React.FC<TTournamentPartnerProps> = ({ color, title, id }) => {
   return (
-    <div className="TournamentPartner">
+    <div className="TournamentPartner" id={id}>
       <div className="container">
         <div className="TournamentPartner-wrapper">
           <h2 className="TournamentPartner-title">
