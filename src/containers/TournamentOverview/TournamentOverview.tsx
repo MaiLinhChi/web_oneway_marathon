@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Button from '@/components/Button';
 import Countdown from '@/components/Countdown';
 import { Paths } from '@/pages/routers';
+import { useLocation } from '@reach/router';
 import { EKeyTabTournamentRegisterPage } from '@/pages/TournamentRegisterPage/TournamentRegisterPage.enums';
 
 import { TTournamentOverviewProps } from './TournamentOverview.types.d';
@@ -22,19 +23,20 @@ const TournamentOverview: React.FC<TTournamentOverviewProps> = ({
   id,
 }) => {
   const [isExpired, setIsExpired] = useState<boolean>();
+  const navigation = useLocation();
   return (
     <div className="TournamentOverview">
       <nav className="TournamentOverview-nav" style={{ background: color }}>
         <ul className="TournamentOverview-nav-list flex items-center justify-center">
           {dataNav.map((item, index) => (
             <li className="TournamentOverview-nav-list-item" key={index}>
-              <a href={item.link}>{item.title}</a>
+              <a href={navigation.pathname + item.link}>{item.title}</a>
             </li>
           ))}
         </ul>
       </nav>
 
-      <div className="TournamentOverview-banner" id={id}>
+      <div className="TournamentOverview-banner" id={id.link}>
         <div className="TournamentOverview-banner-background">
           <img src={background} alt="" />
         </div>
@@ -104,7 +106,7 @@ const TournamentOverview: React.FC<TTournamentOverviewProps> = ({
         {stepKilometer.map((item: any, index) => (
           <div key={index} className="TournamentOverview-step-kilometer-item">
             {item.distance}
-            <span>km</span>
+            <span>M</span>
           </div>
         ))}
       </div>

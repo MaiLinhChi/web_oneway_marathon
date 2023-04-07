@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Col, Row } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -15,10 +15,21 @@ import { dataTabTournamentRegisterPage } from './TournamentRegisterPage.data';
 import { EKeyTabTournamentRegisterPage } from './TournamentRegisterPage.enums';
 import { TTournamentRegisterPageProps } from './TournamentRegisterPage.types';
 import './TournamentRegisterPage.scss';
+import { useParams } from '@reach/router';
+import { getMarathonById } from '@/services/api';
 
 const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = ({ payment }) => {
+  const [data, setData] = useState({});
+  const param = useParams();
   const [activeTab, setActiveTab] = useState<TSelectOption>(dataTabTournamentRegisterPage[0]);
   const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
+  useEffect(() => {
+    const fetchData = async (): Promise<any> => {
+      const res = await getMarathonById(param.id);
+      setData(res.item);
+    };
+    fetchData();
+  }, [param.id]);
   return (
     <div className="TournamentRegisterPage">
       <div className="TournamentRegisterPage-background">
@@ -50,7 +61,7 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = ({ paymen
               ) : (
                 <>
                   {activeTab.value === EKeyTabTournamentRegisterPage.SINGLE ? (
-                    <TournamentRegisterForm />
+                    <TournamentRegisterForm data={data} />
                   ) : (
                     <TournamentRegisterGroupForm />
                   )}
@@ -61,7 +72,7 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = ({ paymen
               ''
             ) : (
               <Col span={24} lg={7}>
-                <TournamentRegisterInformation payment={payment} />
+                <TournamentRegisterInformation data={data} />
               </Col>
             )}
           </Row>

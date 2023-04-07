@@ -1,1 +1,2 @@
-export * from './marathons';
+export * from './get-marathons';
+export * from './get-marathon-by-id';

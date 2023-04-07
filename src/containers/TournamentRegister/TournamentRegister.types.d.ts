@@ -3,4 +3,5 @@ export type TTournamentRegisterProps = {
   multiple?: boolean;
   data: any;
   registerGroup?: any;
+  id?: string;
 };

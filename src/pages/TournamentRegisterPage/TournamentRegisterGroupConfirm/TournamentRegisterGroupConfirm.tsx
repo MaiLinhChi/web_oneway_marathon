@@ -93,7 +93,7 @@ const TournamentRegisterGroupConfirm: React.FC = () => {
                 </div>
               </Col>
               <Col span={24} lg={7}>
-                <TournamentRegisterInformation />
+                <TournamentRegisterInformation payment />
               </Col>
             </Row>
           </div>

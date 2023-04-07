@@ -4,9 +4,10 @@ export type TSelectDistanceProps = {
   onChange?: (data: TSelectDistanceData) => void;
 };
 
-export type TSelectDistanceData = {
-  label: string;
-  value: string;
-  description: string;
-  suffix: string;
-};
+// export type TSelectDistanceData = {
+//   label: string;
+//   value: string;
+//   description: string;
+//   suffix: string;
+// };
+export type TSelectDistanceData = any;

@@ -5,7 +5,7 @@ import Table from '@/components/Table';
 import { TTournamentRewardProps } from './TournamentReward.types.d';
 import './TournamentReward.scss';
 
-const TournamentReward: React.FC<TTournamentRewardProps> = ({ title, color, loading, award }) => {
+const TournamentReward: React.FC<TTournamentRewardProps> = ({ title, color, loading, award, id }) => {
   const columns = [
     {
       key: 'name',
@@ -61,7 +61,7 @@ const TournamentReward: React.FC<TTournamentRewardProps> = ({ title, color, load
   ];
 
   return (
-    <div className="TournamentReward">
+    <div className="TournamentReward" id={id}>
       <div className="container">
         <div className="TournamentReward-wrapper">
           <h2 className="TournamentReward-title">

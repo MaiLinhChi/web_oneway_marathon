@@ -3,7 +3,7 @@ import React from 'react';
 import { TTournamentEventProps } from './TournamentEvent.types.d';
 import './TournamentEvent.scss';
 
-const TournamentEvent: React.FC<TTournamentEventProps> = ({ color, data }) => {
+const TournamentEvent: React.FC<TTournamentEventProps> = ({ color, data, id }) => {
   const dataTimeline = [
     {
       value: '08:00 - 10:00',
@@ -64,7 +64,7 @@ const TournamentEvent: React.FC<TTournamentEventProps> = ({ color, data }) => {
   ];
 
   return (
-    <div className="TournamentEvent">
+    <div className="TournamentEvent" id={id}>
       <div className="container">
         <div className="TournamentEvent-wrapper">
           <h2 className="TournamentEvent-title">

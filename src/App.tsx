@@ -29,7 +29,7 @@ const App: React.FC = () => {
           <PublicRoute path={Paths.Home} component={Pages.Home} />
           <ProtectedRoute path={Paths.Profile} component={Pages.Profile} />
           <ProtectedRoute path={Paths.ProfileEdit} component={Pages.ProfileEdit} />
-          <ProtectedRoute path={Paths.TournamentRegister} component={Pages.TournamentRegister} />
+          <ProtectedRoute path={Paths.TournamentRegister()} component={Pages.TournamentRegister} />
           <PublicRoute path={Paths.TournamentDetail()} component={Pages.OneWayMarathonCatBa} />
           <PublicRoute path={Paths.MarathonsDetail} component={Pages.OneWayMarathonDetail} />
           <PublicRoute path={Paths.TournamentPayment()} component={Pages.TournamentPayment} />

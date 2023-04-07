@@ -51,30 +51,32 @@ const TournamentDetail: React.FC = () => {
                 <h2 className="TournamentDetail-subtitle">Thông tin chi tiết</h2>
                 <div className="TournamentDetail-table striped race">
                   <table>
-                    <tr>
-                      <td>Ngày đua</td>
-                      <td>
-                        <strong>10/12/2022</strong>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Địa điểm</td>
-                      <td>
-                        <strong>Cát Bà-Hải Phòng</strong>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Loại hình</td>
-                      <td>
-                        <strong>Road/City trail</strong>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Cự ly</td>
-                      <td>
-                        <strong>5km, 10km, 21km</strong>
-                      </td>
-                    </tr>
+                    <tbody>
+                      <tr>
+                        <td>Ngày đua</td>
+                        <td>
+                          <strong>10/12/2022</strong>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Địa điểm</td>
+                        <td>
+                          <strong>Cát Bà-Hải Phòng</strong>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Loại hình</td>
+                        <td>
+                          <strong>Road/City trail</strong>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Cự ly</td>
+                        <td>
+                          <strong>5km, 10km, 21km</strong>
+                        </td>
+                      </tr>
+                    </tbody>
                   </table>
                 </div>
 
@@ -88,25 +90,27 @@ const TournamentDetail: React.FC = () => {
                   <h3 className="TournamentDetail-card-title">Tên nhóm: Only tiger</h3>
                   <div className="TournamentDetail-table">
                     <table>
-                      <tr>
-                        <td>Họ và tên trưởng nhóm</td>
-                        <td style={{ width: '100%' }}>
-                          <strong>Trần Xuân Hoàng</strong>
-                        </td>
-                      </tr>
+                      <tbody>
+                        <tr>
+                          <td>Họ và tên trưởng nhóm</td>
+                          <td style={{ width: '100%' }}>
+                            <strong>Trần Xuân Hoàng</strong>
+                          </td>
+                        </tr>
 
-                      <tr>
-                        <td>Số điện thoại</td>
-                        <td style={{ width: '100%' }}>
-                          <strong>0798407797</strong>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Email</td>
-                        <td style={{ width: '100%' }}>
-                          <strong>thkl.8996@gmail.com</strong>
-                        </td>
-                      </tr>
+                        <tr>
+                          <td>Số điện thoại</td>
+                          <td style={{ width: '100%' }}>
+                            <strong>0798407797</strong>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Email</td>
+                          <td style={{ width: '100%' }}>
+                            <strong>thkl.8996@gmail.com</strong>
+                          </td>
+                        </tr>
+                      </tbody>
                     </table>
                   </div>
                   <h3 className="TournamentDetail-card-title">Link đăng ký nhóm</h3>
@@ -131,36 +135,40 @@ const TournamentDetail: React.FC = () => {
                   <h3 className="TournamentDetail-card-title">Thông tin thành viên</h3>
                   <div className="TournamentDetail-table">
                     <table>
-                      <tr>
-                        <td style={{ width: 24 }} />
-                        <td>
-                          <strong>STT</strong>
-                        </td>
-                        <td>
-                          <strong>Họ và tên</strong>
-                        </td>
-                        <td>
-                          <strong>Cự ly</strong>
-                        </td>
-                        <td>
-                          <strong>Thời gian đăng ký</strong>
-                        </td>
-                        <td className="text-right">
-                          <strong>Giá tiền</strong>
-                        </td>
-                      </tr>
-                      {[1, 2, 3, 4, 5].map((item) => (
+                      <thead>
                         <tr>
-                          <td style={{ width: 24 }}>
-                            <Icon name={EIconName.MinusCircle} color={EIconColor.RED_ORANGE} />
+                          <td style={{ width: 24 }} />
+                          <td>
+                            <strong>STT</strong>
                           </td>
-                          <td>{item}</td>
-                          <td>Trần Xuân Hoàng</td>
-                          <td>5km</td>
-                          <td>12/1/2023</td>
-                          <td className="text-right">515.000 VNĐ</td>
+                          <td>
+                            <strong>Họ và tên</strong>
+                          </td>
+                          <td>
+                            <strong>Cự ly</strong>
+                          </td>
+                          <td>
+                            <strong>Thời gian đăng ký</strong>
+                          </td>
+                          <td className="text-right">
+                            <strong>Giá tiền</strong>
+                          </td>
                         </tr>
-                      ))}
+                      </thead>
+                      <tbody>
+                        {[1, 2, 3, 4, 5].map((item) => (
+                          <tr>
+                            <td style={{ width: 24 }}>
+                              <Icon name={EIconName.MinusCircle} color={EIconColor.RED_ORANGE} />
+                            </td>
+                            <td>{item}</td>
+                            <td>Trần Xuân Hoàng</td>
+                            <td>5km</td>
+                            <td>12/1/2023</td>
+                            <td className="text-right">515.000 VNĐ</td>
+                          </tr>
+                        ))}
+                      </tbody>
                     </table>
                   </div>
 
@@ -178,34 +186,36 @@ const TournamentDetail: React.FC = () => {
                   <h2 className="TournamentDetail-subtitle">Vé của bạn:</h2>
                   <div className="TournamentDetail-table expand-x">
                     <table>
-                      <tr>
-                        <td>Họ và tên</td>
-                        <td style={{ width: '100%' }}>
-                          <strong>Trần Xuân Hoàng</strong>
-                        </td>
-                      </tr>
+                      <tbody>
+                        <tr>
+                          <td>Họ và tên</td>
+                          <td style={{ width: '100%' }}>
+                            <strong>Trần Xuân Hoàng</strong>
+                          </td>
+                        </tr>
 
-                      <tr>
-                        <td>Cự ly</td>
-                        <td style={{ width: '100%' }}>
-                          <strong>5km</strong>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Số BIB</td>
-                        <td style={{ width: '100%' }}>
-                          <strong>927462</strong>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Mã đăng ký</td>
-                        <td style={{ width: '100%' }}>
-                          <div className="flex items-center" style={{ columnGap: '1.6rem' }}>
-                            <strong style={{ color: EIconColor.BLUE_RIBBON }}>K238FJAW</strong>
-                            <Icon name={EIconName.Copy} onClick={(): void => copyText('K238FJAW')} />
-                          </div>
-                        </td>
-                      </tr>
+                        <tr>
+                          <td>Cự ly</td>
+                          <td style={{ width: '100%' }}>
+                            <strong>5km</strong>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Số BIB</td>
+                          <td style={{ width: '100%' }}>
+                            <strong>927462</strong>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Mã đăng ký</td>
+                          <td style={{ width: '100%' }}>
+                            <div className="flex items-center" style={{ columnGap: '1.6rem' }}>
+                              <strong style={{ color: EIconColor.BLUE_RIBBON }}>K238FJAW</strong>
+                              <Icon name={EIconName.Copy} onClick={(): void => copyText('K238FJAW')} />
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
                     </table>
                   </div>
                 </div>
