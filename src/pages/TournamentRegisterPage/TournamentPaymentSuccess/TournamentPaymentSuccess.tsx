@@ -35,7 +35,7 @@ const TournamentPaymentSucces: React.FC = () => {
           <div className="TournamentPaymentSucces-main">
             <Row gutter={[24, 24]} className="reverse">
               <Col span={24} lg={16}>
-                {status !== 'processing' ? (
+                {false ? (
                   <div className="TournamentPaymentSucces-main-success">
                     <div className="TournamentPaymentSucces-main-success-header">
                       <Icon name={EIconName.CheckCircle} color="white" />

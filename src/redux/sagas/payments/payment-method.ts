@@ -7,9 +7,9 @@ import { getPaymentMethod, TGetPaymentMethodResponse } from '@/services/api';
 // FUNCTION
 
 export function* getPaymentMethodSaga(action: ActionType<typeof getPaymentMethodAction.request>): Generator {
-  const { materials, successCallback, failedCallback } = action.payload;
+  const { successCallback, failedCallback } = action.payload;
   try {
-    const response = yield call(getPaymentMethod, materials);
+    const response = yield call(getPaymentMethod);
     const getPaymentMethodResponse: TGetPaymentMethodResponse = response as TGetPaymentMethodResponse;
     yield put(getPaymentMethodAction.success(getPaymentMethodResponse));
     successCallback?.(getPaymentMethodResponse);

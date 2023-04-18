@@ -19,9 +19,11 @@ export type TSelectProps = {
 };
 
 export type TSelectOption = {
-  id?: number;
+  _id?: any;
   label: string;
   value: string;
   data?: any;
   disabled?: boolean;
+  name?: string;
+  bankCode?: string;
 };

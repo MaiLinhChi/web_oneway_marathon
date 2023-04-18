@@ -38,7 +38,7 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = ({ paymen
       <div className="container">
         <Row className="TournamentRegisterPage-wrapper">
           <Col span={24}>
-            <h2 className="TournamentRegisterPage-title">{payment ? 'Thanh toán nhóm' : 'Đăng ký tham gia'}</h2>
+            <h2 className="TournamentRegisterPage-title">{payment ? 'Thanh toán cá nhân' : 'Đăng ký tham gia'}</h2>
           </Col>
           {isMobile ? (
             <Col span={24}>
@@ -72,7 +72,7 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = ({ paymen
               ''
             ) : (
               <Col span={24} lg={7}>
-                <TournamentRegisterInformation data={data} />
+                <TournamentRegisterInformation payment={payment} data={data} />
               </Col>
             )}
           </Row>
