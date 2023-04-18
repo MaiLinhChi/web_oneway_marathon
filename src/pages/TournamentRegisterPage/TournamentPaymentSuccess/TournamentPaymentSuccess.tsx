@@ -10,18 +10,18 @@ import { Paths } from '@/pages/routers';
 import { navigate, useLocation } from '@reach/router';
 import { getPaymentSuccessAction } from '@/redux/actions';
 import './TournamentPaymentSuccess.scss';
+import { log } from 'console';
 const TournamentPaymentSucces: React.FC = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const [status, setStatus] = useState('');
-  // const handlerClick = (): void => {
-  // };
+  const orderState = useSelector((state: TRootState) => state.orderDetailReducer.getOrderDetailResponse);
   useEffect(() => {
-    const body = { code: location.pathname.split('/')[2] };
-    dispatch(getPaymentSuccessAction.request({ body }, (response): void => handleFieldData(response)));
+    const query = location.search;
+    // dispatch(getPaymentSuccessAction.request({ body }, (response): void => handleFieldData(response)));
   }, [location, dispatch]);
   const handleFieldData = (data: any): void => {
-    setStatus(data.payment.status);
+    console.log(data);
   };
   return (
     <div className="TournamentPaymentSucces">
@@ -35,7 +35,7 @@ const TournamentPaymentSucces: React.FC = () => {
           <div className="TournamentPaymentSucces-main">
             <Row gutter={[24, 24]} className="reverse">
               <Col span={24} lg={16}>
-                {false ? (
+                {true ? (
                   <div className="TournamentPaymentSucces-main-success">
                     <div className="TournamentPaymentSucces-main-success-header">
                       <Icon name={EIconName.CheckCircle} color="white" />
