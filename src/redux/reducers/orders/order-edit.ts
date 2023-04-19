@@ -1,10 +1,10 @@
-import { TPaymentMethodState } from '@/redux/reducers/payments';
-import { TGetPaymentSuccessSuccess } from '@/redux/actions/payments';
+import { TOrderDetailState } from '@/redux/reducers/orders';
+import { TGetOrderDetailSuccess } from '@/redux/actions/orders';
 
 export const getPaymentSuccessUpdateState = (
-  state: TPaymentMethodState,
-  action: TGetPaymentSuccessSuccess,
-): TPaymentMethodState => ({
+  state: TOrderDetailState,
+  action: TGetOrderDetailSuccess,
+): TOrderDetailState => ({
   ...state,
-  getPaymentSuccessResponse: action.payload.response,
+  getOrderDetailResponse: action.payload.response,
 });

@@ -4,15 +4,11 @@ import ApiService from '@/services/api';
 // TYPES
 
 export type TGetPaymentSuccessParams = {
-  params: {
-    authorization: string;
-  };
-  id: string;
+  query: string;
 };
 
 export type TGetPaymentSuccessMaterials = {
   headers?: TGetPaymentSuccessParams;
-  body?: any;
 };
 
 export type TGetPaymentSuccessResponse = any;
@@ -20,8 +16,7 @@ export type TGetPaymentSuccessResponse = any;
 
 export const getPaymentSuccess = async ({
   headers,
-  body,
 }: TGetPaymentSuccessMaterials): Promise<TGetPaymentSuccessResponse> => {
-  const response = await ApiService.put(`bib/${headers?.id}`, body, { headers: headers?.params });
+  const response = await ApiService.get(`ipn${headers?.query}`);
   return response.data;
 };

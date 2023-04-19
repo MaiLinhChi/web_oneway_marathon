@@ -18,10 +18,8 @@ export type TOrderEditMaterials = {
 export type TOrderEditResponse = any;
 // FUNCTION
 
-export const OrderEdit = async ({
-  headers,
-  body,
-}: TOrderEditMaterials): Promise<TOrderEditResponse> => {
+export const OrderEdit = async ({ headers, body }: TOrderEditMaterials): Promise<TOrderEditResponse> => {
   const response = await ApiService.put(`bib/${headers?.id}`, body, { headers: headers?.params });
+  console.log(response);
   return response.data;
 };

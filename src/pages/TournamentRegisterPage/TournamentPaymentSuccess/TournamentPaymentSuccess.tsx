@@ -10,18 +10,30 @@ import { Paths } from '@/pages/routers';
 import { navigate, useLocation } from '@reach/router';
 import { getPaymentSuccessAction } from '@/redux/actions';
 import './TournamentPaymentSuccess.scss';
-import { log } from 'console';
+import AuthHelpers from '@/services/helpers';
+import { EResponseCode, ETypeNotification } from '@/common/enums';
+import { showNotification } from '@/utils/functions';
+
 const TournamentPaymentSucces: React.FC = () => {
   const dispatch = useDispatch();
+  const atk = AuthHelpers.getAccessToken();
   const location = useLocation();
-  const [status, setStatus] = useState('');
-  const orderState = useSelector((state: TRootState) => state.orderDetailReducer.getOrderDetailResponse);
+  const [data, setData] = useState<any>({});
   useEffect(() => {
     const query = location.search;
-    // dispatch(getPaymentSuccessAction.request({ body }, (response): void => handleFieldData(response)));
-  }, [location, dispatch]);
-  const handleFieldData = (data: any): void => {
-    console.log(data);
+    const headers = {
+      query,
+    };
+    dispatch(getPaymentSuccessAction.request({ headers }, (response): void => handleFieldData(response)));
+  }, [location, dispatch, atk]);
+  const handleFieldData = (res: any): void => {
+    if (res.status === EResponseCode.OK) {
+      showNotification(ETypeNotification.SUCCESS, res.message);
+      setData(res);
+    } else {
+      showNotification(ETypeNotification.ERROR, res.message);
+      setData(res);
+    }
   };
   return (
     <div className="TournamentPaymentSucces">
@@ -31,11 +43,10 @@ const TournamentPaymentSucces: React.FC = () => {
       <div className="container">
         <div className="TournamentPaymentSucces-wrapper">
           <h2 className="TournamentPaymentSucces-title">Thanh toán</h2>
-
           <div className="TournamentPaymentSucces-main">
             <Row gutter={[24, 24]} className="reverse">
               <Col span={24} lg={16}>
-                {true ? (
+                {data.status === 200 ? (
                   <div className="TournamentPaymentSucces-main-success">
                     <div className="TournamentPaymentSucces-main-success-header">
                       <Icon name={EIconName.CheckCircle} color="white" />

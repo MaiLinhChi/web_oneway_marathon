@@ -12,7 +12,7 @@ import Input from '@/components/Input';
 import Button from '@/components/Button';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { navigate, useParams } from '@reach/router';
-import { getOrderDetailAction, getPaymentSuccessAction, updatePromotionAction } from '@/redux/actions';
+import { getOrderDetailAction, OrderEditAction, updatePromotionAction } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 import { Paths } from '@/pages/routers';
 import { TRootState } from '@/redux/reducers';
@@ -32,9 +32,9 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
   const orderState = useSelector((state: TRootState) => state.orderDetailReducer.getOrderDetailResponse);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const handlerChange = (e): void => {
-    setPromotion(e.target.value);
-  };
+  // const handlerChange = (e): void => {
+  //   setPromotion(e.target.value);
+  // };
   const handleSubmit = (values: any): void => {
     const body = {
       gateway: values.payment_method.gateway,
@@ -49,9 +49,7 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
         id,
       };
       dispatch(
-        getPaymentSuccessAction.request({ body, headers }, (response): void =>
-          handlerGetPaymentMethodSuccess(response),
-        ),
+        OrderEditAction.request({ body, headers }, (response): void => handlerGetPaymentMethodSuccess(response)),
       );
     }
   };

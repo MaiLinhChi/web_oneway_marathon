@@ -29,7 +29,6 @@ const Header: React.FC<THeaderProps> = () => {
   const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
   const atk = AuthHelpers.getAccessToken();
   const store = useStore();
-  console.log(store.getState());
   const handleLogout = (): void => {
     dispatch(authLogoutAction.success(handleAuthLogoutSuccess()));
   };
