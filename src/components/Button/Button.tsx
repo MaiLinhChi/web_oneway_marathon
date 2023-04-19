@@ -20,6 +20,7 @@ const Button: React.FC<TButtonProps> = ({
   danger,
   reverse,
   link,
+  state,
   disabled,
   loading,
   fontWeight,
@@ -29,7 +30,7 @@ const Button: React.FC<TButtonProps> = ({
   onClick,
 }) => {
   const handleClickButton = (): void => {
-    if (link) navigate(link);
+    if (link) navigate(link, { state });
     else onClick?.();
   };
   return (

@@ -18,7 +18,7 @@ const TournamentPaymentSucces: React.FC = () => {
   const dispatch = useDispatch();
   const atk = AuthHelpers.getAccessToken();
   const location = useLocation();
-  const [data, setData] = useState<any>({});
+  const [data, setData] = useState<any>(true);
   useEffect(() => {
     const query = location.search;
     const headers = {
@@ -46,7 +46,7 @@ const TournamentPaymentSucces: React.FC = () => {
           <div className="TournamentPaymentSucces-main">
             <Row gutter={[24, 24]} className="reverse">
               <Col span={24} lg={16}>
-                {data.status === 200 ? (
+                {data ? (
                   <div className="TournamentPaymentSucces-main-success">
                     <div className="TournamentPaymentSucces-main-success-header">
                       <Icon name={EIconName.CheckCircle} color="white" />

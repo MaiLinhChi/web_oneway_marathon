@@ -15,7 +15,7 @@ import { dataTabTournamentRegisterPage } from './TournamentRegisterPage.data';
 import { EKeyTabTournamentRegisterPage } from './TournamentRegisterPage.enums';
 import { TTournamentRegisterPageProps } from './TournamentRegisterPage.types';
 import './TournamentRegisterPage.scss';
-import { useParams } from '@reach/router';
+import { useLocation, useParams } from '@reach/router';
 import { getMarathonById } from '@/services/api';
 
 const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = ({ payment }) => {

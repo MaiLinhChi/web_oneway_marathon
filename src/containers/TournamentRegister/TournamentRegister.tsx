@@ -81,6 +81,7 @@ const TournamentRegister: React.FC<TTournamentRegisterProps> = ({ color, multipl
               borderColor={color}
               backgroundColor={color}
               link={Paths.TournamentRegister(data._id)}
+              state={multiple}
             />
           </div>
         </div>

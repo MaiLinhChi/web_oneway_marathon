@@ -17,6 +17,7 @@ export type TButtonProps = {
   fontWeight?: number;
   danger?: boolean;
   link?: string;
+  state?: any;
   iconColor?: EIconColor;
   reverse?: boolean;
   disabled?: boolean;

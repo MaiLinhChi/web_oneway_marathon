@@ -4,12 +4,13 @@ import { useSelector } from 'react-redux';
 
 import './TournamentRegisterInformation.scss';
 import { TTournamentRegisterInformationProps } from './TournamentRegisterInformation.types';
+import { useLocation } from '@reach/router';
 
 const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProps> = ({ payment, data }) => {
   const orderState = useSelector((state: TRootState) => state.orderDetailReducer.getOrderDetailResponse?.data);
   return (
     <div className="TournamentRegisterInformation-card sticky">
-      {payment ? (
+      {payment || data ? (
         orderState ? (
           <>
             <div className="TournamentRegisterInformation-card-title">Thông tin của bạn</div>
