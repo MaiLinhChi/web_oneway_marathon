@@ -19,6 +19,8 @@ import { useLocation, useParams } from '@reach/router';
 import { getMarathonById } from '@/services/api';
 
 const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = ({ payment }) => {
+  const location = useLocation();
+  console.log(location);
   const [data, setData] = useState({});
   const param = useParams();
   const [activeTab, setActiveTab] = useState<TSelectOption>(dataTabTournamentRegisterPage[0]);

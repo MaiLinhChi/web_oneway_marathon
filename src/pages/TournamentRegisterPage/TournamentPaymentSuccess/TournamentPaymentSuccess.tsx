@@ -4,15 +4,14 @@ import TournamentRegisterInformation from '@/pages/TournamentRegisterPage/Tourna
 import BackgroundRegisterPage from '@/assets/images/image-home-banner-3.jpg';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import Button from '@/components/Button';
-import { useDispatch, useSelector } from 'react-redux';
-import { TRootState } from '@/redux/reducers';
+import { useDispatch } from 'react-redux';
 import { Paths } from '@/pages/routers';
-import { navigate, useLocation } from '@reach/router';
-import { getPaymentSuccessAction } from '@/redux/actions';
+import { useLocation } from '@reach/router';
 import './TournamentPaymentSuccess.scss';
 import AuthHelpers from '@/services/helpers';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 import { showNotification } from '@/utils/functions';
+import { getOrderDetailAction } from '@/redux/actions';
 
 const TournamentPaymentSucces: React.FC = () => {
   const dispatch = useDispatch();
@@ -20,19 +19,16 @@ const TournamentPaymentSucces: React.FC = () => {
   const location = useLocation();
   const [data, setData] = useState<any>(true);
   useEffect(() => {
-    const query = location.search;
-    const headers = {
-      query,
-    };
-    dispatch(getPaymentSuccessAction.request({ headers }, (response): void => handleFieldData(response)));
+    const id = location.pathname.split('/')[2];
+    dispatch(getOrderDetailAction.request({ paths: { id } }, (response): void => handleFieldData(response)));
   }, [location, dispatch, atk]);
   const handleFieldData = (res: any): void => {
-    if (res.status === EResponseCode.OK) {
-      showNotification(ETypeNotification.SUCCESS, res.message);
-      setData(res);
+    if (res.status === EResponseCode.OK && res?.data?.status === 'comfirmed') {
+      showNotification(ETypeNotification.SUCCESS, 'Order sucessfullys');
+      setData(res.data);
     } else {
-      showNotification(ETypeNotification.ERROR, res.message);
-      setData(res);
+      showNotification(ETypeNotification.ERROR, 'Order error');
+      setData(res.data);
     }
   };
   return (
@@ -46,7 +42,7 @@ const TournamentPaymentSucces: React.FC = () => {
           <div className="TournamentPaymentSucces-main">
             <Row gutter={[24, 24]} className="reverse">
               <Col span={24} lg={16}>
-                {data ? (
+                {data?.status === 'comfirmed' ? (
                   <div className="TournamentPaymentSucces-main-success">
                     <div className="TournamentPaymentSucces-main-success-header">
                       <Icon name={EIconName.CheckCircle} color="white" />
@@ -95,7 +91,7 @@ const TournamentPaymentSucces: React.FC = () => {
                 )}
               </Col>
               <Col span={24} lg={7}>
-                <TournamentRegisterInformation />
+                <TournamentRegisterInformation data={data} />
               </Col>
             </Row>
           </div>

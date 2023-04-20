@@ -1,17 +1,15 @@
 import { TRootState } from '@/redux/reducers';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 
 import './TournamentRegisterInformation.scss';
 import { TTournamentRegisterInformationProps } from './TournamentRegisterInformation.types';
-import { useLocation } from '@reach/router';
 
 const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProps> = ({ payment, data }) => {
-  const orderState = useSelector((state: TRootState) => state.orderDetailReducer.getOrderDetailResponse?.data);
   return (
     <div className="TournamentRegisterInformation-card sticky">
       {payment || data ? (
-        orderState ? (
+        data?.email ? (
           <>
             <div className="TournamentRegisterInformation-card-title">Thông tin của bạn</div>
             <div className="TournamentRegisterInformation-card-table expand-x">
@@ -20,49 +18,49 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
                   <tr>
                     <td>Họ và tên</td>
                     <td>
-                      <strong>{orderState.fullName}</strong>
+                      <strong>{data.fullName}</strong>
                     </td>
                   </tr>
                   <tr>
                     <td>Cự ly</td>
                     <td>
-                      <strong>{orderState.distance}m</strong>
+                      <strong>{data.distance}m</strong>
                     </td>
                   </tr>
                   <tr>
                     <td>Tên trên BIB</td>
                     <td>
-                      <strong>{orderState.nameBib}</strong>
+                      <strong>{data.nameBib}</strong>
                     </td>
                   </tr>
                   <tr>
                     <td>Ngày sinh</td>
                     <td>
-                      <strong>{orderState.birthday}</strong>
+                      <strong>{data.birthday}</strong>
                     </td>
                   </tr>
                   {/* <tr>
                     <td>Email</td>
                     <td>
-                      <strong>{orderState.email}</strong>
+                      <strong>{data.email}</strong>
                     </td>
                   </tr> */}
                   <tr>
                     <td>SĐT</td>
                     <td>
-                      <strong>{orderState.phone}</strong>
+                      <strong>{data.phone}</strong>
                     </td>
                   </tr>
                   <tr>
                     <td>CCCD</td>
                     <td>
-                      <strong>{orderState.passport}</strong>
+                      <strong>{data.passport}</strong>
                     </td>
                   </tr>
                   <tr>
                     <td>Size áo</td>
                     <td>
-                      <strong>{orderState.shirtSize}</strong>
+                      <strong>{data.shirtSize}</strong>
                     </td>
                   </tr>
                 </tbody>
