@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Col, Row } from 'antd';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import BackgroundRegisterPage from '@/assets/images/image-home-banner-3.jpg';
 import { TSelectOption } from '@/components/Select';
@@ -17,24 +17,35 @@ import { TTournamentRegisterPageProps } from './TournamentRegisterPage.types';
 import './TournamentRegisterPage.scss';
 import { useLocation, useParams } from '@reach/router';
 import { getMarathonById } from '@/services/api';
-import { getQueryParam } from '@/utils/functions';
+import { getQueryParam, showNotification } from '@/utils/functions';
+import { getMarathonByIdAction } from '@/redux/actions';
+import { EResponseCode, ETypeNotification } from '@/common/enums';
 
 const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = () => {
   const [data, setData] = useState({});
   const [activeTab, setActiveTab] = useState<TSelectOption>(dataTabTournamentRegisterPage[0]);
-  const param = useParams();
+  const { id } = useParams();
   const { pathname } = useLocation();
   const key = 'tab';
   const tabQuery = getQueryParam(key);
   const payment = pathname.includes('payment');
   const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
+  const dispatch = useDispatch();
+  const getMarathonDetail = useCallback(() => {
+    if (!id) return;
+    dispatch(getMarathonByIdAction.request(id, (response): void => handlerGetMarathonDetailSuccess(response)));
+  }, [dispatch, id]);
+  const handlerGetMarathonDetailSuccess = (response: any): void => {
+    if (response.status === EResponseCode.OK) {
+      showNotification(ETypeNotification.SUCCESS, response.message);
+      setData(response.data);
+    } else {
+      showNotification(ETypeNotification.ERROR, response.message);
+    }
+  };
   useEffect(() => {
-    const fetchData = async (): Promise<any> => {
-      const res = await getMarathonById(param.id);
-      setData(res.data);
-    };
-    fetchData();
-  }, [param.id]);
+    getMarathonDetail();
+  }, [id, getMarathonDetail]);
   return (
     <div className="TournamentRegisterPage">
       <div className="TournamentRegisterPage-background">

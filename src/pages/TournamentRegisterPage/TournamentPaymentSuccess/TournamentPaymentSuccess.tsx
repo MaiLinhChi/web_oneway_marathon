@@ -91,7 +91,7 @@ const TournamentPaymentSucces: React.FC = () => {
                 )}
               </Col>
               <Col span={24} lg={7}>
-                <TournamentRegisterInformation data={data} />
+                <TournamentRegisterInformation payment={data} />
               </Col>
             </Row>
           </div>
