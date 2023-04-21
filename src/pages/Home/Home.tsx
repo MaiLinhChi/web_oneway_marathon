@@ -3,7 +3,6 @@ import React from 'react';
 import ImageBanner2 from '@/assets/images/image-banner-2.png';
 import PartnersCarousel from '@/containers/PartnersCarousel';
 import Banner from '@/components/Banner';
-import NewsList from '@/containers/NewsList';
 import HomeBanner from '@/containers/HomeBanner';
 import Introduction from '@/containers/Introduction';
 import Activities from '@/containers/Activities';

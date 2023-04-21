@@ -15,7 +15,6 @@ import AuthHelpers from '@/services/helpers';
 const ChangePassword: React.FC<TChangePasswordProps> = () => {
   const [form] = Form.useForm();
   const [, setFormValues] = useState({});
-  const { newPassword } = form.getFieldsValue();
   const dispatch = useDispatch();
   const atk = AuthHelpers.getAccessToken();
   const loading = useSelector(

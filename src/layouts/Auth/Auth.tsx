@@ -3,7 +3,7 @@ import React from 'react';
 import { TAuthProps } from '@/layouts/Auth/Auth.types';
 import Header from '@/containers/Header';
 import Footer from '@/containers/Footer';
-import { LayoutPaths, Paths } from '@/pages/routers';
+import { Paths } from '@/pages/routers';
 
 import './Auth.scss';
 

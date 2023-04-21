@@ -8,14 +8,14 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { TTournamentPaymentFormProps } from './TournamentPaymentForm.types';
 import './TournamentPaymentForm.scss';
-import Input from '@/components/Input';
+// import Input from '@/components/Input';
 import Button from '@/components/Button';
-import Icon, { EIconColor, EIconName } from '@/components/Icon';
+// import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { navigate, useParams } from '@reach/router';
 import { getOrderDetailAction, OrderEditAction, updatePromotionAction } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 import { Paths } from '@/pages/routers';
-import { TRootState } from '@/redux/reducers';
+// import { TRootState } from '@/redux/reducers';
 import { getPaymentMethod } from '@/services/api';
 import AuthHelpers from '@/services/helpers';
 
@@ -29,7 +29,7 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
   const [form] = Form.useForm();
   const { id } = useParams();
   const atk = AuthHelpers.getAccessToken();
-  const orderState = useSelector((state: TRootState) => state.orderDetailReducer.getOrderDetailResponse);
+  // const orderState = useSelector((state: TRootState) => state.orderDetailReducer.getOrderDetailResponse);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   // const handlerChange = (e): void => {
@@ -86,7 +86,7 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
   const handlerClickApplyPromotion = (): void => {
     const body = {
       promotionCode: promotion,
-      orderShortCode: orderState.data.order.shortCode,
+      // orderShortCode: orderState.data.order.shortCode,
     };
     dispatch(
       updatePromotionAction.request({ body }, (response): void =>

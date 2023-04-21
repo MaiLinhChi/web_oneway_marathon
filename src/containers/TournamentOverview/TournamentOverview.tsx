@@ -36,7 +36,7 @@ const TournamentOverview: React.FC<TTournamentOverviewProps> = ({
         </ul>
       </nav>
 
-      <div className="TournamentOverview-banner" id={id.link}>
+      <div className="TournamentOverview-banner" id={id}>
         <div className="TournamentOverview-banner-background">
           <img src={background} alt="" />
         </div>
@@ -56,7 +56,7 @@ const TournamentOverview: React.FC<TTournamentOverviewProps> = ({
             <Countdown
               dateTo={date}
               onFinish={(isEnd): void => setIsExpired(isEnd)}
-              render={({ years, months, days, hours, minutes, seconds }): React.ReactNode => {
+              render={({ days, hours, minutes }): React.ReactNode => {
                 const arrMap = [
                   // { label: 'năm', value: years, hideInZero: true },
                   // { label: 'tháng', value: months, hideInZero: true },

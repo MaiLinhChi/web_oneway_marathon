@@ -14,7 +14,6 @@ import './Profile.scss';
 import { TRootState } from '@/redux/reducers';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRaceAction } from '@/redux/actions';
-import raceReducer from '@/redux/reducers/races';
 
 const Profile: React.FC = () => {
   const dispatch = useDispatch();

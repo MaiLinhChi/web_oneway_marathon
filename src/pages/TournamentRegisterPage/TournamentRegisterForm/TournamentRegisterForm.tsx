@@ -23,6 +23,7 @@ import { EResponseCode, ETypeNotification } from '@/common/enums';
 import { TRootState } from '@/redux/reducers';
 import { navigate } from '@reach/router';
 import { Paths } from '@/pages/routers';
+import { EKeyTabTournamentRegisterPage } from '../TournamentRegisterPage.enums';
 
 const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGroup, data }) => {
   const [form] = Form.useForm();
@@ -94,7 +95,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   const handleRegitserSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {
       showNotification(ETypeNotification.SUCCESS, 'Đăng ký vé thành công !');
-      navigate(Paths.TournamentPayment(response.data._id));
+      navigate(Paths.TournamentPayment(`${response.data._id}?tab=${EKeyTabTournamentRegisterPage.SINGLE}`));
     } else {
       showNotification(ETypeNotification.ERROR, response.message);
     }

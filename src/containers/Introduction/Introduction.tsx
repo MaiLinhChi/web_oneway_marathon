@@ -1,7 +1,6 @@
 import React from 'react';
 import { Col, Row } from 'antd';
 
-import ImageIntroduction from '@/assets/images/image-introduction.png';
 import ImageIntroductionMobile from '@/assets/images/image-introduction-mobile.png';
 
 import { TIntroductionProps } from './Introduction.types.d';

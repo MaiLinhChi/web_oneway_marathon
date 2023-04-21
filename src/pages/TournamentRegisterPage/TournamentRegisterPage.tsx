@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import BackgroundRegisterPage from '@/assets/images/image-home-banner-3.jpg';
 import { TSelectOption } from '@/components/Select';
@@ -17,18 +17,21 @@ import { TTournamentRegisterPageProps } from './TournamentRegisterPage.types';
 import './TournamentRegisterPage.scss';
 import { useLocation, useParams } from '@reach/router';
 import { getMarathonById } from '@/services/api';
+import { getQueryParam } from '@/utils/functions';
 
-const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = ({ payment }) => {
-  const location = useLocation();
-  console.log(location);
+const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = () => {
   const [data, setData] = useState({});
-  const param = useParams();
   const [activeTab, setActiveTab] = useState<TSelectOption>(dataTabTournamentRegisterPage[0]);
+  const param = useParams();
+  const { pathname } = useLocation();
+  const key = 'tab';
+  const tabQuery = getQueryParam(key);
+  const payment = pathname.includes('payment');
   const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
   useEffect(() => {
     const fetchData = async (): Promise<any> => {
       const res = await getMarathonById(param.id);
-      setData(res.item);
+      setData(res.data);
     };
     fetchData();
   }, [param.id]);
@@ -40,11 +43,11 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = ({ paymen
       <div className="container">
         <Row className="TournamentRegisterPage-wrapper">
           <Col span={24}>
-            <h2 className="TournamentRegisterPage-title">{payment ? 'Thanh toán cá nhân' : 'Đăng ký tham gia'}</h2>
+            <h2 className="TournamentRegisterPage-title">{payment ? 'Thanh toán' : 'Đăng ký tham gia'}</h2>
           </Col>
           {isMobile ? (
             <Col span={24}>
-              <TournamentRegisterInformation payment={payment} />
+              <TournamentRegisterInformation />
             </Col>
           ) : (
             ''
@@ -63,7 +66,10 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = ({ paymen
               ) : (
                 <>
                   {activeTab.value === EKeyTabTournamentRegisterPage.SINGLE ? (
-                    <TournamentRegisterForm data={data} />
+                    <TournamentRegisterForm
+                      data={data}
+                      isGroup={tabQuery === EKeyTabTournamentRegisterPage.MULTIPLE ? true : false}
+                    />
                   ) : (
                     <TournamentRegisterGroupForm />
                   )}
@@ -74,7 +80,7 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = ({ paymen
               ''
             ) : (
               <Col span={24} lg={7}>
-                <TournamentRegisterInformation payment={payment} data={data} />
+                <TournamentRegisterInformation />
               </Col>
             )}
           </Row>

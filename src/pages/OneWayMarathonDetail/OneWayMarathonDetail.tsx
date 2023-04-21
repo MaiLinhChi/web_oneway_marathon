@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Link, navigate, useLocation } from '@reach/router';
+import { useCallback, useEffect, useState } from 'react';
+import { useParams } from '@reach/router';
 
 import ImageHomeBanner1 from '@/assets/images/image-home-banner-1.png';
 import { EIconColor } from '@/components/Icon';
@@ -14,13 +14,31 @@ import TournamentRule from '@/containers/TournamentRule';
 import TournamentEvent from '@/containers/TournamentEvent';
 
 import './OneWayMarathonDetail.scss';
-import { Paths } from '../routers';
+import { useDispatch } from 'react-redux';
+import { getMarathonByIdAction } from '@/redux/actions';
+import { EResponseCode, ETypeNotification } from '@/common/enums';
+import { showNotification } from '@/utils/functions';
 
-const OneWayMarathonDetail: any = ({ location }: any) => {
-  const data = location.state;
-  if (!data) {
-    navigate(Paths.Home);
-  }
+const OneWayMarathonDetail: any = () => {
+  const { id } = useParams();
+  const [data, setData] = useState<any>({});
+  const dispatch = useDispatch();
+  const getMarathonDetail = useCallback(() => {
+    if (!id) return;
+    dispatch(getMarathonByIdAction.request(id, (response): void => handlerGetMarathonDetailSuccess(response)));
+  }, [dispatch, id]);
+  const handlerGetMarathonDetailSuccess = (response: any): void => {
+    if (response.status === EResponseCode.OK) {
+      showNotification(ETypeNotification.SUCCESS, response.message);
+      setData(response.data);
+    } else {
+      showNotification(ETypeNotification.ERROR, response.message);
+    }
+  };
+  useEffect(() => {
+    getMarathonDetail();
+  }, [id, getMarathonDetail]);
+  if (Object.keys(data).length === 0) return null;
   return (
     <div className="OneWayMarathonVungTau">
       <TournamentOverview
@@ -46,13 +64,12 @@ const OneWayMarathonDetail: any = ({ location }: any) => {
         locationTournament={data?.location}
         typeTournament={data?.type}
       />
-
       <div className="OneWayMarathonVungTau-wrapper">
         <TournamentRegister color={EIconColor.PERSIAN_GREEN} data={data} id="register" />
 
         <TournamentRegister color={EIconColor.PERSIAN_GREEN} multiple data={data} registerGroup={data?.registerGroup} />
 
-        <TournamentMap color={EIconColor.PERSIAN_GREEN} data={data} stepKilometer={[]} id="map" />
+        <TournamentMap color={EIconColor.PERSIAN_GREEN} data={data} id="map" />
 
         <TournamentReward color={EIconColor.PERSIAN_GREEN} title="OneWay Vũng Tàu" id="reward" />
 

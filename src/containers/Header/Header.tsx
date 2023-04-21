@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import { Link, navigate, useLocation } from '@reach/router';
 import { LayoutPaths, Paths } from '@/pages/routers';
 import Logo from '@/assets/images/logo.svg';
-import ImageVietnamFlag from '@/assets/images/image-vietnam-flag.png';
 import Button from '@/components/Button';
 import Avatar from '@/components/Avatar';
 import DropdownMenu from '@/components/DropdownMenu';
@@ -12,14 +11,13 @@ import { useOnClickOutside } from 'usehooks-ts';
 import { dataHeaderNav } from './Header.data';
 import { THeaderProps } from './Header.types.d';
 import './Header.scss';
-import { useDispatch, useSelector, useStore } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { TRootState } from '@/redux/reducers';
 import Icon, { EIconName } from '@/components/Icon';
 import AuthHelpers from '@/services/helpers';
 import { authLogoutAction, getProfileAction } from '@/redux/actions';
 import { showNotification } from '@/utils/functions';
 import { ETypeNotification } from '@/common/enums';
-import { handleErrorImageUrl } from '@/utils/functions';
 
 const Header: React.FC<THeaderProps> = () => {
   const dispatch = useDispatch();
@@ -28,7 +26,6 @@ const Header: React.FC<THeaderProps> = () => {
   const ref = useRef(null);
   const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
   const atk = AuthHelpers.getAccessToken();
-  const store = useStore();
   const handleLogout = (): void => {
     dispatch(authLogoutAction.success(handleAuthLogoutSuccess()));
   };

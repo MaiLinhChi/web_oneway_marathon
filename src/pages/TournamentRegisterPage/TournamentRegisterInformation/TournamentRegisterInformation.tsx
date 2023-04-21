@@ -1,14 +1,53 @@
-import { TRootState } from '@/redux/reducers';
-import React from 'react';
-import { useSelector } from 'react-redux';
-
+import React, { useCallback, useEffect, useState } from 'react';
 import './TournamentRegisterInformation.scss';
 import { TTournamentRegisterInformationProps } from './TournamentRegisterInformation.types';
+import { useLocation, useParams } from '@reach/router';
+import { EKeyTabTournamentRegisterPage } from '../TournamentRegisterPage.enums';
+import { getQueryParam, showNotification } from '@/utils/functions';
+import { useDispatch } from 'react-redux';
+import { getMarathonByIdAction, getOrderDetailAction } from '@/redux/actions';
+import { EResponseCode, ETypeNotification } from '@/common/enums';
 
-const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProps> = ({ payment, data }) => {
+const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProps> = () => {
+  const [data, setData] = useState<any>({});
+  const tabQuery = getQueryParam('tab');
+  const { id } = useParams();
+  const { pathname } = useLocation();
+  const type = pathname.split('/')[2];
+  const dispatch = useDispatch();
+  const getData = useCallback(() => {
+    if (type === 'register') {
+      dispatch(getMarathonByIdAction.request(id, (response): void => handlerGetMarathonDetailSuccess(response)));
+    } else {
+      dispatch(
+        getOrderDetailAction.request({ paths: { id } }, (response): void => handlerGetOrderDetailSuccess(response)),
+      );
+    }
+  }, [type, dispatch, id]);
+  const handlerGetMarathonDetailSuccess = (response: any): void => {
+    if (response.status === EResponseCode.OK) {
+      showNotification(ETypeNotification.SUCCESS, response.message);
+      setData(response.data);
+    } else {
+      showNotification(ETypeNotification.ERROR, response.message);
+    }
+  };
+  const handlerGetOrderDetailSuccess = (response: any): void => {
+    if (response.status === EResponseCode.OK) {
+      showNotification(ETypeNotification.SUCCESS, 'Lấy chi tiết đơn hàng thành công !');
+      console.log(response);
+      setData(response.data);
+    } else {
+      showNotification(ETypeNotification.ERROR, response.message);
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, [tabQuery, getData]);
+  console.log(data);
   return (
     <div className="TournamentRegisterInformation-card sticky">
-      {payment || data ? (
+      {tabQuery === EKeyTabTournamentRegisterPage.SINGLE ? (
         data?.email ? (
           <>
             <div className="TournamentRegisterInformation-card-title">Thông tin của bạn</div>

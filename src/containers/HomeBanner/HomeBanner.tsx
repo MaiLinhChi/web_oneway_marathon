@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import Carousels from '@/components/Carousels';
-import { dataHomeBannerCarousel } from '@/containers/HomeBanner/HomeBanner.data';
 import Button from '@/components/Button';
 
 import { THomeBannerProps } from './HomeBanner.types.d';
@@ -40,7 +39,7 @@ const HomeBanner: React.FC<THomeBannerProps> = () => {
                 <span style={{ textShadow: `.8rem .8rem 0 ${item.color}` }}>{item.name}</span>
               </h1>
               <div className="HomeBanner-item-btn">
-                <Link to={Paths.MarathonsDetail} state={item} style={{ color: 'white' }}>
+                <Link to={Paths.MarathonsDetail(item._id)} style={{ color: 'white' }}>
                   <Button type="primary" title="Xem chi tiết" />
                 </Link>
               </div>

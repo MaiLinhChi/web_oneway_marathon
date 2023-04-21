@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Form } from 'antd';
-import { useDispatch } from 'react-redux';
 
 import { validationRules } from '@/utils/functions';
 import Input from '@/components/Input';
@@ -8,13 +7,12 @@ import Button from '@/components/Button';
 
 const ChangePassword: React.FC = () => {
   const [form] = Form.useForm();
-  const dispatch = useDispatch();
 
   const [, setFormValues] = useState({});
 
   const { password } = form.getFieldsValue();
 
-  const handleSubmit = (values: any): void => {};
+  const handleSubmit = (): void => {};
 
   return (
     <div className="ChangePassword">

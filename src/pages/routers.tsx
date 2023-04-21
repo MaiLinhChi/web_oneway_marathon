@@ -82,7 +82,7 @@ export const Paths = {
   Profile: '/profile',
   ProfileEdit: '/profile/edit',
   TournamentDetail: (id?: string): string => `/${id || ':id'}`,
-  MarathonsDetail: '/marathons/detail',
+  MarathonsDetail: (id?: string): string => `/marathons/detail/${id || ':id'}`,
   TournamentRegister: (id?: string): string => `/tournaments/register/${id || ':id'}`,
   TournamentPayment: (id?: string): string => `/tournaments/payment/${id || ':id'}`,
   RollBib: '/bib',

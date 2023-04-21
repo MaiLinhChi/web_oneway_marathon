@@ -4,7 +4,6 @@ import classNames from 'classnames';
 
 import { EFormat } from '@/common/enums';
 import Icon, { EIconName } from '@/components/Icon';
-import dayjs from 'dayjs';
 import { TDatePickerProps } from './DatePicker.types';
 import './DatePicker.scss';
 
