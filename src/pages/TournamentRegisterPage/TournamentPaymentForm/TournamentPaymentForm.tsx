@@ -12,7 +12,7 @@ import './TournamentPaymentForm.scss';
 import Button from '@/components/Button';
 // import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { navigate, useParams } from '@reach/router';
-import { getOrderDetailAction, OrderEditAction, updatePromotionAction } from '@/redux/actions';
+import { EOrderEditAction, getOrderDetailAction, OrderEditAction, updatePromotionAction } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 import { Paths } from '@/pages/routers';
 // import { TRootState } from '@/redux/reducers';
@@ -29,6 +29,8 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
   const [form] = Form.useForm();
   const { id } = useParams();
   const atk = AuthHelpers.getAccessToken();
+  const orderEditLoading = useSelector((state: any) => state.loadingReducer[EOrderEditAction.ORDER_EDIT]);
+  console.log(orderEditLoading);
   // const orderState = useSelector((state: TRootState) => state.orderDetailReducer.getOrderDetailResponse);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
@@ -261,6 +263,7 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
               size="large"
               type="primary"
               htmlType="submit"
+              loading={orderEditLoading}
               title={
                 <>
                   Thanh toán <strong>{parseInt(paymentItems?.price).toLocaleString('ES-es')} VNĐ</strong>
