@@ -31,6 +31,7 @@ const TournamentPaymentSucces: React.FC = () => {
       setData(res.data);
     }
   };
+  console.log(Paths.RollBib, data._id);
   return (
     <div className="TournamentPaymentSucces">
       <div className="TournamentPaymentSucces-background">
@@ -52,7 +53,7 @@ const TournamentPaymentSucces: React.FC = () => {
                       <p>
                         Thông tin đăng ký đã được gửi cho bạn qua email của bạn. Vui lòng check email để nhận thông tin
                         của bạn tại giải chạy . Hoặc truy cập đường link
-                        <Link to={`/${Paths.RollBib}/${data._id}`}>&nbsp;này&nbsp;</Link>
+                        <Link to={`${Paths.RollBib(data._id)}`}>&nbsp;này&nbsp;</Link>
                         để hoàn tất thanh toán.
                       </p>
                       <div className="TournamentPaymentSucces-main-success-body-btn flex">

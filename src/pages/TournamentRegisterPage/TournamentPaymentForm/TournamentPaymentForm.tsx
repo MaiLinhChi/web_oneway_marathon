@@ -67,7 +67,7 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
   }, []);
   const handlerGetOrderDetailSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {
-      showNotification(ETypeNotification.SUCCESS, 'Lấy chi tiết đơn hàng thành công !');
+      // showNotification(ETypeNotification.SUCCESS, 'Lấy chi tiết đơn hàng thành công !');
       // setInfo(response.data.order.items[0]);
       // settotal(response.data.order.total);
       setPaymentItems(response.data);
