@@ -1,1 +1,1 @@
-export const DEFAULT_BIB_NUMBER = '00000';
+export const DEFAULT_BIB_NUMBER = '0000';

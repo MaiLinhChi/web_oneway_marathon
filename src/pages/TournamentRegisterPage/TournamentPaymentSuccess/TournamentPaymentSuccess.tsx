@@ -17,7 +17,7 @@ const TournamentPaymentSucces: React.FC = () => {
   const dispatch = useDispatch();
   const atk = AuthHelpers.getAccessToken();
   const location = useLocation();
-  const [data, setData] = useState<any>(true);
+  const [data, setData] = useState<any>({});
   useEffect(() => {
     const id = location.pathname.split('/')[2];
     dispatch(getOrderDetailAction.request({ paths: { id } }, (response): void => handleFieldData(response)));

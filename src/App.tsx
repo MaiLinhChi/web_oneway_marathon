@@ -33,7 +33,7 @@ const App: React.FC = () => {
           <PublicRoute path={Paths.TournamentDetail()} component={Pages.TournamentDetail} />
           <PublicRoute path={Paths.MarathonsDetail()} component={Pages.OneWayMarathonDetail} />
           <PublicRoute path={Paths.TournamentPayment()} component={Pages.TournamentPayment} />
-          <PublicRoute path={Paths.RollBib} component={Pages.RollBib} />
+          <PublicRoute path={Paths.RollBib()} component={Pages.RollBib} />
           <PublicRoute path={Paths.BuyOnlineTicketTutorials} component={Pages.BuyOnlineTicketTutorials} />
           <PublicRoute path={Paths.PrivacyPayment} component={Pages.PrivacyPayment} />
           <PublicRoute path={Paths.PrivacySolvedProblem} component={Pages.PrivacySolvedProblem} />

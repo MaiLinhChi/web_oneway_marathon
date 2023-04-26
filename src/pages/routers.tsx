@@ -85,7 +85,7 @@ export const Paths = {
   MarathonsDetail: (id?: string): string => `/marathons/detail/${id || ':id'}`,
   TournamentRegister: (id?: string): string => `/tournaments/register/${id || ':id'}`,
   TournamentPayment: (id?: string): string => `/tournaments/payment/${id || ':id'}`,
-  RollBib: '/bib',
+  RollBib: (id?: string): string => `/bib/${id || ':id'}`,
   NotFound: '/404',
   BuyOnlineTicketTutorials: '/buy-online-ticket-tutorials',
   PrivacyPayment: '/privacy-payment',
