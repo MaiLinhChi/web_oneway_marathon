@@ -2,7 +2,6 @@ import React from 'react';
 import { Col, Row } from 'antd';
 
 import { TTournamentRacekitProps } from './TournamentRacekit.types.d';
-import { dataTournamentRacekit } from './TournamentRacekit.data';
 import './TournamentRacekit.scss';
 
 const TournamentRacekit: React.FC<TTournamentRacekitProps> = ({ color, colors = [], data, id }) => {

@@ -4,8 +4,6 @@ import Button from '@/components/Button';
 
 import { TTournamentSystemProps } from './TournamentSystem.types.d';
 import './TournamentSystem.scss';
-import { useSelector } from 'react-redux';
-import { TRootState } from '@/redux/reducers';
 import { Paths } from '@/pages/routers';
 import { getMarathons } from '@/services/api';
 import { Link } from '@reach/router';
@@ -15,7 +13,6 @@ const TournamentSystem: React.FC<TTournamentSystemProps> = () => {
   const initLimit = 3;
   const [limit, setLimit] = useState(initLimit);
   const [totalRecord, setTotalRecord] = useState(0);
-  const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
   const getData = useCallback(async () => {
     const requests = {
       params: {
@@ -74,7 +71,7 @@ const TournamentSystem: React.FC<TTournamentSystemProps> = () => {
               <h4 className="TournamentSystem-item-title">{item.name}</h4>
               <p className="TournamentSystem-item-description">{item.description}</p>
               <div className="TournamentSystem-item-btn">
-                <Link to={Paths.MarathonsDetail} state={item} style={{ color: 'white' }}>
+                <Link to={Paths.MarathonsDetail(item._id)} style={{ color: 'white' }}>
                   <Button type="primary" title="Xem chi tiết" />
                 </Link>
               </div>

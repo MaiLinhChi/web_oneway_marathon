@@ -80,7 +80,7 @@ const TournamentDetail: React.FC = () => {
                   </table>
                 </div>
 
-                <TournamentMap color={EIconColor.BLUE_RIBBON} title="OneWay Cát Bà" stepKilometer={[]} />
+                {/* <TournamentMap color={EIconColor.BLUE_RIBBON} title="OneWay Cát Bà" stepKilometer={[]} /> */}
 
                 <h2 className="TournamentDetail-subtitle">Nhóm đã tạo</h2>
                 <div className="TournamentDetail-card">

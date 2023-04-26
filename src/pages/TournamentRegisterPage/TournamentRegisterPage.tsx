@@ -15,21 +15,37 @@ import { dataTabTournamentRegisterPage } from './TournamentRegisterPage.data';
 import { EKeyTabTournamentRegisterPage } from './TournamentRegisterPage.enums';
 import { TTournamentRegisterPageProps } from './TournamentRegisterPage.types';
 import './TournamentRegisterPage.scss';
-import { useParams } from '@reach/router';
+import { useLocation, useParams } from '@reach/router';
 import { getMarathonById } from '@/services/api';
+import { getQueryParam, showNotification } from '@/utils/functions';
+import { getMarathonByIdAction } from '@/redux/actions';
+import { EResponseCode, ETypeNotification } from '@/common/enums';
 
-const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = ({ payment }) => {
+const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = () => {
   const [data, setData] = useState({});
-  const param = useParams();
   const [activeTab, setActiveTab] = useState<TSelectOption>(dataTabTournamentRegisterPage[0]);
+  const { id } = useParams();
+  const { pathname } = useLocation();
+  const key = 'tab';
+  const tabQuery = getQueryParam(key);
+  const payment = pathname.includes('payment');
   const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
+  const dispatch = useDispatch();
+  const getMarathonDetail = useCallback(() => {
+    if (!id) return;
+    dispatch(getMarathonByIdAction.request(id, (response): void => handlerGetMarathonDetailSuccess(response)));
+  }, [dispatch, id]);
+  const handlerGetMarathonDetailSuccess = (response: any): void => {
+    if (response.status === EResponseCode.OK) {
+      showNotification(ETypeNotification.SUCCESS, response.message);
+      setData(response.data);
+    } else {
+      showNotification(ETypeNotification.ERROR, response.message);
+    }
+  };
   useEffect(() => {
-    const fetchData = async (): Promise<any> => {
-      const res = await getMarathonById(param.id);
-      setData(res.item);
-    };
-    fetchData();
-  }, [param.id]);
+    getMarathonDetail();
+  }, [id, getMarathonDetail]);
   return (
     <div className="TournamentRegisterPage">
       <div className="TournamentRegisterPage-background">
@@ -38,11 +54,11 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = ({ paymen
       <div className="container">
         <Row className="TournamentRegisterPage-wrapper">
           <Col span={24}>
-            <h2 className="TournamentRegisterPage-title">{payment ? 'Thanh toán nhóm' : 'Đăng ký tham gia'}</h2>
+            <h2 className="TournamentRegisterPage-title">{payment ? 'Thanh toán' : 'Đăng ký tham gia'}</h2>
           </Col>
           {isMobile ? (
             <Col span={24}>
-              <TournamentRegisterInformation payment={payment} />
+              <TournamentRegisterInformation />
             </Col>
           ) : (
             ''
@@ -61,7 +77,10 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = ({ paymen
               ) : (
                 <>
                   {activeTab.value === EKeyTabTournamentRegisterPage.SINGLE ? (
-                    <TournamentRegisterForm data={data} />
+                    <TournamentRegisterForm
+                      data={data}
+                      isGroup={tabQuery === EKeyTabTournamentRegisterPage.MULTIPLE ? true : false}
+                    />
                   ) : (
                     <TournamentRegisterGroupForm />
                   )}
@@ -72,7 +91,7 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = ({ paymen
               ''
             ) : (
               <Col span={24} lg={7}>
-                <TournamentRegisterInformation data={data} />
+                <TournamentRegisterInformation />
               </Col>
             )}
           </Row>

@@ -1,9 +1,9 @@
 import { all, takeLatest } from 'redux-saga/effects';
 
-import { getMarathonsAction } from '@/redux/actions';
+import { getMarathonByIdAction } from '@/redux/actions';
 
-import { getMarathonsSaga } from './get-marathons';
+import { getMarathonByIdSaga } from './get-marathon-by-id';
 
 export default function* root(): Generator {
-  yield all([takeLatest(getMarathonsAction.request.type, getMarathonsSaga)]);
+  yield all([takeLatest(getMarathonByIdAction.request.type, getMarathonByIdSaga)]);
 }

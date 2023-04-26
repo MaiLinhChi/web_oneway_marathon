@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import BgRollBib from '@/assets/images/bg-roll-bib.png';
 import RollBibCardRollSuccess from '@/pages/RollBib/RollBibCardRollSuccess';
@@ -7,12 +7,38 @@ import RollBibWheel from '@/pages/RollBib/RollBibWheel';
 
 import { EKeyStepRollBib } from './RollBib.enums';
 import './RollBib.scss';
+import { navigate, useParams } from '@reach/router';
+import { useDispatch } from 'react-redux';
+import { getOrderDetailAction } from '@/redux/actions';
+import { EResponseCode, ETypeNotification } from '@/common/enums';
+import { showNotification } from '@/utils/functions';
+import { Paths } from '../routers';
 
 const RollBib: React.FC = () => {
-  const [stepRoll, setStepRoll] = useState<{ key: EKeyStepRollBib; data?: any }>({
-    key: EKeyStepRollBib.ROLL,
-  });
-
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const [data, setData] = useState<any>({});
+  // const [stepRoll, setStepRoll] = useState<{ key: EKeyStepRollBib; bib?: any }>({
+  //   key: EKeyStepRollBib.ROLL,
+  // });
+  const getOrderDetail = useCallback(() => {
+    if (id)
+      dispatch(
+        getOrderDetailAction.request({ paths: { id } }, (response): void => handlerGetOrderDetailSuccess(response)),
+      );
+  }, [dispatch, id]);
+  const handlerGetOrderDetailSuccess = (response: any): void => {
+    if (response.status === EResponseCode.OK) {
+      showNotification(ETypeNotification.SUCCESS, 'Lấy chi tiết đơn hàng thành công !');
+      setData(response.data);
+    } else {
+      showNotification(ETypeNotification.ERROR, response.message);
+      navigate(Paths.Home);
+    }
+  };
+  useEffect(() => {
+    getOrderDetail();
+  }, [getOrderDetail]);
   return (
     <div className="RollBib">
       <div className="RollBib-background">
@@ -20,15 +46,8 @@ const RollBib: React.FC = () => {
       </div>
       <div className="container">
         <div className="RollBib-wrapper">
-          {stepRoll.key === EKeyStepRollBib.ROLL && (
-            <RollBibWheel
-              color={EIconColor.BLUE_RIBBON}
-              onNext={(data): void => setStepRoll({ key: EKeyStepRollBib.SUCCESS, data })}
-            />
-          )}
-          {stepRoll.key === EKeyStepRollBib.SUCCESS && (
-            <RollBibCardRollSuccess data={stepRoll.data} color={EIconColor.BLUE_RIBBON} />
-          )}
+          {!data.bib && <RollBibWheel color={EIconColor.BLUE_RIBBON} onNext={getOrderDetail} data={data} />}
+          {data.bib && <RollBibCardRollSuccess color={EIconColor.BLUE_RIBBON} data={data} />}
         </div>
       </div>
     </div>

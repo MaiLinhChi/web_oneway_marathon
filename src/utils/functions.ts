@@ -101,6 +101,21 @@ export const validationRules = {
     type: 'email',
     message: message || 'Invalid email',
   }),
+  phone: (message?: string): Rule => ({
+    validator: (rule: any, value: string): Promise<void> => {
+      if (!value || REGEX.phone.test(value)) {
+        return Promise.resolve();
+      }
+      return Promise.reject(message || 'Phone invalid !');
+    },
+  }),
+  noChecked: (message?: string): Rule => ({
+    validator: async (rule: any, checked: any): Promise<void> => {
+      if (!checked) {
+        return Promise.reject(new Error('Please check'));
+      }
+    },
+  }),
   noSpecialKey: (message?: string): Rule => ({
     validator: (rule: any, value: string): Promise<void> => {
       if (!value || !REGEX.onlySpecialKey.test(value)) return Promise.resolve();

@@ -30,10 +30,10 @@ const App: React.FC = () => {
           <ProtectedRoute path={Paths.Profile} component={Pages.Profile} />
           <ProtectedRoute path={Paths.ProfileEdit} component={Pages.ProfileEdit} />
           <ProtectedRoute path={Paths.TournamentRegister()} component={Pages.TournamentRegister} />
-          <PublicRoute path={Paths.TournamentDetail()} component={Pages.OneWayMarathonCatBa} />
-          <PublicRoute path={Paths.MarathonsDetail} component={Pages.OneWayMarathonDetail} />
+          <PublicRoute path={Paths.TournamentDetail()} component={Pages.TournamentDetail} />
+          <PublicRoute path={Paths.MarathonsDetail()} component={Pages.OneWayMarathonDetail} />
           <PublicRoute path={Paths.TournamentPayment()} component={Pages.TournamentPayment} />
-          <PublicRoute path={Paths.RollBib} component={Pages.RollBib} />
+          <PublicRoute path={Paths.RollBib()} component={Pages.RollBib} />
           <PublicRoute path={Paths.BuyOnlineTicketTutorials} component={Pages.BuyOnlineTicketTutorials} />
           <PublicRoute path={Paths.PrivacyPayment} component={Pages.PrivacyPayment} />
           <PublicRoute path={Paths.PrivacySolvedProblem} component={Pages.PrivacySolvedProblem} />

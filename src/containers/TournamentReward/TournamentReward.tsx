@@ -11,7 +11,7 @@ const TournamentReward: React.FC<TTournamentRewardProps> = ({ title, color, load
       key: 'name',
       dataIndex: 'name',
       title: '',
-      render: (row: any, index: number): string => row.name,
+      render: (row: any): string => row.name,
       onHeaderCell: (): any => {
         return {
           style: { background: color },

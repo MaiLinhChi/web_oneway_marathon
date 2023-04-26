@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import { navigate } from '@reach/router';
 import Icon, { EIconName } from '@/components/Icon';
 import { TCopyToClipboardProps } from './CopyToClipboard.types';
 import copy from 'copy-to-clipboard';

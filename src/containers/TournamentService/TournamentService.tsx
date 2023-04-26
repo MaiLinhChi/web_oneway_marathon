@@ -1,6 +1,5 @@
 import React from 'react';
 
-import ImageTournamentService from '@/assets/images/image-tournament-service.png';
 import Button from '@/components/Button';
 import { EIconColor } from '@/components/Icon';
 

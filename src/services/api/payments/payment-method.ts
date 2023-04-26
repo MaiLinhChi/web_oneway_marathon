@@ -12,10 +12,7 @@ export type TGetPaymentMethodMaterials = {
 export type TGetPaymentMethodResponse = any;
 // FUNCTION
 
-export const getPaymentMethod = async ({
-  params,
-  body,
-}: TGetPaymentMethodMaterials): Promise<TGetPaymentMethodResponse> => {
-  const response = await ApiService.post(`/api/payment`, body, { params });
+export const getPaymentMethod = async (): Promise<TGetPaymentMethodResponse> => {
+  const response = await ApiService.get(`/payment-method`);
   return response.data;
 };

@@ -12,6 +12,7 @@ import raceReducer from './races';
 import orderDetailReducer from './orders';
 import promotionReducer from './promotion';
 import paymentMethodReducer from './payments';
+import marathonsReducer from './marathons';
 
 const rootReducer = combineReducers({
   loadingReducer,
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   raceReducer,
   orderDetailReducer,
   promotionReducer,
+  marathonsReducer,
 });
 
 export default rootReducer;

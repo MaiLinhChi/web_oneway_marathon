@@ -3,19 +3,20 @@ import ApiService from '@/services/api';
 
 // TYPES
 
-export type TGetPaymentSuccessParams = unknown;
+export type TGetPaymentSuccessParams = {
+  query: string;
+};
 
 export type TGetPaymentSuccessMaterials = {
-  params?: TGetPaymentSuccessParams;
-  body?: any;
+  headers?: TGetPaymentSuccessParams;
 };
+
 export type TGetPaymentSuccessResponse = any;
 // FUNCTION
 
 export const getPaymentSuccess = async ({
-  params,
-  body,
+  headers,
 }: TGetPaymentSuccessMaterials): Promise<TGetPaymentSuccessResponse> => {
-  const response = await ApiService.post(`api/payment/detail`, body, { params });
-  return response.data.data;
+  const response = await ApiService.get(`ipn${headers?.query}`);
+  return response.data;
 };

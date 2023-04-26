@@ -99,6 +99,7 @@
         strong {
           color: $cod-gray;
           font-weight: 700;
+          word-wrap: break-word;
         }
   
         a {
@@ -131,8 +132,6 @@
         }
   
         table {
-          width: 100%;
-  
           tr {
             &.spacing-bottom {
               td {

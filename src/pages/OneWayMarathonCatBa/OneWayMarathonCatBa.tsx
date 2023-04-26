@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import ImageHomeBanner2 from '@/assets/images/image-home-banner-2.png';
 import { EIconColor } from '@/components/Icon';

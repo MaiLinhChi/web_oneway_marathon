@@ -7,10 +7,11 @@ import registerGroupSaga from './register-group';
 import uploadSaga from './upload';
 import addressSaga from './address';
 import getRaceSaga from './races';
-import getOrderDetailSaga from '@/redux/sagas/orders';
+import orderSaga from '@/redux/sagas/orders';
 import updatePromotionSaga from '@/redux/sagas/promotion';
 import getPaymentMethodSaga from '@/redux/sagas/payments';
 import forgotPassword from '@/redux/sagas/forgot-password';
+import marathonsSaga from '@/redux/sagas/marathons';
 
 const rootSaga = function* root(): Generator {
   yield all([
@@ -21,10 +22,11 @@ const rootSaga = function* root(): Generator {
     fork(uploadSaga),
     fork(addressSaga),
     fork(getRaceSaga),
-    fork(getOrderDetailSaga),
+    fork(orderSaga),
     fork(updatePromotionSaga),
     fork(getPaymentMethodSaga),
     fork(forgotPassword),
+    fork(marathonsSaga),
   ]);
 };
 

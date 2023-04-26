@@ -8,7 +8,6 @@ import { showNotification, validationRules } from '@/utils/functions';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 import { EIconName } from '@/components/Icon';
-import { TAuthLoginResponse } from '@/services/api';
 import { authLoginAction, EAuthLoginAction } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 
