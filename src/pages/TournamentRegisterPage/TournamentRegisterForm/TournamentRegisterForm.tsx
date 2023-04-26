@@ -33,6 +33,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   const registerRunnerLoading = useSelector(
     (state: any) => state.loadingReducer[ERunnerRegisterGroupAction.RUNNER_REISTER_GROUP],
   );
+  const profileState = useSelector((state: TRootState) => state.profileReducer.getProfileResponse?.data);
   const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.registerGroupResponse);
 
   const formatDate = (date: any): string => {
@@ -103,6 +104,16 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   const handleSetBill = (value: boolean): void => {
     setBillRequest(value);
   };
+  const handleUpdateInfoMe = (): void => {
+    if (!profileState) {
+      return;
+    }
+    form.setFieldsValue({
+      email: profileState.email,
+      fullName: profileState.fullname,
+      phone: profileState.mobile,
+    });
+  };
   return (
     <div className="TournamentRegisterForm">
       <Form layout="vertical" form={form} onFinish={handleSubmit}>
@@ -117,7 +128,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
           </Form.Item>
           <div className="TournamentRegisterPage-card-title flex items-center justify-between">
             Nhập thông tin vận động viên
-            <Button title="Nhập thông tin của tôi" type="text" />
+            <Button title="Nhập thông tin của tôi" type="text" onClick={handleUpdateInfoMe} />
           </div>
 
           <Row gutter={[24, 24]}>
