@@ -5,8 +5,8 @@ import BackgroundRegisterPage from '@/assets/images/image-home-banner-3.jpg';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import Button from '@/components/Button';
 import { useDispatch } from 'react-redux';
-import { Paths } from '@/pages/routers';
-import { useLocation } from '@reach/router';
+import { LayoutPaths, Paths } from '@/pages/routers';
+import { Link, useLocation } from '@reach/router';
 import './TournamentPaymentSuccess.scss';
 import AuthHelpers from '@/services/helpers';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
@@ -51,7 +51,11 @@ const TournamentPaymentSucces: React.FC = () => {
                     <div className="TournamentPaymentSucces-main-success-body">
                       <p>
                         Thông tin đăng ký đã được gửi cho bạn qua email của bạn. Vui lòng check email để nhận thông tin
-                        của bạn tại giải chạy .
+                        của bạn tại giải chạy . Hoặc truy cập đường link
+                        <Link to={`${LayoutPaths.Auth}${Paths.RollBib}/${data._id}`} className="Auth-form-link">
+                          này
+                        </Link>
+                        để hoàn tất thanh toán.
                       </p>
                       <div className="TournamentPaymentSucces-main-success-body-btn flex">
                         <Button
