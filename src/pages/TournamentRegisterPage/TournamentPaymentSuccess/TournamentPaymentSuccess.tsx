@@ -23,7 +23,7 @@ const TournamentPaymentSucces: React.FC = () => {
     dispatch(getOrderDetailAction.request({ paths: { id } }, (response): void => handleFieldData(response)));
   }, [location, dispatch, atk]);
   const handleFieldData = (res: any): void => {
-    if (res.status === EResponseCode.OK && res?.data?.status === 'comfirmed') {
+    if (res.status === EResponseCode.OK && res?.data?.status === 'confirmed') {
       showNotification(ETypeNotification.SUCCESS, 'Order sucessfullys');
       setData(res.data);
     } else {

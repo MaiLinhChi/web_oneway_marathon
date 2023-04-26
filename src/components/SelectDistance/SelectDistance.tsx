@@ -8,7 +8,7 @@ import './SelectDistance.scss';
 
 const SelectDistance: React.FC<TSelectDistanceProps> = ({ value, onChange, data = [] }) => {
   useEffect(() => {
-    if (!value) {
+    if (!value && data.length) {
       onChange?.({ price: data?.[0]?.price, distance: data?.[0]?.distance, state: data[0]?.name });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
