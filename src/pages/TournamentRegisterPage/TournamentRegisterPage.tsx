@@ -37,7 +37,7 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = () => {
   }, [dispatch, id]);
   const handlerGetMarathonDetailSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {
-      showNotification(ETypeNotification.SUCCESS, response.message);
+      // showNotification(ETypeNotification.SUCCESS, response.message);
       setData(response.data);
     } else {
       showNotification(ETypeNotification.ERROR, response.message);
