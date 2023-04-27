@@ -22,8 +22,9 @@ const SelectDistance: React.FC<TSelectDistanceProps> = ({ value, onChange, data 
               className={classNames('SelectDistance-item', { active: value?.distance === item.distance })}
               onClick={(): void => onChange?.({ price: item.individual, distance: item.distance, state: data[0].name })}
             >
+              <div className="SelectDistance-item-distance">{item.distance}</div>
               <div className="SelectDistance-item-distance">
-                {item.distance} <span>M</span>
+                <span>M</span>
               </div>
               <div className="SelectDistance-item-description">{numeral(item.individual).format()} VND</div>
             </div>

@@ -21,7 +21,6 @@
         }
       }
     }
-
     &.active {
       background: rgba($blue-ribbon, 0.1);
 
@@ -43,7 +42,7 @@
       color: $regent-gray;
       font-size: 6.4rem;
       font-weight: 900;
-      line-height: 7.8rem;
+      line-height: 5.5rem;
       letter-spacing: -0.6rem;
       font-family: 'Montserrat', sans-serif;
       transition: $common-transition;
