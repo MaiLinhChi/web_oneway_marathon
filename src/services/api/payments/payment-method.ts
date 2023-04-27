@@ -3,16 +3,17 @@ import ApiService from '@/services/api';
 
 // TYPES
 
-export type TGetPaymentMethodParams = unknown;
+export type TGetPaymentMethodParams = {
+  status: string;
+};
 
 export type TGetPaymentMethodMaterials = {
   params?: TGetPaymentMethodParams;
-  body?: any;
 };
 export type TGetPaymentMethodResponse = any;
 // FUNCTION
 
-export const getPaymentMethod = async (): Promise<TGetPaymentMethodResponse> => {
-  const response = await ApiService.get(`/payment-method`);
+export const getPaymentMethod = async (params: TGetPaymentMethodMaterials): Promise<TGetPaymentMethodResponse> => {
+  const response = await ApiService.get(`/payment-method`, params);
   return response.data;
 };

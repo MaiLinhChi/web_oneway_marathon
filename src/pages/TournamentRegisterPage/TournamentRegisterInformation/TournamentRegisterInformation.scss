@@ -68,7 +68,7 @@
     }
     &-card {
       background: $white;
-      padding: 3.2rem 4rem;
+      padding: 3.2rem 2rem;
       margin-bottom: 24px;
       @media (max-width: 767px) {
         padding: 32px 16px;
@@ -163,7 +163,7 @@
           td {
             font-style: italic;
             font-weight: 500;
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             line-height: 2.4rem;
             color: $dove-gray;
             padding: .8rem 1.2rem;
@@ -186,7 +186,22 @@
                 font-style: italic;
                 line-height: 3rem;
                 color: $blue-ribbon;
+                word-break: break-all;
               }
+            }
+          }
+          th {
+            font-weight: 500;
+            font-size: 1.5rem;
+            line-height: 2.4rem;
+            padding: .8rem 1.2rem;
+            vertical-align: middle;
+            text-align: start;
+              
+            strong {
+              font-weight: 600;
+              color: $cod-gray;
+              word-break: break-all;
             }
           }
         }

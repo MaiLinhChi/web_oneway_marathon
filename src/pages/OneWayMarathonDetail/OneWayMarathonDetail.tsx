@@ -29,7 +29,7 @@ const OneWayMarathonDetail: any = () => {
   }, [dispatch, id]);
   const handlerGetMarathonDetailSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {
-      showNotification(ETypeNotification.SUCCESS, response.message);
+      // showNotification(ETypeNotification.SUCCESS, response.message);s
       setData(response.data);
     } else {
       showNotification(ETypeNotification.ERROR, response.message);

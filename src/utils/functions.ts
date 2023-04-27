@@ -103,10 +103,18 @@ export const validationRules = {
   }),
   phone: (message?: string): Rule => ({
     validator: (rule: any, value: string): Promise<void> => {
-      if (!value || REGEX.phone.test(value)) {
+      if (!value || (REGEX.phone.test(value) && REGEX.number.test(value))) {
         return Promise.resolve();
       }
       return Promise.reject(message || 'Phone invalid !');
+    },
+  }),
+  number: (message?: string): Rule => ({
+    validator: (rule: any, value: string): Promise<void> => {
+      if (!value || REGEX.number.test(value)) {
+        return Promise.resolve();
+      }
+      return Promise.reject(message || 'Please enter number !');
     },
   }),
   noChecked: (message?: string): Rule => ({
@@ -114,6 +122,18 @@ export const validationRules = {
       if (!checked) {
         return Promise.reject(new Error('Please check'));
       }
+    },
+  }),
+  age: (message?: string): Rule => ({
+    validator: (rule: any, value: string): Promise<void> => {
+      const eighteenYearsAgo = moment().subtract('years', 17);
+      const birthday = moment(value);
+      if (!birthday.isValid()) {
+        return Promise.reject(message || 'Date invalid!');
+      } else if (eighteenYearsAgo.isAfter(birthday)) {
+        return Promise.resolve();
+      }
+      return Promise.reject(message || 'You are under 18 years old!');
     },
   }),
   noSpecialKey: (message?: string): Rule => ({
