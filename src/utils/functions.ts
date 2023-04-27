@@ -116,6 +116,18 @@ export const validationRules = {
       }
     },
   }),
+  age: (message?: string): Rule => ({
+    validator: (rule: any, value: string): Promise<void> => {
+      const eighteenYearsAgo = moment().subtract('years', 17);
+      const birthday = moment(value);
+      if (!birthday.isValid()) {
+        return Promise.reject(message || 'Date invalid!');
+      } else if (eighteenYearsAgo.isAfter(birthday)) {
+        return Promise.resolve();
+      }
+      return Promise.reject(message || 'You are under 18 years old!');
+    },
+  }),
   noSpecialKey: (message?: string): Rule => ({
     validator: (rule: any, value: string): Promise<void> => {
       if (!value || !REGEX.onlySpecialKey.test(value)) return Promise.resolve();
