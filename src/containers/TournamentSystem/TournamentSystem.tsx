@@ -71,7 +71,7 @@ const TournamentSystem: React.FC<TTournamentSystemProps> = () => {
               <h4 className="TournamentSystem-item-title">{item.name}</h4>
               <p className="TournamentSystem-item-description">{item.description}</p>
               <div className="TournamentSystem-item-btn">
-                <Link to={Paths.MarathonsDetail(item._id)} style={{ color: 'white' }}>
+                <Link to={Paths.MarathonDetail(item._id)} style={{ color: 'white' }}>
                   <Button type="primary" title="Xem chi tiết" />
                 </Link>
               </div>
