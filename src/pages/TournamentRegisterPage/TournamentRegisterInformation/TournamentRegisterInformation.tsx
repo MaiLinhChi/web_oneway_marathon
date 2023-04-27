@@ -35,14 +35,14 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
         data?.email ? (
           <>
             <div className="TournamentRegisterInformation-card-title">Thông tin của bạn</div>
-            <div className="TournamentRegisterInformation-card-table expand-x">
+            <div className="TournamentRegisterInformation-card-table">
               <table>
                 <tbody>
                   <tr>
                     <td>Họ và tên</td>
-                    <td>
+                    <th>
                       <strong>{data.fullName}</strong>
-                    </td>
+                    </th>
                   </tr>
                   <tr>
                     <td>Cự ly</td>
@@ -62,12 +62,12 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
                       <strong>{data.birthday}</strong>
                     </td>
                   </tr>
-                  {/* <tr>
+                  <tr>
                     <td>Email</td>
-                    <td>
+                    <th>
                       <strong>{data.email}</strong>
-                    </td>
-                  </tr> */}
+                    </th>
+                  </tr>
                   <tr>
                     <td>SĐT</td>
                     <td>

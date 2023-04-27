@@ -103,10 +103,18 @@ export const validationRules = {
   }),
   phone: (message?: string): Rule => ({
     validator: (rule: any, value: string): Promise<void> => {
-      if (!value || REGEX.phone.test(value)) {
+      if (!value || (REGEX.phone.test(value) && REGEX.number.test(value))) {
         return Promise.resolve();
       }
       return Promise.reject(message || 'Phone invalid !');
+    },
+  }),
+  number: (message?: string): Rule => ({
+    validator: (rule: any, value: string): Promise<void> => {
+      if (!value || REGEX.number.test(value)) {
+        return Promise.resolve();
+      }
+      return Promise.reject(message || 'Please enter number !');
     },
   }),
   noChecked: (message?: string): Rule => ({

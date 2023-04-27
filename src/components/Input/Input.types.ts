@@ -5,7 +5,7 @@ import { SizeType } from 'antd/lib/config-provider/SizeContext';
 export type TInputProps = {
   className?: string;
   placeholder?: string;
-  type?: 'text' | 'password' | 'number';
+  type?: 'text' | 'password' | 'number' | 'time';
   value?: string;
   prefix?: React.ReactNode;
   suffix?: React.ReactNode;

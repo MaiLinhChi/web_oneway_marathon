@@ -18,6 +18,7 @@ import { Paths } from '@/pages/routers';
 // import { TRootState } from '@/redux/reducers';
 import { getPaymentMethod } from '@/services/api';
 import AuthHelpers from '@/services/helpers';
+import numeral from 'numeral';
 
 const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
   const dispatch = useDispatch();
@@ -28,9 +29,9 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
   const [paymentItems, setPaymentItems] = useState<any>({});
   const [form] = Form.useForm();
   const { id } = useParams();
+  const [fee, setFee] = useState<any>({});
   const atk = AuthHelpers.getAccessToken();
   const orderEditLoading = useSelector((state: any) => state.loadingReducer[EOrderEditAction.ORDER_EDIT]);
-  console.log(orderEditLoading);
   // const orderState = useSelector((state: TRootState) => state.orderDetailReducer.getOrderDetailResponse);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
@@ -62,7 +63,10 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
       );
   }, [dispatch, id]);
   const getPaymentMethodApi = useCallback(async () => {
-    const res = await getPaymentMethod();
+    const params = {
+      status: 'active',
+    };
+    const res = await getPaymentMethod({ params });
     setPaymentMethods(res.data);
   }, []);
   const handlerGetOrderDetailSuccess = (response: any): void => {
@@ -130,7 +134,7 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
                     </td>
                   </tr>
                 }
-                {/* {arrPromotion[0] !== '' &&
+                {arrPromotion[0] !== '' &&
                   arrPromotion.map((e: any, i) => (
                     <tr className="border-top border-bottom">
                       <td>
@@ -141,7 +145,16 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
                         <strong>- {parseInt(e.discountAmount).toLocaleString('ES-es')} VNĐ</strong>
                       </td>
                     </tr>
-                  ))} */}
+                  ))}
+                {fee.fee && (
+                  <tr className="spacing-bottom">
+                    <td>Phí thanh toán</td>
+                    <td />
+                    <td className="text-right">
+                      <strong>{numeral((fee.feePercent * paymentItems?.price) / 100 + fee.fee).format()} VNĐ</strong>
+                    </td>
+                  </tr>
+                )}
                 <tr className="spacing-top">
                   <td>Tổng thanh toán</td>
                   <td />
@@ -173,9 +186,8 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
           </div> */}
 
           <div className="TournamentRegisterPage-card-title">Hình thức thanh toán</div>
-
           <Form.Item name="payment_method" rules={[validationRules.required()]}>
-            <Radio spacing={16} options={paymentMethods} />
+            <Radio spacing={16} options={paymentMethods} onChange={(item): void => setFee(item)} />
           </Form.Item>
 
           <div className="TournamentRegisterPage-card-description bg-soft-blue" style={{ margin: '2.4rem 0' }}>

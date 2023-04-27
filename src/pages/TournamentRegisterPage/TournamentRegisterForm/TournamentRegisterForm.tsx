@@ -178,25 +178,41 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
             </Col> */}
             <Col span={24} lg={12}>
               <Form.Item name="nationality" label="Quốc tịch" rules={[validationRules.required()]}>
-                <Select placeholder="Quốc tịch" options={[{ label: 'Việt Nam', value: 'vn' }]} />
+                <Select
+                  placeholder="Quốc tịch"
+                  options={[
+                    { label: 'Vietnamese', value: 'vn' },
+                    { label: 'Australia', value: 'Australia' },
+                    { label: 'Chinese', value: 'Chinese' },
+                    { label: 'Laos', value: 'Laos' },
+                    { label: 'Thailand', value: 'Thailand' },
+                    { label: 'Philippines', value: 'Philippines' },
+                    { label: 'Campuchia', value: 'Campuchia' },
+                  ]}
+                />
               </Form.Item>
             </Col>
             <Col span={24} lg={12}>
               <Form.Item
                 name="passport"
                 label="Số CMND/Căn cước"
-                rules={[validationRules.required(), validationRules.minLength(9), validationRules.maxLength(12)]}
+                rules={[
+                  validationRules.required(),
+                  validationRules.minLength(9),
+                  validationRules.maxLength(12),
+                  validationRules.number(),
+                ]}
               >
-                <Input placeholder="Số CMND/Căn cước" type="number" />
+                <Input placeholder="Số CMND/Căn cước" />
               </Form.Item>
             </Col>
             <Col span={24}>
               <Form.Item
                 name="phone"
                 label="Số điện thoại"
-                rules={[validationRules.required(), validationRules.phone()]}
+                rules={[validationRules.required(), validationRules.phone(), validationRules.number()]}
               >
-                <Input placeholder="Số điện thoại" type="number" />
+                <Input placeholder="Số điện thoại" />
               </Form.Item>
             </Col>
             <Col span={24}>
@@ -228,7 +244,12 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                   <Form.Item
                     name="address"
                     label="Địa chỉ"
-                    rules={[validationRules.required(), validationRules.minLength(3), validationRules.maxLength(15)]}
+                    rules={[
+                      validationRules.required(),
+                      validationRules.minLength(3),
+                      validationRules.maxLength(15),
+                      validationRules.noSpecialKey(),
+                    ]}
                   >
                     <Input placeholder="Địa chỉ" />
                   </Form.Item>
@@ -239,7 +260,12 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
               <Form.Item
                 name="emergencyContactName"
                 label="Liên hệ khẩn cấp"
-                rules={[validationRules.required(), validationRules.minLength(3), validationRules.maxLength(15)]}
+                rules={[
+                  validationRules.required(),
+                  validationRules.minLength(3),
+                  validationRules.maxLength(15),
+                  validationRules.noSpecialKey(),
+                ]}
               >
                 <Input placeholder="Tên người liên hệ khẩn cấp" />
               </Form.Item>
@@ -248,9 +274,9 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
               <Form.Item
                 name="emergencyContactPhone"
                 label="Số điện thoại của người liên hệ khẩn cấp"
-                rules={[validationRules.required(), validationRules.phone()]}
+                rules={[validationRules.required(), validationRules.phone(), validationRules.number()]}
               >
-                <Input placeholder="Số điện thoại người liên hệ" type="number" />
+                <Input placeholder="Số điện thoại người liên hệ" />
               </Form.Item>
             </Col>
             <Col span={24} lg={12}>
@@ -282,7 +308,12 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
               <Form.Item
                 name="nameBib"
                 label="Tên trên BIB"
-                rules={[validationRules.required(), validationRules.minLength(3), validationRules.maxLength(15)]}
+                rules={[
+                  validationRules.required(),
+                  validationRules.minLength(3),
+                  validationRules.maxLength(15),
+                  validationRules.noSpecialKey(),
+                ]}
               >
                 <Input placeholder="Tên trên BIB" />
               </Form.Item>
@@ -319,7 +350,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                 }
                 rules={[validationRules.required()]}
               >
-                <Input placeholder="hh:mm (Ví dụ: 02:30)" suffix={<Icon name={EIconName.Clock} />} />
+                <Input type="time" />
               </Form.Item>
             </Col>
             {!isGroup ? (

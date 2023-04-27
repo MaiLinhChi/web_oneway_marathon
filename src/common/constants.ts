@@ -9,4 +9,5 @@ export const REGEX = {
   numeric: /^\d+$/i,
   onlySpecialKey: /[$&+,:;=?@#|'<>.^*()%`~_!\-"\]\[\\}{'/]/g,
   phone: /^(01[2689]|0[93578])[0-9]{8,9}$/,
+  number: /^[0-9]+$/,
 };
