@@ -29,7 +29,7 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
   const [paymentItems, setPaymentItems] = useState<any>({});
   const [form] = Form.useForm();
   const { id } = useParams();
-  const [fee, setFee] = useState<any>({});
+  const [totalFee, setTotalFee] = useState<any>();
   const atk = AuthHelpers.getAccessToken();
   const orderEditLoading = useSelector((state: any) => state.loadingReducer[EOrderEditAction.ORDER_EDIT]);
   // const orderState = useSelector((state: TRootState) => state.orderDetailReducer.getOrderDetailResponse);
@@ -134,7 +134,7 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
                     </td>
                   </tr>
                 }
-                {arrPromotion[0] !== '' &&
+                {/* {arrPromotion[0] !== '' &&
                   arrPromotion.map((e: any, i) => (
                     <tr className="border-top border-bottom">
                       <td>
@@ -145,13 +145,13 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
                         <strong>- {parseInt(e.discountAmount).toLocaleString('ES-es')} VNĐ</strong>
                       </td>
                     </tr>
-                  ))}
-                {fee.fee && (
+                  ))} */}
+                {totalFee && (
                   <tr className="spacing-bottom">
                     <td>Phí thanh toán</td>
                     <td />
                     <td className="text-right">
-                      <strong>{numeral((fee.feePercent * paymentItems?.price) / 100 + fee.fee).format()} VNĐ</strong>
+                      <strong>{totalFee} VNĐ</strong>
                     </td>
                   </tr>
                 )}
@@ -160,7 +160,10 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
                   <td />
                   <td className="text-right">
                     <strong style={{ color: '#1964FF', fontWeight: 900 }}>
-                      {parseInt(paymentItems?.price).toLocaleString('ES-es')} VNĐ
+                      {parseInt(totalFee ? paymentItems?.price + totalFee : paymentItems?.price).toLocaleString(
+                        'ES-es',
+                      )}
+                      {''} VNĐ
                     </strong>
                   </td>
                 </tr>
@@ -187,7 +190,11 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
 
           <div className="TournamentRegisterPage-card-title">Hình thức thanh toán</div>
           <Form.Item name="payment_method" rules={[validationRules.required()]}>
-            <Radio spacing={16} options={paymentMethods} onChange={(item): void => setFee(item)} />
+            <Radio
+              spacing={16}
+              options={paymentMethods}
+              onChange={(item: any): void => setTotalFee((item.feePercent * paymentItems?.price) / 100 + item.fee)}
+            />
           </Form.Item>
 
           <div className="TournamentRegisterPage-card-description bg-soft-blue" style={{ margin: '2.4rem 0' }}>
@@ -278,7 +285,11 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
               loading={orderEditLoading}
               title={
                 <>
-                  Thanh toán <strong>{parseInt(paymentItems?.price).toLocaleString('ES-es')} VNĐ</strong>
+                  Thanh toán {''}
+                  <strong>
+                    {parseInt(totalFee ? paymentItems?.price + totalFee : paymentItems?.price).toLocaleString('ES-es')}
+                    {''} VND
+                  </strong>
                 </>
               }
             />

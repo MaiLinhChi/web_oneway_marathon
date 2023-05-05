@@ -1,5 +1,7 @@
 export type TSelectDistanceProps = {
   data?: TSelectDistanceData[];
+  single?: any;
+  multiple?: any;
   value?: TSelectDistanceData;
   onChange?: (data: TSelectDistanceData) => void;
 };

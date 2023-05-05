@@ -52,9 +52,7 @@ const TournamentPaymentSucces: React.FC = () => {
                     <div className="TournamentPaymentSucces-main-success-body">
                       <p>
                         Thông tin đăng ký đã được gửi cho bạn qua email của bạn. Vui lòng check email để nhận thông tin
-                        của bạn tại giải chạy . Hoặc truy cập đường link
-                        <Link to={`${Paths.RollBib(data._id)}`}>&nbsp;này&nbsp;</Link>
-                        để hoàn tất thanh toán.
+                        của bạn tại giải chạy.
                       </p>
                       <div className="TournamentPaymentSucces-main-success-body-btn flex">
                         <Button
