@@ -82,6 +82,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
         gender: values?.gender?.value,
         shirtSize: values?.shirtSize?.value,
       };
+      console.log(body, values);
       dispatch(registerTicketAction.request({ body }, (response): void => handleRegitserSuccess(response)));
     }
   };
@@ -124,7 +125,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
           </div>
 
           <Form.Item name="distance" rules={[validationRules.required()]}>
-            <SelectDistance data={getPrice(data.race)} />
+            <SelectDistance single={getPrice(data.race)} />
           </Form.Item>
           <div className="TournamentRegisterPage-card-title flex items-center justify-between">
             Nhập thông tin vận động viên

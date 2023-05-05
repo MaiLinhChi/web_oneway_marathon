@@ -1,1 +1,3 @@
-export type TTournamentRegisterGroupFormProps = unknown;
+export type TTournamentRegisterGroupFormProps = {
+    data?: any;
+};

@@ -71,7 +71,7 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = () => {
             )}
           </Col>
           <Row className="TournamentRegisterPage-main">
-            <Col span={24} lg={14}>
+            <Col span={24} lg={16}>
               {payment ? (
                 <TournamentPaymentForm />
               ) : (
@@ -82,7 +82,7 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = () => {
                       isGroup={tabQuery === EKeyTabTournamentRegisterPage.MULTIPLE ? true : false}
                     />
                   ) : (
-                    <TournamentRegisterGroupForm />
+                    <TournamentRegisterGroupForm data={data} />
                   )}
                 </>
               )}
@@ -90,7 +90,7 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = () => {
             {isMobile ? (
               ''
             ) : (
-              <Col span={24} lg={8}>
+              <Col span={24} lg={7}>
                 <TournamentRegisterInformation />
               </Col>
             )}

@@ -12,17 +12,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ERegisterGroupAction, registerGroupAction } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 import { navigate } from '@reach/router';
-import { Paths } from '@/pages/routers';
+import { LayoutPaths, Paths } from '@/pages/routers';
+import AuthHelpers from '@/services/helpers';
 
-const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> = () => {
+const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> = ({ data }) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
+  const atk = AuthHelpers.getAccessToken();
   const registerLoading = useSelector((state: any) => state.loadingReducer[ERegisterGroupAction.REGISTER_GROUP]);
-
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const handleSubmit = (values: any): void => {
-    const body = { ...values, race_slug: 'cat-ba' };
+    const body = { ...values };
     dispatch(registerGroupAction.request({ body }, (response): void => handleRegitserSuccess(response)));
   };
   const handleRegitserSuccess = (response: any): void => {
@@ -33,6 +34,10 @@ const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> =
       showNotification(ETypeNotification.ERROR, response.message);
     }
   };
+  console.log(atk);
+  if (!atk) {
+    navigate(LayoutPaths.Auth + Paths.Login);
+  }
   return (
     <div className="TournamentRegisterGroupForm">
       <Form layout="vertical" form={form} onFinish={handleSubmit}>
@@ -53,17 +58,8 @@ const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> =
           <div className="TournamentRegisterGroupForm-group">
             <div className="TournamentRegisterPage-card-title">Lựa chọn số lượng thành viên</div>
 
-            <Form.Item rules={[validationRules.required()]}>
-              <SelectDistance
-                data={[
-                  { value: '-', label: '-', description: '2-9 thành viên', suffix: '' },
-                  { value: '-5', label: '-5', description: '10-29 thành viên', suffix: '%' },
-                  { value: '-8', label: '-8', description: '30-49 thành viên', suffix: '%' },
-                  { value: '-10', label: '-10', description: '50-99 thành viên', suffix: '%' },
-                  { value: '-20', label: '-20', description: '100-199 thành viên', suffix: '%' },
-                  { value: '-25', label: '-25', description: '2-9 thành viên', suffix: '%' },
-                ]}
-              />
+            <Form.Item name="percent" rules={[validationRules.required()]}>
+              <SelectDistance multiple={data.registerGroup} />
             </Form.Item>
           </div>
 
@@ -76,7 +72,7 @@ const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> =
                 </div>
               </Col>
               <Col span={18}>
-                <Form.Item name="group_name">
+                <Form.Item name="name">
                   <Input placeholder="Tên nhóm" />
                 </Form.Item>
               </Col>
@@ -86,7 +82,7 @@ const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> =
                 </div>
               </Col>
               <Col span={18}>
-                <Form.Item name="group_password">
+                <Form.Item name="password">
                   <Input type="password" placeholder="Mật khẩu" />
                 </Form.Item>
               </Col>
@@ -102,7 +98,7 @@ const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> =
                 </div>
               </Col>
               <Col span={18}>
-                <Form.Item name="full_name">
+                <Form.Item name="fullName">
                   <Input placeholder="Họ và tên" />
                 </Form.Item>
               </Col>
