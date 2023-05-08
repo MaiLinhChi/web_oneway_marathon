@@ -61,6 +61,10 @@ export enum EResponseCode {
   NETWORK_AUTHENTICATION_REQUIRED = 511,
 }
 
+export enum EViMessageCode {
+  invalid_credentials = "Thông báo sai tên đăng nhập hoặc mật khẩu",
+}
+
 export enum ETypeNotification {
   SUCCESS = 'success',
   WARNING = 'warning',
