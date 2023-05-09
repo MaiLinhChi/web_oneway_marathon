@@ -149,7 +149,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
     dispatch(addressAction.request({}));
   }, [dispatch]);
   useEffect(() => {
-    getAddress();
+    // getAddress();
   }, [dispatch, getAddress]);
 
   return (
@@ -226,11 +226,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
               <Form.Item
                 name="passport"
                 label="Số CMND/Căn cước"
-                rules={[
-                  validationRules.required(),
-                  validationRules.minLength(9),
-                  validationRules.maxLength(12),
-                ]}
+                rules={[validationRules.required(), validationRules.minLength(9), validationRules.maxLength(12)]}
               >
                 <Input placeholder="Số CMND/Căn cước" />
               </Form.Item>
@@ -279,10 +275,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                   <Form.Item
                     name="address"
                     label=" "
-                    rules={[
-                      validationRules.minLength(3),
-                      validationRules.noSpecialKey(),
-                    ]}
+                    rules={[validationRules.minLength(3), validationRules.noSpecialKey()]}
                   >
                     <Input placeholder="Số nhà/Đường" disabled={nationality !== 'vn' ? true : false} />
                   </Form.Item>
