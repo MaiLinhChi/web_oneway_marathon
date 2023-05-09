@@ -54,25 +54,25 @@ const PersonalInfo: React.FC<TPersonalInfoProps> = () => {
     getAddress();
   }, [dispatch, getAddress]);
   const handleChangeCountries = (values: any): void => {
-    const body = {
+    const params = {
       country_id: values,
     };
     form.setFieldsValue({ city: null, district: null, ward: null });
-    dispatch(cityAction.request({ body }, (response): void => {}));
+    dispatch(cityAction.request({ params }, (response): void => {}));
   };
   const handleChangeDistrict = (values: any): void => {
-    const body = {
+    const params = {
       city_id: values,
     };
     form.setFieldsValue({ district: null, ward: null });
-    dispatch(districtAction.request({ body }, (response): void => {}));
+    dispatch(districtAction.request({ params }, (response): void => {}));
   };
   const handleChangeWard = (values: any): void => {
-    const body = {
+    const params = {
       district_id: values,
     };
     form.setFieldsValue({ ward: null });
-    dispatch(wardAction.request({ body }, (response): void => {}));
+    dispatch(wardAction.request({ params }, (response): void => {}));
   };
   const handlerSubmit = (values: any): void => {
     const body = {

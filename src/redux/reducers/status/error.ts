@@ -3,7 +3,7 @@ import { AxiosError } from 'axios';
 
 import { uiActions } from '@/redux/actions';
 import { showNotification } from '@/utils/functions';
-import { ETypeNotification } from '@/common/enums';
+import { ETypeNotification, EViMessageCode } from '@/common/enums';
 
 export type TErrorState = { [id: string]: { error: null | Error | string; code?: number } | null };
 
@@ -51,12 +51,14 @@ const errorReducer = (state: TErrorState = {}, action: IErrorAction | IResetActi
     const isNotShowToast = requestNameArray.includes(requestName);
 
     error =
-      axiosErrorData?.message ||
-      axiosErrorData?.error_description ||
-      axiosErrorData?.errors?.[0].message ||
-      error?.message;
-
-    if (error && !isNotShowToast) showNotification(ETypeNotification.ERROR, error as string);
+      (axiosErrorData?.messageKey as string) ||
+      (axiosErrorData?.message as string) ||
+      (axiosErrorData?.error_description as string) ||
+      (axiosErrorData?.errors?.[0].message as string) ||
+      (error?.message as string);
+    if (error && !isNotShowToast) {
+      showNotification(ETypeNotification.ERROR, EViMessageCode[error as keyof typeof EViMessageCode]);
+    }
   }
 
   return {

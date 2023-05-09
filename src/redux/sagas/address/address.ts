@@ -2,9 +2,17 @@ import { ActionType } from 'deox';
 import { call, put } from 'redux-saga/effects';
 
 import { addressAction, districtAction, wardAction } from '@/redux/actions';
-import { address, city, district, TAddressResponse, TDistrictResponse, TWardResponse, ward } from '@/services/api';
+import {
+  address,
+  city,
+  district,
+  TAddressResponse,
+  TGetDistrictResponse,
+  TGetWardResponse,
+  ward,
+} from '@/services/api';
 import { cityAction } from '@/redux/actions/address/city';
-import { TCityResponse } from '@/services/api/address/city';
+import { TGetCityResponse } from '@/services/api/address/city';
 
 // FUNCTION
 
@@ -24,7 +32,7 @@ export function* citySaga(action: ActionType<typeof cityAction.request>): Genera
   const { materials, successCallback, failedCallback } = action.payload;
   try {
     const response = yield call(city, materials);
-    const cityResponse: TCityResponse = response as TCityResponse;
+    const cityResponse: TGetCityResponse = response as TGetCityResponse;
     yield put(cityAction.success(cityResponse));
     successCallback?.(cityResponse);
   } catch (err) {
@@ -37,7 +45,7 @@ export function* districtSaga(action: ActionType<typeof districtAction.request>)
   try {
     const response = yield call(district, materials);
     console.log('res', response);
-    const districtResponse: TDistrictResponse = response as TDistrictResponse;
+    const districtResponse: TGetDistrictResponse = response as TGetDistrictResponse;
     yield put(districtAction.success(districtResponse));
     successCallback?.(districtResponse);
   } catch (err) {
@@ -49,7 +57,7 @@ export function* wardSaga(action: ActionType<typeof wardAction.request>): Genera
   const { materials, successCallback, failedCallback } = action.payload;
   try {
     const response = yield call(ward, materials);
-    const wardResponse: TWardResponse = response as TWardResponse;
+    const wardResponse: TGetWardResponse = response as TGetWardResponse;
     yield put(wardAction.success(wardResponse));
     successCallback?.(wardResponse);
   } catch (err) {

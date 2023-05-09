@@ -8,20 +8,11 @@ export type TCityBody = unknown;
 
 export type TCityMaterials = {
   params?: TCityParams;
-  body?: TCityBody;
 };
-export type TGetCityResponse = unknown;
-export type TCityResponse = {
-  data: {
-    cities: TCityResponse[];
-  };
-  code: string;
-  name: string;
-  slug?: string;
-};
+export type TGetCityResponse = TCommonResponse & any;
 // FUNCTION
 
-export const city = async ({ params, body }: TCityMaterials): Promise<TGetCityResponse> => {
-  const response = await ApiService.post(`/api/cities-by-country`, body, { params });
+export const city = async ({ params }: TCityMaterials): Promise<TGetCityResponse> => {
+  const response = await ApiService.get(`/province`, { params });
   return response.data;
 };

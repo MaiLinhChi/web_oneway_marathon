@@ -62,7 +62,8 @@ export enum EResponseCode {
 }
 
 export enum EViMessageCode {
-  invalid_credentials = "Thông báo sai tên đăng nhập hoặc mật khẩu",
+  'invalid_credentials' = 'Sai tên đăng nhập hoặc mật khẩu',
+  'invalid_password' = 'Nhập sai mật khẩu hiện tại ',
 }
 
 export enum ETypeNotification {

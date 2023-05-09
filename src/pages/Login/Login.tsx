@@ -17,7 +17,7 @@ const Login: React.FC = () => {
   const loginLoading = useSelector((state: any) => state.loadingReducer[EAuthLoginAction.AUTH_LOGIN]);
   const handleSubmit = (values: any): void => {
     const body = { ...values };
-    dispatch(authLoginAction.request({ body }, (response): void => console.log(response)));
+    dispatch(authLoginAction.request({ body }, (response): void => handleLoginSuccess(response)));
   };
 
   const handleLoginSuccess = (response: any): void => {
@@ -25,8 +25,7 @@ const Login: React.FC = () => {
       showNotification(ETypeNotification.SUCCESS, 'Đăng nhập thành công !');
       navigate(Paths.Home);
     } else {
-      console.log(response);
-      // showNotification(ETypeNotification.ERROR, EViMessageCode[response.message_code]);
+      showNotification(ETypeNotification.ERROR, response.message);
     }
   };
   return (

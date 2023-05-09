@@ -18,6 +18,9 @@ import {
   runnerRegisterGroupAction,
   wardAction,
   registerTicketAction,
+  addressAction,
+  cityAction,
+  districtAction,
 } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 import { TRootState } from '@/redux/reducers';
@@ -29,11 +32,16 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const [billRequest, setBillRequest] = useState(false);
+  const [nationality, setNationality] = useState('');
   const registerLoading = useSelector((state: any) => state.loadingReducer[ERegisterTicketAction.REGISTER_TICKET]);
   const registerRunnerLoading = useSelector(
     (state: any) => state.loadingReducer[ERunnerRegisterGroupAction.RUNNER_REISTER_GROUP],
   );
   const profileState = useSelector((state: TRootState) => state.profileReducer.getProfileResponse?.data);
+  const addressCountriesState = useSelector((state: TRootState) => state.addressReducer.countries);
+  const addressCityState = useSelector((state: TRootState) => state);
+  const addressDistrictState = useSelector((state: TRootState) => state.addressReducer.districts);
+  const addressWardState = useSelector((state: TRootState) => state.addressReducer.wards);
   const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.registerGroupResponse);
 
   const formatDate = (date: any): string => {
@@ -115,6 +123,35 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
       phone: profileState.mobile,
     });
   };
+  const handleChangeCountries = (values: any): void => {
+    const params = {
+      country_id: values,
+    };
+    form.setFieldsValue({ city: null, district: null, ward: null });
+    dispatch(cityAction.request({ params }, (response): void => {}));
+  };
+  const handleChangeDistrict = (values: any): void => {
+    const params = {
+      city_id: values,
+    };
+    form.setFieldsValue({ district: null, ward: null });
+    dispatch(districtAction.request({ params }, (response): void => {}));
+  };
+  const handleChangeWard = (values: any): void => {
+    const params = {
+      district_id: values,
+    };
+    form.setFieldsValue({ ward: null });
+    dispatch(wardAction.request({ params }, (response): void => {}));
+  };
+
+  const getAddress = useCallback(() => {
+    dispatch(addressAction.request({}));
+  }, [dispatch]);
+  useEffect(() => {
+    getAddress();
+  }, [dispatch, getAddress]);
+
   return (
     <div className="TournamentRegisterForm">
       <Form layout="vertical" form={form} onFinish={handleSubmit}>
@@ -168,15 +205,6 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                 />
               </Form.Item>
             </Col>
-            {/* <Col span={24} lg={12}>
-              <Form.Item name="country" label="Quốc tịch">
-                <Select
-                  placeholder="Quốc tịch"
-                  options={addressCountriesState}
-                  onChange={(option): void => handleChangeCountries(option?.value)}
-                />
-              </Form.Item>
-            </Col> */}
             <Col span={24} lg={12}>
               <Form.Item name="nationality" label="Quốc tịch" rules={[validationRules.required()]}>
                 <Select
@@ -190,6 +218,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                     { label: 'Philippines', value: 'Philippines' },
                     { label: 'Campuchia', value: 'Campuchia' },
                   ]}
+                  onChange={(item: any): void => setNationality(item.value)}
                 />
               </Form.Item>
             </Col>
@@ -201,7 +230,6 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                   validationRules.required(),
                   validationRules.minLength(9),
                   validationRules.maxLength(12),
-                  validationRules.number(),
                 ]}
               >
                 <Input placeholder="Số CMND/Căn cước" />
@@ -218,41 +246,45 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
             </Col>
             <Col span={24}>
               <Row gutter={[4, 24]}>
-                {/* <Col span={24} lg={6}>
-                  <Form.Item name="city" label="Địa chỉ">
+                <Col span={24} lg={6}>
+                  <Form.Item name="city" label="Địa chỉ" rules={[validationRules.required()]}>
                     <Select
                       placeholder="Thành phố"
-                      options={addressCityState}
+                      // options={addressCityState}
                       onChange={(option): void => handleChangeDistrict(option?.value)}
+                      disabled={nationality !== 'vn' ? true : false}
                     />
                   </Form.Item>
-                </Col> */}
-                {/* <Col span={24} lg={6}>
+                </Col>
+                <Col span={24} lg={6}>
                   <Form.Item name="district" label=" ">
                     <Select
-                      placeholder="Quận/Huyện"
+                      placeholder="Quận"
                       options={addressDistrictState}
                       onChange={(option): void => handleChangeWard(option?.value)}
+                      disabled={nationality !== 'vn' ? true : false}
                     />
                   </Form.Item>
-                </Col> */}
-                {/* <Col span={24} lg={6}>
+                </Col>
+                <Col span={24} lg={6}>
                   <Form.Item name="ward" label=" ">
-                    <Select placeholder="Phường/Xã" options={addressWardState} />
+                    <Select
+                      placeholder="Phường"
+                      options={addressWardState}
+                      disabled={nationality !== 'vn' ? true : false}
+                    />
                   </Form.Item>
-                </Col> */}
-                <Col span={24}>
+                </Col>
+                <Col span={24} lg={6}>
                   <Form.Item
                     name="address"
-                    label="Địa chỉ"
+                    label=" "
                     rules={[
-                      validationRules.required(),
                       validationRules.minLength(3),
-                      validationRules.maxLength(15),
                       validationRules.noSpecialKey(),
                     ]}
                   >
-                    <Input placeholder="Địa chỉ" />
+                    <Input placeholder="Số nhà/Đường" disabled={nationality !== 'vn' ? true : false} />
                   </Form.Item>
                 </Col>
               </Row>
