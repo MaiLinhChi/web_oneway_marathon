@@ -1,6 +1,6 @@
 import { createActionCreator } from 'deox';
 
-import { TCityMaterials, TCityResponse } from '@/services/api/address/city';
+import { TCityMaterials, TGetCityResponse } from '@/services/api/address/city';
 
 // CONSTANTS
 
@@ -17,14 +17,14 @@ export type TCityRequest = {
   type: ECityAction.CITY_REQUEST;
   payload: {
     materials: TCityMaterials;
-    successCallback?: (response: TCityResponse) => void;
+    successCallback?: (response: TGetCityResponse) => void;
     failedCallback?: (err: unknown) => void;
   };
 };
 
 export type TCitySuccess = {
   type: ECityAction.CITY_SUCCESS;
-  payload: { response: TCityResponse };
+  payload: { response: TGetCityResponse };
 };
 
 export type TCityFailed = { type: ECityAction.CITY_FAILED };
@@ -37,7 +37,7 @@ export const cityAction = {
     (resolve) =>
       (
         materials: TCityMaterials,
-        successCallback?: (response: TCityResponse) => void,
+        successCallback?: (response: TGetCityResponse) => void,
         failedCallback?: (err: unknown) => void,
       ): TCityRequest =>
         resolve({ materials, successCallback, failedCallback }),
@@ -45,7 +45,7 @@ export const cityAction = {
   success: createActionCreator(
     ECityAction.CITY_SUCCESS,
     (resolve) =>
-      (response: TCityResponse): TCitySuccess =>
+      (response: TGetCityResponse): TCitySuccess =>
         resolve({ response }),
   ),
   failure: createActionCreator(

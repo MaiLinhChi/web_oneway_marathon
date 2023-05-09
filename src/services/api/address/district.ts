@@ -1,3 +1,4 @@
+import { TCommonResponse } from '@/common/types';
 import ApiService from '@/services/api';
 
 // TYPES
@@ -7,20 +8,11 @@ export type TDistrictBody = unknown;
 
 export type TDistrictMaterials = {
   params?: TDistrictParams;
-  body?: TDistrictBody;
 };
-export type TGetDistrictResponse = unknown;
-export type TDistrictResponse = {
-  data: {
-    districts: TDistrictResponse[];
-  };
-  code: string;
-  name: string;
-  slug?: string;
-};
+export type TGetDistrictResponse = TCommonResponse & any;
 // FUNCTION
 
-export const district = async ({ params, body }: TDistrictMaterials): Promise<TGetDistrictResponse> => {
-  const response = await ApiService.post(`/api/districts-by-city`, body, { params });
+export const district = async ({ params }: TDistrictMaterials): Promise<TGetDistrictResponse> => {
+  const response = await ApiService.get(`/district`, { params });
   return response.data;
 };

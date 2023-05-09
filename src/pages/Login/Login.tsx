@@ -9,7 +9,7 @@ import Input from '@/components/Input';
 import Button from '@/components/Button';
 import { EIconName } from '@/components/Icon';
 import { authLoginAction, EAuthLoginAction } from '@/redux/actions';
-import { EResponseCode, ETypeNotification } from '@/common/enums';
+import { EResponseCode, ETypeNotification, EViMessageCode } from '@/common/enums';
 
 const Login: React.FC = () => {
   const [form] = Form.useForm();
@@ -17,16 +17,14 @@ const Login: React.FC = () => {
   const loginLoading = useSelector((state: any) => state.loadingReducer[EAuthLoginAction.AUTH_LOGIN]);
   const handleSubmit = (values: any): void => {
     const body = { ...values };
-
     dispatch(authLoginAction.request({ body }, (response): void => handleLoginSuccess(response)));
   };
 
   const handleLoginSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {
-      // showNotification(ETypeNotification.SUCCESS, 'Đăng nhập thành công !');
+      showNotification(ETypeNotification.SUCCESS, 'Đăng nhập thành công !');
       navigate(Paths.Home);
     } else {
-      console.log('response', response);
       showNotification(ETypeNotification.ERROR, response.message);
     }
   };

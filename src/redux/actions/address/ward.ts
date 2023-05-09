@@ -1,6 +1,6 @@
 import { createActionCreator } from 'deox';
 
-import { TWardMaterials, TWardResponse } from '@/services/api/address/ward';
+import { TWardMaterials, TGetWardResponse } from '@/services/api/address/ward';
 
 // CONSTANTS
 
@@ -17,14 +17,14 @@ export type TWardRequest = {
   type: EWardAction.WARD_REQUEST;
   payload: {
     materials: TWardMaterials;
-    successCallback?: (response: TWardResponse) => void;
+    successCallback?: (response: TGetWardResponse) => void;
     failedCallback?: (err: unknown) => void;
   };
 };
 
 export type TWardSuccess = {
   type: EWardAction.WARD_SUCCESS;
-  payload: { response: TWardResponse };
+  payload: { response: TGetWardResponse };
 };
 
 export type TWardFailed = { type: EWardAction.WARD_FAILED };
@@ -37,7 +37,7 @@ export const wardAction = {
     (resolve) =>
       (
         materials: TWardMaterials,
-        successCallback?: (response: TWardResponse) => void,
+        successCallback?: (response: TGetWardResponse) => void,
         failedCallback?: (err: unknown) => void,
       ): TWardRequest =>
         resolve({ materials, successCallback, failedCallback }),
@@ -45,7 +45,7 @@ export const wardAction = {
   success: createActionCreator(
     EWardAction.WARD_SUCCESS,
     (resolve) =>
-      (response: TWardResponse): TWardSuccess =>
+      (response: TGetWardResponse): TWardSuccess =>
         resolve({ response }),
   ),
   failure: createActionCreator(

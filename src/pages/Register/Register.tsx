@@ -63,9 +63,9 @@ const Register: React.FC = () => {
                   <Form.Item name="mobile" rules={[validationRules.minLength(10)]}>
                     <Input placeholder="Số điện thoại cá nhân" required={true} />
                   </Form.Item>
-                  <Form.Item name="avatar">
+                  {/* <Form.Item name="avatar">
                     <Input placeholder="Hình ảnh cá nhân" />
-                  </Form.Item>
+                  </Form.Item> */}
                 </div>
                 <div className="Auth-form-group">
                   <div className="Auth-form-title">Mật khẩu</div>
@@ -86,7 +86,7 @@ const Register: React.FC = () => {
                     <Col span={24} />
                   </Row>
                 </div>
-                {/* <Form.Item name="policyAgreed">
+                <Form.Item name="policyAgreed" rules={[validationRules.noChecked()]}>
                   <Checkbox
                     label={
                       <>
@@ -94,7 +94,7 @@ const Register: React.FC = () => {
                       </>
                     }
                   />
-                </Form.Item> */}
+                </Form.Item>
                 <Button title="Tạo tài khoản" size="large" loading={loginLoading} htmlType="submit" type="primary" />
               </div>
             </Form>

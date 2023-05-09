@@ -1,3 +1,4 @@
+import { TCommonResponse } from '@/common/types';
 import ApiService from '@/services/api';
 
 // TYPES
@@ -7,20 +8,11 @@ export type TWardBody = unknown;
 
 export type TWardMaterials = {
   params?: TWardParams;
-  body?: TWardBody;
 };
-export type TGetWardResponse = unknown;
-export type TWardResponse = {
-  data: {
-    wards: TWardResponse[];
-  };
-  code: string;
-  name: string;
-  slug?: string;
-};
+export type TGetWardResponse = TCommonResponse & any;
 // FUNCTION
 
-export const ward = async ({ params, body }: TWardMaterials): Promise<TGetWardResponse> => {
-  const response = await ApiService.post(`/api/wards-by-district`, body, { params });
+export const ward = async ({ params }: TWardMaterials): Promise<TGetWardResponse> => {
+  const response = await ApiService.get(`/ward`, { params });
   return response.data;
 };
