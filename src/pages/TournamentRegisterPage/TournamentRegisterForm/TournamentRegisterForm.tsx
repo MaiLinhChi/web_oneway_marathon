@@ -8,6 +8,7 @@ import Input from '@/components/Input';
 import Select from '@/components/Select';
 import DatePicker from '@/components/DatePicker';
 import Checkbox from '@/components/Checkbox';
+import ShirtSize from '@/assets/images/t-shirt-size.jpg';
 import Icon, { EIconName } from '@/components/Icon';
 import { TTournamentRegisterFormProps } from './TournamentRegisterForm.types';
 import './TournamentRegisterForm.scss';
@@ -25,7 +26,7 @@ import {
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 import { TRootState } from '@/redux/reducers';
 import { navigate } from '@reach/router';
-import { Paths } from '@/pages/routers';
+import { LayoutPaths, Paths } from '@/pages/routers';
 import { EKeyTabTournamentRegisterPage } from '../TournamentRegisterPage.enums';
 
 const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGroup, data }) => {
@@ -79,15 +80,38 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
       };
       dispatch(runnerRegisterGroupAction.request({ body }, (response): void => handleRunnerRegitserSuccess(response)));
     } else {
+      const { city, district, ward, street, distance, checkVat, companyAddress, companyName, taxCode, ...ress } =
+        values;
       body = {
-        ...values,
-        ...values.distance,
+        ...ress,
         birthday: formatDate(values?.birthday),
         nationality: values?.nationality.value,
-        marathon: data.name,
         gender: values?.gender?.value,
         shirtSize: values?.shirtSize?.value,
+        marathon: {
+          marathonId: data._id,
+          ...values.distance,
+        },
+        price: distance.price,
+        address: {
+          province: city.label,
+          district: district.label,
+          ward: ward.label,
+          street: street,
+        },
+        vat: {
+          taxCode,
+          companyName,
+          companyAddress,
+        },
       };
+      delete body.marathon.price;
+      if (!checkVat) {
+        delete body.vat;
+      }
+      if (nationality !== 'vn') {
+        delete body.address;
+      }
       console.log(body, values);
       dispatch(registerTicketAction.request({ body }, (response): void => handleRegitserSuccess(response)));
     }
@@ -113,6 +137,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   };
   const handleUpdateInfoMe = (): void => {
     if (!profileState) {
+      showNotification(ETypeNotification.ERROR, 'Yêu cầu login !');
       return;
     }
     form.setFieldsValue({
@@ -251,7 +276,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                   </Form.Item>
                 </Col>
                 <Col span={24} lg={6}>
-                  <Form.Item name="district" label=" ">
+                  <Form.Item name="district" label=" " rules={[validationRules.required()]}>
                     <Select
                       placeholder="Quận"
                       options={addressDistrictState}
@@ -261,7 +286,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                   </Form.Item>
                 </Col>
                 <Col span={24} lg={6}>
-                  <Form.Item name="ward" label=" ">
+                  <Form.Item name="ward" label=" " rules={[validationRules.required()]}>
                     <Select
                       placeholder="Phường"
                       options={addressWardState}
@@ -270,11 +295,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                   </Form.Item>
                 </Col>
                 <Col span={24} lg={6}>
-                  <Form.Item
-                    name="address"
-                    label=" "
-                    rules={[validationRules.minLength(3), validationRules.noSpecialKey()]}
-                  >
+                  <Form.Item name="street" label=" " rules={[validationRules.minLength(3), validationRules.required()]}>
                     <Input placeholder="Số nhà/Đường" disabled={nationality !== 'vn' ? true : false} />
                   </Form.Item>
                 </Col>
@@ -309,10 +330,8 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                 style={{ fontSize: '1.4rem', position: 'relative', zIndex: 1, marginBottom: '-2rem' }}
               >
                 <a href="#">Bảng kích thước</a>
+                <img src={ShirtSize} alt="" className="shirt-size" />
               </div>
-              {/* <Form.Item name="size" label="Size áo">
-                <Select placeholder="Chọn size áo" options={[]} />
-              </Form.Item> */}
               <Form.Item name="shirtSize" label="Size áo" rules={[validationRules.required()]}>
                 <Select
                   placeholder="Size áo"
@@ -323,7 +342,6 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                     { label: 'L', value: 'L' },
                     { label: 'XL', value: 'XL' },
                     { label: 'XXL', value: 'XXL' },
-                    { label: 'XXXL', value: 'XXXL' },
                   ]}
                 />
               </Form.Item>
@@ -332,18 +350,13 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
               <Form.Item
                 name="nameBib"
                 label="Tên trên BIB"
-                rules={[
-                  validationRules.required(),
-                  validationRules.minLength(3),
-                  validationRules.maxLength(15),
-                  validationRules.noSpecialKey(),
-                ]}
+                rules={[validationRules.minLength(3), validationRules.noSpecialKey()]}
               >
                 <Input placeholder="Tên trên BIB" />
               </Form.Item>
             </Col>
-            {/* <Col span={24}>
-              <Form.Item
+            <Col span={24}>
+              {/* <Form.Item
                 name="club"
                 label={
                   <>
@@ -356,11 +369,11 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                 }
               >
                 <Select placeholder="Chọn câu lạc bộ" options={[]} />
-              </Form.Item>
-              <Form.Item name="club">
+              </Form.Item> */}
+              {/* <Form.Item name="club">
                 <Checkbox label="Câu lạc bộ" value={billRequest} onChange={handleSetBill} />
-              </Form.Item>
-            </Col> */}
+              </Form.Item> */}
+            </Col>
             <Col span={24}>
               <Form.Item
                 name="timeEstimation"
@@ -379,15 +392,15 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
             </Col>
             {!isGroup ? (
               <>
-                {/* <Col span={24}>
+                <Col span={24}>
                   <Form.Item name="checkVat">
                     <Checkbox label="Yêu cầu xuất hóa đơn" value={billRequest} onChange={handleSetBill} />
                   </Form.Item>
-                </Col> */}
+                </Col>
                 {billRequest && (
                   <>
                     <Col span={24} lg={12}>
-                      <Form.Item name="taxId">
+                      <Form.Item name="taxCode">
                         <Input placeholder="Mã số thuế" />
                       </Form.Item>
                     </Col>
