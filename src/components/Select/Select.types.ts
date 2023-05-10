@@ -20,6 +20,7 @@ export type TSelectProps = {
 
 export type TSelectOption = {
   _id?: any;
+  level?: any;
   label: string;
   value: string;
   data?: any;

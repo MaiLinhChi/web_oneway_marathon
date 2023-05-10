@@ -40,9 +40,11 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
   // };
   const handleSubmit = (values: any): void => {
     const body = {
-      gateway: values.payment_method.gateway,
-      bankCode: values.payment_method.bankCode,
-      price: paymentItems.price,
+      payment: {
+        gateway: values.payment_method.gateway,
+        bankCode: values.payment_method.bankCode,
+        fee: totalFee,
+      },
     };
     if (id) {
       const headers = {
@@ -126,7 +128,7 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
                 {
                   <tr className="spacing-bottom">
                     <td>
-                      {paymentItems?.state} - {paymentItems?.distance}m
+                      {paymentItems?.marathon?.state} - {paymentItems?.marathon?.distance}m
                     </td>
                     <td>x1</td>
                     <td className="text-right">

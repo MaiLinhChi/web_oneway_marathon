@@ -16,8 +16,7 @@ const Register: React.FC = () => {
   const dispatch = useDispatch();
   const loginLoading = useSelector((state: any) => state.loadingReducer[EAuthSignUpAction.SIGNUP]);
   const handleSubmit = (values: any): void => {
-    const body = { ...values };
-
+    const { policyAgreed, ...body } = values;
     dispatch(authSignUpAction.request({ body }, (response): void => handleSignUpSuccess(response)));
   };
 

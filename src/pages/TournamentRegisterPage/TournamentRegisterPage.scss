@@ -95,6 +95,7 @@
       line-height: 2rem;
       font-style: italic;
       color: $regent-gray;
+      position: relative;
 
       strong {
         color: $cod-gray;
@@ -108,6 +109,17 @@
         &:hover {
           text-decoration: underline;
         }
+
+        &:hover + img {
+          display: block;
+        }
+      }
+
+      img {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
       }
     }
 
