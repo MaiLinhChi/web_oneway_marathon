@@ -80,8 +80,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
       };
       dispatch(runnerRegisterGroupAction.request({ body }, (response): void => handleRunnerRegitserSuccess(response)));
     } else {
-      const { city, district, ward, street, distance, checkVat, companyAddress, companyName, taxCode, ...ress } =
-        values;
+      const { distance, checkVat, ...ress } = values;
       body = {
         ...ress,
         birthday: formatDate(values?.birthday),
@@ -93,17 +92,6 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
           ...values.distance,
         },
         price: distance.price,
-        address: {
-          province: city.label,
-          district: district.label,
-          ward: ward.label,
-          street: street,
-        },
-        vat: {
-          taxCode,
-          companyName,
-          companyAddress,
-        },
       };
       delete body.marathon.price;
       if (!checkVat) {
@@ -112,7 +100,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
       if (nationality !== 'vn') {
         delete body.address;
       }
-      console.log(body, values);
+      console.log(body);
       dispatch(registerTicketAction.request({ body }, (response): void => handleRegitserSuccess(response)));
     }
   };
@@ -266,7 +254,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
             <Col span={24}>
               <Row gutter={[4, 24]}>
                 <Col span={24} lg={6}>
-                  <Form.Item name="city" label="Địa chỉ" rules={[validationRules.required()]}>
+                  <Form.Item name={['address', 'city']} label="Địa chỉ" rules={[validationRules.required()]}>
                     <Select
                       placeholder="Thành phố"
                       options={addressCityState}
@@ -276,7 +264,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                   </Form.Item>
                 </Col>
                 <Col span={24} lg={6}>
-                  <Form.Item name="district" label=" " rules={[validationRules.required()]}>
+                  <Form.Item name={['address', 'district']} label=" ">
                     <Select
                       placeholder="Quận"
                       options={addressDistrictState}
@@ -286,7 +274,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                   </Form.Item>
                 </Col>
                 <Col span={24} lg={6}>
-                  <Form.Item name="ward" label=" " rules={[validationRules.required()]}>
+                  <Form.Item name={['address', 'ward']} label=" ">
                     <Select
                       placeholder="Phường"
                       options={addressWardState}
@@ -295,7 +283,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                   </Form.Item>
                 </Col>
                 <Col span={24} lg={6}>
-                  <Form.Item name="street" label=" " rules={[validationRules.minLength(3), validationRules.required()]}>
+                  <Form.Item name={['address', 'street']} label=" ">
                     <Input placeholder="Số nhà/Đường" disabled={nationality !== 'vn' ? true : false} />
                   </Form.Item>
                 </Col>
@@ -400,17 +388,17 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                 {billRequest && (
                   <>
                     <Col span={24} lg={12}>
-                      <Form.Item name="taxCode">
+                      <Form.Item name={['vat', 'taxCode']}>
                         <Input placeholder="Mã số thuế" />
                       </Form.Item>
                     </Col>
                     <Col span={24} lg={12}>
-                      <Form.Item name="companyName">
+                      <Form.Item name={['vat', 'companyName']}>
                         <Input placeholder="Tên công ty" />
                       </Form.Item>
                     </Col>
                     <Col span={24}>
-                      <Form.Item name="companyAddress">
+                      <Form.Item name={['vat', 'companyAddress']}>
                         <Input placeholder="Địa chỉ" />
                       </Form.Item>
                     </Col>

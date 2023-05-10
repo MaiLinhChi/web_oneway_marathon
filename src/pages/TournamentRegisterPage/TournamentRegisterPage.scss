@@ -112,6 +112,7 @@
 
         &:hover + img {
           display: block;
+          transition-delay: 1s;
         }
       }
 
@@ -120,6 +121,7 @@
         position: absolute;
         top: 0;
         left: 0;
+        transition-delay: 1s;
       }
     }
 
