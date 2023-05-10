@@ -44,7 +44,6 @@ export function* districtSaga(action: ActionType<typeof districtAction.request>)
   const { materials, successCallback, failedCallback } = action.payload;
   try {
     const response = yield call(district, materials);
-    console.log('res', response);
     const districtResponse: TGetDistrictResponse = response as TGetDistrictResponse;
     yield put(districtAction.success(districtResponse));
     successCallback?.(districtResponse);

@@ -17,7 +17,11 @@ const initialState: IUIState = {
 };
 
 export const parseToOptions = (data: any): TSelectOption[] =>
-  data?.map((item: { id: any; name: any; code: any }) => ({ id: item.id, label: item.name, value: item.id })) || [];
+  data?.map((item: { _id: any; name: any; level: any }) => ({
+    value: item._id,
+    label: item.name,
+    level: item.level,
+  })) || [];
 
 const AddressReducer = createReducer(initialState, (handleAction) => [
   handleAction(addressAction.success, (state, { payload }) => {
@@ -31,21 +35,21 @@ const AddressReducer = createReducer(initialState, (handleAction) => [
     const { response } = payload;
     return {
       ...state,
-      cities: parseToOptions(response.data.cities),
+      cities: parseToOptions(response.data),
     };
   }),
   handleAction(districtAction.success, (state, { payload }) => {
     const { response } = payload;
     return {
       ...state,
-      districts: parseToOptions(response.data.districts),
+      districts: parseToOptions(response.data),
     };
   }),
   handleAction(wardAction.success, (state, { payload }) => {
     const { response } = payload;
     return {
       ...state,
-      wards: parseToOptions(response.data.wards),
+      wards: parseToOptions(response.data),
     };
   }),
 ]);

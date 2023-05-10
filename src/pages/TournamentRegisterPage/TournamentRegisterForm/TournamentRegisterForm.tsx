@@ -38,12 +38,10 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
     (state: any) => state.loadingReducer[ERunnerRegisterGroupAction.RUNNER_REISTER_GROUP],
   );
   const profileState = useSelector((state: TRootState) => state.profileReducer.getProfileResponse?.data);
-  const addressCountriesState = useSelector((state: TRootState) => state.addressReducer.countries);
-  const addressCityState = useSelector((state: TRootState) => state);
+  const addressCityState = useSelector((state: TRootState) => state.addressReducer.cities);
   const addressDistrictState = useSelector((state: TRootState) => state.addressReducer.districts);
   const addressWardState = useSelector((state: TRootState) => state.addressReducer.wards);
   const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.registerGroupResponse);
-
   const formatDate = (date: any): string => {
     const d = new Date(date);
     let month = '' + (d.getMonth() + 1),
@@ -123,33 +121,33 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
       phone: profileState.mobile,
     });
   };
-  const handleChangeCountries = (values: any): void => {
-    const params = {
-      country_id: values,
-    };
-    form.setFieldsValue({ city: null, district: null, ward: null });
-    dispatch(cityAction.request({ params }, (response): void => {}));
-  };
+  // const handleChangeCity = (values: any): void => {
+  //   const params = {
+  //     country_id: values,
+  //   };
+  //   form.setFieldsValue({ city: null, district: null, ward: null });
+  //   dispatch(cityAction.request({ params }, (response): void => {}));
+  // };
   const handleChangeDistrict = (values: any): void => {
     const params = {
-      city_id: values,
+      provinceId: values,
     };
     form.setFieldsValue({ district: null, ward: null });
     dispatch(districtAction.request({ params }, (response): void => {}));
   };
   const handleChangeWard = (values: any): void => {
     const params = {
-      district_id: values,
+      districtId: values,
     };
     form.setFieldsValue({ ward: null });
     dispatch(wardAction.request({ params }, (response): void => {}));
   };
 
   const getAddress = useCallback(() => {
-    dispatch(addressAction.request({}));
+    dispatch(cityAction.request({}));
   }, [dispatch]);
   useEffect(() => {
-    // getAddress();
+    getAddress();
   }, [dispatch, getAddress]);
 
   return (
@@ -246,8 +244,8 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                   <Form.Item name="city" label="Địa chỉ" rules={[validationRules.required()]}>
                     <Select
                       placeholder="Thành phố"
-                      // options={addressCityState}
-                      onChange={(option): void => handleChangeDistrict(option?.value)}
+                      options={addressCityState}
+                      onChange={(option: any): void => handleChangeDistrict(option?.value)}
                       disabled={nationality !== 'vn' ? true : false}
                     />
                   </Form.Item>
