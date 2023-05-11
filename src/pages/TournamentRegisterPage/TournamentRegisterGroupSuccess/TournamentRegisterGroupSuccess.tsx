@@ -25,8 +25,8 @@ const TournamentRegisterGroupSuccess: React.FC = () => {
       },
       id,
     };
-    const res = await getGroupById({ headers });
-    setGroup(res.data);
+    const data = await getGroupById({ headers });
+    setGroup(data.res);
   }, [atk, id]);
   useEffect(() => {
     getInfoGroup();
@@ -67,7 +67,7 @@ const TournamentRegisterGroupSuccess: React.FC = () => {
                     <div className="TournamentRegisterPage-main-success-body-copy">
                       <div className="TournamentRegisterPage-main-success-body-copy-top flex items-center justify-between">
                         <div className="link" onClick={handlerClick}>
-                          {group?.link}
+                          {group?.linkJoin}
                         </div>
                         <Button title="Sao chép" type="primary" />
                       </div>
@@ -97,7 +97,7 @@ const TournamentRegisterGroupSuccess: React.FC = () => {
                 </div>
               </Col>
               <Col span={24} lg={7}>
-                <TournamentRegisterInformation data={{ name: group.marathonName, startTime: group.startTime }} />
+                <TournamentRegisterInformation group={{ location: group.marathonName, startTime: group.startTime }} />
               </Col>
             </Row>
           </div>

@@ -7,7 +7,7 @@ import { getQueryParam } from '@/utils/functions';
 import { useSelector } from 'react-redux';
 import { TRootState } from '@/redux/reducers';
 
-const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProps> = ({ payment }) => {
+const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProps> = ({ payment, group }) => {
   const [data, setData] = useState<any>({});
   const tabQuery = getQueryParam('tab');
   const { pathname } = useLocation();
@@ -28,7 +28,10 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
 
   useEffect(() => {
     getData();
-  }, [tabQuery, getData, payment]);
+    if (group) {
+      setData(group);
+    }
+  }, [tabQuery, getData, payment, group]);
   return (
     <div className="TournamentRegisterInformation-card sticky">
       {payment && data?.email ? (
