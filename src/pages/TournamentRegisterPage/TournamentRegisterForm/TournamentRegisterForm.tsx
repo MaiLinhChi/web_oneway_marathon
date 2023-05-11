@@ -99,10 +99,11 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
           marathonId: data._id,
           ...values.distance,
         },
-        clubId: club.value,
+        clubId: club ? club.value : '',
         price: distance.price,
       };
       delete body.marathon.price;
+      delete body.clubId;
       if (!checkVat) {
         delete body.vat;
       }
