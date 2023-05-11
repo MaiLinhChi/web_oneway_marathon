@@ -82,7 +82,7 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = () => {
                       isGroup={tabQuery === EKeyTabTournamentRegisterPage.MULTIPLE ? true : false}
                     />
                   ) : (
-                    <TournamentRegisterGroupForm group={data} />
+                    <TournamentRegisterGroupForm data={data} />
                   )}
                 </>
               )}
