@@ -1,25 +1,36 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './TournamentRegisterGroupSuccess.scss';
 import { Col, Row } from 'antd';
 import TournamentRegisterInformation from '@/pages/TournamentRegisterPage/TournamentRegisterInformation';
 import BackgroundRegisterPage from '@/assets/images/image-home-banner-3.jpg';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import Button from '@/components/Button';
-import { useSelector } from 'react-redux';
-import { TRootState } from '@/redux/reducers';
 import { Paths } from '@/pages/routers';
-import { navigate } from '@reach/router';
+import { navigate, useParams } from '@reach/router';
 import { EKeyTabTournamentRegisterPage } from '@/pages/TournamentRegisterPage/TournamentRegisterPage.enums';
+import AuthHelpers from '@/services/helpers';
+import { getGroupById } from '@/services/registers/register-group/register-group-by-id';
 
 const TournamentRegisterGroupSuccess: React.FC = () => {
-  const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.registerGroupResponse);
+  const [group, setGroup] = useState<any>({});
+  const atk = AuthHelpers.getAccessToken();
+  const { id } = useParams();
   const handlerClick = (): void => {
-    navigate(Paths.TournamentRegisterGroupConfirm(registerGroup?.group.slug));
+    navigate(Paths.TournamentRegisterGroupConfirm(group?.group.slug));
   };
-  // useEffect(() => {
-  //   if (!registerGroup) navigate(`${Paths.TournamentRegister}?tab=${EKeyTabTournamentRegisterPage.MULTIPLE}`);
-  // }, [registerGroup]);
-  console.log(registerGroup);
+  const getInfoGroup = useCallback(async () => {
+    const headers = {
+      params: {
+        authorization: `Bearer ${atk}`,
+      },
+      id,
+    };
+    const res = await getGroupById({ headers });
+    setGroup(res.data);
+  }, [atk, id]);
+  useEffect(() => {
+    getInfoGroup();
+  }, [id, getInfoGroup]);
   return (
     <div className="TournamentRegisterPage">
       <div className="TournamentRegisterPage-background">
@@ -27,8 +38,7 @@ const TournamentRegisterGroupSuccess: React.FC = () => {
       </div>
       <div className="container">
         <div className="TournamentRegisterPage-wrapper">
-          <h2 className="TournamentRegisterPage-title">Đăng ký tham gia OneWay Vũng Tàu 2023</h2>
-
+          <h2 className="TournamentRegisterPage-title">Đăng ký tham gia OneWay {group.name}</h2>
           <div className="TournamentRegisterPage-main">
             <Row gutter={[24, 24]} className="reverse">
               <Col span={24} lg={16}>
@@ -38,26 +48,26 @@ const TournamentRegisterGroupSuccess: React.FC = () => {
                     <span>Tạo nhóm thành công</span>
                   </div>
                   <div className="TournamentRegisterPage-main-success-body">
-                    <h3>Tên nhóm: {registerGroup?.groupName}</h3>
+                    <h3>Tên nhóm: {group?.groupName}</h3>
                     <ul className="TournamentRegisterPage-main-success-body-list">
                       <li>
                         <span>Họ và tên trưởng nhóm</span>
-                        <span>{registerGroup?.membershipp[0]?.fullName}</span>
+                        <span>{group?.membership?.[0]?.fullName}</span>
                       </li>
                       <li>
                         <span>Số điện thoại</span>
-                        <span>{registerGroup?.membership[0]?.phone}</span>
+                        <span>{group?.membership?.[0]?.phone}</span>
                       </li>
                       <li>
                         <span>Email</span>
-                        <span>{registerGroup?.membership[0]?.email}</span>
+                        <span>{group?.membership?.[0]?.email}</span>
                       </li>
                     </ul>
                     <h3>Link đăng ký nhóm</h3>
                     <div className="TournamentRegisterPage-main-success-body-copy">
                       <div className="TournamentRegisterPage-main-success-body-copy-top flex items-center justify-between">
                         <div className="link" onClick={handlerClick}>
-                          {registerGroup?.link_register_buy}
+                          {group?.link}
                         </div>
                         <Button title="Sao chép" type="primary" />
                       </div>
@@ -87,7 +97,7 @@ const TournamentRegisterGroupSuccess: React.FC = () => {
                 </div>
               </Col>
               <Col span={24} lg={7}>
-                <TournamentRegisterInformation />
+                <TournamentRegisterInformation data={{ name: group.marathonName, startTime: group.startTime }} />
               </Col>
             </Row>
           </div>

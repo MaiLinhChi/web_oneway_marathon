@@ -43,7 +43,7 @@ const App: React.FC = () => {
           <ProtectedRoute path={Paths.PaymentInstructions} component={Pages.PaymentInstructions} />
           <ProtectedRoute path={Paths.TournamentPaymentSuccess()} component={Pages.TournamentPaymentSuccess} />
           <ProtectedRoute
-            path={Paths.TournamentRegisterGroupSuccess}
+            path={Paths.TournamentRegisterGroupSuccess()}
             component={Pages.TournamentRegisterGroupSuccess}
           />
           <ProtectedRoute

@@ -94,7 +94,7 @@ export const Paths = {
   PrivacyPrivate: '/privacy-private',
   PrivacyDelivery: '/privacy-delivery',
   PaymentInstructions: '/payment-instructions',
-  TournamentRegisterGroupSuccess: '/register-group/success',
+  TournamentRegisterGroupSuccess: (id?: string): string => `/register-group/success/${id || ':id'}`,
   TournamentRegisterGroupConfirm: (id?: string): string => `/group/cat-ba/${id || ':id'}`,
   TournamentRegisterGroupJoin: '/register-group/join',
   TournamentPaymentSuccess: (id?: string): string => `/payment-result/${id || ':id'}`,

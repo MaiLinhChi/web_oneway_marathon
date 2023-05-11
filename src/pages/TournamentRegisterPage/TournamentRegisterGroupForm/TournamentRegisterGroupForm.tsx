@@ -28,6 +28,7 @@ const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> =
   const handleSubmit = (values: any): void => {
     const { percent, ...body } = values;
     body.marathonId = id;
+    // body.userId = profileState._id;
     const params = {
       authorization: `Bearer ${atk}`,
     };
@@ -36,7 +37,7 @@ const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> =
   const handleRegitserSuccess = (response: any): void => {
     if (response.statusCode === EResponseCode.CREATED) {
       showNotification(ETypeNotification.SUCCESS, 'Tạo nhóm thành công !');
-      navigate(Paths.TournamentRegisterGroupSuccess);
+      navigate(Paths.TournamentRegisterGroupSuccess(response.data._id));
     } else {
       showNotification(ETypeNotification.ERROR, response.message);
     }
@@ -46,6 +47,8 @@ const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> =
   }
   useEffect(() => {
     form.setFieldsValue({
+      fullName: profileState?.fullname || undefined,
+      phone: profileState?.mobile || undefined,
       email: profileState?.email || undefined,
     });
   }, [profileState, form]);
@@ -110,7 +113,7 @@ const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> =
               </Col>
               <Col span={18}>
                 <Form.Item name="fullName">
-                  <Input placeholder="Họ và tên" />
+                  <Input placeholder="Họ và tên" disabled />
                 </Form.Item>
               </Col>
               <Col span={6}>
@@ -120,7 +123,7 @@ const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> =
               </Col>
               <Col span={18}>
                 <Form.Item name="phone">
-                  <Input placeholder="Điện thoại" />
+                  <Input placeholder="Điện thoại" disabled />
                 </Form.Item>
               </Col>
               <Col span={6}>
