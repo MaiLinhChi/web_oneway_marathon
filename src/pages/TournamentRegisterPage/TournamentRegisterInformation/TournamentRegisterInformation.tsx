@@ -34,7 +34,7 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
   }, [tabQuery, getData, payment, group]);
   return (
     <div className="TournamentRegisterInformation-card sticky">
-      {payment && data?.email ? (
+      {payment || data?.email ? (
         <>
           <div className="TournamentRegisterInformation-card-title">Thông tin của bạn</div>
           <div className="TournamentRegisterInformation-card-table">

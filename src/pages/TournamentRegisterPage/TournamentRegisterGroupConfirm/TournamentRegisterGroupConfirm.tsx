@@ -37,9 +37,9 @@ const TournamentRegisterGroupConfirm: React.FC = () => {
       showNotification(ETypeNotification.ERROR, response.message);
     }
   };
-  useEffect(() => {
-    if (!registerGroup) navigate(`${Paths.TournamentRegister}?tab=${EKeyTabTournamentRegisterPage.MULTIPLE}`);
-  }, [registerGroup]);
+  // useEffect(() => {
+  //   if (!registerGroup) navigate(`${Paths.TournamentRegister}?tab=${EKeyTabTournamentRegisterPage.MULTIPLE}`);
+  // }, [registerGroup]);
   return (
     <div className="TournamentRegisterPage">
       <div className="TournamentRegisterPage-background">

@@ -14,3 +14,4 @@ export * from './promotion';
 export * from './payments';
 export * from './forgot-password';
 export * from './marathons';
+export * from './club';

@@ -12,6 +12,7 @@ import updatePromotionSaga from '@/redux/sagas/promotion';
 import getPaymentMethodSaga from '@/redux/sagas/payments';
 import forgotPassword from '@/redux/sagas/forgot-password';
 import marathonsSaga from '@/redux/sagas/marathons';
+import clubsSaga from '@/redux/sagas/club';
 
 const rootSaga = function* root(): Generator {
   yield all([
@@ -27,6 +28,7 @@ const rootSaga = function* root(): Generator {
     fork(getPaymentMethodSaga),
     fork(forgotPassword),
     fork(marathonsSaga),
+    fork(clubsSaga),
   ]);
 };
 
