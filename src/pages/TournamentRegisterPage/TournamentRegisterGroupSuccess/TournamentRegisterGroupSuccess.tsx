@@ -19,6 +19,7 @@ const TournamentRegisterGroupSuccess: React.FC = () => {
   // useEffect(() => {
   //   if (!registerGroup) navigate(`${Paths.TournamentRegister}?tab=${EKeyTabTournamentRegisterPage.MULTIPLE}`);
   // }, [registerGroup]);
+  console.log(registerGroup);
   return (
     <div className="TournamentRegisterPage">
       <div className="TournamentRegisterPage-background">
@@ -37,19 +38,19 @@ const TournamentRegisterGroupSuccess: React.FC = () => {
                     <span>Tạo nhóm thành công</span>
                   </div>
                   <div className="TournamentRegisterPage-main-success-body">
-                    <h3>Tên nhóm: {registerGroup?.group.group_name}</h3>
+                    <h3>Tên nhóm: {registerGroup?.groupName}</h3>
                     <ul className="TournamentRegisterPage-main-success-body-list">
                       <li>
                         <span>Họ và tên trưởng nhóm</span>
-                        <span>{registerGroup?.group.full_name}</span>
+                        <span>{registerGroup?.membershipp[0]?.fullName}</span>
                       </li>
                       <li>
                         <span>Số điện thoại</span>
-                        <span>{registerGroup?.group.phone}</span>
+                        <span>{registerGroup?.membership[0]?.phone}</span>
                       </li>
                       <li>
                         <span>Email</span>
-                        <span>{registerGroup?.group.email}</span>
+                        <span>{registerGroup?.membership[0]?.email}</span>
                       </li>
                     </ul>
                     <h3>Link đăng ký nhóm</h3>

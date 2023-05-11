@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Col, Form, Row } from 'antd';
 
 import SelectDistance from '@/components/SelectDistance';
@@ -11,33 +11,44 @@ import './TournamentRegisterGroupForm.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { ERegisterGroupAction, registerGroupAction } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
-import { navigate } from '@reach/router';
+import { navigate, useParams } from '@reach/router';
 import { LayoutPaths, Paths } from '@/pages/routers';
 import AuthHelpers from '@/services/helpers';
+import { TRootState } from '@/redux/reducers';
 
 const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> = ({ data }) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
+  const { id } = useParams();
   const atk = AuthHelpers.getAccessToken();
   const registerLoading = useSelector((state: any) => state.loadingReducer[ERegisterGroupAction.REGISTER_GROUP]);
+  const profileState = useSelector((state: TRootState) => state.profileReducer.getProfileResponse)?.data;
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const handleSubmit = (values: any): void => {
-    const body = { ...values };
-    dispatch(registerGroupAction.request({ body }, (response): void => handleRegitserSuccess(response)));
+    const { percent, ...body } = values;
+    body.marathonId = id;
+    const params = {
+      authorization: `Bearer ${atk}`,
+    };
+    dispatch(registerGroupAction.request({ body, params }, (response): void => handleRegitserSuccess(response)));
   };
   const handleRegitserSuccess = (response: any): void => {
-    if (response.status === EResponseCode.OK) {
-      showNotification(ETypeNotification.SUCCESS, 'Đăng ký nhóm thành công !');
+    if (response.statusCode === EResponseCode.CREATED) {
+      showNotification(ETypeNotification.SUCCESS, 'Tạo nhóm thành công !');
       navigate(Paths.TournamentRegisterGroupSuccess);
     } else {
       showNotification(ETypeNotification.ERROR, response.message);
     }
   };
-  console.log(atk);
   if (!atk) {
     navigate(LayoutPaths.Auth + Paths.Login);
   }
+  useEffect(() => {
+    form.setFieldsValue({
+      email: profileState?.email || undefined,
+    });
+  }, [profileState, form]);
   return (
     <div className="TournamentRegisterGroupForm">
       <Form layout="vertical" form={form} onFinish={handleSubmit}>
@@ -72,7 +83,7 @@ const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> =
                 </div>
               </Col>
               <Col span={18}>
-                <Form.Item name="name">
+                <Form.Item name="groupName">
                   <Input placeholder="Tên nhóm" />
                 </Form.Item>
               </Col>
@@ -119,7 +130,7 @@ const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> =
               </Col>
               <Col span={18}>
                 <Form.Item name="email">
-                  <Input placeholder="Email" />
+                  <Input placeholder="Email" disabled />
                 </Form.Item>
               </Col>
             </Row>
