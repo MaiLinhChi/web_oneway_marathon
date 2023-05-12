@@ -202,7 +202,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
         checkVat: true,
         vat: bibState.vat,
       });
-      if (bibState?.vat.companyName) {
+      if (bibState?.vat?.companyName) {
         setBillRequest(true);
       }
       setNationality(bibState.nationality);
