@@ -199,7 +199,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
         nameBib: bibState.nameBib,
         club: bibState.clubId,
         timeEstimation: bibState.timeEstimation,
-        checkVat: true,
+        checkVat: bibState?.vat?.companyName ? true : false,
         vat: bibState.vat,
       });
       if (bibState?.vat?.companyName) {
