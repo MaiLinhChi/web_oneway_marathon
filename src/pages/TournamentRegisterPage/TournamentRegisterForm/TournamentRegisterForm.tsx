@@ -379,7 +379,6 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                 style={{ fontSize: '1.4rem', position: 'relative', zIndex: 1, marginBottom: '-2rem' }}
               >
                 <a href="#">Bảng kích thước</a>
-                <img src={ShirtSize} alt="" className="shirt-size" />
               </div>
               <Form.Item name="shirtSize" label="Size áo" rules={[validationRules.required()]}>
                 <Select

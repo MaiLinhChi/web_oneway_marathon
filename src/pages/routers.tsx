@@ -81,7 +81,7 @@ export const Paths = {
   Dashboard: '/',
   Profile: '/profile',
   ProfileEdit: '/profile/edit',
-  TournamentDetail: (id?: string): string => `/${id || ':id'}`,
+  TournamentDetail: (id?: string): string => `/group/${id || ':id'}`,
   MarathonDetail: (id?: string): string => `/marathon/detail/${id || ':id'}`,
   TournamentRegister: (id?: string): string => `/tournaments/register/${id || ':id'}`,
   TournamentPayment: (id?: string): string => `/tournaments/payment/${id || ':id'}`,

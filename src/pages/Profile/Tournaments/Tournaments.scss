@@ -23,6 +23,12 @@
           cursor: pointer;
           opacity: 0.7;
         }
+
+        img {
+          object-fit: cover;
+          max-width: 274px;
+          height: 206px;
+        }
       }
     }
   }

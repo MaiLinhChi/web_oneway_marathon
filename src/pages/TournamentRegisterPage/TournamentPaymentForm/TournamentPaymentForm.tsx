@@ -128,7 +128,8 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
                 {
                   <tr className="spacing-bottom">
                     <td>
-                      {paymentItems?.marathon?.state} - {paymentItems?.marathon?.distance}m
+                      {paymentItems?.marathon?.state} - {paymentItems?.marathon?.distance}
+                      {paymentItems?.marathon?.unit}
                     </td>
                     <td>x1</td>
                     <td className="text-right">

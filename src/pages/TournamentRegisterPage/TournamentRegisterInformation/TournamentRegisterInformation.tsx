@@ -49,7 +49,10 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
                 <tr>
                   <td>Cự ly</td>
                   <td>
-                    <strong>{data.distance}m</strong>
+                    <strong>
+                      {data.marathon.distance}
+                      {data.marathon.unit}
+                    </strong>
                   </td>
                 </tr>
                 <tr>

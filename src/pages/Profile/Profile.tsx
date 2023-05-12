@@ -20,7 +20,10 @@ const Profile: React.FC = () => {
   const profileState = useSelector((state: TRootState) => state.profileReducer.getProfileResponse)?.data;
   const raceState = useSelector((state: TRootState) => state.raceReducer.getRaceResponse)?.data;
   const getRaces = useCallback(() => {
-    dispatch(getRaceAction.request({}));
+    const params = {
+      status: 'active',
+    };
+    dispatch(getRaceAction.request({ params }));
   }, [dispatch]);
   const dataTabProfile = [
     {
@@ -32,7 +35,6 @@ const Profile: React.FC = () => {
       label: 'Thành tích',
     },
   ];
-  console.log(profileState);
   const [activeTab, setActiveTab] = useState<TTabRectangleValue>(dataTabProfile[0]);
   const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
   const onChangeUploadBanner = (files: any): void => {
@@ -45,7 +47,7 @@ const Profile: React.FC = () => {
     <div className="Profile">
       <div className="Profile-background">
         <div className="Profile-background-img" style={{ backgroundImage: `url(${BackgroundProfile})` }} />
-        <UploadAvatar
+        {/* <UploadAvatar
           onChange={onChangeUploadBanner}
           overlay={
             <div className="Profile-background-overlay">
@@ -62,7 +64,7 @@ const Profile: React.FC = () => {
               </Row>
             </div>
           }
-        />
+        /> */}
       </div>
       <div className="container">
         <div className="Profile-wrapper">

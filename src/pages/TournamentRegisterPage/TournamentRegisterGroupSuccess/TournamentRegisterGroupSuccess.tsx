@@ -38,7 +38,7 @@ const TournamentRegisterGroupSuccess: React.FC = () => {
       </div>
       <div className="container">
         <div className="TournamentRegisterPage-wrapper">
-          <h2 className="TournamentRegisterPage-title">Đăng ký tham gia OneWay {group.name}</h2>
+          <h2 className="TournamentRegisterPage-title">Đăng ký tham gia OneWay {group.marathonName}</h2>
           <div className="TournamentRegisterPage-main">
             <Row gutter={[24, 24]} className="reverse">
               <Col span={24} lg={16}>

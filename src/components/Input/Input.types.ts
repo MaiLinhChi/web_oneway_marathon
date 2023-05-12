@@ -12,6 +12,7 @@ export type TInputProps = {
   readOnly?: boolean;
   required?: boolean;
   size?: SizeType;
+  autoComplete?: string;
   disabled?: boolean;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   onEnter?: () => void;

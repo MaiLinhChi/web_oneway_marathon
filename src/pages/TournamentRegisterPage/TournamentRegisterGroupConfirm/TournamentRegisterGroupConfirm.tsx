@@ -57,7 +57,7 @@ const TournamentRegisterGroupConfirm: React.FC = () => {
                     <span>Tạo nhóm thành công</span>
                   </div>
                   <div className="TournamentRegisterPage-main-success-body">
-                    <h3>Tên nhóm: {registerGroup?.group.group_name}</h3>
+                    <h3>Tên nhóm: {registerGroup?.marathonName}</h3>
                     <ul className="TournamentRegisterPage-main-success-body-list">
                       <li>
                         <span>Họ và tên trưởng nhóm</span>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Col, Row } from 'antd';
 
 import ImageHomeBanner1 from '@/assets/images/image-home-banner-1.png';
@@ -10,11 +10,22 @@ import Button from '@/components/Button';
 import { copyText } from '@/utils/functions';
 
 import './TournamentDetail.scss';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { TRootState } from '@/redux/reducers';
+import { detailRaceAction } from '@/redux/actions';
+import { useParams } from '@reach/router';
 
 const TournamentDetail: React.FC = () => {
+  const dispatch = useDispatch();
+  const { id } = useParams();
   const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
+  const raceState = useSelector((state: TRootState) => state.raceReducer.getRaceResponse);
+  const getRaces = useCallback(() => {
+    dispatch(detailRaceAction.request({ paths: id, params: {} }));
+  }, [dispatch, id]);
+  useEffect(() => {
+    getRaces();
+  }, [dispatch, getRaces]);
   return (
     <div className="TournamentDetail">
       <div className="container">

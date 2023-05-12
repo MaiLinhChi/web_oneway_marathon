@@ -60,7 +60,7 @@ const Register: React.FC = () => {
                     <Input placeholder="Email cá nhân" required={true} />
                   </Form.Item>
                   <Form.Item name="mobile" rules={[validationRules.minLength(10)]}>
-                    <Input placeholder="Số điện thoại cá nhân" required={true} />
+                    <Input placeholder="Số điện thoại cá nhân" required={true} autoComplete="register-phone" />
                   </Form.Item>
                   {/* <Form.Item name="avatar">
                     <Input placeholder="Hình ảnh cá nhân" />
@@ -71,7 +71,12 @@ const Register: React.FC = () => {
                   <Row gutter={[32, 24]}>
                     <Col lg={{ span: 12 }} xs={{ span: 24 }}>
                       <Form.Item name="password" rules={[validationRules.minLength(8)]}>
-                        <Input type="password" placeholder="Mật khẩu mới" required={true} />
+                        <Input
+                          type="password"
+                          placeholder="Mật khẩu"
+                          required={true}
+                          autoComplete="register-password"
+                        />
                       </Form.Item>
                     </Col>
                     {/* <Col lg={{ span: 12 }} xs={{ span: 24 }}>

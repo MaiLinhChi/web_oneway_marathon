@@ -16,19 +16,18 @@ const Tournaments: React.FC<TTournamentsProps> = ({ data }) => {
           <div className="Tournaments-group-title">Sắp diễn ra</div>
           <div className="Tournaments-group-list">
             <Row gutter={[24, 24]}>
-              {data &&
-                data.races.map((item: any) => (
-                  <Col lg={{ span: 8 }} xs={{ span: 12 }} key={item}>
-                    <div
-                      className="Tournaments-group-list-item"
-                      onClick={(): void => {
-                        navigate(Paths.TournamentDetail(item.slug == 'cat-ba' ? 'cat-ba' : item.slug));
-                      }}
-                    >
-                      <img src={process.env.REACT_APP_SERVICE_BASE_URL + item.image} alt="" />
-                    </div>
-                  </Col>
-                ))}
+              {data?.map((item: any) => (
+                <Col lg={{ span: 8 }} xs={{ span: 12 }} key={item}>
+                  <div
+                    className="Tournaments-group-list-item"
+                    onClick={(): void => {
+                      navigate(Paths.TournamentDetail(item._id));
+                    }}
+                  >
+                    <img src={item.image} alt="" />
+                  </div>
+                </Col>
+              ))}
             </Row>
           </div>
         </div>

@@ -6,7 +6,7 @@ export type TGetRacePaths = {
   id: string | number;
 };
 
-export type TDetailRaceParams = unknown;
+export type TDetailRaceParams = any;
 
 export type TDetailRaceMaterials = {
   paths?: TGetRacePaths;
@@ -16,32 +16,33 @@ export type TTicketRaces = {
   id?: number;
   name?: string;
 };
-export type TDetailRaceResponse = TCommonResponse & {
-  data: {
-    race: {
-      slug?: string;
-      image: null;
-      name: string;
-      start: string;
-      end?: string;
-      tickets?: any;
-      ward?: string;
-      award?: Array<TDetailAward>;
-      description?: string;
-    };
-  };
-};
-export type TDetailAward = {
-  name?: string;
-  first?: string;
-  fourth?: string;
-  second?: string;
-  third?: string;
-};
+export type TDetailRaceResponse = TCommonResponse & any;
+// export type TDetailRaceResponse = TCommonResponse & {
+//   data: {
+//     race: {
+//       slug?: string;
+//       image: null;
+//       name: string;
+//       start: string;
+//       end?: string;
+//       tickets?: any;
+//       ward?: string;
+//       award?: Array<TDetailAward>;
+//       description?: string;
+//     };
+//   };
+// };
+// export type TDetailAward = {
+//   name?: string;
+//   first?: string;
+//   fourth?: string;
+//   second?: string;
+//   third?: string;
+// };
 
 // FUNCTION
 
 export const detailRace = async ({ paths, params }: any): Promise<TDetailRaceResponse> => {
-  const response = await ApiService.post(`/api/races/${paths?.id}`, { params });
+  const response = await ApiService.get(`/marathon/${paths}`, { params });
   return response.data;
 };

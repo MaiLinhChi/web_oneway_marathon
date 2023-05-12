@@ -109,10 +109,9 @@
         &:hover {
           text-decoration: underline;
         }
-
-        &:hover + img {
+        a:hover:after {
+          content: url(); /* no need for qoutes */
           display: block;
-          transition-delay: 1s;
         }
       }
 
