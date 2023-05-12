@@ -39,6 +39,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   const registerRunnerLoading = useSelector(
     (state: any) => state.loadingReducer[ERunnerRegisterGroupAction.RUNNER_REISTER_GROUP],
   );
+  const bibState = useSelector((state: TRootState) => state.orderDetailReducer.getOrderDetailResponse?.data);
   const profileState = useSelector((state: TRootState) => state.profileReducer.getProfileResponse?.data);
   const clubsState = useSelector((state: TRootState) => state.clubsReducer.clubs);
   const addressCityState = useSelector((state: TRootState) => state.addressReducer.cities);
@@ -46,6 +47,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   const addressWardState = useSelector((state: TRootState) => state.addressReducer.wards);
   const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.registerGroupResponse);
   const formatDate = (date: any): string => {
+    console.log(typeof date);
     const d = new Date(date);
     let month = '' + (d.getMonth() + 1),
       day = '' + d.getDate();
@@ -82,19 +84,19 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
       };
       dispatch(runnerRegisterGroupAction.request({ body }, (response): void => handleRunnerRegitserSuccess(response)));
     } else {
-      const { distance, checkVat, address, club, ...ress } = values;
+      const { distance, checkVat, address, club, status, ...ress } = values;
       body = {
         ...ress,
         address: {
-          province: address.city.label,
-          district: address.district.label,
-          ward: address.ward.label,
-          street: address.street,
+          province: address?.province?.label || address?.province || null,
+          district: address?.district?.label || address?.district || null,
+          ward: address?.ward?.label || address?.ward || null,
+          street: address?.street || null,
         },
-        birthday: formatDate(values?.birthday),
-        nationality: values?.nationality.value,
-        gender: values?.gender?.value,
-        shirtSize: values?.shirtSize?.value,
+        birthday: values?.birthday,
+        nationality: values?.nationality.value || values?.nationality,
+        gender: values?.gender?.value || values?.gender,
+        shirtSize: values?.shirtSize?.value || values?.shirtSize,
         marathon: {
           marathonId: data._id,
           ...values.distance,
@@ -103,7 +105,9 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
         price: distance.price,
       };
       delete body.marathon.price;
-      delete body.clubId;
+      if (!club) {
+        delete body.clubId;
+      }
       if (!checkVat) {
         delete body.vat;
       }
@@ -123,7 +127,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   };
   const handleRegitserSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {
-      showNotification(ETypeNotification.SUCCESS, 'Đăng ký vé thành công !');
+      // showNotification(ETypeNotification.SUCCESS, 'Đăng ký vé thành công !');
       navigate(Paths.TournamentPayment(`${response.data._id}?tab=${EKeyTabTournamentRegisterPage.SINGLE}`));
     } else {
       showNotification(ETypeNotification.ERROR, response.message);
@@ -165,14 +169,45 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
     dispatch(wardAction.request({ params }, (response): void => {}));
   };
 
+  const handleChangeNationality = (value: any): void => {
+    if (value !== 'vn') {
+      form.setFieldsValue({ address: null });
+    }
+    setNationality(value);
+  };
+
   const getInfo = useCallback(async () => {
     dispatch(cityAction.request({}));
     dispatch(getClubsAction.request({}));
   }, [dispatch]);
   useEffect(() => {
     getInfo();
-  }, [dispatch, getInfo]);
-
+    if (bibState) {
+      form.setFieldsValue({
+        email: bibState.email,
+        fullName: bibState.fullName,
+        // birthday: bibState?.birthday,
+        gender: bibState.gender,
+        nationality: bibState.nationality,
+        passport: bibState.passport,
+        phone: bibState.phone,
+        address: bibState.address,
+        emergencyContactName: bibState.emergencyContactName,
+        emergencyContactPhone: bibState.emergencyContactPhone,
+        shirtSize: bibState.shirtSize,
+        nameBib: bibState.nameBib,
+        club: bibState.club,
+        timeEstimation: bibState.timeEstimation,
+        checkVat: true,
+        vat: bibState.vat,
+      });
+      if (bibState.companyName) {
+        setBillRequest(true);
+      }
+      setNationality(bibState.nationality);
+    }
+  }, [dispatch, getInfo, bibState, form]);
+  console.log(data.race);
   return (
     <div className="TournamentRegisterForm">
       <Form layout="vertical" form={form} onFinish={handleSubmit}>
@@ -231,15 +266,15 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                 <Select
                   placeholder="Quốc tịch"
                   options={[
-                    { label: 'Vietnamese', value: 'vn' },
+                    { label: 'VietNam', value: 'vn' },
                     { label: 'Australia', value: 'Australia' },
-                    { label: 'Chinese', value: 'Chinese' },
+                    { label: 'China', value: 'Chinese' },
                     { label: 'Laos', value: 'Laos' },
                     { label: 'Thailand', value: 'Thailand' },
                     { label: 'Philippines', value: 'Philippines' },
                     { label: 'Campuchia', value: 'Campuchia' },
                   ]}
-                  onChange={(item: any): void => setNationality(item.value)}
+                  onChange={(item: any): void => handleChangeNationality(item.value)}
                 />
               </Form.Item>
             </Col>
@@ -264,7 +299,11 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
             <Col span={24}>
               <Row gutter={[4, 24]}>
                 <Col span={24} lg={6}>
-                  <Form.Item name={['address', 'city']} label="Địa chỉ" rules={[validationRules.required()]}>
+                  <Form.Item
+                    name={['address', 'province']}
+                    label="Địa chỉ"
+                    rules={[nationality === 'vn' ? validationRules.required() : {}]}
+                  >
                     <Select
                       placeholder="Thành phố"
                       options={addressCityState}
@@ -274,7 +313,11 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                   </Form.Item>
                 </Col>
                 <Col span={24} lg={6}>
-                  <Form.Item name={['address', 'district']} label=" ">
+                  <Form.Item
+                    name={['address', 'district']}
+                    label=" "
+                    rules={[nationality === 'vn' ? validationRules.required() : {}]}
+                  >
                     <Select
                       placeholder="Quận"
                       options={addressDistrictState}
@@ -284,7 +327,11 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                   </Form.Item>
                 </Col>
                 <Col span={24} lg={6}>
-                  <Form.Item name={['address', 'ward']} label=" ">
+                  <Form.Item
+                    name={['address', 'ward']}
+                    label=" "
+                    rules={[nationality === 'vn' ? validationRules.required() : {}]}
+                  >
                     <Select
                       placeholder="Phường"
                       options={addressWardState}
@@ -293,7 +340,11 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                   </Form.Item>
                 </Col>
                 <Col span={24} lg={6}>
-                  <Form.Item name={['address', 'street']} label=" ">
+                  <Form.Item
+                    name={['address', 'street']}
+                    label=" "
+                    rules={[nationality === 'vn' ? validationRules.required() : {}]}
+                  >
                     <Input placeholder="Số nhà/Đường" disabled={nationality !== 'vn' ? true : false} />
                   </Form.Item>
                 </Col>
