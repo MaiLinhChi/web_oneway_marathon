@@ -64,7 +64,10 @@ const TournamentRegister: React.FC<TTournamentRegisterProps> = ({ color, multipl
                 <tbody>
                   {data?.race?.map((item: any, index: any) => (
                     <tr key={index}>
-                      <td>{item.distance} M</td>
+                      <td>
+                        {item.distance}
+                        {item.unit}
+                      </td>
                       {item?.price?.map((price: any, key: any) => (
                         <td key={key}>{numeral(price.individual).format()} VND</td>
                       ))}

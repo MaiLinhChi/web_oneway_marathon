@@ -106,7 +106,7 @@ const TournamentOverview: React.FC<TTournamentOverviewProps> = ({
         {stepKilometer.map((item: any, index) => (
           <div key={index} className="TournamentOverview-step-kilometer-item">
             {item.distance}
-            <span>M</span>
+            <span>{item.unit}</span>
           </div>
         ))}
       </div>

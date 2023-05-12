@@ -14,4 +14,5 @@ export type TStepKilometerTournamentMap = {
   routeMap: string;
   distance?: number;
   image?: string;
+  unit?: string;
 };

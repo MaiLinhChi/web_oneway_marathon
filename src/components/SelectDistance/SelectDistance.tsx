@@ -9,7 +9,12 @@ import './SelectDistance.scss';
 const SelectDistance: React.FC<TSelectDistanceProps> = ({ value, onChange, single = [], multiple = [] }) => {
   useEffect(() => {
     if (!value && single.length) {
-      onChange?.({ price: single?.[0]?.individual, distance: single?.[0]?.distance, state: single[0]?.name });
+      onChange?.({
+        price: single?.[0]?.individual,
+        distance: single?.[0]?.distance,
+        state: single[0]?.name,
+        unit: single?.[0]?.unit,
+      });
     } else if (!value && multiple.length) {
       onChange?.(multiple?.[0]);
     }
@@ -24,12 +29,11 @@ const SelectDistance: React.FC<TSelectDistanceProps> = ({ value, onChange, singl
                 <div
                   className={classNames('SelectDistance-item', { active: value?.distance === item.distance })}
                   onClick={(): void =>
-                    onChange?.({ price: item.individual, distance: item.distance, state: item.name })
+                    onChange?.({ price: item.individual, distance: item.distance, state: item.name, unit: item.unit })
                   }
                 >
-                  <div className="SelectDistance-item-distance">{item.distance}</div>
                   <div className="SelectDistance-item-distance">
-                    <span>M</span>
+                    {item.distance} <span>{item.unit}</span>
                   </div>
                   <div className="SelectDistance-item-description">{numeral(item.individual).format()} VND</div>
                 </div>

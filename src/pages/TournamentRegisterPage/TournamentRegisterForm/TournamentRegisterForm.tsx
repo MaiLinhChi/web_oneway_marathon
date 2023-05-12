@@ -29,6 +29,7 @@ import { TRootState } from '@/redux/reducers';
 import { navigate } from '@reach/router';
 import { LayoutPaths, Paths } from '@/pages/routers';
 import { EKeyTabTournamentRegisterPage } from '../TournamentRegisterPage.enums';
+import moment from 'moment';
 
 const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGroup, data }) => {
   const [form] = Form.useForm();
@@ -63,7 +64,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
       return item?.price?.find((price: any) => new Date(price.startSell).getTime() >= today.getTime());
     });
     return a?.map((item: any, index: any) => {
-      return { ...item, distance: value[index].distance };
+      return { ...item, distance: value[index].distance, unit: value[index].unit };
     });
   };
   const handleSubmit = (values: any): void => {
@@ -186,7 +187,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
       form.setFieldsValue({
         email: bibState.email,
         fullName: bibState.fullName,
-        // birthday: bibState?.birthday,
+        birthday: moment(bibState?.birthday),
         gender: bibState.gender,
         nationality: bibState.nationality,
         passport: bibState.passport,
@@ -196,18 +197,17 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
         emergencyContactPhone: bibState.emergencyContactPhone,
         shirtSize: bibState.shirtSize,
         nameBib: bibState.nameBib,
-        club: bibState.club,
+        club: bibState.clubId,
         timeEstimation: bibState.timeEstimation,
         checkVat: true,
         vat: bibState.vat,
       });
-      if (bibState.companyName) {
+      if (bibState?.vat.companyName) {
         setBillRequest(true);
       }
       setNationality(bibState.nationality);
     }
   }, [dispatch, getInfo, bibState, form]);
-  console.log(data.race);
   return (
     <div className="TournamentRegisterForm">
       <Form layout="vertical" form={form} onFinish={handleSubmit}>
