@@ -4,9 +4,9 @@ import ApiService from '@/services/api';
 // TYPES
 
 export type TOrderEditParams = {
-  params: {
-    authorization: string;
-  };
+  // params: {
+  //   authorization: string;
+  // };
   id: string;
 };
 
@@ -19,7 +19,7 @@ export type TOrderEditResponse = any;
 // FUNCTION
 
 export const OrderEdit = async ({ headers, body }: TOrderEditMaterials): Promise<TOrderEditResponse> => {
-  const response = await ApiService.put(`bib/${headers?.id}`, body, { headers: headers?.params });
+  const response = await ApiService.put(`bib/${headers?.id}`, body);
   console.log(response);
   return response.data;
 };

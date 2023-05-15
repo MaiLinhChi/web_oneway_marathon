@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Col, Form, Row } from 'antd';
+import { Col, Form, Row, TimePicker } from 'antd';
 
 import SelectDistance from '@/components/SelectDistance';
 import { showNotification, validationRules } from '@/utils/functions';
@@ -378,7 +378,10 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                 className="TournamentRegisterPage-card-description text-right"
                 style={{ fontSize: '1.4rem', position: 'relative', zIndex: 1, marginBottom: '-2rem' }}
               >
-                <a href="#">Bảng kích thước</a>
+                <a href="#" className="hover-text">
+                  <img src={ShirtSize} alt="image" height="300" className="hover" />
+                  Bảng kích thước
+                </a>
               </div>
               <Form.Item name="shirtSize" label="Size áo" rules={[validationRules.required()]}>
                 <Select
@@ -435,7 +438,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                 }
                 rules={[validationRules.required()]}
               >
-                <Input type="time" />
+                <TimePicker />
               </Form.Item>
             </Col>
             {!isGroup ? (

@@ -102,6 +102,26 @@
         font-weight: 700;
       }
 
+      .hover {
+        display: none;
+        position: absolute;
+        top: 25px;
+        right: 0;
+      }
+
+      .hover-text::before {
+        position: absolute;
+        top: 10px;
+        right: 0;
+        content: "";
+        width: 140px;
+        height: 20px;
+      }
+
+      .hover-text:hover > .hover {
+        display: block;
+      }
+
       a {
         color: $blue-ribbon;
         font-weight: 600;
@@ -113,14 +133,6 @@
           content: url(); /* no need for qoutes */
           display: block;
         }
-      }
-
-      img {
-        display: none;
-        position: absolute;
-        top: 0;
-        left: 0;
-        transition-delay: 1s;
       }
     }
 

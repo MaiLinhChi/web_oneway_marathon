@@ -48,9 +48,9 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
     };
     if (id) {
       const headers = {
-        params: {
-          authorization: `Bearer ${atk}`,
-        },
+        // params: {
+        //   authorization: `Bearer ${atk}`,
+        // },
         id,
       };
       dispatch(

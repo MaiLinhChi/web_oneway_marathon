@@ -41,7 +41,6 @@ const Input: React.FC<TInputProps> = ({
     onChange,
     onKeyDown: handleKeydown,
   };
-
   return (
     <div className={classNames('Input', className, { affix: suffix || prefix }, required ? 'required' : '')}>
       {type === 'password' ? (
