@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Button from '@/components/Button';
 import { EIconColor } from '@/components/Icon';
@@ -8,8 +8,10 @@ import './TournamentRegister.scss';
 import { Paths } from '@/pages/routers';
 import numeral from 'numeral';
 import { EKeyTabTournamentRegisterPage } from '@/pages/TournamentRegisterPage/TournamentRegisterPage.enums';
+import Modal from '@/components/Modal';
 
 const TournamentRegister: React.FC<TTournamentRegisterProps> = ({ color, multiple, data, registerGroup, id }) => {
+  const [open, setOpen] = useState(false);
   if (Object.keys(data).length === 0) return null;
   const longest = (arr: any): [] => {
     if (arr?.length === 0) {
@@ -19,6 +21,9 @@ const TournamentRegister: React.FC<TTournamentRegisterProps> = ({ color, multipl
       return a.price.length > b.price.length ? a : b;
     });
     return newArr.price;
+  };
+  const handleModel = (): void => {
+    setOpen(true);
   };
   return (
     <div className="TournamentRegister" id={id}>
@@ -77,23 +82,40 @@ const TournamentRegister: React.FC<TTournamentRegisterProps> = ({ color, multipl
               </table>
             </div>
           )}
-
           <div className="TournamentRegister-btn">
-            <Button
-              size="large"
-              title="Đăng ký ngay"
-              titleColor={EIconColor.WHITE}
-              borderColor={color}
-              backgroundColor={color}
-              link={Paths.TournamentRegister(
-                `${data._id}?tab=${
-                  multiple ? EKeyTabTournamentRegisterPage.MULTIPLE : EKeyTabTournamentRegisterPage.SINGLE
-                }`,
-              )}
-            />
+            {multiple ? (
+              <Button
+                size="large"
+                title="Đăng ký ngay"
+                titleColor={EIconColor.WHITE}
+                borderColor={color}
+                backgroundColor={color}
+                onClick={handleModel}
+              />
+            ) : (
+              <Button
+                size="large"
+                title="Đăng ký ngay"
+                titleColor={EIconColor.WHITE}
+                borderColor={color}
+                backgroundColor={color}
+                link={Paths.TournamentRegister(
+                  `${data._id}?tab=${
+                    multiple ? EKeyTabTournamentRegisterPage.MULTIPLE : EKeyTabTournamentRegisterPage.SINGLE
+                  }`,
+                )}
+              />
+            )}
           </div>
         </div>
       </div>
+      <Modal visible={open} onClose={(): void => setOpen(false)}>
+        <h1>Vui lòng liên hệ sale</h1>
+        <ul>
+          <li>Email: sale@gmail.com</li>
+          <li>Phone: 058555857857</li>
+        </ul>
+      </Modal>
     </div>
   );
 };

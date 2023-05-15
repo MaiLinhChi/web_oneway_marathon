@@ -19,7 +19,7 @@ const TournamentDetail: React.FC = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
-  const raceState = useSelector((state: TRootState) => state.raceReducer.getRaceResponse);
+  const raceState = useSelector((state: TRootState) => state.raceReducer.detailRaceResponse?.data);
   const getRaces = useCallback(() => {
     dispatch(detailRaceAction.request({ paths: id, params: {} }));
   }, [dispatch, id]);
@@ -49,14 +49,11 @@ const TournamentDetail: React.FC = () => {
               <Col xs={{ order: 2, span: 24 }} lg={{ order: 1, span: 16 }}>
                 <h1 className="TournamentDetail-title">
                   OneWay
-                  <span>Cát Bà 2022</span>
+                  <span>{raceState?.name}</span>
                 </h1>
                 <p className="TournamentDetail-description">
-                  OneWay là giải chạy marathon được tổ chức thường xuyên bởi Tạp chí Điện tử Doanh nhân trẻ, Đài Tiếng
-                  nói Việt Nam và Hội Nhà báo Việt Nam nhằm nâng cao sức khỏe thể chất và tinh thần thi đấu với mong
-                  muốn tạo động lực cho mọi người vượt qua giới hạn của bản thân.Giải chạy OneWay Cát Bà 2022 được tổ
-                  chức tại đảo Cát Bà, huyện Cát Hải, thành phố Hải Phòng. Đến với cuộc thi, các vận động viên không chỉ
-                  được rèn luyện sức khỏe mà còn mà còn có cơ hội... <a href="#">Xem chi tiết giải</a>
+                  {raceState?.description}...
+                  <a href="#">Xem chi tiết giải</a>
                 </p>
 
                 <h2 className="TournamentDetail-subtitle">Thông tin chi tiết</h2>
@@ -66,25 +63,27 @@ const TournamentDetail: React.FC = () => {
                       <tr>
                         <td>Ngày đua</td>
                         <td>
-                          <strong>10/12/2022</strong>
+                          <strong>{raceState?.startTime}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Địa điểm</td>
                         <td>
-                          <strong>Cát Bà-Hải Phòng</strong>
+                          <strong>{raceState?.location}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Loại hình</td>
                         <td>
-                          <strong>Road/City trail</strong>
+                          <strong>{raceState?.type}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Cự ly</td>
                         <td>
-                          <strong>5km, 10km, 21km</strong>
+                          <strong>
+                            {raceState?.race?.map((item: any, index: any) => `${item.distance}${item.unit} `)}
+                          </strong>
                         </td>
                       </tr>
                     </tbody>
@@ -167,8 +166,8 @@ const TournamentDetail: React.FC = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {[1, 2, 3, 4, 5].map((item) => (
-                          <tr>
+                        {[1, 2, 3, 4, 5].map((item, index) => (
+                          <tr key={index}>
                             <td style={{ width: 24 }}>
                               <Icon name={EIconName.MinusCircle} color={EIconColor.RED_ORANGE} />
                             </td>
