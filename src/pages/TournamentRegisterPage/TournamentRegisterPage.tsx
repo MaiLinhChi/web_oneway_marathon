@@ -45,8 +45,8 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = () => {
   };
   useEffect(() => {
     getMarathonDetail();
+    scrollToTop();
   }, [id, getMarathonDetail]);
-  scrollToTop();
   return (
     <div className="TournamentRegisterPage">
       <div className="TournamentRegisterPage-background">
