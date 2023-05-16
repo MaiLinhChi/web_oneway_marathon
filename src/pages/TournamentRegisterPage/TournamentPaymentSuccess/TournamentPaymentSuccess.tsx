@@ -31,7 +31,6 @@ const TournamentPaymentSucces: React.FC = () => {
       setData(res.data);
     }
   };
-  console.log(Paths.RollBib, data._id);
   return (
     <div className="TournamentPaymentSucces">
       <div className="TournamentPaymentSucces-background">
