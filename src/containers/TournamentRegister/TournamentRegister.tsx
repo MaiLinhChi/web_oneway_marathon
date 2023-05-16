@@ -112,8 +112,7 @@ const TournamentRegister: React.FC<TTournamentRegisterProps> = ({ color, multipl
       <Modal visible={open} onClose={(): void => setOpen(false)}>
         <h1>Vui lòng liên hệ sale</h1>
         <ul>
-          <li>Email: sale@gmail.com</li>
-          <li>Phone: 058555857857</li>
+          <li>Hotline: 081 8007898</li>
         </ul>
       </Modal>
     </div>

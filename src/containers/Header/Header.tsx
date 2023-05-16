@@ -18,6 +18,7 @@ import AuthHelpers from '@/services/helpers';
 import { authLogoutAction, getProfileAction } from '@/redux/actions';
 import { showNotification } from '@/utils/functions';
 import { ETypeNotification } from '@/common/enums';
+import ImageVietnamFlag from '@/assets/images/image-vietnam-flag.png';
 
 const Header: React.FC<THeaderProps> = () => {
   const dispatch = useDispatch();
@@ -176,6 +177,9 @@ const Header: React.FC<THeaderProps> = () => {
             )}
 
             <div className="Header-actions flex items-center">
+              <div className="Header-language">
+                <img src={ImageVietnamFlag} alt="" />
+              </div>
               {!profileState ? (
                 pathname === Paths.Login ? (
                   <div className="Header-login">
@@ -196,9 +200,6 @@ const Header: React.FC<THeaderProps> = () => {
                 )
               ) : (
                 <>
-                  {/* <div className="Header-language">
-                    <img src={ImageVietnamFlag} alt="" />
-                  </div> */}
                   <div className="Header-account">
                     <DropdownMenu options={dataAccountMenu} minWidth="24rem" placement="bottomRight">
                       <Avatar image={process.env.REACT_APP_SERVICE_BASE_URL + profileState?.avatar} size={40} />

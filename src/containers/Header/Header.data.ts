@@ -24,5 +24,6 @@ export const dataHeaderNav = [
   {
     link: Paths.Home,
     title: 'Liên hệ',
+    hash: '#lienhe',
   },
 ];

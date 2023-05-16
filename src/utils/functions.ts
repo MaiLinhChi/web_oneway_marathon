@@ -81,7 +81,7 @@ export const getTotalPage = (totalItem: number, pageSize: number): number => {
 };
 
 export const scrollToTop = (): void => {
-  window.scrollTo(0, 0);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
 export const validationRules = {

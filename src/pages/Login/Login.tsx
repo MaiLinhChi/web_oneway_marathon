@@ -53,7 +53,7 @@ const Login: React.FC = () => {
                       <Input placeholder="Tên đăng nhập/email cá nhân" required={true} />
                     </Form.Item>
                     <Form.Item name="password" rules={[validationRules.required()]}>
-                      <Input type="password" placeholder="Mật khẩu" required={true} />
+                      <Input type="password" placeholder="Mật khẩu" required={true} autoComplete="new-password" />
                     </Form.Item>
 
                     <Link to={`${LayoutPaths.Auth}${Paths.ForgotPassword}`} className="Auth-form-link text-right">

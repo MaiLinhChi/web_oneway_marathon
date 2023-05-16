@@ -66,7 +66,12 @@ const ForgotPassword: React.FC = () => {
                   </Form.Item>
 
                   <Form.Item name="password" rules={[validationRules.minLength(8)]}>
-                    <Input placeholder="Nhập mậu khẩu mới" required={true} type="password" />
+                    <Input
+                      placeholder="Nhập mậu khẩu mới"
+                      required={true}
+                      type="password"
+                      autoComplete="new-password"
+                    />
                   </Form.Item>
 
                   <div className="Auth-form-submit">

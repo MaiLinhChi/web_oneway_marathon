@@ -11,6 +11,7 @@ import ImageShopdiDark from '@/assets/images/image-shopdi-dark.webp';
 import ImageVOV from '@/assets/images/image-vov.png';
 import ImageVuonUom from '@/assets/images/image-vuon-uom.png';
 import ImageVuonUomDark from '@/assets/images/image-vuon-uom-dark.png';
+import ImageRespo from '@/assets/images/image-respo.png';
 import { TFooterPartnerLink } from '@/containers/Footer/Footer.types';
 import { Paths } from '@/pages/routers';
 
@@ -59,19 +60,19 @@ export const dataFooterPartnerLinks = (dark?: boolean): TFooterPartnerLink[] => 
   },
   {
     link: '#',
-    logo: ImageOnebit,
-    maxWidth: '11.9rem',
+    logo: ImageRespo,
+    maxWidth: '3.5rem',
   },
-  {
-    link: '#',
-    logo: dark ? ImageVuonUomDark : ImageVuonUom,
-    maxWidth: '10.6rem',
-  },
-  {
-    link: '#',
-    logo: dark ? ImageMoreTripDark : ImageMoreTrip,
-    maxWidth: '7.9rem',
-  },
+  // {
+  //   link: '#',
+  //   logo: dark ? ImageVuonUomDark : ImageVuonUom,
+  //   maxWidth: '10.6rem',
+  // },
+  // {
+  //   link: '#',
+  //   logo: dark ? ImageMoreTripDark : ImageMoreTrip,
+  //   maxWidth: '7.9rem',
+  // },
   {
     link: '#',
     logo: dark ? ImageShopdiDark : ImageShopdi,
@@ -82,9 +83,9 @@ export const dataFooterPartnerLinks = (dark?: boolean): TFooterPartnerLink[] => 
     logo: ImageOn365,
     maxWidth: '7.2rem',
   },
-  {
-    link: '#',
-    logo: ImagePhone91,
-    maxWidth: '4.5rem',
-  },
+  // {
+  //   link: '#',
+  //   logo: ImagePhone91,
+  //   maxWidth: '4.5rem',
+  // },
 ];

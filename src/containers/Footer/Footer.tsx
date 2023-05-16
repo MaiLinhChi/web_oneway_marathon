@@ -13,7 +13,7 @@ const Footer: React.FC<TFooterProps> = () => {
   const { pathname } = useLocation();
 
   return (
-    <div className="Footer">
+    <div className="Footer" id="lienhe">
       <div className="container">
         <div className="Footer-wrapper">
           <Row gutter={[24, 24]}>

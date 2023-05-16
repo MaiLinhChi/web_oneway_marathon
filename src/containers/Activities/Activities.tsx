@@ -6,6 +6,7 @@ import Banner from '@/components/Banner';
 
 import { TActivitiesProps } from './Activities.types.d';
 import './Activities.scss';
+import { dataActivitiesLinks } from './Activities.data';
 
 const Activities: React.FC<TActivitiesProps> = () => {
   return (
@@ -13,11 +14,11 @@ const Activities: React.FC<TActivitiesProps> = () => {
       <Banner image={ImageBanner1} text="Hoạt động" subText="bên lề" backgroundFitContent>
         <div className="Activities-wrapper">
           <Row gutter={[24, 24]}>
-            {[1, 2, 3].map((item) => (
-              <Col key={item} xs={{ span: 12 }} lg={{ span: 8 }}>
+            {dataActivitiesLinks.map((item: any, index) => (
+              <Col key={index} xs={{ span: 12 }} lg={{ span: 8 }}>
                 <div className="Activities-item">
-                  <div className="Activities-item-image" />
-                  <h3 className="Activities-item-title">Đêm nhạc EDM</h3>
+                  <div className="Activities-item-image" style={{ backgroundImage: `url(${item.image})` }} />
+                  <h3 className="Activities-item-title">{item.title}</h3>
                 </div>
               </Col>
             ))}

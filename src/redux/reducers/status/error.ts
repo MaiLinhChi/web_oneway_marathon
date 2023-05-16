@@ -57,7 +57,10 @@ const errorReducer = (state: TErrorState = {}, action: IErrorAction | IResetActi
       (axiosErrorData?.errors?.[0].message as string) ||
       (error?.message as string);
     if (error && !isNotShowToast) {
-      showNotification(ETypeNotification.ERROR, EViMessageCode[error as keyof typeof EViMessageCode]);
+      showNotification(
+        ETypeNotification.ERROR,
+        axiosErrorData?.messageKey ? EViMessageCode[error as keyof typeof EViMessageCode] : error,
+      );
     }
   }
 

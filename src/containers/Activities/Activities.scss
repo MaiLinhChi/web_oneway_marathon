@@ -14,6 +14,8 @@
       border-radius: 50%;
       overflow: hidden;
       background: $alto;
+      background-position: center;
+      background-size: contain;
       @include centerScaleImage;
       @media (max-width:767px) {
         width: 12rem;

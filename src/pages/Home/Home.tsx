@@ -7,6 +7,7 @@ import HomeBanner from '@/containers/HomeBanner';
 import Introduction from '@/containers/Introduction';
 import Activities from '@/containers/Activities';
 import TournamentSystem from '@/containers/TournamentSystem';
+import NewsList from '@/containers/NewsList';
 
 const Home: React.FC = () => {
   return (

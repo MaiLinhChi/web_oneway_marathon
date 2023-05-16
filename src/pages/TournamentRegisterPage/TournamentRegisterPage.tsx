@@ -17,7 +17,7 @@ import { TTournamentRegisterPageProps } from './TournamentRegisterPage.types';
 import './TournamentRegisterPage.scss';
 import { useLocation, useParams } from '@reach/router';
 import { getMarathonById } from '@/services/api';
-import { getQueryParam, showNotification } from '@/utils/functions';
+import { getQueryParam, scrollToTop, showNotification } from '@/utils/functions';
 import { getMarathonByIdAction } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 
@@ -46,6 +46,7 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = () => {
   useEffect(() => {
     getMarathonDetail();
   }, [id, getMarathonDetail]);
+  scrollToTop();
   return (
     <div className="TournamentRegisterPage">
       <div className="TournamentRegisterPage-background">

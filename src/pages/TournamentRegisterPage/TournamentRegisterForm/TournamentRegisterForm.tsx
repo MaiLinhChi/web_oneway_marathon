@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Col, Form, Row, TimePicker } from 'antd';
+import { Col, Form, Row } from 'antd';
 
 import SelectDistance from '@/components/SelectDistance';
 import { showNotification, validationRules } from '@/utils/functions';
@@ -30,6 +30,8 @@ import { navigate } from '@reach/router';
 import { LayoutPaths, Paths } from '@/pages/routers';
 import { EKeyTabTournamentRegisterPage } from '../TournamentRegisterPage.enums';
 import moment from 'moment';
+import TimePicker from '@/components/TimePicker';
+import { scrollToTop } from '@/utils/functions';
 
 const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGroup, data }) => {
   const [form] = Form.useForm();
@@ -419,7 +421,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                   </>
                 }
               >
-                <Select placeholder="Chọn câu lạc bộ" options={clubsState} />
+                <Select placeholder="Chọn câu lạc bộ" options={clubsState} allowClear />
               </Form.Item>
               {/* <Form.Item name="club">
                 <Checkbox label="Câu lạc bộ" value={billRequest} onChange={handleSetBill} />
@@ -438,7 +440,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                 }
                 rules={[validationRules.required()]}
               >
-                <TimePicker />
+                <TimePicker showNow={false} placeholder="Thời gian dự kiến" />
               </Form.Item>
             </Col>
             {!isGroup ? (

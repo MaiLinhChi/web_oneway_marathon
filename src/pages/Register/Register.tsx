@@ -43,7 +43,7 @@ const Register: React.FC = () => {
       <div className="Login-wrapper">
         <div className="Auth-form-register">
           <div className="container">
-            <Form form={form} onFinish={handleSubmit}>
+            <Form form={form} onFinish={handleSubmit} autoComplete="on">
               <div className="Auth-form-wrapper">
                 <div className="Auth-form-group">
                   <div className="Auth-form-title">
@@ -60,7 +60,7 @@ const Register: React.FC = () => {
                     <Input placeholder="Email cá nhân" required={true} />
                   </Form.Item>
                   <Form.Item name="mobile" rules={[validationRules.minLength(10)]}>
-                    <Input placeholder="Số điện thoại cá nhân" required={true} autoComplete="register-phone" />
+                    <Input placeholder="Số điện thoại cá nhân" required={true} autoComplete="off" />
                   </Form.Item>
                   {/* <Form.Item name="avatar">
                     <Input placeholder="Hình ảnh cá nhân" />
@@ -71,12 +71,7 @@ const Register: React.FC = () => {
                   <Row gutter={[32, 24]}>
                     <Col lg={{ span: 12 }} xs={{ span: 24 }}>
                       <Form.Item name="password" rules={[validationRules.minLength(8)]}>
-                        <Input
-                          type="password"
-                          placeholder="Mật khẩu"
-                          required={true}
-                          autoComplete="register-password"
-                        />
+                        <Input type="password" placeholder="Mật khẩu" required={true} autoComplete="new-password" />
                       </Form.Item>
                     </Col>
                     {/* <Col lg={{ span: 12 }} xs={{ span: 24 }}>
@@ -94,7 +89,9 @@ const Register: React.FC = () => {
                   <Checkbox
                     label={
                       <>
-                        Tôi đã đọc và đồng ý với <a href="/privacy-private">Điều khoản và quy định</a> của OneWay 2022
+                        Tôi đã đọc và đồng ý với
+                        <a href="/privacy-private"> Điều khoản và quy định </a>
+                        của OneWay Marathon
                       </>
                     }
                   />

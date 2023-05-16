@@ -12,7 +12,7 @@ const PartnersCarousel: React.FC<TPartnersCarouselProps> = () => {
     <section className="PartnersCarousel" id="doitac">
       <div className="container">
         <div className="PartnersCarousel-wrapper">
-          <Carousels infinite autoplay slidesToShow={8} dots={false} arrows={false} slidesToScroll={2}>
+          <Carousels infinite autoplay slidesToShow={6} dots={false} arrows={false} slidesToScroll={2}>
             {dataFooterPartnerLinks(true).map((item, index) => (
               <div className="PartnersCarousel-item" style={{ maxWidth: item.maxWidth }} key={index}>
                 <Link to={item.link}>
