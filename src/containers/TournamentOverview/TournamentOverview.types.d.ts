@@ -11,6 +11,8 @@ export type TTournamentOverviewProps = {
   expired?: boolean;
   date: string;
   id?: any;
+  unitRace?: string;
+  _id?: string;
 };
 
 export type TTournamentOverviewNav = {

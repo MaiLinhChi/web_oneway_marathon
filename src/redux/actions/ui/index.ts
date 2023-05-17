@@ -1,7 +1,7 @@
 import { createActionCreator } from 'deox';
 
 import { EUIAction } from './constants';
-import { TResetActionStatus, TSetDevice } from './types';
+import { TResetActionStatus, TSetDevice, TSetCountDownMarathon } from './types';
 
 export const uiActions = {
   setDevice: createActionCreator(
@@ -15,5 +15,11 @@ export const uiActions = {
     (resolve) =>
       (actionName: string): TResetActionStatus =>
         resolve({ actionName: actionName.replace('_REQUEST', '') }),
+  ),
+  setCountdown: createActionCreator(
+    EUIAction.COUNTDOWN_MARATHON,
+    (resolve) =>
+      (timestamp: number): TSetCountDownMarathon =>
+        resolve({ timestamp }),
   ),
 };

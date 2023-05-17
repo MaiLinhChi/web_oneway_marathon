@@ -4,4 +4,7 @@ export type TTournamentRegisterProps = {
   data: any;
   registerGroup?: any;
   id?: string;
+  _id?: string;
+  date?: string;
+  unitRace?: string;
 };

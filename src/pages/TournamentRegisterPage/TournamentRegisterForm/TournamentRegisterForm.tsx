@@ -24,6 +24,8 @@ import {
   districtAction,
   getClubsAction,
 } from '@/redux/actions';
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 import { TRootState } from '@/redux/reducers';
 import { navigate } from '@reach/router';
@@ -31,7 +33,8 @@ import { LayoutPaths, Paths } from '@/pages/routers';
 import { EKeyTabTournamentRegisterPage } from '../TournamentRegisterPage.enums';
 import moment from 'moment';
 import TimePicker from '@/components/TimePicker';
-import { scrollToTop } from '@/utils/functions';
+
+dayjs.extend(customParseFormat);
 
 const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGroup, data }) => {
   const [form] = Form.useForm();
@@ -62,12 +65,11 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   };
   const getPrice = (value: any): any => {
     const today = new Date();
-    const a = value?.map((item: any) => {
-      return item?.price?.find((price: any) => new Date(price.startSell).getTime() >= today.getTime());
-    });
-    return a?.map((item: any, index: any) => {
-      return { ...item, distance: value[index].distance, unit: value[index].unit };
-    });
+    const ticketCurrent = value?.find((item: any) => new Date(item.endSell).getTime() >= today.getTime());
+    return {
+      ...ticketCurrent,
+      unit: data.unitRace,
+    };
   };
   const handleSubmit = (values: any): void => {
     let body = null;
@@ -100,6 +102,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
         nationality: values?.nationality.value || values?.nationality,
         gender: values?.gender?.value || values?.gender,
         shirtSize: values?.shirtSize?.value || values?.shirtSize,
+        timeEstimation: values.timeEstimation.format('HH:mm:ss'),
         marathon: {
           marathonId: data._id,
           ...values.distance,
@@ -200,7 +203,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
         shirtSize: bibState.shirtSize,
         nameBib: bibState.nameBib,
         club: bibState.clubId,
-        timeEstimation: bibState.timeEstimation,
+        timeEstimation: dayjs(bibState?.timeEstimation, 'HH:mm:ss'),
         checkVat: bibState?.vat?.companyName ? true : false,
         vat: bibState.vat,
       });
@@ -216,11 +219,10 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
         <div className="TournamentRegisterPage-card">
           <div className="TournamentRegisterPage-card-title">Chọn cự ly</div>
           <div className="TournamentRegisterPage-card-description">
-            Loại vé hiện tại là <strong>{getPrice(data.race)?.[0]?.name}</strong> <a href="#">Xem bảng giá</a>{' '}
+            Loại vé hiện tại là <strong>{getPrice(data?.priceList).name}</strong> <a href="#">Xem bảng giá</a>{' '}
           </div>
-
           <Form.Item name="distance" rules={[validationRules.required()]}>
-            <SelectDistance single={getPrice(data.race)} />
+            <SelectDistance single={getPrice(data.priceList)} />
           </Form.Item>
           <div className="TournamentRegisterPage-card-title flex items-center justify-between">
             Nhập thông tin vận động viên

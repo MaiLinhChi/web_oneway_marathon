@@ -20,7 +20,9 @@ const TournamentOverview: React.FC<TTournamentOverviewProps> = ({
   locationTournament,
   typeTournament,
   date,
+  unitRace,
   id,
+  _id,
 }) => {
   const [isExpired, setIsExpired] = useState<boolean>();
   const navigation = useLocation();
@@ -56,10 +58,10 @@ const TournamentOverview: React.FC<TTournamentOverviewProps> = ({
             <Countdown
               dateTo={date}
               onFinish={(isEnd): void => setIsExpired(isEnd)}
-              render={({ days, hours, minutes }): React.ReactNode => {
+              render={({ years, months, days, hours, minutes }): React.ReactNode => {
                 const arrMap = [
-                  // { label: 'năm', value: years, hideInZero: true },
-                  // { label: 'tháng', value: months, hideInZero: true },
+                  { label: 'năm', value: years, hideInZero: true },
+                  { label: 'tháng', value: months, hideInZero: true },
                   { label: 'ngày', value: days, hideInZero: true },
                   { label: 'giờ', value: hours },
                   { label: 'phút', value: minutes },
@@ -89,14 +91,14 @@ const TournamentOverview: React.FC<TTournamentOverviewProps> = ({
 
           {typeof isExpired === 'boolean' && !isExpired && (
             <div className="TournamentOverview-banner-btns flex items-center justify-center">
-              <Button
+              {/* <Button
                 title="Đăng ký nhóm"
                 titleColor={color}
                 link={`${Paths.TournamentRegister}?tab=${EKeyTabTournamentRegisterPage.MULTIPLE}`}
-              />
+              /> */}
               <Button
                 title="Đăng ký cá nhân"
-                link={`${Paths.TournamentRegister}?tab=${EKeyTabTournamentRegisterPage.SINGLE}`}
+                link={`${Paths.TournamentRegister(_id)}?tab=${EKeyTabTournamentRegisterPage.SINGLE}`}
               />
             </div>
           )}
@@ -106,7 +108,7 @@ const TournamentOverview: React.FC<TTournamentOverviewProps> = ({
         {stepKilometer.map((item: any, index) => (
           <div key={index} className="TournamentOverview-step-kilometer-item">
             {item.distance}
-            <span>{item.unit}</span>
+            <span>{unitRace}</span>
           </div>
         ))}
       </div>

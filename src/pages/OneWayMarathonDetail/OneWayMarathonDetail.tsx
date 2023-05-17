@@ -42,8 +42,9 @@ const OneWayMarathonDetail: any = () => {
   return (
     <div className="OneWayMarathonVungTau">
       <TournamentOverview
-        date="2023/12/01 00:00:00"
+        date={data?.startTime}
         title={data?.name}
+        unitRace={data?.unitRace}
         background={ImageHomeBanner1}
         color={EIconColor.PERSIAN_GREEN}
         dataNav={[
@@ -63,11 +64,25 @@ const OneWayMarathonDetail: any = () => {
         dateTournament={data?.startTime}
         locationTournament={data?.location}
         typeTournament={data?.type}
+        _id={data?._id}
       />
       <div className="OneWayMarathonVungTau-wrapper">
-        <TournamentRegister color={EIconColor.PERSIAN_GREEN} data={data} id="register" />
+        <TournamentRegister
+          color={EIconColor.PERSIAN_GREEN}
+          data={data.priceList}
+          unitRace={data.unitRace}
+          id="register"
+          _id={data._id}
+          date={data?.startTime}
+        />
 
-        <TournamentRegister color={EIconColor.PERSIAN_GREEN} multiple data={data} registerGroup={data?.registerGroup} />
+        <TournamentRegister
+          color={EIconColor.PERSIAN_GREEN}
+          multiple
+          data={data}
+          registerGroup={data?.registerGroup}
+          date={data?.startTime}
+        />
 
         <TournamentMap color={EIconColor.PERSIAN_GREEN} data={data} id="map" />
 

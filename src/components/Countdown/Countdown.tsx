@@ -3,14 +3,15 @@ import moment, { Duration } from 'moment';
 
 import { TCountdownProps } from './Countdown.types.d';
 import './Countdown.scss';
+import { uiActions } from '@/redux/actions';
 
-const currentDateTime = {
+export const currentDateTime = {
   year: moment().year(),
   month: moment().month(),
   date: moment().date(),
-  hour: 0,
-  minute: 0,
-  second: 0,
+  hour: moment().hours(),
+  minute: moment().minutes(),
+  second: moment().seconds(),
 };
 
 const Countdown: React.FC<TCountdownProps> = ({ dateTo, dateFrom, render, onFinish }) => {
@@ -19,10 +20,11 @@ const Countdown: React.FC<TCountdownProps> = ({ dateTo, dateFrom, render, onFini
   const [isFirstFetching, setIsFirstFetching] = useState<boolean>(true);
 
   useEffect(() => {
-    if (dateFrom) {
-      const unixValue = moment(dateFrom, 'YYYY/MM/DD HH:mm:ss').unix();
-      const currentValue = moment(dateTo || currentDateTime, dateTo ? 'YYYY/MM/DD HH:mm:ss' : undefined).unix();
+    if (dateTo) {
+      const unixValue = moment(dateTo, 'YYYY/MM/DD HH:mm:ss').unix();
+      const currentValue = moment(dateFrom || currentDateTime, dateFrom ? 'YYYY/MM/DD HH:mm:ss' : undefined).unix();
       setDiffTime(unixValue - currentValue);
+      uiActions.setCountdown(unixValue - currentValue);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dateFrom, dateTo]);
@@ -34,7 +36,6 @@ const Countdown: React.FC<TCountdownProps> = ({ dateTo, dateFrom, render, onFini
       const interval = setInterval(() => {
         durationData = moment.duration(durationData - 1000, 'milliseconds');
         setDuration(durationData);
-
         const isCountEnd =
           durationData?.years() <= 0 &&
           durationData?.months() <= 0 &&
@@ -53,7 +54,6 @@ const Countdown: React.FC<TCountdownProps> = ({ dateTo, dateFrom, render, onFini
           setIsFirstFetching(false);
         }
       }, 1000);
-
       return (): void => {
         clearInterval(interval);
       };
