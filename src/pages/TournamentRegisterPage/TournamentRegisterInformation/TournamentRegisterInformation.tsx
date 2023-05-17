@@ -32,7 +32,6 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
       setData(group);
     }
   }, [tabQuery, getData, payment, group]);
-  console.log(data);
   return (
     <div className="TournamentRegisterInformation-card sticky">
       {payment || data?.email ? (

@@ -11,6 +11,7 @@ export type TTournamentOverviewProps = {
   expired?: boolean;
   date: string;
   id?: any;
+  _id?: string;
 };
 
 export type TTournamentOverviewNav = {

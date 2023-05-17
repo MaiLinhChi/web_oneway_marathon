@@ -42,7 +42,7 @@ const OneWayMarathonDetail: any = () => {
   return (
     <div className="OneWayMarathonVungTau">
       <TournamentOverview
-        date="2023/12/01 00:00:00"
+        date={data?.startTime}
         title={data?.name}
         background={ImageHomeBanner1}
         color={EIconColor.PERSIAN_GREEN}
@@ -58,6 +58,7 @@ const OneWayMarathonDetail: any = () => {
           { title: 'Quy định và thể lệ ', link: '#regulation' },
         ]}
         id="gioithieu"
+        _id={data._id}
         stepKilometer={data?.race}
         description={data?.description}
         dateTournament={data?.startTime}

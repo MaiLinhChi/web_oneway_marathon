@@ -8,21 +8,21 @@ const currentDateTime = {
   year: moment().year(),
   month: moment().month(),
   date: moment().date(),
-  hour: 0,
-  minute: 0,
-  second: 0,
+  hour: moment().hours(),
+  minute: moment().minutes(),
+  second: moment().seconds(),
 };
 
 const Countdown: React.FC<TCountdownProps> = ({ dateTo, dateFrom, render, onFinish }) => {
   const [diffTime, setDiffTime] = useState<number>();
   const [duration, setDuration] = useState<Duration | undefined>();
   const [isFirstFetching, setIsFirstFetching] = useState<boolean>(true);
-
   useEffect(() => {
-    if (dateFrom) {
-      const unixValue = moment(dateFrom, 'YYYY/MM/DD HH:mm:ss').unix();
-      const currentValue = moment(dateTo || currentDateTime, dateTo ? 'YYYY/MM/DD HH:mm:ss' : undefined).unix();
+    if (dateTo) {
+      const unixValue = moment(dateTo, 'YYYY/MM/DD HH:mm:ss').unix();
+      const currentValue = moment(dateFrom || currentDateTime, dateFrom ? 'YYYY/MM/DD HH:mm:ss' : undefined).unix();
       setDiffTime(unixValue - currentValue);
+      console.log(unixValue, currentValue);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dateFrom, dateTo]);
