@@ -27,32 +27,33 @@ const TournamentSystem: React.FC<TTournamentSystemProps> = () => {
   useEffect(() => {
     getData();
   }, [limit, getData]);
-  const getShowMarathonBtn = (): any => {
-    let btn;
-    if (totalRecord > limit && limit > initLimit) {
-      btn = (
-        <div className="TournamentSystem-btn">
-          <Button type="primary" onClick={(): void => setLimit(limit + 1)} title="Show more" />
-          <Button type="primary" onClick={(): void => setLimit(limit - 1)} title="Show less" />
-        </div>
-      );
-    } else if (totalRecord > limit) {
-      btn = (
-        <div className="TournamentSystem-btn">
-          <Button type="primary" onClick={(): void => setLimit(limit + 1)} title="Show more" />;
-        </div>
-      );
-    } else if ((data.length && totalRecord < limit) || limit > initLimit) {
-      btn = (
-        <div className="TournamentSystem-btn">
-          <Button type="primary" onClick={(): void => setLimit(limit - 1)} title="Show less" />;
-        </div>
-      );
-    } else {
-      btn = null;
-    }
-    return btn;
-  };
+  console.log(totalRecord);
+  // const getShowMarathonBtn = (): any => {
+  //   let btn;
+  //   if (totalRecord > limit && limit > initLimit) {
+  //     btn = (
+  //       <div className="TournamentSystem-btn">
+  //         <Button type="primary" onClick={(): void => setLimit(limit + 1)} title="Show more" />
+  //         <Button type="primary" onClick={(): void => setLimit(limit - 1)} title="Show less" />
+  //       </div>
+  //     );
+  //   } else if (totalRecord > limit) {
+  //     btn = (
+  //       <div className="TournamentSystem-btn">
+  //         <Button type="primary" onClick={(): void => setLimit(limit + 1)} title="Show more" />;
+  //       </div>
+  //     );
+  //   } else if ((data.length && totalRecord < limit) || limit > initLimit) {
+  //     btn = (
+  //       <div className="TournamentSystem-btn">
+  //         <Button type="primary" onClick={(): void => setLimit(limit - 1)} title="Show less" />;
+  //       </div>
+  //     );
+  //   } else {
+  //     btn = null;
+  //   }
+  //   return btn;
+  // };
   return (
     <section className="TournamentSystem" id="hethonggiaidau">
       <div className="container">
@@ -82,7 +83,7 @@ const TournamentSystem: React.FC<TTournamentSystemProps> = () => {
           </div>
         ))}
       </div>
-      {getShowMarathonBtn()}
+      {/* {getShowMarathonBtn()} */}
     </section>
   );
 };
