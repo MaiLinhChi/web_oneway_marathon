@@ -50,9 +50,9 @@ const TournamentPaymentRegulars: React.FC<TTournamentPaymentFormProps> = () => {
           >
             <ol>
               <li>
-                1. Bằng việc đăng ký tham dự giải 'Tên giải' tổ chức vào “ngày 23 tháng 4 năm 2023” (sau đây gọi là “Sự
-                kiện”), tôi đồng ý với văn bản xác nhận từ bỏ các quyền đòi hỏi, yêu cầu bồi thường và gánh vác rủi ro
-                này.
+                1. Bằng việc đăng ký tham dự giải Oneway Marathon <b>{order?.marathon?.name}</b> tổ chức vào “
+                {order?.marathon?.startTime}”(sau đây gọi là “Sự kiện”), tôi đồng ý với văn bản xác nhận từ bỏ các quyền
+                đòi hỏi, yêu cầu bồi thường và gánh vác rủi ro này.
               </li>
               <br />
               <li>2. Tôi đã đọc và hiểu các điều luật của Sự kiện và các thông tin liên quan đến Sự kiện.</li>
