@@ -50,7 +50,7 @@ const TournamentPaymentRegulars: React.FC<TTournamentPaymentFormProps> = () => {
           >
             <ol>
               <li>
-                1. Bằng việc đăng ký tham dự giải Oneway Marathon <b>{order?.marathon?.name}</b> tổ chức vào “
+                1. Bằng việc đăng ký tham dự giải <b>Oneway Marathon {order?.marathon?.name}</b> tổ chức vào “
                 {order?.marathon?.startTime}”(sau đây gọi là “Sự kiện”), tôi đồng ý với văn bản xác nhận từ bỏ các quyền
                 đòi hỏi, yêu cầu bồi thường và gánh vác rủi ro này.
               </li>
