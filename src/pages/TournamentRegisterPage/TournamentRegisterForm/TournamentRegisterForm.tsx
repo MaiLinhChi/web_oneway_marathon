@@ -189,8 +189,10 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   useEffect(() => {
     getInfo();
     if (bibState) {
+      bibState.marathon.price = bibState.price;
       form.setFieldsValue({
         email: bibState.email,
+        distance: bibState.marathon,
         fullName: bibState.fullName,
         birthday: moment(bibState?.birthday),
         gender: bibState.gender,
@@ -239,12 +241,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
               <Form.Item
                 name="fullName"
                 label="Họ và tên"
-                rules={[
-                  validationRules.required(),
-                  validationRules.noSpecialKey(),
-                  validationRules.minLength(3),
-                  validationRules.maxLength(15),
-                ]}
+                rules={[validationRules.required(), validationRules.noSpecialKey()]}
               >
                 <Input placeholder="Họ và tên" />
               </Form.Item>
@@ -358,12 +355,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
               <Form.Item
                 name="emergencyContactName"
                 label="Liên hệ khẩn cấp"
-                rules={[
-                  validationRules.required(),
-                  validationRules.minLength(3),
-                  validationRules.maxLength(15),
-                  validationRules.noSpecialKey(),
-                ]}
+                rules={[validationRules.required(), validationRules.noSpecialKey()]}
               >
                 <Input placeholder="Tên người liên hệ khẩn cấp" />
               </Form.Item>
@@ -402,11 +394,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
               </Form.Item>
             </Col>
             <Col span={24} lg={12}>
-              <Form.Item
-                name="nameBib"
-                label="Tên trên BIB"
-                rules={[validationRules.minLength(3), validationRules.noSpecialKey()]}
-              >
+              <Form.Item name="nameBib" label="Tên trên BIB" rules={[validationRules.noSpecialKey()]}>
                 <Input placeholder="Tên trên BIB" />
               </Form.Item>
             </Col>

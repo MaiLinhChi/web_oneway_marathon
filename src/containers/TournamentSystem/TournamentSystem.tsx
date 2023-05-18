@@ -27,7 +27,6 @@ const TournamentSystem: React.FC<TTournamentSystemProps> = () => {
   useEffect(() => {
     getData();
   }, [limit, getData]);
-  console.log(totalRecord);
   // const getShowMarathonBtn = (): any => {
   //   let btn;
   //   if (totalRecord > limit && limit > initLimit) {
