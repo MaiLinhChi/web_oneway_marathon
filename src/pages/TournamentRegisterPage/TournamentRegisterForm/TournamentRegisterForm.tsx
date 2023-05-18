@@ -134,7 +134,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   const handleRegitserSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {
       // showNotification(ETypeNotification.SUCCESS, 'Đăng ký vé thành công !');
-      navigate(Paths.TournamentPayment(`${response.data._id}?tab=${EKeyTabTournamentRegisterPage.SINGLE}`));
+      navigate(Paths.TournamentRegulars(`${response.data._id}?tab=${EKeyTabTournamentRegisterPage.SINGLE}`));
     } else {
       showNotification(ETypeNotification.ERROR, response.message);
     }
@@ -375,7 +375,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
                 style={{ fontSize: '1.4rem', position: 'relative', zIndex: 1, marginBottom: '-2rem' }}
               >
                 <a href="#" className="hover-text">
-                  <img src={ShirtSize} alt="image" height="300" className="hover" />
+                  <img src={ShirtSize} alt="image" className="hover" />
                   Bảng kích thước
                 </a>
               </div>
