@@ -154,7 +154,7 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
                     <td>Phí thanh toán</td>
                     <td />
                     <td className="text-right">
-                      <strong>{totalFee} VNĐ</strong>
+                      <strong>{parseInt(totalFee).toLocaleString('ES-es')} VNĐ</strong>
                     </td>
                   </tr>
                 )}

@@ -8,12 +8,12 @@ import './SelectDistance.scss';
 
 const SelectDistance: React.FC<TSelectDistanceProps> = ({ value, onChange, single = [], multiple = [] }) => {
   useEffect(() => {
-    if (!value && single.length) {
+    if (!value && single?.individual?.length) {
       onChange?.({
-        price: single?.[0]?.individual,
-        distance: single?.[0]?.distance,
-        state: single[0]?.name,
-        unit: single?.[0]?.unit,
+        price: single?.individual?.[0]?.price,
+        distance: single?.individual?.[0]?.distance,
+        state: single.name,
+        unit: single?.unit,
       });
     } else if (!value && multiple.length) {
       onChange?.(multiple?.[0]);
@@ -23,19 +23,19 @@ const SelectDistance: React.FC<TSelectDistanceProps> = ({ value, onChange, singl
   return (
     <div className="SelectDistance">
       <Row gutter={[2, 2]}>
-        {single.length
-          ? single?.map((item: any, index: any) => (
-              <Col key={index} span={12} sm={8} lg={24 / single.length}>
+        {single?.individual?.length
+          ? single?.individual?.map((item: any, index: any) => (
+              <Col key={index} span={12} sm={8} lg={24 / single?.individual?.length}>
                 <div
                   className={classNames('SelectDistance-item', { active: value?.distance === item.distance })}
                   onClick={(): void =>
-                    onChange?.({ price: item.individual, distance: item.distance, state: item.name, unit: item.unit })
+                    onChange?.({ price: item.price, distance: item.distance, state: single.name, unit: single.unit })
                   }
                 >
                   <div className="SelectDistance-item-distance">
-                    {item.distance} <span>{item.unit}</span>
+                    {item.distance} <span>{single.unit}</span>
                   </div>
-                  <div className="SelectDistance-item-description">{numeral(item.individual).format()} VND</div>
+                  <div className="SelectDistance-item-description">{numeral(item.price).format()} VND</div>
                 </div>
               </Col>
             ))

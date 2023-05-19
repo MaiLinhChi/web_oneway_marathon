@@ -20,6 +20,7 @@ const TournamentOverview: React.FC<TTournamentOverviewProps> = ({
   locationTournament,
   typeTournament,
   date,
+  unitRace,
   id,
   _id,
 }) => {
@@ -90,11 +91,11 @@ const TournamentOverview: React.FC<TTournamentOverviewProps> = ({
 
           {typeof isExpired === 'boolean' && !isExpired && (
             <div className="TournamentOverview-banner-btns flex items-center justify-center">
-              {/* <Button
+              <Button
                 title="Đăng ký nhóm"
                 titleColor={color}
                 link={`${Paths.TournamentRegister(_id)}?tab=${EKeyTabTournamentRegisterPage.MULTIPLE}`}
-              /> */}
+              />
               <Button
                 title="Đăng ký cá nhân"
                 link={`${Paths.TournamentRegister(_id)}?tab=${EKeyTabTournamentRegisterPage.SINGLE}`}
@@ -107,7 +108,7 @@ const TournamentOverview: React.FC<TTournamentOverviewProps> = ({
         {stepKilometer.map((item: any, index) => (
           <div key={index} className="TournamentOverview-step-kilometer-item">
             {item.distance}
-            <span>{item.unit}</span>
+            <span>{unitRace}</span>
           </div>
         ))}
       </div>

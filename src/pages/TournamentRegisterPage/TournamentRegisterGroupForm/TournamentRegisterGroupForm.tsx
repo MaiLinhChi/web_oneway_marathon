@@ -86,7 +86,7 @@ const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> =
                 </div>
               </Col>
               <Col span={18}>
-                <Form.Item name="groupName">
+                <Form.Item name="groupName" rules={[validationRules.required()]}>
                   <Input placeholder="Tên nhóm" />
                 </Form.Item>
               </Col>
@@ -96,8 +96,8 @@ const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> =
                 </div>
               </Col>
               <Col span={18}>
-                <Form.Item name="password">
-                  <Input type="password" placeholder="Mật khẩu" />
+                <Form.Item name="password" rules={[validationRules.required()]}>
+                  <Input type="password" placeholder="Mật khẩu" autoComplete="new-password" />
                 </Form.Item>
               </Col>
             </Row>

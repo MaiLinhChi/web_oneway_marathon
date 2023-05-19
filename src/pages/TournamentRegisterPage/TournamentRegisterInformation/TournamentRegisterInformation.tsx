@@ -6,6 +6,7 @@ import { EKeyTabTournamentRegisterPage } from '../TournamentRegisterPage.enums';
 import { getQueryParam } from '@/utils/functions';
 import { useSelector } from 'react-redux';
 import { TRootState } from '@/redux/reducers';
+import moment from 'moment';
 
 const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProps> = ({ payment, group }) => {
   const [data, setData] = useState<any>({});
@@ -49,7 +50,7 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
                 <tr>
                   <td>Cự ly</td>
                   <td>
-                    <strong>
+                    <strong style={{ color: '#00AF89' }}>
                       {data?.marathon?.distance}
                       {data?.marathon?.unit}
                     </strong>
@@ -64,7 +65,7 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
                 <tr>
                   <td>Ngày sinh</td>
                   <td>
-                    <strong>{data.birthday}</strong>
+                    <strong>{moment(data.birthday).format('DD/MM/YYYY')}</strong>
                   </td>
                 </tr>
                 <tr>

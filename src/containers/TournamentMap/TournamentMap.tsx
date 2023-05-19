@@ -21,14 +21,14 @@ const TournamentMap: React.FC<TTournamentMapProps> = ({ data, color, id }) => {
                 onClick={(): void => setActiveTab(item)}
               >
                 <div className="TournamentMap-tab-item-line" style={{ background: color }} />
-                {item.distance} {item.unit}
+                {item.distance} {data.unitRace}
               </div>
             ))}
           </div>
           <div className="TournamentMap-main flex" style={{ background: color }}>
             <div className="TournamentMap-main-info">
               <h4 className="TournamentMap-main-info-title">
-                {activeTab?.distance} <span>{activeTab?.unit}</span>
+                {activeTab?.distance} <span>{data.unitRace}</span>
               </h4>
               <div className="TournamentMap-main-info-list" dangerouslySetInnerHTML={{ __html: activeTab?.routeMap }} />
             </div>

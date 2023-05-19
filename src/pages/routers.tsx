@@ -35,6 +35,7 @@ const ProfileEdit = lazy(() => retryLoadComponent(() => import('@/pages/ProfileE
 const TournamentDetail = lazy(() => retryLoadComponent(() => import('@/pages/TournamentDetail')));
 const TournamentRegister = lazy(() => retryLoadComponent(() => import('@/pages/TournamentRegisterPage')));
 const TournamentPayment = lazy(() => retryLoadComponent(() => import('@/pages/TournamentPayment')));
+const TournamentRegulars = lazy(() => retryLoadComponent(() => import('@/pages/TournamentRegisterPage')));
 const RollBib = lazy(() => retryLoadComponent(() => import('@/pages/RollBib')));
 const NotFound = lazy(() => retryLoadComponent(() => import('@/pages/NotFound')));
 const BuyOnlineTicketTutorials = lazy(() => retryLoadComponent(() => import('@/pages/BuyOnlineTicketTutorials')));
@@ -85,6 +86,7 @@ export const Paths = {
   MarathonDetail: (id?: string): string => `/marathon/detail/${id || ':id'}`,
   TournamentRegister: (id?: string): string => `/tournaments/register/${id || ':id'}`,
   TournamentPayment: (id?: string): string => `/tournaments/payment/${id || ':id'}`,
+  TournamentRegulars: (id?: string): string => `/tournaments/regulations/${id || ':id'}`,
   RollBib: (id?: string): string => `/bib/${id || ':id'}`,
   NotFound: '/404',
   BuyOnlineTicketTutorials: '/buy-online-ticket-tutorials',
@@ -115,6 +117,7 @@ export const Pages = {
   Profile,
   ProfileEdit,
   TournamentDetail,
+  TournamentRegulars,
   TournamentRegister,
   TournamentPayment,
   RollBib,

@@ -44,6 +44,7 @@ const OneWayMarathonDetail: any = () => {
       <TournamentOverview
         date={data?.startTime}
         title={data?.name}
+        unitRace={data?.unitRace}
         background={ImageHomeBanner1}
         color={EIconColor.PERSIAN_GREEN}
         dataNav={[
@@ -58,7 +59,7 @@ const OneWayMarathonDetail: any = () => {
           { title: 'Quy định và thể lệ ', link: '#regulation' },
         ]}
         id="gioithieu"
-        _id={data._id}
+        _id={data?._id}
         stepKilometer={data?.race}
         description={data?.description}
         dateTournament={data?.startTime}
@@ -66,9 +67,22 @@ const OneWayMarathonDetail: any = () => {
         typeTournament={data?.type}
       />
       <div className="OneWayMarathonVungTau-wrapper">
-        <TournamentRegister color={EIconColor.PERSIAN_GREEN} data={data} id="register" />
+        <TournamentRegister
+          color={EIconColor.PERSIAN_GREEN}
+          data={data.priceList}
+          unitRace={data.unitRace}
+          id="register"
+          _id={data._id}
+          date={data?.startTime}
+        />
 
-        <TournamentRegister color={EIconColor.PERSIAN_GREEN} multiple data={data} registerGroup={data?.registerGroup} />
+        <TournamentRegister
+          color={EIconColor.PERSIAN_GREEN}
+          multiple
+          data={data}
+          registerGroup={data?.registerGroup}
+          date={data?.startTime}
+        />
 
         <TournamentMap color={EIconColor.PERSIAN_GREEN} data={data} id="map" />
 

@@ -12,6 +12,7 @@ const initialState = {
     width: window.innerWidth,
     isMobile: window.innerWidth <= 991,
   },
+  timestamp: 0,
 };
 
 const reducer = createReducer(initialState, (handleAction) => [
@@ -22,6 +23,10 @@ const reducer = createReducer(initialState, (handleAction) => [
       width: payload.deviceWidth,
       isMobile: window.innerWidth <= 991,
     },
+  })),
+  handleAction(uiActions.setCountdown, (state, { payload }) => ({
+    ...state,
+    timestamp: payload.timestamp,
   })),
 ]);
 

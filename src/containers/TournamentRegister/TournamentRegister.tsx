@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Button from '@/components/Button';
 import { EIconColor } from '@/components/Icon';
@@ -9,21 +9,29 @@ import { Paths } from '@/pages/routers';
 import numeral from 'numeral';
 import { EKeyTabTournamentRegisterPage } from '@/pages/TournamentRegisterPage/TournamentRegisterPage.enums';
 import Modal from '@/components/Modal';
+import moment from 'moment';
+import { currentDateTime } from '@/components/Countdown/Countdown';
 
-const TournamentRegister: React.FC<TTournamentRegisterProps> = ({ color, multiple, data, registerGroup, id }) => {
+const TournamentRegister: React.FC<TTournamentRegisterProps> = ({
+  color,
+  multiple,
+  data,
+  registerGroup,
+  id,
+  _id,
+  date,
+  unitRace,
+}) => {
   const [open, setOpen] = useState(false);
+  const [isEnd, setIsEnd] = useState(false);
   if (Object.keys(data).length === 0) return null;
-  const longest = (arr: any): [] => {
-    if (arr?.length === 0) {
-      return [];
-    }
-    const newArr = arr.reduce(function (a: any, b: any) {
-      return a.price.length > b.price.length ? a : b;
-    });
-    return newArr.price;
-  };
   const handleModel = (): void => {
     setOpen(true);
+  };
+  const handleIsEnd = (): void => {
+    const unixValue = moment(date, 'YYYY/MM/DD HH:mm:ss').unix();
+    const currentValue = moment(currentDateTime, 'YYYY/MM/DD HH:mm:ss').unix();
+    setIsEnd(unixValue - currentValue > 0 ? false : true);
   };
   return (
     <div className="TournamentRegister" id={id}>
@@ -58,23 +66,23 @@ const TournamentRegister: React.FC<TTournamentRegisterProps> = ({ color, multipl
                 <thead>
                   <tr>
                     <th />
-                    {longest(data?.race)?.map((item: any, index) => (
+                    {data?.map((item: any, index: any) => (
                       <th key={index}>
                         <div className="TournamentRegister-table-title">{item.name}</div>
-                        <div className="TournamentRegister-table-description">Áp dụng trước ngày {item.startSell}</div>
+                        <div className="TournamentRegister-table-description">Áp dụng trước ngày {item.endSell}</div>
                       </th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {data?.race?.map((item: any, index: any) => (
+                  {data?.map((item: any, index: any) => (
                     <tr key={index}>
                       <td>
-                        {item.distance}
-                        {item.unit}
+                        {item?.individual[index].distance}
+                        {unitRace}
                       </td>
-                      {item?.price?.map((price: any, key: any) => (
-                        <td key={key}>{numeral(price.individual).format()} VND</td>
+                      {item?.individual?.map((i: any, key: any) => (
+                        <td key={key}>{numeral(i.price).format()} VND</td>
                       ))}
                     </tr>
                   ))}
@@ -91,6 +99,7 @@ const TournamentRegister: React.FC<TTournamentRegisterProps> = ({ color, multipl
                 borderColor={color}
                 backgroundColor={color}
                 onClick={handleModel}
+                disabled={isEnd}
               />
             ) : (
               <Button
@@ -100,10 +109,11 @@ const TournamentRegister: React.FC<TTournamentRegisterProps> = ({ color, multipl
                 borderColor={color}
                 backgroundColor={color}
                 link={Paths.TournamentRegister(
-                  `${data._id}?tab=${
+                  `${_id}?tab=${
                     multiple ? EKeyTabTournamentRegisterPage.MULTIPLE : EKeyTabTournamentRegisterPage.SINGLE
                   }`,
                 )}
+                disabled={isEnd}
               />
             )}
           </div>

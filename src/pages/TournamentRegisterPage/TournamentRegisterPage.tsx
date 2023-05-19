@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { ReactElement, useCallback, useEffect, useState } from 'react';
 import { Col, Row } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -20,6 +20,7 @@ import { getMarathonById } from '@/services/api';
 import { getQueryParam, scrollToTop, showNotification } from '@/utils/functions';
 import { getMarathonByIdAction } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
+import TournamentPaymentRegulars from './TournamentPaymentRegulars';
 
 const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = () => {
   const [data, setData] = useState({});
@@ -29,6 +30,7 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = () => {
   const key = 'tab';
   const tabQuery = getQueryParam(key);
   const payment = pathname.includes('payment');
+  const regulations = pathname.includes('regulations');
   const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
   const dispatch = useDispatch();
   const getMarathonDetail = useCallback(() => {
@@ -42,6 +44,21 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = () => {
     } else {
       showNotification(ETypeNotification.ERROR, response.message);
     }
+  };
+  const getContent = (): ReactElement => {
+    if (payment) {
+      return <TournamentPaymentForm />;
+    } else if (regulations) {
+      return <TournamentPaymentRegulars />;
+    } else if (activeTab.value === EKeyTabTournamentRegisterPage.SINGLE) {
+      return (
+        <TournamentRegisterForm
+          data={data}
+          isGroup={tabQuery === EKeyTabTournamentRegisterPage.MULTIPLE ? true : false}
+        />
+      );
+    }
+    return <TournamentRegisterGroupForm data={data} />;
   };
   useEffect(() => {
     getMarathonDetail();
@@ -73,20 +90,7 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = () => {
           </Col>
           <Row className="TournamentRegisterPage-main">
             <Col span={24} lg={16}>
-              {payment ? (
-                <TournamentPaymentForm />
-              ) : (
-                <>
-                  {activeTab.value === EKeyTabTournamentRegisterPage.SINGLE ? (
-                    <TournamentRegisterForm
-                      data={data}
-                      isGroup={tabQuery === EKeyTabTournamentRegisterPage.MULTIPLE ? true : false}
-                    />
-                  ) : (
-                    <TournamentRegisterGroupForm data={data} />
-                  )}
-                </>
-              )}
+              {getContent()}
             </Col>
             {isMobile ? (
               ''

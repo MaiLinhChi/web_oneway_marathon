@@ -11,7 +11,7 @@ import ImageShopdiDark from '@/assets/images/image-shopdi-dark.webp';
 import ImageVOV from '@/assets/images/image-vov.png';
 import ImageVuonUom from '@/assets/images/image-vuon-uom.png';
 import ImageVuonUomDark from '@/assets/images/image-vuon-uom-dark.png';
-import ImageRespo from '@/assets/images/image-respo.png';
+import ImageRespo from '@/assets/images/respotext.png';
 import { TFooterPartnerLink } from '@/containers/Footer/Footer.types';
 import { Paths } from '@/pages/routers';
 
@@ -61,7 +61,7 @@ export const dataFooterPartnerLinks = (dark?: boolean): TFooterPartnerLink[] => 
   {
     link: '#',
     logo: ImageRespo,
-    maxWidth: '3.5rem',
+    maxWidth: '11rem',
   },
   // {
   //   link: '#',
