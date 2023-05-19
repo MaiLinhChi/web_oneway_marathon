@@ -63,11 +63,16 @@
   }
 
   &-description {
+    display: -webkit-box;
     font-weight: 500;
     font-size: 1.6rem;
     line-height: 2.4rem;
     font-style: italic;
     color: $dove-gray;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
     margin-bottom: 4.8rem;
     @media (max-width:767px) {
       font-size: 1.4rem;
@@ -168,8 +173,8 @@
 
   &-card {
     padding: 2rem 2.4rem 4.8rem;
-    border: 1px solid $mystic;
-    background: $aqua-haze;
+    // border: 1px solid $mystic;
+    // background: $aqua-haze;
 
     &-edit {
       margin-bottom: -2.4rem;

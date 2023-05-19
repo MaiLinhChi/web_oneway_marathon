@@ -12,7 +12,9 @@ import './TournamentDetail.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { TRootState } from '@/redux/reducers';
 import { detailRaceAction } from '@/redux/actions';
-import { useParams } from '@reach/router';
+import { Link, useParams } from '@reach/router';
+import { Paths } from '../routers';
+import { truncateStringByWords } from '@/utils/functions';
 
 const TournamentDetail: React.FC = () => {
   const dispatch = useDispatch();
@@ -41,8 +43,8 @@ const TournamentDetail: React.FC = () => {
                   <span>{raceState?.name}</span>
                 </h1>
                 <p className="TournamentDetail-description">
-                  {raceState?.description}...
-                  <a href="#">Xem chi tiết giải</a>
+                  {truncateStringByWords(raceState?.description, 100)}
+                  <Link to={Paths.MarathonDetail(raceState?._id)}>Xem chi tiết giải</Link>
                 </p>
 
                 <h2 className="TournamentDetail-subtitle">Thông tin chi tiết</h2>
@@ -81,110 +83,109 @@ const TournamentDetail: React.FC = () => {
                     </tbody>
                   </table>
                 </div>
-
-                <h2 className="TournamentDetail-subtitle">Nhóm đã tạo</h2>
-                <div className="TournamentDetail-card">
-                  <div className="TournamentDetail-card-edit flex justify-end">
-                    <Button title="Chỉnh sửa" type="ghost" />
-                  </div>
-                  <h3 className="TournamentDetail-card-title">Tên nhóm: Only tiger</h3>
-                  <div className="TournamentDetail-table">
-                    <table>
-                      <tbody>
-                        <tr>
-                          <td>Họ và tên trưởng nhóm</td>
-                          <td style={{ width: '100%' }}>
-                            <strong>Trần Xuân Hoàng</strong>
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td>Số điện thoại</td>
-                          <td style={{ width: '100%' }}>
-                            <strong>0798407797</strong>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Email</td>
-                          <td style={{ width: '100%' }}>
-                            <strong>thkl.8996@gmail.com</strong>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <h3 className="TournamentDetail-card-title">Link đăng ký nhóm</h3>
-                  <div className="TournamentDetail-card-link">
-                    <div className="TournamentDetail-card-link-url flex">
-                      <Input readOnly value="https://onewaymarathon.com/hue-2023/vm/8989" />
-                      <Button
-                        title="Sao chép"
-                        type="primary"
-                        onClick={(): void => copyText('https://onewaymarathon.com/hue-2023/vm/8989')}
-                      />
-                    </div>
-                    <div className="TournamentDetail-card-link-description">
-                      <p>Hướng dẫn: Để đăng ký theo nhóm (từ 2 người) bạn cần làm theo các bước sau:</p>
-                      <ul>
-                        <li>Bước 1: Chia sẻ “link đăng ký nhóm” bên trên cho bạn bè.</li>
-                        <li>Bước 2: Các vận động viên truy cập link và điền thông tin cần thiết.</li>
-                        <li>Bước 3: Trưởng nhóm hoàn tất đăng ký và tiến hành thanh toán.</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <h3 className="TournamentDetail-card-title">Thông tin thành viên</h3>
-                  <div className="TournamentDetail-table">
-                    <table>
-                      <thead>
-                        <tr>
-                          <td style={{ width: 24 }} />
-                          <td>
-                            <strong>STT</strong>
-                          </td>
-                          <td>
-                            <strong>Họ và tên</strong>
-                          </td>
-                          <td>
-                            <strong>Cự ly</strong>
-                          </td>
-                          <td>
-                            <strong>Thời gian đăng ký</strong>
-                          </td>
-                          <td className="text-right">
-                            <strong>Giá tiền</strong>
-                          </td>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {[1, 2, 3, 4, 5].map((item, index) => (
-                          <tr key={index}>
-                            <td style={{ width: 24 }}>
-                              <Icon name={EIconName.MinusCircle} color={EIconColor.RED_ORANGE} />
-                            </td>
-                            <td>{item}</td>
-                            <td>Trần Xuân Hoàng</td>
-                            <td>5km</td>
-                            <td>12/1/2023</td>
-                            <td className="text-right">515.000 VNĐ</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-
-                  <div className="TournamentDetail-card-total text-right">
-                    Tổng cộng: <strong>1.000.000 VNĐ</strong>
-                  </div>
-                  <div className="TournamentDetail-card-actions flex items-center justify-between">
-                    <Button title="Xoá nhóm" type="text" size="large" />
-                    <Button title="Thanh toán" type="primary" size="large" />
-                  </div>
-                </div>
               </Col>
               <Col xs={{ order: 1, span: 24 }} lg={{ order: 2, span: 12 }}>
                 <TournamentMap color={EIconColor.BLUE_RIBBON} data={raceState} noRouteMap={true} />
               </Col>
             </Row>
+            <h2 className="TournamentDetail-subtitle">Thông tin đăng ký Nhóm </h2>
+            <div className="TournamentDetail-card">
+              <div className="TournamentDetail-card-edit flex justify-end">
+                <Button title="Chỉnh sửa" type="ghost" />
+              </div>
+              <h3 className="TournamentDetail-card-title">Tên nhóm: Only tiger</h3>
+              <div className="TournamentDetail-table">
+                <table>
+                  <tbody>
+                    <tr>
+                      <td>Họ và tên trưởng nhóm</td>
+                      <td style={{ width: '100%' }}>
+                        <strong>Trần Xuân Hoàng</strong>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Số điện thoại</td>
+                      <td style={{ width: '100%' }}>
+                        <strong>0798407797</strong>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Email</td>
+                      <td style={{ width: '100%' }}>
+                        <strong>thkl.8996@gmail.com</strong>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <h3 className="TournamentDetail-card-title">Link đăng ký nhóm</h3>
+              <div className="TournamentDetail-card-link">
+                <div className="TournamentDetail-card-link-url flex">
+                  <Input readOnly value="https://onewaymarathon.com/hue-2023/vm/8989" />
+                  <Button
+                    title="Sao chép"
+                    type="primary"
+                    onClick={(): void => copyText('https://onewaymarathon.com/hue-2023/vm/8989')}
+                  />
+                </div>
+                <div className="TournamentDetail-card-link-description">
+                  <p>Hướng dẫn: Để đăng ký theo nhóm (từ 2 người) bạn cần làm theo các bước sau:</p>
+                  <ul>
+                    <li>Bước 1: Chia sẻ “link đăng ký nhóm” bên trên cho bạn bè.</li>
+                    <li>Bước 2: Các vận động viên truy cập link và điền thông tin cần thiết.</li>
+                    <li>Bước 3: Trưởng nhóm hoàn tất đăng ký và tiến hành thanh toán.</li>
+                  </ul>
+                </div>
+              </div>
+              <h3 className="TournamentDetail-card-title">Thông tin thành viên</h3>
+              <div className="TournamentDetail-table">
+                <table>
+                  <thead>
+                    <tr>
+                      <td style={{ width: 24 }} />
+                      <td>
+                        <strong>STT</strong>
+                      </td>
+                      <td>
+                        <strong>Họ và tên</strong>
+                      </td>
+                      <td>
+                        <strong>Cự ly</strong>
+                      </td>
+                      <td>
+                        <strong>Thời gian đăng ký</strong>
+                      </td>
+                      <td className="text-right">
+                        <strong>Giá tiền</strong>
+                      </td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[1, 2, 3, 4, 5].map((item, index) => (
+                      <tr key={index}>
+                        <td style={{ width: 24 }}>
+                          <Icon name={EIconName.MinusCircle} color={EIconColor.RED_ORANGE} />
+                        </td>
+                        <td>{item}</td>
+                        <td>Trần Xuân Hoàng</td>
+                        <td>5km</td>
+                        <td>12/1/2023</td>
+                        <td className="text-right">515.000 VNĐ</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="TournamentDetail-card-total text-right">
+                Tổng cộng: <strong>1.000.000 VNĐ</strong>
+              </div>
+              <div className="TournamentDetail-card-actions flex items-center justify-between">
+                <Button title="Xoá nhóm" type="text" size="large" />
+                <Button title="Thanh toán" type="primary" size="large" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
