@@ -90,6 +90,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
       dispatch(runnerRegisterGroupAction.request({ body }, (response): void => handleRunnerRegitserSuccess(response)));
     } else {
       const { distance, checkVat, address, club, status, ...ress } = values;
+      const { name, startTime, price, ...res } = values.distance;
       body = {
         ...ress,
         address: {
@@ -105,12 +106,11 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
         timeEstimation: values.timeEstimation.format('HH:mm:ss'),
         marathon: {
           marathonId: data._id,
-          ...values.distance,
+          ...res,
         },
         clubId: club ? club.value : '',
         price: distance.price,
       };
-      delete body.marathon.price;
       if (!club) {
         delete body.clubId;
       }
