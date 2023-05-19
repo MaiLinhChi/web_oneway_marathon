@@ -6,6 +6,7 @@ export type TTournamentMapProps = {
   stepKilometer?: Array<TStepKilometerTournamentMap>;
   color?: EIconColor;
   id?: string;
+  noRouteMap?: boolean;
 };
 
 export type TStepKilometerTournamentMap = {

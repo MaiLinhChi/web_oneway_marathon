@@ -2,7 +2,6 @@ import React, { useCallback, useEffect } from 'react';
 import { Col, Row } from 'antd';
 
 import ImageHomeBanner1 from '@/assets/images/image-home-banner-1.png';
-import ImageTournamentMap1 from '@/assets/images/image-tournament-map-1.png';
 import TournamentMap from '@/containers/TournamentMap';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import Input from '@/components/Input';
@@ -34,19 +33,9 @@ const TournamentDetail: React.FC = () => {
             <img src={ImageHomeBanner1} alt="" />
           </div>
 
-          {!isMobile ? (
-            <div className="TournamentDetail-status flex">
-              {/* <div className="TournamentDetail-status-item cancel">Đã huỷ</div> */}
-              <div className="TournamentDetail-status-item pending">Chờ thanh toán</div>
-              {/* <div className="TournamentDetail-status-item success">Đã thanh toán</div> */}
-            </div>
-          ) : (
-            ''
-          )}
-
           <div className="TournamentDetail-main">
             <Row gutter={{ xs: 0, lg: 48 }}>
-              <Col xs={{ order: 2, span: 24 }} lg={{ order: 1, span: 16 }}>
+              <Col xs={{ order: 2, span: 24 }} lg={{ order: 1, span: 12 }}>
                 <h1 className="TournamentDetail-title">
                   OneWay
                   <span>{raceState?.name}</span>
@@ -81,16 +70,17 @@ const TournamentDetail: React.FC = () => {
                       <tr>
                         <td>Cự ly</td>
                         <td>
-                          <strong>
-                            {raceState?.race?.map((item: any, index: any) => `${item.distance}${item.unit} `)}
-                          </strong>
+                          {raceState?.race?.map((item: any, index: any) => (
+                            <strong key={index}>
+                              {item.distance}
+                              {raceState?.unitRace}
+                            </strong>
+                          ))}
                         </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
-
-                {/* <TournamentMap color={EIconColor.BLUE_RIBBON} title="OneWay Cát Bà" stepKilometer={[]} /> */}
 
                 <h2 className="TournamentDetail-subtitle">Nhóm đã tạo</h2>
                 <div className="TournamentDetail-card">
@@ -191,53 +181,8 @@ const TournamentDetail: React.FC = () => {
                   </div>
                 </div>
               </Col>
-              <Col xs={{ order: 1, span: 24 }} lg={{ order: 2, span: 8 }}>
-                <div className="TournamentDetail-ticket">
-                  <h2 className="TournamentDetail-subtitle">Vé của bạn:</h2>
-                  <div className="TournamentDetail-table expand-x">
-                    <table>
-                      <tbody>
-                        <tr>
-                          <td>Họ và tên</td>
-                          <td style={{ width: '100%' }}>
-                            <strong>Trần Xuân Hoàng</strong>
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td>Cự ly</td>
-                          <td style={{ width: '100%' }}>
-                            <strong>5km</strong>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Số BIB</td>
-                          <td style={{ width: '100%' }}>
-                            <strong>927462</strong>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Mã đăng ký</td>
-                          <td style={{ width: '100%' }}>
-                            <div className="flex items-center" style={{ columnGap: '1.6rem' }}>
-                              <strong style={{ color: EIconColor.BLUE_RIBBON }}>K238FJAW</strong>
-                              <Icon name={EIconName.Copy} onClick={(): void => copyText('K238FJAW')} />
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                {isMobile ? (
-                  <div className="TournamentDetail-status flex">
-                    {/* <div className="TournamentDetail-status-item cancel">Đã huỷ</div> */}
-                    <div className="TournamentDetail-status-item pending">Chờ thanh toán</div>
-                    {/* <div className="TournamentDetail-status-item success">Đã thanh toán</div> */}
-                  </div>
-                ) : (
-                  ''
-                )}
+              <Col xs={{ order: 1, span: 24 }} lg={{ order: 2, span: 12 }}>
+                <TournamentMap color={EIconColor.BLUE_RIBBON} data={raceState} noRouteMap={true} />
               </Col>
             </Row>
           </div>
