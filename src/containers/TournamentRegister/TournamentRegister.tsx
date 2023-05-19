@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import Button from '@/components/Button';
 import { EIconColor } from '@/components/Icon';
@@ -24,15 +24,23 @@ const TournamentRegister: React.FC<TTournamentRegisterProps> = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [isEnd, setIsEnd] = useState(false);
+  // const unixValue = moment(date, 'YYYY/MM/DD HH:mm:ss').unix();
+  // const currentValue = moment(currentDateTime, 'YYYY/MM/DD HH:mm:ss').unix();
   if (Object.keys(data).length === 0) return null;
   const handleModel = (): void => {
     setOpen(true);
   };
-  const handleIsEnd = (): void => {
-    const unixValue = moment(date, 'YYYY/MM/DD HH:mm:ss').unix();
-    const currentValue = moment(currentDateTime, 'YYYY/MM/DD HH:mm:ss').unix();
-    setIsEnd(unixValue - currentValue > 0 ? false : true);
-  };
+
+  // const handleIsEnd = useCallback((): void => {
+  //   setIsEnd(unixValue - currentValue > 0 ? false : true);
+  // }, [date]);
+
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     handleIsEnd();
+  //   }, 1000);
+  //   return () => clearInterval(intervalId);
+  // }, [handleIsEnd, isEnd]);
   return (
     <div className="TournamentRegister" id={id}>
       <div className="container">
