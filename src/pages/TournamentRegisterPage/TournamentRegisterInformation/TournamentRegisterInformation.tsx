@@ -14,7 +14,7 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
   const { pathname } = useLocation();
   const type = pathname.split('/')[2];
   const marathonDetailState = useSelector((state: TRootState) => state.marathonsReducer?.getMarathonByIdResponse);
-  const orderDetailState = useSelector((state: TRootState) => state.orderDetailReducer?.getOrderDetailResponse);
+  const orderDetailState = useSelector((state: TRootState) => state.getOrdersReducer?.getOrderDetailResponse);
   const getData = useCallback(() => {
     if (payment) {
       setData(payment);

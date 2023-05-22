@@ -1,12 +1,39 @@
 .TournamentDetail {
   padding-bottom: 12.8rem;
 
+  .WrapperTd {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &-wrapperIcon {
+      padding: 5px;
+      border-radius: 50%;
+      background: #D6D9E9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      background-color: #D6D9E9;
+      margin-left: 12px;
+      cursor: pointer;
+
+      img {
+        max-width: 14px;
+      }
+    }
+  }
+
   &-banner {
     @include centerScaleImage;
     margin-bottom: 4.8rem;
     @media (max-width: 767px) {
       margin-bottom: 0;
     }
+  }
+
+  &-section {
+    margin-top: 4rem;
   }
 
   &-status {
@@ -102,8 +129,7 @@
   }
 
   &-table {
-    margin-bottom: 4.8rem;
-
+    margin-top: 1.2rem;
     &.expand-x {
       margin: 0 -1.2rem;
     }
@@ -172,15 +198,14 @@
   }
 
   &-card {
-    padding: 2rem 2.4rem 4.8rem;
+    padding: 2rem 2.4rem 2.4rem;
     // border: 1px solid $mystic;
-    // background: $aqua-haze;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 10px rgba(25, 100, 255, 0.25);
+    max-width: 642px;
+    margin-bottom: 1.6rem;
 
     &-edit {
-      margin-bottom: -2.4rem;
-      @media (max-width:767px) {
-        margin-bottom: -3.4rem;
-      }
       .Button {
         .ant-btn {
           &.ant-btn-ghost {
@@ -191,19 +216,13 @@
       }
     }
 
-    .TournamentDetail {
-      &-table {
-        margin-bottom: 2.4rem;
-      }
-    }
-
     &-title {
       font-size: 1.8rem;
       line-height: 2.6rem;
       font-style: italic;
       font-weight: 900;
       color: $cod-gray;
-      margin-bottom: 1.2rem;
+      // margin-bottom: 1.2rem;
       @media (max-width:767px) {
         font-size: 1.4rem; 
       }

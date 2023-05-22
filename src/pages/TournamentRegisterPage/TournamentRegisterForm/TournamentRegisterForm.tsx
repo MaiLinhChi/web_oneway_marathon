@@ -45,7 +45,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   const registerRunnerLoading = useSelector(
     (state: any) => state.loadingReducer[ERunnerRegisterGroupAction.RUNNER_REISTER_GROUP],
   );
-  const bibState = useSelector((state: TRootState) => state.orderDetailReducer.getOrderDetailResponse?.data);
+  const bibState = useSelector((state: TRootState) => state.getOrdersReducer.getOrderDetailResponse?.data);
   const profileState = useSelector((state: TRootState) => state.profileReducer.getProfileResponse?.data);
   const clubsState = useSelector((state: TRootState) => state.clubsReducer.clubs);
   const addressCityState = useSelector((state: TRootState) => state.addressReducer.cities);

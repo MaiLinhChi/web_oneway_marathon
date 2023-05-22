@@ -84,6 +84,7 @@ const TournamentRegisterGroupSuccess: React.FC = () => {
                         titleColor={EIconColor.BLACK}
                         borderColor={EIconColor.BG}
                         backgroundColor={EIconColor.BG}
+                        link={Paths.Home}
                       />
                       <Button
                         size="large"
@@ -91,6 +92,7 @@ const TournamentRegisterGroupSuccess: React.FC = () => {
                         titleColor={EIconColor.WHITE}
                         borderColor={EIconColor.PERSIAN_GREEN}
                         backgroundColor={EIconColor.PERSIAN_GREEN}
+                        link={Paths.Profile}
                       />
                     </div>
                   </div>

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { ReactElement, useCallback, useEffect, useState } from 'react';
 import { Col, Row } from 'antd';
 
 import ImageHomeBanner1 from '@/assets/images/image-home-banner-1.png';
@@ -11,22 +11,160 @@ import { copyText } from '@/utils/functions';
 import './TournamentDetail.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { TRootState } from '@/redux/reducers';
-import { detailRaceAction } from '@/redux/actions';
+import { detailRaceAction, getGroupsAction, getOrdersAction } from '@/redux/actions';
 import { Link, useParams } from '@reach/router';
 import { Paths } from '../routers';
 import { truncateStringByWords } from '@/utils/functions';
+import Table from '@/components/Table';
+import AuthHelpers from '@/services/helpers';
+import Pagination from '@/components/Pagination';
+import CopyIcon from '@/assets/icons/copy.svg';
+import TabRectangle from '@/components/TabRectangle';
+import { TSelectOption } from '@/components/Select';
 
 const TournamentDetail: React.FC = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
+  const [pageSize, setPageSize] = useState(10);
+  const [pageIndex, setPageIndex] = useState(1);
+  const groupState = useSelector((state: TRootState) => state.registerGroupReducer.listGroupsResponse);
+  const [activeTab, setActiveTab] = useState<TSelectOption>(groupState?.[0]);
+  const atk = AuthHelpers.getAccessToken();
   const raceState = useSelector((state: TRootState) => state.raceReducer.detailRaceResponse?.data);
+  const profileState = useSelector((state: TRootState) => state.profileReducer.getProfileResponse?.data);
+  const orderState = useSelector((state: TRootState) => state.getOrdersReducer.getOrdersResponse);
+
   const getRaces = useCallback(() => {
     dispatch(detailRaceAction.request({ paths: id, params: {} }));
   }, [dispatch, id]);
+
+  const getOrdersIndividual = useCallback(() => {
+    if (!profileState?.email || !raceState?._id) return;
+    const materials = {
+      headers: {
+        authorization: `Bearer ${atk}`,
+      },
+      params: {
+        email: profileState.email,
+        marathon: raceState._id,
+        pageSize,
+        pageIndex,
+      },
+    };
+    dispatch(getOrdersAction.request(materials));
+  }, [dispatch, atk, profileState?.email, raceState?._id, pageSize, pageIndex]);
+
+  const getGroup = useCallback(() => {
+    if (!profileState?.email || !raceState?._id) return;
+    const params = {
+      email: profileState.email,
+      marathonId: raceState._id,
+    };
+    dispatch(getGroupsAction.request({ params }));
+  }, [dispatch, profileState?.email, raceState?._id]);
+
   useEffect(() => {
     getRaces();
-  }, [dispatch, getRaces]);
+    getOrdersIndividual();
+    getGroup();
+  }, [dispatch, getRaces, getOrdersIndividual, getGroup]);
+
+  const columns = [
+    {
+      key: 'index',
+      dataIndex: 'index',
+      title: 'STT',
+      render: (_: string, __: any, index: number): string => `${index + 1}`,
+    },
+    {
+      key: 'fullName',
+      dataIndex: 'fullName',
+      title: 'Họ và tên',
+      render: (item: string): string => item,
+    },
+    {
+      key: 'marathon',
+      dataIndex: 'marathon',
+      title: 'Cự ly',
+      render: (item: any): ReactElement => (
+        <span>
+          {item.distance}
+          {item.unit}
+        </span>
+      ),
+    },
+    {
+      key: 'registerId',
+      dataIndex: 'registerId',
+      title: 'Mã đăng ký',
+      render: (item: string): ReactElement => (
+        <div className="WrapperTd">
+          {item}
+          {item && (
+            <p className="WrapperTd-wrapperIcon" onClick={(): void => copyText(item)}>
+              <img src={CopyIcon} alt="copy icon" />
+            </p>
+          )}
+        </div>
+      ),
+    },
+    {
+      key: 'status',
+      dataIndex: 'status',
+      title: 'Trạng thái',
+      render: (item: string): any => {
+        switch (item) {
+          case 'pending':
+            return (
+              <span
+                style={{
+                  background: '#FFDFDF',
+                  display: 'inline-block',
+                  padding: '4px 8px',
+                  border: '1px solid currentColor',
+                  color: '#FF2E2E',
+                  borderRadius: '16px',
+                }}
+              >
+                Chưa thanh toán
+              </span>
+            );
+          case 'processing':
+            return (
+              <span
+                style={{
+                  background: '#FEFFE4',
+                  display: 'inline-block',
+                  padding: '4px 8px',
+                  border: '1px solid currentColor',
+                  color: '#FFA928',
+                  borderRadius: '16px',
+                }}
+              >
+                Đang xữ lý
+              </span>
+            );
+          case 'confirmed':
+            return (
+              <span
+                style={{
+                  background: '#EFFFED',
+                  display: 'inline-block',
+                  padding: '4px 8px',
+                  border: '1px solid currentColor',
+                  color: '#0FB700',
+                  borderRadius: '16px',
+                }}
+              >
+                Đã thanh toán
+              </span>
+            );
+          default:
+            return null;
+        }
+      },
+    },
+  ];
   return (
     <div className="TournamentDetail">
       <div className="container">
@@ -88,38 +226,53 @@ const TournamentDetail: React.FC = () => {
                 <TournamentMap color={EIconColor.BLUE_RIBBON} data={raceState} noRouteMap={true} />
               </Col>
             </Row>
-            <h2 className="TournamentDetail-subtitle">Thông tin đăng ký Nhóm </h2>
-            <div className="TournamentDetail-card">
-              <div className="TournamentDetail-card-edit flex justify-end">
-                <Button title="Chỉnh sửa" type="ghost" />
+            <div>
+              <h2 className="TournamentDetail-subtitle">QUẢN LÍ BIB CÁ NHÂN</h2>
+              <Table columns={columns} dataSources={orderState?.data} className="TournamentDetail-table" />
+              <div className="TournamentAchievements-pagination flex justify-center">
+                <Pagination
+                  page={pageIndex}
+                  pageSize={pageSize}
+                  total={orderState?.totalRecord}
+                  onChange={(item): void => setPageIndex(item)}
+                />
               </div>
-              <h3 className="TournamentDetail-card-title">Tên nhóm: Only tiger</h3>
-              <div className="TournamentDetail-table">
-                <table>
-                  <tbody>
-                    <tr>
-                      <td>Họ và tên trưởng nhóm</td>
-                      <td style={{ width: '100%' }}>
-                        <strong>Trần Xuân Hoàng</strong>
-                      </td>
-                    </tr>
+            </div>
+            <div className="TournamentDetail-section">
+              <h2 className="TournamentDetail-subtitle">Thông tin đăng ký Nhóm </h2>
+              <TabRectangle value={activeTab} onChange={setActiveTab} options={groupState} group />
+              <div className="TournamentDetail-card">
+                <div className="TournamentDetail-card-edit flex justify-between items-center">
+                  <h3 className="TournamentDetail-card-title">Tên nhóm: Only tiger</h3>
+                  <Button title="Chỉnh sửa" type="ghost" />
+                </div>
+                <div className="TournamentDetail-table">
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td>Họ và tên trưởng nhóm</td>
+                        <td style={{ width: '100%' }}>
+                          <strong>Trần Xuân Hoàng</strong>
+                        </td>
+                      </tr>
 
-                    <tr>
-                      <td>Số điện thoại</td>
-                      <td style={{ width: '100%' }}>
-                        <strong>0798407797</strong>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Email</td>
-                      <td style={{ width: '100%' }}>
-                        <strong>thkl.8996@gmail.com</strong>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                      <tr>
+                        <td>Số điện thoại</td>
+                        <td style={{ width: '100%' }}>
+                          <strong>0798407797</strong>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Email</td>
+                        <td style={{ width: '100%' }}>
+                          <strong>thkl.8996@gmail.com</strong>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
-              <h3 className="TournamentDetail-card-title">Link đăng ký nhóm</h3>
+              {/* <h3 className="TournamentDetail-card-title">Link đăng ký nhóm</h3>
               <div className="TournamentDetail-card-link">
                 <div className="TournamentDetail-card-link-url flex">
                   <Input readOnly value="https://onewaymarathon.com/hue-2023/vm/8989" />
@@ -137,45 +290,10 @@ const TournamentDetail: React.FC = () => {
                     <li>Bước 3: Trưởng nhóm hoàn tất đăng ký và tiến hành thanh toán.</li>
                   </ul>
                 </div>
-              </div>
+              </div> */}
               <h3 className="TournamentDetail-card-title">Thông tin thành viên</h3>
               <div className="TournamentDetail-table">
-                <table>
-                  <thead>
-                    <tr>
-                      <td style={{ width: 24 }} />
-                      <td>
-                        <strong>STT</strong>
-                      </td>
-                      <td>
-                        <strong>Họ và tên</strong>
-                      </td>
-                      <td>
-                        <strong>Cự ly</strong>
-                      </td>
-                      <td>
-                        <strong>Thời gian đăng ký</strong>
-                      </td>
-                      <td className="text-right">
-                        <strong>Giá tiền</strong>
-                      </td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[1, 2, 3, 4, 5].map((item, index) => (
-                      <tr key={index}>
-                        <td style={{ width: 24 }}>
-                          <Icon name={EIconName.MinusCircle} color={EIconColor.RED_ORANGE} />
-                        </td>
-                        <td>{item}</td>
-                        <td>Trần Xuân Hoàng</td>
-                        <td>5km</td>
-                        <td>12/1/2023</td>
-                        <td className="text-right">515.000 VNĐ</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <Table columns={columns} dataSources={orderState?.data} className="TournamentDetail-table" />
               </div>
 
               <div className="TournamentDetail-card-total text-right">

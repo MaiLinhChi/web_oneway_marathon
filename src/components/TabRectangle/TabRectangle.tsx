@@ -18,6 +18,7 @@ const TabRectangle: React.FC<TTabRectangleProps> = ({
   className,
   widthAuto,
   onChange,
+  group,
 }) => {
   const [isFirstFetching, setIsFirstFetching] = useState<boolean>(true);
 
@@ -28,6 +29,10 @@ const TabRectangle: React.FC<TTabRectangleProps> = ({
   const tabQuery = getQueryParam(key);
 
   const handleChange = (data: TSelectOption): void => {
+    if (group) {
+      onChange?.(data);
+      return;
+    }
     const queryParams = qs.parse(location.search.substring(1));
     onChange?.(data);
 
@@ -61,7 +66,7 @@ const TabRectangle: React.FC<TTabRectangleProps> = ({
     <div className={classNames('TabRectangle', styleType, { 'width-auto': widthAuto })}>
       <div className="TabRectangle-list flex items-center">
         {filterOptions.map((option) => {
-          const isTabActive = value?.value === option.value;
+          const isTabActive = value?.value ? value?.value === option.value : value?._id === option._id;
 
           return (
             <div
@@ -69,7 +74,7 @@ const TabRectangle: React.FC<TTabRectangleProps> = ({
               onClick={(): void => handleChange(option)}
               className={classNames('TabRectangle-item', { 'active': isTabActive }, className)}
             >
-              {option.label}
+              {option.label || option.groupName}
             </div>
           );
         })}
