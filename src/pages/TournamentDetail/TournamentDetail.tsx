@@ -19,8 +19,7 @@ import Table from '@/components/Table';
 import AuthHelpers from '@/services/helpers';
 import Pagination from '@/components/Pagination';
 import CopyIcon from '@/assets/icons/copy.svg';
-import TabRectangle from '@/components/TabRectangle';
-import { TSelectOption } from '@/components/Select';
+import TabRectangle, { ETabRectangleStyleType } from '@/components/TabRectangle';
 
 const TournamentDetail: React.FC = () => {
   const dispatch = useDispatch();
@@ -28,7 +27,7 @@ const TournamentDetail: React.FC = () => {
   const [pageSize, setPageSize] = useState(10);
   const [pageIndex, setPageIndex] = useState(1);
   const groupState = useSelector((state: TRootState) => state.registerGroupReducer.listGroupsResponse);
-  const [activeTab, setActiveTab] = useState<TSelectOption>(groupState?.[0]);
+  const [activeTab, setActiveTab] = useState(groupState?.[0]);
   const atk = AuthHelpers.getAccessToken();
   const raceState = useSelector((state: TRootState) => state.raceReducer.detailRaceResponse?.data);
   const profileState = useSelector((state: TRootState) => state.profileReducer.getProfileResponse?.data);
@@ -229,7 +228,7 @@ const TournamentDetail: React.FC = () => {
             <div>
               <h2 className="TournamentDetail-subtitle">QUẢN LÍ BIB CÁ NHÂN</h2>
               <Table columns={columns} dataSources={orderState?.data} className="TournamentDetail-table" />
-              <div className="TournamentAchievements-pagination flex justify-center">
+              <div className="TournamentDetail-pagination flex justify-center">
                 <Pagination
                   page={pageIndex}
                   pageSize={pageSize}
@@ -240,10 +239,18 @@ const TournamentDetail: React.FC = () => {
             </div>
             <div className="TournamentDetail-section">
               <h2 className="TournamentDetail-subtitle">Thông tin đăng ký Nhóm </h2>
-              <TabRectangle value={activeTab} onChange={setActiveTab} options={groupState} group />
+              <div className="TournamentDetail-tab">
+                <TabRectangle
+                  value={activeTab}
+                  onChange={setActiveTab}
+                  options={groupState}
+                  group
+                  styleType={ETabRectangleStyleType.GROUP}
+                />
+              </div>
               <div className="TournamentDetail-card">
                 <div className="TournamentDetail-card-edit flex justify-between items-center">
-                  <h3 className="TournamentDetail-card-title">Tên nhóm: Only tiger</h3>
+                  <h3 className="TournamentDetail-card-title">Tên nhóm: {activeTab?.groupName}</h3>
                   <Button title="Chỉnh sửa" type="ghost" />
                 </div>
                 <div className="TournamentDetail-table">
@@ -252,20 +259,20 @@ const TournamentDetail: React.FC = () => {
                       <tr>
                         <td>Họ và tên trưởng nhóm</td>
                         <td style={{ width: '100%' }}>
-                          <strong>Trần Xuân Hoàng</strong>
+                          <strong>{activeTab?.membership?.[0].fullName}</strong>
                         </td>
                       </tr>
 
                       <tr>
                         <td>Số điện thoại</td>
                         <td style={{ width: '100%' }}>
-                          <strong>0798407797</strong>
+                          <strong>{activeTab?.membership?.[0].phone}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Email</td>
                         <td style={{ width: '100%' }}>
-                          <strong>thkl.8996@gmail.com</strong>
+                          <strong>{activeTab?.membership?.[0].email}</strong>
                         </td>
                       </tr>
                     </tbody>

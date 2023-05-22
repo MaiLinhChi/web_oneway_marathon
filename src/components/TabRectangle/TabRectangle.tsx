@@ -20,7 +20,7 @@ const TabRectangle: React.FC<TTabRectangleProps> = ({
   onChange,
   group,
 }) => {
-  const [isFirstFetching, setIsFirstFetching] = useState<boolean>(true);
+  // const [isFirstFetching, setIsFirstFetching] = useState<boolean>(true);
 
   const filterOptions = options.filter((item) => !item.hide);
 
@@ -45,32 +45,30 @@ const TabRectangle: React.FC<TTabRectangleProps> = ({
   };
 
   useEffect(() => {
-    if (isFirstFetching) {
-      if (tabQuery) {
-        const activeOption = filterOptions.find((item) => item.value === tabQuery);
-        if (activeOption) onChange?.(activeOption);
-      } else {
-        onChange?.(filterOptions[0]);
-      }
-      setIsFirstFetching(false);
+    // if (isFirstFetching) {
+    if (tabQuery) {
+      const activeOption = filterOptions.find((item) => item.value === tabQuery);
+      if (activeOption) onChange?.(activeOption);
+    } else {
+      onChange?.(filterOptions?.[0]);
     }
+    //   setIsFirstFetching(false);
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tabQuery]);
-
-  useEffect(() => {
-    scrollToTop();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
+  }, [tabQuery, filterOptions?.length]);
+  // useEffect(() => {
+  //   // scrollToTop();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [value]);
 
   return (
     <div className={classNames('TabRectangle', styleType, { 'width-auto': widthAuto })}>
       <div className="TabRectangle-list flex items-center">
-        {filterOptions.map((option) => {
+        {filterOptions.map((option, index) => {
           const isTabActive = value?.value ? value?.value === option.value : value?._id === option._id;
-
           return (
             <div
-              key={option.value}
+              key={index}
               onClick={(): void => handleChange(option)}
               className={classNames('TabRectangle-item', { 'active': isTabActive }, className)}
             >
