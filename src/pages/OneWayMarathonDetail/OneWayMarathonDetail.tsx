@@ -82,9 +82,10 @@ const OneWayMarathonDetail: any = () => {
           data={data}
           registerGroup={data?.registerGroup}
           date={data?.startTime}
+          _id={data._id}
         />
 
-        <TournamentMap color={EIconColor.PERSIAN_GREEN} data={data} id="map" />
+        <TournamentMap color={EIconColor.PERSIAN_GREEN} data={data} id="map" height={640} />
 
         <TournamentReward color={EIconColor.PERSIAN_GREEN} title="OneWay Vũng Tàu" id="reward" />
 

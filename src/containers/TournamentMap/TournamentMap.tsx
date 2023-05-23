@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { TStepKilometerTournamentMap, TTournamentMapProps } from './TournamentMap.types.d';
 import './TournamentMap.scss';
 
-const TournamentMap: React.FC<TTournamentMapProps> = ({ data, color, id, noRouteMap }) => {
+const TournamentMap: React.FC<TTournamentMapProps> = ({ data, color, id, noRouteMap, height }) => {
   const [activeTab, setActiveTab] = useState<TStepKilometerTournamentMap>(data?.race[0]);
   if (!data) return null;
   if (!activeTab) {
@@ -44,7 +44,7 @@ const TournamentMap: React.FC<TTournamentMapProps> = ({ data, color, id, noRoute
 
             <div className="TournamentMap-main-map">
               <div className="TournamentMap-main-map-image">
-                <img src={activeTab?.image} alt="" />
+                <img src={activeTab?.image} alt="" style={{ height }} />
               </div>
             </div>
           </div>

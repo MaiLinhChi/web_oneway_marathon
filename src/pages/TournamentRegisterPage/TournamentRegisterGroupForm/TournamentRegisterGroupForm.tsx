@@ -72,7 +72,7 @@ const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> =
           <div className="TournamentRegisterGroupForm-group">
             <div className="TournamentRegisterPage-card-title">Lựa chọn số lượng thành viên</div>
 
-            <Form.Item name="percent" rules={[validationRules.required()]}>
+            <Form.Item name="percent">
               <SelectDistance multiple={data.registerGroup} />
             </Form.Item>
           </div>
@@ -96,7 +96,7 @@ const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> =
                 </div>
               </Col>
               <Col span={18}>
-                <Form.Item name="password" rules={[validationRules.required()]}>
+                <Form.Item name="password" rules={[validationRules.required(), validationRules.minLength(8)]}>
                   <Input type="password" placeholder="Mật khẩu" autoComplete="new-password" />
                 </Form.Item>
               </Col>

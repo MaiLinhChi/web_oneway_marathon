@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Col, Row } from 'antd';
 
 import ImageHomeBanner1 from '@/assets/images/image-home-banner-1.png';
@@ -6,7 +6,6 @@ import TournamentMap from '@/containers/TournamentMap';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
-import { copyText } from '@/utils/functions';
 
 import './TournamentDetail.scss';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,12 +13,12 @@ import { TRootState } from '@/redux/reducers';
 import { detailRaceAction, getGroupsAction, getOrdersAction } from '@/redux/actions';
 import { Link, useParams } from '@reach/router';
 import { Paths } from '../routers';
-import { truncateStringByWords } from '@/utils/functions';
+import { copyText, truncateStringByWords } from '@/utils/functions';
 import Table from '@/components/Table';
 import AuthHelpers from '@/services/helpers';
 import Pagination from '@/components/Pagination';
-import CopyIcon from '@/assets/icons/copy.svg';
 import TabRectangle, { ETabRectangleStyleType } from '@/components/TabRectangle';
+import { columnsBibIndivitual, columnsBibGroups } from './TournamentDetai.data';
 
 const TournamentDetail: React.FC = () => {
   const dispatch = useDispatch();
@@ -67,103 +66,6 @@ const TournamentDetail: React.FC = () => {
     getOrdersIndividual();
     getGroup();
   }, [dispatch, getRaces, getOrdersIndividual, getGroup]);
-
-  const columns = [
-    {
-      key: 'index',
-      dataIndex: 'index',
-      title: 'STT',
-      render: (_: string, __: any, index: number): string => `${index + 1}`,
-    },
-    {
-      key: 'fullName',
-      dataIndex: 'fullName',
-      title: 'Họ và tên',
-      render: (item: string): string => item,
-    },
-    {
-      key: 'marathon',
-      dataIndex: 'marathon',
-      title: 'Cự ly',
-      render: (item: any): ReactElement => (
-        <span>
-          {item.distance}
-          {item.unit}
-        </span>
-      ),
-    },
-    {
-      key: 'registerId',
-      dataIndex: 'registerId',
-      title: 'Mã đăng ký',
-      render: (item: string): ReactElement => (
-        <div className="WrapperTd">
-          {item}
-          {item && (
-            <p className="WrapperTd-wrapperIcon" onClick={(): void => copyText(item)}>
-              <img src={CopyIcon} alt="copy icon" />
-            </p>
-          )}
-        </div>
-      ),
-    },
-    {
-      key: 'status',
-      dataIndex: 'status',
-      title: 'Trạng thái',
-      render: (item: string): any => {
-        switch (item) {
-          case 'pending':
-            return (
-              <span
-                style={{
-                  background: '#FFDFDF',
-                  display: 'inline-block',
-                  padding: '4px 8px',
-                  border: '1px solid currentColor',
-                  color: '#FF2E2E',
-                  borderRadius: '16px',
-                }}
-              >
-                Chưa thanh toán
-              </span>
-            );
-          case 'processing':
-            return (
-              <span
-                style={{
-                  background: '#FEFFE4',
-                  display: 'inline-block',
-                  padding: '4px 8px',
-                  border: '1px solid currentColor',
-                  color: '#FFA928',
-                  borderRadius: '16px',
-                }}
-              >
-                Đang xữ lý
-              </span>
-            );
-          case 'confirmed':
-            return (
-              <span
-                style={{
-                  background: '#EFFFED',
-                  display: 'inline-block',
-                  padding: '4px 8px',
-                  border: '1px solid currentColor',
-                  color: '#0FB700',
-                  borderRadius: '16px',
-                }}
-              >
-                Đã thanh toán
-              </span>
-            );
-          default:
-            return null;
-        }
-      },
-    },
-  ];
   return (
     <div className="TournamentDetail">
       <div className="container">
@@ -222,12 +124,12 @@ const TournamentDetail: React.FC = () => {
                 </div>
               </Col>
               <Col xs={{ order: 1, span: 24 }} lg={{ order: 2, span: 12 }}>
-                <TournamentMap color={EIconColor.BLUE_RIBBON} data={raceState} noRouteMap={true} />
+                <TournamentMap color={EIconColor.BLUE_RIBBON} data={raceState} noRouteMap={true} height={400} />
               </Col>
             </Row>
             <div>
               <h2 className="TournamentDetail-subtitle">QUẢN LÍ BIB CÁ NHÂN</h2>
-              <Table columns={columns} dataSources={orderState?.data} className="TournamentDetail-table" />
+              <Table columns={columnsBibIndivitual} dataSources={orderState?.data} className="TournamentDetail-table" />
               <div className="TournamentDetail-pagination flex justify-center">
                 <Pagination
                   page={pageIndex}
@@ -279,15 +181,11 @@ const TournamentDetail: React.FC = () => {
                   </table>
                 </div>
               </div>
-              {/* <h3 className="TournamentDetail-card-title">Link đăng ký nhóm</h3>
+              <h3 className="TournamentDetail-card-title">Link đăng ký nhóm</h3>
               <div className="TournamentDetail-card-link">
                 <div className="TournamentDetail-card-link-url flex">
-                  <Input readOnly value="https://onewaymarathon.com/hue-2023/vm/8989" />
-                  <Button
-                    title="Sao chép"
-                    type="primary"
-                    onClick={(): void => copyText('https://onewaymarathon.com/hue-2023/vm/8989')}
-                  />
+                  <Input readOnly value={activeTab?.linkJoin} />
+                  <Button title="Sao chép" type="primary" onClick={(): void => copyText(activeTab?.linkJoin)} />
                 </div>
                 <div className="TournamentDetail-card-link-description">
                   <p>Hướng dẫn: Để đăng ký theo nhóm (từ 2 người) bạn cần làm theo các bước sau:</p>
@@ -297,10 +195,10 @@ const TournamentDetail: React.FC = () => {
                     <li>Bước 3: Trưởng nhóm hoàn tất đăng ký và tiến hành thanh toán.</li>
                   </ul>
                 </div>
-              </div> */}
+              </div>
               <h3 className="TournamentDetail-card-title">Thông tin thành viên</h3>
               <div className="TournamentDetail-table">
-                <Table columns={columns} dataSources={orderState?.data} className="TournamentDetail-table" />
+                <Table columns={columnsBibGroups} dataSources={orderState?.data} className="TournamentDetail-table" />
               </div>
 
               <div className="TournamentDetail-card-total text-right">

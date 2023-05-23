@@ -16,7 +16,7 @@ const TournamentRegisterGroupSuccess: React.FC = () => {
   const atk = AuthHelpers.getAccessToken();
   const { id } = useParams();
   const handlerClick = (): void => {
-    navigate(Paths.TournamentRegisterGroupConfirm(group?.group.slug));
+    // navigate(Paths.TournamentRegisterGroupConfirm(group?.group.slug));
   };
   const getInfoGroup = useCallback(async () => {
     const headers = {

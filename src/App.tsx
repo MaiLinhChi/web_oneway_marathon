@@ -48,7 +48,7 @@ const App: React.FC = () => {
             component={Pages.TournamentRegisterGroupSuccess}
           />
           <ProtectedRoute
-            path={Paths.TournamentRegisterGroupConfirm()}
+            path={Paths.TournamentRegisterGroupConfirm}
             component={Pages.TournamentRegisterGroupConfirm}
           />
           <PublicRoute path={Paths.TournamentRegisterGroupJoin} component={Pages.TournamentRegisterGroupJoin} />
