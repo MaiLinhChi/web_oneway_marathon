@@ -16,7 +16,7 @@ const TournamentRegisterGroupJoin: React.FC = () => {
       </div>
       <div className="container">
         <div className="TournamentRegisterPage-wrapper">
-          <h2 className="TournamentRegisterPage-title">Đăng ký tham gia nhóm {registerGroup?.group.group_name}</h2>
+          <h2 className="TournamentRegisterPage-title">Đăng ký tham gia nhóm {registerGroup?.groupName}</h2>
 
           <div className="TournamentRegisterPage-main">
             <Row gutter={[24, 24]} className="reverse">

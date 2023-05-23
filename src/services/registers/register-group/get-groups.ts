@@ -3,8 +3,9 @@ import RegistersService from '@/services/registers';
 // TYPES
 
 export type TGetGroupsParams = {
-  marathonId: string;
-  email: string;
+  groupCode?: string;
+  marathonId?: string;
+  email?: string;
 };
 
 export type TGetGroupsMaterials = {
