@@ -37,7 +37,7 @@ const TournamentRegisterGroupConfirm: React.FC = () => {
   const handlerVertifySuccess = (response: any): void => {
     if (response.statusCode === EResponseCode.OK) {
       showNotification(ETypeNotification.SUCCESS, 'Xác nhận thành công !');
-      navigate(Paths.TournamentRegisterGroupJoin);
+      navigate(Paths.TournamentRegisterGroupJoin(groupState?.marathonId));
     } else {
       showNotification(ETypeNotification.ERROR, response.message);
     }

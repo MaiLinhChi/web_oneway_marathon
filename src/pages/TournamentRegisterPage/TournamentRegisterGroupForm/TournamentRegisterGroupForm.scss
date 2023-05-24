@@ -19,8 +19,8 @@
     }
   }
 
-  .SelectDistance {
-    .SelectDistance-item {
+  .SelectDistance, .SelectDistanceGroup {
+    .SelectDistance-item, .SelectDistanceGroup-item {
       padding: 2rem .8rem 2.2rem;
 
       &-distance {
@@ -40,6 +40,30 @@
       &-description {
         font-size: 1.2rem;
         line-height: 1.4rem;
+      }
+    }
+  }
+
+  .SelectDistanceGroup {
+    display: flex;
+    row-gap: 2px;
+    gap: 2px;
+
+    &-item {
+      &:hover {
+        background: rgba($blue-ribbon, 0.1);
+
+        .SelectDistanceGroup {
+          &-item {
+            &-distance {
+              color: $blue-ribbon;
+            }
+  
+            &-description {
+              color: $blue-ribbon;
+            }
+          }
+        }
       }
     }
   }

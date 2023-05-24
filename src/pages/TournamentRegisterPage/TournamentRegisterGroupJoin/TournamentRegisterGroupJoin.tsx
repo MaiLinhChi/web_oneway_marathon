@@ -1,14 +1,38 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './TournamentRegisterGroupJoin.scss';
 import BackgroundRegisterPage from '@/assets/images/image-home-banner-3.jpg';
 import { Col, Row } from 'antd';
 import TournamentRegisterInformation from '@/pages/TournamentRegisterPage/TournamentRegisterInformation';
 import TournamentRegisterForm from '@/pages/TournamentRegisterPage/TournamentRegisterForm';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { TRootState } from '@/redux/reducers';
+import { navigate, useParams } from '@reach/router';
+import { getMarathonByIdAction } from '@/redux/actions';
+import { EResponseCode, ETypeNotification } from '@/common/enums';
+import { showNotification } from '@/utils/functions';
+import { Paths } from '@/pages/routers';
 
 const TournamentRegisterGroupJoin: React.FC = () => {
-  const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.registerGroupResponse);
+  const { id } = useParams();
+  const [data, setData] = useState({});
+  const dispatch = useDispatch();
+  const getMarathonDetail = useCallback(() => {
+    if (!id) return;
+    dispatch(getMarathonByIdAction.request(id, (response): void => handlerGetMarathonDetailSuccess(response)));
+  }, [dispatch, id]);
+  const handlerGetMarathonDetailSuccess = (response: any): void => {
+    if (response.status === EResponseCode.OK) {
+      // showNotification(ETypeNotification.SUCCESS, response.message);
+      setData(response.data);
+    } else {
+      showNotification(ETypeNotification.ERROR, response.message);
+    }
+  };
+  const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.listGroupsResponse?.[0]);
+  useEffect(() => {
+    if (!registerGroup) navigate(Paths.Home);
+    getMarathonDetail();
+  }, [getMarathonDetail, registerGroup, id]);
   return (
     <div className="TournamentRegisterPage">
       <div className="TournamentRegisterPage-background">
@@ -21,7 +45,7 @@ const TournamentRegisterGroupJoin: React.FC = () => {
           <div className="TournamentRegisterPage-main">
             <Row gutter={[24, 24]} className="reverse">
               <Col span={24} lg={16}>
-                <TournamentRegisterForm isGroup />
+                <TournamentRegisterForm isGroup data={data} />
               </Col>
               <Col span={24} lg={7}>
                 <TournamentRegisterInformation />

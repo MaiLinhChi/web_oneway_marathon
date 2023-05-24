@@ -51,7 +51,6 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   const addressCityState = useSelector((state: TRootState) => state.addressReducer.cities);
   const addressDistrictState = useSelector((state: TRootState) => state.addressReducer.districts);
   const addressWardState = useSelector((state: TRootState) => state.addressReducer.wards);
-  const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.registerGroupResponse);
   const formatDate = (date: any): string => {
     console.log(typeof date);
     const d = new Date(date);
@@ -74,20 +73,38 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   const handleSubmit = (values: any): void => {
     let body = null;
     if (isGroup) {
+      const { distance, checkVat, address, club, status, ...ress } = values;
+      const { name, startTime, price, ...res } = values.distance;
       body = {
-        ...values,
-        birthday: formatDate(values?.birthday),
-        city: values?.city?.value,
-        district: values?.district?.value,
-        gender: values?.gender?.value,
-        country: values?.country?.value,
-        ticketId: values?.ticketId?.value,
-        ward: values?.ward?.value,
-        group_slug: registerGroup?.group?.slug,
-        nationality: values?.country.value,
-        checkVat: values?.checkVat ? values?.checkVat.value : false,
+        ...ress,
+        address: {
+          province: address?.province?.label || address?.province || null,
+          district: address?.district?.label || address?.district || null,
+          ward: address?.ward?.label || address?.ward || null,
+          street: address?.street || null,
+        },
+        birthday: values?.birthday,
+        nationality: values?.nationality.value || values?.nationality,
+        gender: values?.gender?.value || values?.gender,
+        shirtSize: values?.shirtSize?.value || values?.shirtSize,
+        timeEstimation: values.timeEstimation.format('HH:mm:ss'),
+        marathon: {
+          marathonId: data._id,
+          ...res,
+        },
+        clubId: club ? club.value : '',
+        price: distance.price,
       };
-      dispatch(runnerRegisterGroupAction.request({ body }, (response): void => handleRunnerRegitserSuccess(response)));
+      if (!club) {
+        delete body.clubId;
+      }
+      if (!checkVat) {
+        delete body.vat;
+      }
+      if (nationality !== 'vn') {
+        delete body.address;
+      }
+      dispatch(registerTicketAction.request({ body }, (response): void => handleRunnerRegitserSuccess(response)));
     } else {
       const { distance, checkVat, address, club, status, ...ress } = values;
       const { name, startTime, price, ...res } = values.distance;
@@ -125,8 +142,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   };
   const handleRunnerRegitserSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {
-      showNotification(ETypeNotification.SUCCESS, 'Đăng ký tạo nhóm thành công !');
-      navigate(Paths.TournamentRegisterGroupEnd);
+      navigate(Paths.TournamentRegulars(`${response.data._id}?tab=${EKeyTabTournamentRegisterPage.MULTIPLE}`));
     } else {
       showNotification(ETypeNotification.ERROR, response.message);
     }

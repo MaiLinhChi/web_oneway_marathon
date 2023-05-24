@@ -16,7 +16,6 @@ import { EKeyTabTournamentRegisterPage } from './TournamentRegisterPage.enums';
 import { TTournamentRegisterPageProps } from './TournamentRegisterPage.types';
 import './TournamentRegisterPage.scss';
 import { useLocation, useParams } from '@reach/router';
-import { getMarathonById } from '@/services/api';
 import { getQueryParam, scrollToTop, showNotification } from '@/utils/functions';
 import { getMarathonByIdAction } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
@@ -32,6 +31,7 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = () => {
   const payment = pathname.includes('payment');
   const regulations = pathname.includes('regulations');
   const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
+  const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.listGroupsResponse?.[0]);
   const dispatch = useDispatch();
   const getMarathonDetail = useCallback(() => {
     if (!id) return;
@@ -72,7 +72,13 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = () => {
       <div className="container">
         <Row className="TournamentRegisterPage-wrapper">
           <Col span={24}>
-            <h2 className="TournamentRegisterPage-title">{payment ? 'Thanh toán' : 'Đăng ký tham gia'}</h2>
+            <h2 className="TournamentRegisterPage-title">
+              {payment
+                ? 'Thanh toán'
+                : registerGroup
+                ? `Đăng ký tham gia nhóm ${registerGroup.groupName}`
+                : 'Đăng ký tham gia'}
+            </h2>
           </Col>
           {isMobile ? (
             <Col span={24}>
@@ -82,11 +88,12 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = () => {
             ''
           )}
           <Col span={24}>
-            {!payment && (
-              <div className="TournamentRegisterPage-tab">
-                <TabRectangle value={activeTab} onChange={setActiveTab} options={dataTabTournamentRegisterPage} />
-              </div>
-            )}
+            {!payment ||
+              (!regulations && (
+                <div className="TournamentRegisterPage-tab">
+                  <TabRectangle value={activeTab} onChange={setActiveTab} options={dataTabTournamentRegisterPage} />
+                </div>
+              ))}
           </Col>
           <Row className="TournamentRegisterPage-main">
             <Col span={24} lg={16}>

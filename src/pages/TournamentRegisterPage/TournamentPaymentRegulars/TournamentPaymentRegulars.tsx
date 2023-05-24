@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Col, Form, Row } from 'antd';
 
-import { showNotification, validationRules } from '@/utils/functions';
+import { getQueryParam, showNotification, validationRules } from '@/utils/functions';
 import Checkbox from '@/components/Checkbox';
 import Radio from '@/components/Radio';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,17 +9,31 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TTournamentPaymentFormProps } from './TournamentPaymentRegulars.types';
 import Button from '@/components/Button';
 import { navigate, useParams } from '@reach/router';
-import { EOrderEditAction, getOrderDetailAction, OrderEditAction, updatePromotionAction } from '@/redux/actions';
+import { EOrderEditAction, getOrderDetailAction } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 import { Paths } from '@/pages/routers';
 import { EKeyTabTournamentRegisterPage } from '../TournamentRegisterPage.enums';
+import { TRootState } from '@/redux/reducers';
 
 const TournamentPaymentRegulars: React.FC<TTournamentPaymentFormProps> = () => {
   const dispatch = useDispatch();
   const [order, setOrder] = useState<any>({});
   const [form] = Form.useForm();
   const { id } = useParams();
+  const key = 'tab';
+  const tabQuery = getQueryParam(key);
+  const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.listGroupsResponse?.[0]);
+  const orderState = useSelector((state: TRootState) => state.getOrdersReducer.getOrderDetailResponse?.data);
   const handleSubmit = (values: any): void => {
+    if (tabQuery === 'MULTIPLE') {
+      if (!orderState) return;
+      const body = {
+        email: orderState.email,
+        phone: orderState.phone,
+        fullName: orderState.fullName,
+      };
+      return;
+    }
     navigate(Paths.TournamentPayment(`${order?._id}?tab=${EKeyTabTournamentRegisterPage.SINGLE}`));
   };
   const getOrderDetail = useCallback(() => {
@@ -37,8 +51,9 @@ const TournamentPaymentRegulars: React.FC<TTournamentPaymentFormProps> = () => {
     }
   };
   useEffect(() => {
+    if (!registerGroup) navigate(Paths.Home);
     getOrderDetail();
-  }, [getOrderDetail]);
+  }, [getOrderDetail, registerGroup]);
   return (
     <div className="TournamentPaymentForm">
       <Form layout="vertical" form={form} onFinish={handleSubmit}>

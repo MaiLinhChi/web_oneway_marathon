@@ -20,7 +20,7 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
       setData(payment);
       return;
     }
-    if (type === 'register') {
+    if (type === 'register' || type === 'join') {
       setData(marathonDetailState?.data);
     } else {
       setData(orderDetailState?.data);

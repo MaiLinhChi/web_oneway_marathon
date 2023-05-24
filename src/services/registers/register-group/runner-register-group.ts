@@ -21,6 +21,6 @@ export const runnerRegisterGroup = async ({
   params,
   body,
 }: TRunnerRegisterGroupMaterials): Promise<TRunnerRegisterGroupResponse> => {
-  const response = await ApiService.post(`api/group/runner-register-participate`, body, { params });
+  const response = await ApiService.post(`group/join`, body, { params });
   return response;
 };

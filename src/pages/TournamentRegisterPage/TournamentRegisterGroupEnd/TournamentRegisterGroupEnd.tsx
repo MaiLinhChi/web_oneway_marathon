@@ -12,7 +12,7 @@ import { Paths } from '@/pages/routers';
 const TournamentRegisterGroupEnd: React.FC = () => {
   const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.runnerRegisterGroupResponse);
   useEffect(() => {
-    if (!registerGroup) navigate(Paths.TournamentRegisterGroupJoin);
+    if (!registerGroup) navigate(Paths.TournamentRegisterGroupJoin());
   }, [registerGroup]);
   return (
     <div className="TournamentRegisterPage">
