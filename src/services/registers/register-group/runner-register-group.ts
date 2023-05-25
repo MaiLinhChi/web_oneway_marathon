@@ -2,14 +2,15 @@ import ApiService from '@/services/api';
 
 // TYPES
 
-export type TRunnerRegisterGroupParams = unknown;
+export type TRunnerRegisterGroupParams = string;
 export type TRunnerRegisterGroupBody = {
-  group_slug?: string;
-  group_password?: string;
+  email?: string;
+  phone?: string;
+  fullName?: string;
 };
 
 export type TRunnerRegisterGroupMaterials = {
-  params?: TRunnerRegisterGroupParams;
+  id?: TRunnerRegisterGroupParams;
   body?: TRunnerRegisterGroupBody;
 };
 
@@ -18,9 +19,9 @@ export type TRunnerRegisterGroupResponse = any;
 // FUNCTION
 
 export const runnerRegisterGroup = async ({
-  params,
+  id,
   body,
 }: TRunnerRegisterGroupMaterials): Promise<TRunnerRegisterGroupResponse> => {
-  const response = await ApiService.post(`group/join`, body, { params });
+  const response = await ApiService.put(`group/join/${id}`, body);
   return response;
 };

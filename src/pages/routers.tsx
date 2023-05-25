@@ -100,7 +100,8 @@ export const Paths = {
   TournamentRegisterGroupConfirm: '/:name/:id',
   TournamentRegisterGroupJoin: (id?: string): string => `/register-group/join/${id || ':id'}`,
   TournamentPaymentSuccess: (id?: string): string => `/payment-result/${id || ':id'}`,
-  TournamentRegisterGroupEnd: '/register-group/end',
+  TournamentRegisterGroupEnd: (bibId?: string, groupId?: string): string =>
+    `/register-group/end/${bibId || ':bibId'}/${groupId || ':groupId'}`,
   Rest: '*',
 };
 

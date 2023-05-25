@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TTournamentPaymentFormProps } from './TournamentPaymentRegulars.types';
 import Button from '@/components/Button';
 import { navigate, useParams } from '@reach/router';
-import { EOrderEditAction, getOrderDetailAction } from '@/redux/actions';
+import { EOrderEditAction, getGroupsAction, getOrderDetailAction, runnerRegisterGroupAction } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 import { Paths } from '@/pages/routers';
 import { EKeyTabTournamentRegisterPage } from '../TournamentRegisterPage.enums';
@@ -20,18 +20,25 @@ const TournamentPaymentRegulars: React.FC<TTournamentPaymentFormProps> = () => {
   const [order, setOrder] = useState<any>({});
   const [form] = Form.useForm();
   const { id } = useParams();
-  const key = 'tab';
-  const tabQuery = getQueryParam(key);
   const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.listGroupsResponse?.[0]);
   const orderState = useSelector((state: TRootState) => state.getOrdersReducer.getOrderDetailResponse?.data);
   const handleSubmit = (values: any): void => {
-    if (tabQuery === 'MULTIPLE') {
+    if (registerGroup) {
       if (!orderState) return;
+      const isExist = registerGroup?.membership?.some((item: any) => item.email === orderState.email);
       const body = {
         email: orderState.email,
         phone: orderState.phone,
         fullName: orderState.fullName,
       };
+      if (!isExist) {
+        dispatch(
+          runnerRegisterGroupAction.request({ id: registerGroup._id, body }, (response): void =>
+            handlerJoinGroupSuccess(response),
+          ),
+        );
+      }
+      navigate(Paths.TournamentRegisterGroupEnd(id, registerGroup?.groupCode));
       return;
     }
     navigate(Paths.TournamentPayment(`${order?._id}?tab=${EKeyTabTournamentRegisterPage.SINGLE}`));
@@ -48,6 +55,14 @@ const TournamentPaymentRegulars: React.FC<TTournamentPaymentFormProps> = () => {
     } else {
       showNotification(ETypeNotification.ERROR, response.message);
       navigate(Paths.Home);
+    }
+  };
+  const handlerJoinGroupSuccess = (response: any): void => {
+    if (response.statusCode === EResponseCode.OK) {
+      navigate(Paths.TournamentRegisterGroupEnd(id, response?.data?.groupCode));
+    } else {
+      showNotification(ETypeNotification.ERROR, response.message);
+      // navigate(Paths.Home);
     }
   };
   useEffect(() => {

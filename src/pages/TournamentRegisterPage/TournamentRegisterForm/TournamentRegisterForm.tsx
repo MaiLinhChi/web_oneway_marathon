@@ -142,7 +142,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   };
   const handleRunnerRegitserSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {
-      navigate(Paths.TournamentRegulars(`${response.data._id}?tab=${EKeyTabTournamentRegisterPage.MULTIPLE}`));
+      navigate(Paths.TournamentRegulars(response.data._id));
     } else {
       showNotification(ETypeNotification.ERROR, response.message);
     }
@@ -150,7 +150,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   const handleRegitserSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {
       // showNotification(ETypeNotification.SUCCESS, 'Đăng ký vé thành công !');
-      navigate(Paths.TournamentRegulars(`${response.data._id}?tab=${EKeyTabTournamentRegisterPage.SINGLE}`));
+      navigate(Paths.TournamentRegulars(response.data._id));
     } else {
       showNotification(ETypeNotification.ERROR, response.message);
     }

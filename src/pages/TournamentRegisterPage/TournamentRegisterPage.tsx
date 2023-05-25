@@ -88,12 +88,11 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = () => {
             ''
           )}
           <Col span={24}>
-            {!payment ||
-              (!regulations && (
-                <div className="TournamentRegisterPage-tab">
-                  <TabRectangle value={activeTab} onChange={setActiveTab} options={dataTabTournamentRegisterPage} />
-                </div>
-              ))}
+            {!payment && !regulations && (
+              <div className="TournamentRegisterPage-tab">
+                <TabRectangle value={activeTab} onChange={setActiveTab} options={dataTabTournamentRegisterPage} />
+              </div>
+            )}
           </Col>
           <Row className="TournamentRegisterPage-main">
             <Col span={24} lg={16}>
