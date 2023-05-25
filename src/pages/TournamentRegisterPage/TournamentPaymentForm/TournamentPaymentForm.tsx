@@ -12,7 +12,7 @@ import './TournamentPaymentForm.scss';
 import Button from '@/components/Button';
 // import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { navigate, useParams } from '@reach/router';
-import { EOrderEditAction, getOrderDetailAction, OrderEditAction, updatePromotionAction } from '@/redux/actions';
+import { EUpdateBibAction, getBibDetailAction, UpdateBibAction, updatePromotionAction } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 import { Paths } from '@/pages/routers';
 // import { TRootState } from '@/redux/reducers';
@@ -31,7 +31,7 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
   const { id } = useParams();
   const [totalFee, setTotalFee] = useState<any>();
   const atk = AuthHelpers.getAccessToken();
-  const orderEditLoading = useSelector((state: any) => state.loadingReducer[EOrderEditAction.ORDER_EDIT]);
+  const orderEditLoading = useSelector((state: any) => state.loadingReducer[EUpdateBibAction.UPDATE_BIB]);
   // const orderState = useSelector((state: TRootState) => state.orderDetailReducer.getOrderDetailResponse);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
@@ -54,14 +54,14 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
         id,
       };
       dispatch(
-        OrderEditAction.request({ body, headers }, (response): void => handlerGetPaymentMethodSuccess(response)),
+        UpdateBibAction.request({ body, headers }, (response): void => handlerGetPaymentMethodSuccess(response)),
       );
     }
   };
   const getOrderDetail = useCallback(() => {
     if (id)
       dispatch(
-        getOrderDetailAction.request({ paths: { id } }, (response): void => handlerGetOrderDetailSuccess(response)),
+        getBibDetailAction.request({ paths: { id } }, (response): void => handlerGetOrderDetailSuccess(response)),
       );
   }, [dispatch, id]);
   const getPaymentMethodApi = useCallback(async () => {
@@ -80,7 +80,7 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
       // setArrPromotion(response.data.order.promotionCodeUsages);
     } else {
       showNotification(ETypeNotification.ERROR, response.message);
-      navigate(Paths.Home);
+      // navigate(Paths.Home);
     }
   };
   const handlerGetPaymentMethodSuccess = (response: any): void => {

@@ -11,7 +11,7 @@ import './TournamentPaymentSuccess.scss';
 import AuthHelpers from '@/services/helpers';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 import { showNotification } from '@/utils/functions';
-import { getOrderDetailAction } from '@/redux/actions';
+import { getBibDetailAction } from '@/redux/actions';
 
 const TournamentPaymentSucces: React.FC = () => {
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ const TournamentPaymentSucces: React.FC = () => {
   const [data, setData] = useState<any>({});
   useEffect(() => {
     const id = location.pathname.split('/')[2];
-    dispatch(getOrderDetailAction.request({ paths: { id } }, (response): void => handleFieldData(response)));
+    dispatch(getBibDetailAction.request({ paths: { id } }, (response): void => handleFieldData(response)));
   }, [location, dispatch, atk]);
   const handleFieldData = (res: any): void => {
     if (res.status === EResponseCode.OK && res?.data?.status === 'confirmed') {

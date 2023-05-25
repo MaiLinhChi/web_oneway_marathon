@@ -86,7 +86,7 @@ export const Paths = {
   MarathonDetail: (id?: string): string => `/marathon/detail/${id || ':id'}`,
   TournamentRegister: (id?: string): string => `/tournaments/register/${id || ':id'}`,
   TournamentPayment: (id?: string): string => `/tournaments/payment/${id || ':id'}`,
-  TournamentRegulars: (id?: string): string => `/tournaments/regulations/${id || ':id'}`,
+  TournamentRegulars: `/tournaments/regulations`,
   RollBib: (id?: string): string => `/bib/${id || ':id'}`,
   NotFound: '/404',
   BuyOnlineTicketTutorials: '/buy-online-ticket-tutorials',
@@ -100,8 +100,7 @@ export const Paths = {
   TournamentRegisterGroupConfirm: '/:name/:id',
   TournamentRegisterGroupJoin: (id?: string): string => `/register-group/join/${id || ':id'}`,
   TournamentPaymentSuccess: (id?: string): string => `/payment-result/${id || ':id'}`,
-  TournamentRegisterGroupEnd: (bibId?: string, groupId?: string): string =>
-    `/register-group/end/${bibId || ':bibId'}/${groupId || ':groupId'}`,
+  TournamentRegisterGroupEnd: `/register-group/end`,
   Rest: '*',
 };
 

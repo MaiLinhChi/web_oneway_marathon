@@ -26,8 +26,7 @@ const OneWayMarathonCatBa: React.FC = () => {
   const raceDetailState = useSelector((state: TRootState) => state.raceReducer.detailRaceResponse)?.data;
   const raceLoading = useSelector((state: any) => state.loadingReducer[EDetailRaceAction.DETAIL_RACE]);
   const getRaceBySlug = useCallback(() => {
-    if (id)
-      dispatch(detailRaceAction.request({ paths: { id } }, (response): void => handlerGetRaceBySlugSuccess(response)));
+    if (id) dispatch(detailRaceAction.request({ id: id }, (response): void => handlerGetRaceBySlugSuccess(response)));
   }, [dispatch, id]);
   const handlerGetRaceBySlugSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {

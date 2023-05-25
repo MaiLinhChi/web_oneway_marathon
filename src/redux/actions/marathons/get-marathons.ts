@@ -1,6 +1,6 @@
 import { createActionCreator } from 'deox';
 
-import { TGetMarathonMaterials, TGetMarathonResponse } from '@/services/api/marathons/get-marathons';
+import { TGetMarathonMaterials, TGetMarathonResponse } from '@/services/api/order/update-order';
 
 // CONSTANTS
 

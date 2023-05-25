@@ -8,7 +8,7 @@ import { TRollBibWheelProps } from './RollBibWheel.types';
 import './RollBibWheel.scss';
 import { useDispatch } from 'react-redux';
 import AuthHelpers from '@/services/helpers';
-import { OrderEditAction } from '@/redux/actions';
+import { UpdateBibAction } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 import { showNotification } from '@/utils/functions';
 
@@ -38,7 +38,7 @@ const RollBibWheel: React.FC<TRollBibWheelProps> = ({ color, data, onNext }) => 
         id,
       };
       dispatch(
-        OrderEditAction.request({ body, headers }, (response): void => handlerGetPaymentMethodSuccess(response)),
+        UpdateBibAction.request({ body, headers }, (response): void => handlerGetPaymentMethodSuccess(response)),
       );
     }
   };

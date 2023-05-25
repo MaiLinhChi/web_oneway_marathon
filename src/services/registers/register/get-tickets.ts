@@ -1,38 +1,24 @@
+import { TCommonResponse } from '@/common/types';
 import RegistersService from '@/services/registers';
 
 // TYPES
+export type TGetTicketsParams = {
+  email: string;
+  marathon: string;
+};
 
-export type TGetTicketsParams = unknown;
-export type TGetTicketsBody = {
-  slug?: string;
+export type TGetTicketsHeaders = {
+  authorization: string;
 };
 
 export type TGetTicketsMaterials = {
-  params?: TGetTicketsParams;
-  body?: TGetTicketsBody;
+  headers?: TGetTicketsHeaders;
+  params: TGetTicketsParams;
 };
-export type TGetTicketsResponse = {
-  data: any;
-};
-// export type TGetTicketsResponse = {
-//   data: {
-//     tickets: {
-//       id?: number;
-//       name?: string;
-//       distance?: string;
-//       transfer_fee?: number;
-//       discount?: number;
-//       discount_type?: string;
-//       image?: string;
-//       road_map_image?: string;
-//       prices: [];
-//     };
-//   };
-// };
 
-// FUNCTION
+export type TGetTicketsResponse = any | TCommonResponse;
 
-export const getTickets = async ({ body, params }: TGetTicketsMaterials): Promise<TGetTicketsResponse> => {
-  const response = await RegistersService.post(`api/races`, body, { params });
+export const getTickets = async (materials: TGetTicketsMaterials): Promise<TGetTicketsResponse> => {
+  const response = await RegistersService.get(`bibs`, materials);
   return response.data;
 };

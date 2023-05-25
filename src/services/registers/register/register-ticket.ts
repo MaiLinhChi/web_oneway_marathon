@@ -9,7 +9,7 @@ export type TRegisterTicketMaterials = {
   body?: TRegisterTicketBody;
 };
 
-export type TRegisterTicketResponse = unknown;
+export type TRegisterTicketResponse = any;
 
 // FUNCTION
 

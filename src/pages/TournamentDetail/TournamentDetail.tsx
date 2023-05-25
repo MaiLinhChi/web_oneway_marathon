@@ -10,7 +10,7 @@ import Button from '@/components/Button';
 import './TournamentDetail.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { TRootState } from '@/redux/reducers';
-import { detailRaceAction, getGroupsAction, getOrdersAction } from '@/redux/actions';
+import { detailRaceAction, getGroupsAction, getTicketsAction } from '@/redux/actions';
 import { Link, useParams } from '@reach/router';
 import { Paths } from '../routers';
 import { copyText, truncateStringByWords } from '@/utils/functions';
@@ -30,10 +30,9 @@ const TournamentDetail: React.FC = () => {
   const atk = AuthHelpers.getAccessToken();
   const raceState = useSelector((state: TRootState) => state.raceReducer.detailRaceResponse?.data);
   const profileState = useSelector((state: TRootState) => state.profileReducer.getProfileResponse?.data);
-  const orderState = useSelector((state: TRootState) => state.getOrdersReducer.getOrdersResponse);
-
+  const bibsState = useSelector((state: TRootState) => state.registerReducer.getTicketsResponse);
   const getRaces = useCallback(() => {
-    dispatch(detailRaceAction.request({ paths: id, params: {} }));
+    dispatch(detailRaceAction.request({ id: id, params: {} }));
   }, [dispatch, id]);
 
   const getOrdersIndividual = useCallback(() => {
@@ -49,7 +48,7 @@ const TournamentDetail: React.FC = () => {
         pageIndex,
       },
     };
-    dispatch(getOrdersAction.request(materials));
+    dispatch(getTicketsAction.request(materials));
   }, [dispatch, atk, profileState?.email, raceState?._id, pageSize, pageIndex]);
 
   const getGroup = useCallback(() => {
@@ -129,12 +128,12 @@ const TournamentDetail: React.FC = () => {
             </Row>
             <div>
               <h2 className="TournamentDetail-subtitle">QUẢN LÍ BIB CÁ NHÂN</h2>
-              <Table columns={columnsBibIndivitual} dataSources={orderState?.data} className="TournamentDetail-table" />
+              <Table columns={columnsBibIndivitual} dataSources={bibsState?.data} className="TournamentDetail-table" />
               <div className="TournamentDetail-pagination flex justify-center">
                 <Pagination
                   page={pageIndex}
                   pageSize={pageSize}
-                  total={orderState?.totalRecord}
+                  total={bibsState?.totalRecord}
                   onChange={(item): void => setPageIndex(item)}
                 />
               </div>
@@ -198,7 +197,7 @@ const TournamentDetail: React.FC = () => {
               </div>
               <h3 className="TournamentDetail-card-title">Thông tin thành viên</h3>
               <div className="TournamentDetail-table">
-                <Table columns={columnsBibGroups} dataSources={orderState?.data} className="TournamentDetail-table" />
+                <Table columns={columnsBibGroups} dataSources={bibsState?.data} className="TournamentDetail-table" />
               </div>
 
               <div className="TournamentDetail-card-total text-right">

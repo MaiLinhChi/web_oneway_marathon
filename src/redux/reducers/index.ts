@@ -9,7 +9,7 @@ import uiReducer from './ui';
 import uploadReducer from './upload';
 import addressReducer from './address/address';
 import raceReducer from './races';
-import getOrdersReducer from './orders';
+import getOrdersReducer from './bib';
 import promotionReducer from './promotion';
 import paymentMethodReducer from './payments';
 import marathonsReducer from './marathons';

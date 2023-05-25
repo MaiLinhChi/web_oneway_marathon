@@ -14,7 +14,7 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
   const { pathname } = useLocation();
   const type = pathname.split('/')[2];
   const marathonDetailState = useSelector((state: TRootState) => state.marathonsReducer?.getMarathonByIdResponse);
-  const orderDetailState = useSelector((state: TRootState) => state.getOrdersReducer?.getOrderDetailResponse);
+  const bibSaveState = useSelector((state: TRootState) => state.registerReducer?.registerTicketResponse?.body);
   const getData = useCallback(() => {
     if (payment) {
       setData(payment);
@@ -23,16 +23,16 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
     if (type === 'register' || type === 'join') {
       setData(marathonDetailState?.data);
     } else {
-      setData(orderDetailState?.data);
+      setData(bibSaveState);
     }
-  }, [type, marathonDetailState, orderDetailState, payment]);
+  }, [type, marathonDetailState, bibSaveState, payment]);
 
   useEffect(() => {
     getData();
     if (group) {
       setData(group);
     }
-  }, [tabQuery, getData, payment, group]);
+  }, [tabQuery, payment, group, getData]);
   return (
     <div className="TournamentRegisterInformation-card sticky">
       {payment || data?.email ? (

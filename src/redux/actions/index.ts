@@ -6,7 +6,7 @@ export * from './ui';
 export * from './upload';
 export * from './address';
 export * from './races';
-export * from './orders';
+export * from './bib';
 export * from './promotion';
 export * from './payments';
 export * from './forgot-password';
