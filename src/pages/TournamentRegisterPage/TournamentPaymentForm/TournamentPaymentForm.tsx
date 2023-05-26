@@ -49,8 +49,7 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
       },
     };
     if (id) {
-      dispatch(updateOrderAction.request({ id, body }));
-      dispatch(payOrderAction.request({ body: { id } }, (response): void => handlerGetPaymentMethodSuccess(response)));
+      dispatch(updateOrderAction.request({ id, body }, (response): void => handlerUpdateOrderSuccess()));
     }
   };
   const getOrderDetail = useCallback(() => {
@@ -66,6 +65,9 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
   const handlerGetOrderDetailSuccess = (response: any): void => {
     setTicketList(response?.data?.bibs);
     setOrder(response?.data?.order);
+  };
+  const handlerUpdateOrderSuccess = (): void => {
+    dispatch(payOrderAction.request({ body: { id } }, (response): void => handlerGetPaymentMethodSuccess(response)));
   };
   const handlerGetPaymentMethodSuccess = (response: any): void => {
     showNotification(ETypeNotification.SUCCESS, 'Chuyển trang thanh toán');
