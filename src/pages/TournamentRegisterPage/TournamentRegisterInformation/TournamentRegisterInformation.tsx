@@ -23,8 +23,9 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
     }
     if (ticketState) {
       setData(ticketState);
+      return;
     }
-    if (tabQuery === 'SINGLE' && orderState) {
+    if (orderState) {
       setData(orderState);
       return;
     }
