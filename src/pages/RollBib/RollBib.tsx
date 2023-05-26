@@ -9,7 +9,7 @@ import { EKeyStepRollBib } from './RollBib.enums';
 import './RollBib.scss';
 import { navigate, useParams } from '@reach/router';
 import { useDispatch } from 'react-redux';
-import { getOrderDetailAction } from '@/redux/actions';
+import { getTicketDetailAction } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 import { showNotification } from '@/utils/functions';
 import { Paths } from '../routers';
@@ -22,10 +22,7 @@ const RollBib: React.FC = () => {
   //   key: EKeyStepRollBib.ROLL,
   // });
   const getOrderDetail = useCallback(() => {
-    if (id)
-      dispatch(
-        getOrderDetailAction.request({ paths: { id } }, (response): void => handlerGetOrderDetailSuccess(response)),
-      );
+    if (id) dispatch(getTicketDetailAction.request({ id }, (response): void => handlerGetOrderDetailSuccess(response)));
   }, [dispatch, id]);
   const handlerGetOrderDetailSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {

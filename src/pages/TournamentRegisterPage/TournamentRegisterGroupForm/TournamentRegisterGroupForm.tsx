@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Col, Form, Row } from 'antd';
 
-import SelectDistance from '@/components/SelectDistance';
 import { showNotification, validationRules } from '@/utils/functions';
 import Button from '@/components/Button';
 import Input from '@/components/Input';
@@ -71,10 +70,21 @@ const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> =
 
           <div className="TournamentRegisterGroupForm-group">
             <div className="TournamentRegisterPage-card-title">Lựa chọn số lượng thành viên</div>
-
-            <Form.Item name="percent" rules={[validationRules.required()]}>
-              <SelectDistance multiple={data.registerGroup} />
-            </Form.Item>
+            <div className="SelectDistanceGroup">
+              {data.registerGroup?.map((item: any, index: any) => (
+                <Col key={index} span={12} sm={8} lg={24 / data.registerGroup?.length}>
+                  <div className="SelectDistanceGroup-item">
+                    <div className="SelectDistanceGroup-item-distance">
+                      {item.percent ? <span>-{item.percent}%</span> : <span>-</span>}
+                    </div>
+                    <div className="SelectDistanceGroup-item-description">
+                      {item.numberPerson.from ? `${item.numberPerson.from}-` : '>'}
+                      {item.numberPerson.to} thành viên
+                    </div>
+                  </div>
+                </Col>
+              ))}
+            </div>
           </div>
 
           <div className="TournamentRegisterGroupForm-group">
@@ -86,7 +96,7 @@ const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> =
                 </div>
               </Col>
               <Col span={18}>
-                <Form.Item name="groupName">
+                <Form.Item name="groupName" rules={[validationRules.required()]}>
                   <Input placeholder="Tên nhóm" />
                 </Form.Item>
               </Col>
@@ -96,8 +106,8 @@ const TournamentRegisterGroupForm: React.FC<TTournamentRegisterGroupFormProps> =
                 </div>
               </Col>
               <Col span={18}>
-                <Form.Item name="password">
-                  <Input type="password" placeholder="Mật khẩu" />
+                <Form.Item name="password" rules={[validationRules.required(), validationRules.minLength(8)]}>
+                  <Input type="password" placeholder="Mật khẩu" autoComplete="new-password" />
                 </Form.Item>
               </Col>
             </Row>

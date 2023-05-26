@@ -91,11 +91,11 @@ const TournamentOverview: React.FC<TTournamentOverviewProps> = ({
 
           {typeof isExpired === 'boolean' && !isExpired && (
             <div className="TournamentOverview-banner-btns flex items-center justify-center">
-              {/* <Button
+              <Button
                 title="Đăng ký nhóm"
                 titleColor={color}
-                link={`${Paths.TournamentRegister}?tab=${EKeyTabTournamentRegisterPage.MULTIPLE}`}
-              /> */}
+                link={`${Paths.TournamentRegister(_id)}?tab=${EKeyTabTournamentRegisterPage.MULTIPLE}`}
+              />
               <Button
                 title="Đăng ký cá nhân"
                 link={`${Paths.TournamentRegister(_id)}?tab=${EKeyTabTournamentRegisterPage.SINGLE}`}

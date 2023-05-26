@@ -1,12 +1,51 @@
 .TournamentDetail {
   padding-bottom: 12.8rem;
 
+  .WrapperTd {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &-wrapperIcon {
+      padding: 5px;
+      border-radius: 50%;
+      background: #D6D9E9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      background-color: #D6D9E9;
+      margin-left: 12px;
+      cursor: pointer;
+
+      img {
+        max-width: 14px;
+      }
+    }
+  }
+
+  &-pagination {
+    margin-top: 2.4rem;
+  }
+
+  &-tab {
+    margin-bottom: 14px;
+    white-space: nowrap;
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+  }
+
   &-banner {
     @include centerScaleImage;
     margin-bottom: 4.8rem;
     @media (max-width: 767px) {
       margin-bottom: 0;
     }
+  }
+
+  &-section {
+    margin-top: 4rem;
   }
 
   &-status {
@@ -40,8 +79,8 @@
     font-style: italic;
     font-weight: 900;
     color: $cod-gray;
-    font-size: 6.4rem;
-    line-height: 7.7rem;
+    font-size: 5rem;
+    line-height: 7rem;
     text-transform: uppercase;
     margin-bottom: 2.4rem;
 
@@ -63,11 +102,16 @@
   }
 
   &-description {
+    display: -webkit-box;
     font-weight: 500;
     font-size: 1.6rem;
     line-height: 2.4rem;
     font-style: italic;
     color: $dove-gray;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
     margin-bottom: 4.8rem;
     @media (max-width:767px) {
       font-size: 1.4rem;
@@ -97,8 +141,7 @@
   }
 
   &-table {
-    margin-bottom: 4.8rem;
-
+    margin-top: 1.2rem;
     &.expand-x {
       margin: 0 -1.2rem;
     }
@@ -167,15 +210,14 @@
   }
 
   &-card {
-    padding: 2rem 2.4rem 4.8rem;
-    border: 1px solid $mystic;
-    background: $aqua-haze;
+    padding: 2rem 2.4rem 2.4rem;
+    // border: 1px solid $mystic;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 10px rgba(25, 100, 255, 0.25);
+    max-width: 642px;
+    margin-bottom: 1.6rem;
 
     &-edit {
-      margin-bottom: -2.4rem;
-      @media (max-width:767px) {
-        margin-bottom: -3.4rem;
-      }
       .Button {
         .ant-btn {
           &.ant-btn-ghost {
@@ -186,19 +228,13 @@
       }
     }
 
-    .TournamentDetail {
-      &-table {
-        margin-bottom: 2.4rem;
-      }
-    }
-
     &-title {
       font-size: 1.8rem;
       line-height: 2.6rem;
       font-style: italic;
       font-weight: 900;
       color: $cod-gray;
-      margin-bottom: 1.2rem;
+      // margin-bottom: 1.2rem;
       @media (max-width:767px) {
         font-size: 1.4rem; 
       }

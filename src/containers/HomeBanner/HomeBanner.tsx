@@ -5,9 +5,9 @@ import Button from '@/components/Button';
 
 import { THomeBannerProps } from './HomeBanner.types.d';
 import './HomeBanner.scss';
-import { getMarathons } from '@/services/api';
 import { Link } from '@reach/router';
 import { Paths } from '@/pages/routers';
+import { getRace } from '@/services/api';
 
 const HomeBanner: React.FC<THomeBannerProps> = () => {
   const [data, setData] = useState([]);
@@ -18,7 +18,7 @@ const HomeBanner: React.FC<THomeBannerProps> = () => {
         status: 'active',
       },
     };
-    const res = await getMarathons({ requests });
+    const res = await getRace(requests);
     setData(res.data);
   }, []);
   useEffect(() => {
@@ -27,7 +27,7 @@ const HomeBanner: React.FC<THomeBannerProps> = () => {
   return (
     <div className="HomeBanner">
       <Carousels slidesToShow={1} slidesToScroll={1} infinite autoplay dots arrows>
-        {data.map((item: any, index) => (
+        {data.map((item: any, index: any) => (
           <div className="HomeBanner-item" key={index}>
             <div className="HomeBanner-item-background">
               <img src={item.image} alt="" />

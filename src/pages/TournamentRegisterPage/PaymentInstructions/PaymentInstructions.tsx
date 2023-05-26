@@ -15,7 +15,7 @@ import CopyToClipboard from '@/components/CopyToClipboard';
 const PaymentInstructions: React.FC = () => {
   const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.registerGroupResponse);
   const handlerClick = (): void => {
-    navigate(Paths.TournamentRegisterGroupConfirm(registerGroup?.group.slug));
+    // navigate(Paths.TournamentRegisterGroupConfirm(registerGroup?.group.slug));
   };
   // useEffect(() => {
   //   if (!registerGroup) navigate(`${Paths.TournamentRegister}?tab=${EKeyTabTournamentRegisterPage.MULTIPLE}`);

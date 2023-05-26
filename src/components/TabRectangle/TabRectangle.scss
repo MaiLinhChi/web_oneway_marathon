@@ -50,6 +50,43 @@
     }
   }
 
+  &.GROUP {
+    .TabRectangle {
+      &-item {
+        padding: 4px 10px;
+        font-weight: 900;
+        font-size: 24px;
+        line-height: 40px;
+        color: #001375;
+        border: 1px solid #1964FF;
+        background: #F2F6F8;
+        border-radius: 6px;
+
+        @media (max-width: 767px) {
+          font-size: 20px;
+          line-height: 30px;
+          font-weight: 800;
+        }
+
+        &:hover {
+          color: $blue-ribbon;
+        }
+
+        &.active {
+          color: $white;
+          background: #001375;
+        }
+
+        + &-item {
+          margin-right: 10px;
+        }
+      }
+    }
+
+    .TabRectangle-item + .TabRectangle-item {
+      margin-left: 10px;
+    }
+  }
 
   &-list {
     user-select: none;

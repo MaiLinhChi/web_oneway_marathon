@@ -15,7 +15,7 @@ import TournamentEvent from '@/containers/TournamentEvent';
 
 import './OneWayMarathonDetail.scss';
 import { useDispatch } from 'react-redux';
-import { getMarathonByIdAction } from '@/redux/actions';
+import { detailRaceAction } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 import { showNotification } from '@/utils/functions';
 
@@ -25,7 +25,7 @@ const OneWayMarathonDetail: any = () => {
   const dispatch = useDispatch();
   const getMarathonDetail = useCallback(() => {
     if (!id) return;
-    dispatch(getMarathonByIdAction.request(id, (response): void => handlerGetMarathonDetailSuccess(response)));
+    dispatch(detailRaceAction.request({ id }, (response): void => handlerGetMarathonDetailSuccess(response)));
   }, [dispatch, id]);
   const handlerGetMarathonDetailSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {
@@ -59,12 +59,12 @@ const OneWayMarathonDetail: any = () => {
           { title: 'Quy định và thể lệ ', link: '#regulation' },
         ]}
         id="gioithieu"
+        _id={data?._id}
         stepKilometer={data?.race}
         description={data?.description}
         dateTournament={data?.startTime}
         locationTournament={data?.location}
         typeTournament={data?.type}
-        _id={data?._id}
       />
       <div className="OneWayMarathonVungTau-wrapper">
         <TournamentRegister
@@ -82,9 +82,10 @@ const OneWayMarathonDetail: any = () => {
           data={data}
           registerGroup={data?.registerGroup}
           date={data?.startTime}
+          _id={data._id}
         />
 
-        <TournamentMap color={EIconColor.PERSIAN_GREEN} data={data} id="map" />
+        <TournamentMap color={EIconColor.PERSIAN_GREEN} data={data} id="map" height={640} />
 
         <TournamentReward color={EIconColor.PERSIAN_GREEN} title="OneWay Vũng Tàu" id="reward" />
 

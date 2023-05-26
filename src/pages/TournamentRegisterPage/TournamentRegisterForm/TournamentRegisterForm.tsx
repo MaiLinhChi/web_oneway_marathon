@@ -9,28 +9,24 @@ import Select from '@/components/Select';
 import DatePicker from '@/components/DatePicker';
 import Checkbox from '@/components/Checkbox';
 import ShirtSize from '@/assets/images/t-shirt-size.jpg';
-import Icon, { EIconName } from '@/components/Icon';
 import { TTournamentRegisterFormProps } from './TournamentRegisterForm.types';
 import './TournamentRegisterForm.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   ERegisterTicketAction,
   ERunnerRegisterGroupAction,
-  runnerRegisterGroupAction,
   wardAction,
   registerTicketAction,
-  addressAction,
   cityAction,
   districtAction,
   getClubsAction,
 } from '@/redux/actions';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { EResponseCode, ETypeNotification } from '@/common/enums';
+import { ETypeNotification } from '@/common/enums';
 import { TRootState } from '@/redux/reducers';
 import { navigate } from '@reach/router';
-import { LayoutPaths, Paths } from '@/pages/routers';
-import { EKeyTabTournamentRegisterPage } from '../TournamentRegisterPage.enums';
+import { Paths } from '@/pages/routers';
 import moment from 'moment';
 import TimePicker from '@/components/TimePicker';
 
@@ -45,13 +41,13 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   const registerRunnerLoading = useSelector(
     (state: any) => state.loadingReducer[ERunnerRegisterGroupAction.RUNNER_REISTER_GROUP],
   );
-  const bibState = useSelector((state: TRootState) => state.orderDetailReducer.getOrderDetailResponse?.data);
+  const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.listGroupsResponse?.[0]);
+  const bibState = useSelector((state: TRootState) => state.registerReducer?.saveTicket);
   const profileState = useSelector((state: TRootState) => state.profileReducer.getProfileResponse?.data);
   const clubsState = useSelector((state: TRootState) => state.clubsReducer.clubs);
   const addressCityState = useSelector((state: TRootState) => state.addressReducer.cities);
   const addressDistrictState = useSelector((state: TRootState) => state.addressReducer.districts);
   const addressWardState = useSelector((state: TRootState) => state.addressReducer.wards);
-  const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.registerGroupResponse);
   const formatDate = (date: any): string => {
     console.log(typeof date);
     const d = new Date(date);
@@ -74,23 +70,8 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   const handleSubmit = (values: any): void => {
     let body = null;
     if (isGroup) {
-      body = {
-        ...values,
-        birthday: formatDate(values?.birthday),
-        city: values?.city?.value,
-        district: values?.district?.value,
-        gender: values?.gender?.value,
-        country: values?.country?.value,
-        ticketId: values?.ticketId?.value,
-        ward: values?.ward?.value,
-        group_slug: registerGroup?.group?.slug,
-        nationality: values?.country.value,
-        checkVat: values?.checkVat ? values?.checkVat.value : false,
-      };
-      dispatch(runnerRegisterGroupAction.request({ body }, (response): void => handleRunnerRegitserSuccess(response)));
-    } else {
       const { distance, checkVat, address, club, status, ...ress } = values;
-      const { name, startTime, price, ...res } = values.distance;
+      const { name, startTime, ...res } = values.distance;
       body = {
         ...ress,
         address: {
@@ -109,7 +90,37 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
           ...res,
         },
         clubId: club ? club.value : '',
-        price: distance.price,
+        groupId: registerGroup._id,
+      };
+      if (!club) {
+        delete body.clubId;
+      }
+      if (nationality !== 'vn') {
+        delete body.address;
+      }
+      dispatch(registerTicketAction.save(body));
+      navigate(Paths.TournamentRegulars);
+    } else {
+      const { distance, checkVat, address, club, status, ...ress } = values;
+      const { name, startTime, ...res } = values.distance;
+      body = {
+        ...ress,
+        address: {
+          province: address?.province?.label || address?.province || null,
+          district: address?.district?.label || address?.district || null,
+          ward: address?.ward?.label || address?.ward || null,
+          street: address?.street || null,
+        },
+        birthday: values?.birthday,
+        nationality: values?.nationality.value || values?.nationality,
+        gender: values?.gender?.value || values?.gender,
+        shirtSize: values?.shirtSize?.value || values?.shirtSize,
+        timeEstimation: values.timeEstimation.format('HH:mm:ss'),
+        marathon: {
+          marathonId: data._id,
+          ...res,
+        },
+        clubId: club ? club.value : '',
       };
       if (!club) {
         delete body.clubId;
@@ -120,23 +131,8 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
       if (nationality !== 'vn') {
         delete body.address;
       }
-      dispatch(registerTicketAction.request({ body }, (response): void => handleRegitserSuccess(response)));
-    }
-  };
-  const handleRunnerRegitserSuccess = (response: any): void => {
-    if (response.status === EResponseCode.OK) {
-      showNotification(ETypeNotification.SUCCESS, 'Đăng ký tạo nhóm thành công !');
-      navigate(Paths.TournamentRegisterGroupEnd);
-    } else {
-      showNotification(ETypeNotification.ERROR, response.message);
-    }
-  };
-  const handleRegitserSuccess = (response: any): void => {
-    if (response.status === EResponseCode.OK) {
-      // showNotification(ETypeNotification.SUCCESS, 'Đăng ký vé thành công !');
-      navigate(Paths.TournamentRegulars(`${response.data._id}?tab=${EKeyTabTournamentRegisterPage.SINGLE}`));
-    } else {
-      showNotification(ETypeNotification.ERROR, response.message);
+      dispatch(registerTicketAction.save(body));
+      navigate(Paths.TournamentRegulars);
     }
   };
   const handleSetBill = (value: boolean): void => {
@@ -189,7 +185,6 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   useEffect(() => {
     getInfo();
     if (bibState) {
-      bibState.marathon.price = bibState.price;
       form.setFieldsValue({
         email: bibState.email,
         distance: bibState.marathon,

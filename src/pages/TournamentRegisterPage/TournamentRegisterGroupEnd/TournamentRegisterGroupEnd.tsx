@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import './TournamentRegisterGroupEnd.scss';
 import { Col, Row } from 'antd';
 import BackgroundRegisterPage from '@/assets/images/image-home-banner-3.jpg';
@@ -10,10 +10,11 @@ import { navigate } from '@reach/router';
 import { Paths } from '@/pages/routers';
 
 const TournamentRegisterGroupEnd: React.FC = () => {
-  const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.runnerRegisterGroupResponse);
+  const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.listGroupsResponse?.[0]);
+  const bibState = useSelector((state: TRootState) => state.registerReducer?.registerTicketResponse?.body);
   useEffect(() => {
-    if (!registerGroup) navigate(Paths.TournamentRegisterGroupJoin);
-  }, [registerGroup]);
+    if (!registerGroup || !bibState) navigate(Paths.Home);
+  }, [registerGroup, bibState]);
   return (
     <div className="TournamentRegisterPage">
       <div className="TournamentRegisterPage-background">
@@ -32,23 +33,23 @@ const TournamentRegisterGroupEnd: React.FC = () => {
                     <span>Tạo nhóm thành công</span>
                   </div>
                   <div className="TournamentRegisterPage-main-success-body">
-                    <h3>Tên nhóm: {registerGroup?.group.group_name}</h3>
+                    <h3>Tên nhóm: {registerGroup?.groupName}</h3>
                     <ul className="TournamentRegisterPage-main-success-body-list">
                       <li>
                         <span>Họ và tên trưởng nhóm</span>
-                        <span>{registerGroup?.group.full_name}</span>
+                        <span>{registerGroup?.membership?.[0]?.fullName}</span>
                       </li>
                       <li>
                         <span>Số điện thoại</span>
-                        <span>{registerGroup?.group.phone}</span>
+                        <span>{registerGroup?.membership?.[0]?.phone}</span>
                       </li>
                       <li>
                         <span>Email</span>
-                        <span>{registerGroup?.group.email}</span>
+                        <span>{registerGroup?.membership?.[0]?.email}</span>
                       </li>
                       <li>
                         <span>Số thành viên đã đăng ký</span>
-                        <span>{registerGroup?.number_runners}</span>
+                        <span>{registerGroup?.membership?.length}</span>
                       </li>
                     </ul>
                     <div className="TournamentRegisterPage-main-success-body-btn flex">
@@ -58,6 +59,7 @@ const TournamentRegisterGroupEnd: React.FC = () => {
                         titleColor={EIconColor.WHITE}
                         borderColor={EIconColor.PERSIAN_GREEN}
                         backgroundColor={EIconColor.PERSIAN_GREEN}
+                        link={Paths.Home}
                       />
                     </div>
                   </div>
@@ -71,55 +73,55 @@ const TournamentRegisterGroupEnd: React.FC = () => {
                       <tr>
                         <td>Họ và tên</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{registerGroup?.info_runner.full_name}</strong>
+                          <strong>{bibState?.fullName}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Cự ly</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{registerGroup?.info_runner.phone}</strong>
+                          <strong>{bibState?.phone}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Tên trên BIB</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{registerGroup?.info_runner.nickname_bib}</strong>
+                          <strong>{bibState?.nameBib}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Ngày sinh</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{registerGroup?.info_runner.phone}</strong>
+                          <strong>{bibState?.phone}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Giới tính</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{registerGroup?.info_runner.gender == 0 ? 'Nam' : 'Nữ'}</strong>
+                          <strong>{bibState?.gender}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Email</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{registerGroup?.info_runner.email}</strong>
+                          <strong>{bibState?.email}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>SĐT</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{registerGroup?.info_runner.phone}</strong>
+                          <strong>{bibState?.phone}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>CCCD</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{registerGroup?.info_runner.id_card}</strong>
+                          <strong>{bibState?.passport}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Size áo</td>
                         <td style={{ width: '100%' }}>
-                          <strong>L</strong>
+                          <strong>{bibState?.shirtSize}</strong>
                         </td>
                       </tr>
                     </table>

@@ -22,15 +22,6 @@ const TournamentRegister: React.FC<TTournamentRegisterProps> = ({
   date,
   unitRace,
 }) => {
-  const [open, setOpen] = useState(false);
-  const [isEnd, setIsEnd] = useState(false);
-  // const unixValue = moment(date, 'YYYY/MM/DD HH:mm:ss').unix();
-  // const currentValue = moment(currentDateTime, 'YYYY/MM/DD HH:mm:ss').unix();
-  if (Object.keys(data).length === 0) return null;
-  const handleModel = (): void => {
-    setOpen(true);
-  };
-
   // const handleIsEnd = useCallback((): void => {
   //   setIsEnd(unixValue - currentValue > 0 ? false : true);
   // }, [date]);
@@ -99,40 +90,21 @@ const TournamentRegister: React.FC<TTournamentRegisterProps> = ({
             </div>
           )}
           <div className="TournamentRegister-btn">
-            {multiple ? (
-              <Button
-                size="large"
-                title="Đăng ký ngay"
-                titleColor={EIconColor.WHITE}
-                borderColor={color}
-                backgroundColor={color}
-                onClick={handleModel}
-                disabled={isEnd}
-              />
-            ) : (
-              <Button
-                size="large"
-                title="Đăng ký ngay"
-                titleColor={EIconColor.WHITE}
-                borderColor={color}
-                backgroundColor={color}
-                link={Paths.TournamentRegister(
-                  `${_id}?tab=${
-                    multiple ? EKeyTabTournamentRegisterPage.MULTIPLE : EKeyTabTournamentRegisterPage.SINGLE
-                  }`,
-                )}
-                disabled={isEnd}
-              />
-            )}
+            <Button
+              size="large"
+              title="Đăng ký ngay"
+              titleColor={EIconColor.WHITE}
+              borderColor={color}
+              backgroundColor={color}
+              link={Paths.TournamentRegister(
+                `${_id}?tab=${
+                  multiple ? EKeyTabTournamentRegisterPage.MULTIPLE : EKeyTabTournamentRegisterPage.SINGLE
+                }`,
+              )}
+            />
           </div>
         </div>
       </div>
-      <Modal visible={open} onClose={(): void => setOpen(false)}>
-        <h1>Vui lòng liên hệ sale</h1>
-        <ul>
-          <li>Hotline: 081 8007898</li>
-        </ul>
-      </Modal>
     </div>
   );
 };

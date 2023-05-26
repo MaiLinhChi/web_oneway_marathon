@@ -11,7 +11,7 @@ import './TournamentPaymentSuccess.scss';
 import AuthHelpers from '@/services/helpers';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 import { showNotification } from '@/utils/functions';
-import { getOrderDetailAction } from '@/redux/actions';
+import { getOrderByIdAction, getTicketDetailAction } from '@/redux/actions';
 
 const TournamentPaymentSucces: React.FC = () => {
   const dispatch = useDispatch();
@@ -20,16 +20,10 @@ const TournamentPaymentSucces: React.FC = () => {
   const [data, setData] = useState<any>({});
   useEffect(() => {
     const id = location.pathname.split('/')[2];
-    dispatch(getOrderDetailAction.request({ paths: { id } }, (response): void => handleFieldData(response)));
+    dispatch(getOrderByIdAction.request(id, (response): void => handleFieldData(response)));
   }, [location, dispatch, atk]);
   const handleFieldData = (res: any): void => {
-    if (res.status === EResponseCode.OK && res?.data?.status === 'confirmed') {
-      showNotification(ETypeNotification.SUCCESS, 'Order sucessfullys');
-      setData(res.data);
-    } else {
-      showNotification(ETypeNotification.ERROR, 'Order error');
-      setData(res.data);
-    }
+    setData(res?.data?.order);
   };
   return (
     <div className="TournamentPaymentSucces">
@@ -91,7 +85,7 @@ const TournamentPaymentSucces: React.FC = () => {
                 )}
               </Col>
               <Col span={24} lg={7}>
-                <TournamentRegisterInformation payment={data} />
+                <TournamentRegisterInformation />
               </Col>
             </Row>
           </div>

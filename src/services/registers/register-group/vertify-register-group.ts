@@ -2,15 +2,17 @@ import ApiService from '@/services/api';
 
 // TYPES
 
-export type TVertifyRegisterGroupParams = unknown;
+// export type TVertifyRegisterGroupParams = {
+//   authorization: string;
+// };
 export type TVertifyRegisterGroupBody = {
-  group_slug?: string;
-  group_password?: string;
+  _id: string;
+  password: string;
 };
 
 export type TVertifyRegisterGroupMaterials = {
-  params?: TVertifyRegisterGroupParams;
-  body?: TVertifyRegisterGroupBody;
+  // headers: TVertifyRegisterGroupParams;
+  body: TVertifyRegisterGroupBody;
 };
 
 export type TVertifyRegisterGroupResponse = any;
@@ -18,9 +20,8 @@ export type TVertifyRegisterGroupResponse = any;
 // FUNCTION
 
 export const vertifyRegisterGroup = async ({
-  params,
   body,
 }: TVertifyRegisterGroupMaterials): Promise<TVertifyRegisterGroupResponse> => {
-  const response = await ApiService.post(`api/group/register-participate-verify`, body, { params });
+  const response = await ApiService.post(`group/authenticate`, body);
   return response.data;
 };

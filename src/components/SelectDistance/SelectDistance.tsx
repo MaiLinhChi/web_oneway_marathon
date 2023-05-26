@@ -46,10 +46,11 @@ const SelectDistance: React.FC<TSelectDistanceProps> = ({ value, onChange, singl
                   onClick={(): void => onChange?.(item)}
                 >
                   <div className="SelectDistance-item-distance">
-                    -{item.percent} <span>%</span>
+                    {item.percent ? <span>-{item.percent}%</span> : <span>-</span>}
                   </div>
                   <div className="SelectDistance-item-description">
-                    {item.numberPerson.from}-{item.numberPerson.to} thành viên
+                    {item.numberPerson.from ? `${item.numberPerson.from}-` : '>'}
+                    {item.numberPerson.to} thành viên
                   </div>
                 </div>
               </Col>

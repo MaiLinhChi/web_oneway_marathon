@@ -5,6 +5,7 @@ import { ETabRectangleStyleType } from '@/components/TabRectangle/TabRectangle.e
 
 export type TTabRectangleValue = TSelectOption & {
   hide?: boolean;
+  groupName?: string;
 };
 
 export type TTabRectangleProps = {
@@ -16,4 +17,5 @@ export type TTabRectangleProps = {
   className?: string;
   widthAuto?: boolean;
   onChange?: (value: TTabRectangleValue) => void;
+  group?: boolean;
 };

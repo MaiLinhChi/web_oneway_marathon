@@ -247,6 +247,7 @@ export const truncateStringByCharaters = (content: string, maxLength: number): s
 };
 
 export const truncateStringByWords = (content: string, maxWords: number): string => {
+  if (!content) return '';
   const contentSplited = content.split(' ');
   if (maxWords >= contentSplited.length) {
     return content;

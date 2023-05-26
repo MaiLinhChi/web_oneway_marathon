@@ -9,10 +9,9 @@ import uiReducer from './ui';
 import uploadReducer from './upload';
 import addressReducer from './address/address';
 import raceReducer from './races';
-import orderDetailReducer from './orders';
 import promotionReducer from './promotion';
 import paymentMethodReducer from './payments';
-import marathonsReducer from './marathons';
+import ordersReducer from './order';
 import clubsReducer from './club/club';
 
 const rootReducer = combineReducers({
@@ -28,9 +27,8 @@ const rootReducer = combineReducers({
   uploadReducer,
   addressReducer,
   raceReducer,
-  orderDetailReducer,
   promotionReducer,
-  marathonsReducer,
+  ordersReducer,
   clubsReducer,
 });
 

@@ -18,7 +18,6 @@ const Countdown: React.FC<TCountdownProps> = ({ dateTo, dateFrom, render, onFini
   const [diffTime, setDiffTime] = useState<number>();
   const [duration, setDuration] = useState<Duration | undefined>();
   const [isFirstFetching, setIsFirstFetching] = useState<boolean>(true);
-
   useEffect(() => {
     if (dateTo) {
       const unixValue = moment(dateTo, 'YYYY/MM/DD HH:mm:ss').unix();
