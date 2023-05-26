@@ -12,13 +12,14 @@ import './TournamentPaymentForm.scss';
 import Button from '@/components/Button';
 // import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { navigate, useParams } from '@reach/router';
-import { EUpdateBibAction, getBibDetailAction, UpdateBibAction, updatePromotionAction } from '@/redux/actions';
+import { EUpdateTicketAction, getTicketDetailAction, updateTicketAction, updatePromotionAction } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 import { Paths } from '@/pages/routers';
 // import { TRootState } from '@/redux/reducers';
 import { getPaymentMethod } from '@/services/api';
 import AuthHelpers from '@/services/helpers';
 import numeral from 'numeral';
+import { TRootState } from '@/redux/reducers';
 
 const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
   const dispatch = useDispatch();
@@ -31,7 +32,8 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
   const { id } = useParams();
   const [totalFee, setTotalFee] = useState<any>();
   const atk = AuthHelpers.getAccessToken();
-  const orderEditLoading = useSelector((state: any) => state.loadingReducer[EUpdateBibAction.UPDATE_BIB]);
+  const bibState = useSelector((state: TRootState) => state.registerReducer?.registerTicketResponse);
+  const orderEditLoading = useSelector((state: any) => state.loadingReducer[EUpdateTicketAction.UPDATE_TICKET]);
   // const orderState = useSelector((state: TRootState) => state.orderDetailReducer.getOrderDetailResponse);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
@@ -54,14 +56,14 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
         id,
       };
       dispatch(
-        UpdateBibAction.request({ body, headers }, (response): void => handlerGetPaymentMethodSuccess(response)),
+        updateTicketAction.request({ body, headers }, (response): void => handlerGetPaymentMethodSuccess(response)),
       );
     }
   };
   const getOrderDetail = useCallback(() => {
     if (id)
       dispatch(
-        getBibDetailAction.request({ paths: { id } }, (response): void => handlerGetOrderDetailSuccess(response)),
+        getTicketDetailAction.request({ paths: { id } }, (response): void => handlerGetOrderDetailSuccess(response)),
       );
   }, [dispatch, id]);
   const getPaymentMethodApi = useCallback(async () => {
@@ -117,6 +119,7 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
     getOrderDetail();
     getPaymentMethodApi();
   }, [getOrderDetail, getPaymentMethodApi]);
+  console.log(bibState);
   return (
     <div className="TournamentPaymentForm">
       <Form layout="vertical" form={form} onFinish={handleSubmit}>

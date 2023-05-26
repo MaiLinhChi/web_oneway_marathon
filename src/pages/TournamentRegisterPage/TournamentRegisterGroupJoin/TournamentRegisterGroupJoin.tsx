@@ -7,7 +7,7 @@ import TournamentRegisterForm from '@/pages/TournamentRegisterPage/TournamentReg
 import { useDispatch, useSelector } from 'react-redux';
 import { TRootState } from '@/redux/reducers';
 import { navigate, useParams } from '@reach/router';
-import { getMarathonByIdAction } from '@/redux/actions';
+import { getRaceAction } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 import { showNotification } from '@/utils/functions';
 import { Paths } from '@/pages/routers';
@@ -18,7 +18,7 @@ const TournamentRegisterGroupJoin: React.FC = () => {
   const dispatch = useDispatch();
   const getMarathonDetail = useCallback(() => {
     if (!id) return;
-    dispatch(getMarathonByIdAction.request(id, (response): void => handlerGetMarathonDetailSuccess(response)));
+    dispatch(getRaceAction.request(id, (response): void => handlerGetMarathonDetailSuccess(response)));
   }, [dispatch, id]);
   const handlerGetMarathonDetailSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {

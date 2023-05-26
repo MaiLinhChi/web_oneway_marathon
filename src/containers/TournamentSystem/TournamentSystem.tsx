@@ -5,13 +5,15 @@ import Button from '@/components/Button';
 import { TTournamentSystemProps } from './TournamentSystem.types.d';
 import './TournamentSystem.scss';
 import { Paths } from '@/pages/routers';
-import { getMarathons } from '@/services/api';
 import { Link } from '@reach/router';
+import { useDispatch } from 'react-redux';
+import { getRaceAction } from '@/redux/actions';
 
 const TournamentSystem: React.FC<TTournamentSystemProps> = () => {
-  const [data, setData] = useState([]);
   const initLimit = 3;
+  const [data, setData] = useState([]);
   const [limit, setLimit] = useState(initLimit);
+  const dispatch = useDispatch();
   const [totalRecord, setTotalRecord] = useState(0);
   const getData = useCallback(async () => {
     const requests = {
@@ -20,10 +22,12 @@ const TournamentSystem: React.FC<TTournamentSystemProps> = () => {
         status: 'active',
       },
     };
-    const res = await getMarathons({ requests });
-    setData(res.data);
-    setTotalRecord(res.totalRecord);
-  }, [limit]);
+    dispatch(getRaceAction.request(requests, (response): void => handleLoginSuccess(response)));
+  }, [limit, dispatch]);
+  const handleLoginSuccess = (response: any): void => {
+    setData(response.data);
+    setTotalRecord(response.totalRecord);
+  };
   useEffect(() => {
     getData();
   }, [limit, getData]);

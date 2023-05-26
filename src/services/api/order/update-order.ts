@@ -3,17 +3,17 @@ import ApiService from '@/services/api';
 
 // TYPES
 
-export type TGetMarathonHeaders = {
+export type TUpdateOrderHeaders = {
   params: {
     limit: number;
   };
 };
 
-export type TGetMarathonMaterials = {
-  requests?: TGetMarathonHeaders;
+export type TUpdateOrderMaterials = {
+  requests?: TUpdateOrderHeaders;
 };
 
-// export type TGetProfileResponse = TCommonResponse & {
+// export type TUpdateProfileResponse = TCommonResponse & {
 //   data: {
 //     user: {
 //       avatar?: string;
@@ -33,11 +33,11 @@ export type TGetMarathonMaterials = {
 //   };
 // };
 
-export type TGetMarathonResponse = TCommonResponse & any;
+export type TUpdateOrderResponse = TCommonResponse & any;
 
 // FUNCTION
 
-export const getMarathons = async (params: TGetMarathonMaterials): Promise<TGetMarathonResponse> => {
-  const response = await ApiService.get(`/marathons`, params.requests);
+export const updateOrder = async (params: TUpdateOrderMaterials): Promise<TUpdateOrderResponse> => {
+  const response = await ApiService.put(`/order`, params.requests);
   return response.data;
 };

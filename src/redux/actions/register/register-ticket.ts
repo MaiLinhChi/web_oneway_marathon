@@ -5,6 +5,7 @@ import { TRegisterTicketMaterials, TRegisterTicketResponse } from '@/services/re
 // CONSTANTS
 
 export enum ERegisterTicketAction {
+  SAVE_TICKET = 'SAVE_TICKET',
   REGISTER_TICKET = 'REGISTER_TICKET',
   REGISTER_TICKET_REQUEST = 'REGISTER_TICKET_REQUEST',
   REGISTER_TICKET_SUCCESS = 'REGISTER_TICKET_SUCCESS',
@@ -32,6 +33,12 @@ export type TRegisterTicketFailed = { type: ERegisterTicketAction.REGISTER_TICKE
 // FUNCTION
 
 export const registerTicketAction = {
+  save: createActionCreator(
+    ERegisterTicketAction.SAVE_TICKET,
+    (resolve) =>
+      (response: any): any =>
+        resolve({ response }),
+  ),
   request: createActionCreator(
     ERegisterTicketAction.REGISTER_TICKET_REQUEST,
     (resolve) =>

@@ -1,13 +1,13 @@
 import { TCommonResponse } from '@/common/types';
 import ApiService from '@/services/api';
 
-export type TGetMarathonByIdMaterials = string;
+export type TGetOrderByIdMaterials = string;
 
-export type TGetMarathonByIdResponse = TCommonResponse & any;
+export type TGetOrderByIdResponse = TCommonResponse & any;
 
 // FUNCTION
 
-export const getMarathonById = async (id: TGetMarathonByIdMaterials): Promise<TGetMarathonByIdResponse> => {
-  const response = await ApiService.get(`/marathon/${id}`);
+export const getOrderById = async (id: TGetOrderByIdMaterials): Promise<TGetOrderByIdResponse> => {
+  const response = await ApiService.get(`/order/${id}`);
   return response.data;
 };

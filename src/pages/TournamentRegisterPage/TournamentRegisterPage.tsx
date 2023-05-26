@@ -17,9 +17,9 @@ import { TTournamentRegisterPageProps } from './TournamentRegisterPage.types';
 import './TournamentRegisterPage.scss';
 import { useLocation, useParams } from '@reach/router';
 import { getQueryParam, scrollToTop, showNotification } from '@/utils/functions';
-import { getMarathonByIdAction } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 import TournamentPaymentRegulars from './TournamentPaymentRegulars';
+import { detailRaceAction } from '@/redux/actions';
 
 const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = () => {
   const [data, setData] = useState({});
@@ -35,7 +35,7 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = () => {
   const dispatch = useDispatch();
   const getMarathonDetail = useCallback(() => {
     if (!id) return;
-    dispatch(getMarathonByIdAction.request(id, (response): void => handlerGetMarathonDetailSuccess(response)));
+    dispatch(detailRaceAction.request({ id }, (response): void => handlerGetMarathonDetailSuccess(response)));
   }, [dispatch, id]);
   const handlerGetMarathonDetailSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {

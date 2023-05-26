@@ -13,19 +13,19 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
   const tabQuery = getQueryParam('tab');
   const { pathname } = useLocation();
   const type = pathname.split('/')[2];
-  const marathonDetailState = useSelector((state: TRootState) => state.marathonsReducer?.getMarathonByIdResponse);
-  const bibSaveState = useSelector((state: TRootState) => state.registerReducer?.registerTicketResponse?.body);
+  const raceDetailState = useSelector((state: TRootState) => state.raceReducer.detailRaceResponse);
+  const ticketState = useSelector((state: TRootState) => state.registerReducer.saveTicket);
   const getData = useCallback(() => {
     if (payment) {
       setData(payment);
       return;
     }
     if (type === 'register' || type === 'join') {
-      setData(marathonDetailState?.data);
+      setData(raceDetailState);
     } else {
-      setData(bibSaveState);
+      setData(ticketState);
     }
-  }, [type, marathonDetailState, bibSaveState, payment]);
+  }, [type, raceDetailState, ticketState, payment]);
 
   useEffect(() => {
     getData();
@@ -33,6 +33,7 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
       setData(group);
     }
   }, [tabQuery, payment, group, getData]);
+  console.log(ticketState);
   return (
     <div className="TournamentRegisterInformation-card sticky">
       {payment || data?.email ? (

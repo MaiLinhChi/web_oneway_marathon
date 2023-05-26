@@ -18,8 +18,8 @@ const TournamentPaymentRegulars: React.FC<TTournamentPaymentFormProps> = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.listGroupsResponse?.[0]);
-  const bibState = useSelector((state: TRootState) => state.registerReducer?.registerTicketResponse?.body);
-  const marathonDetailState = useSelector((state: TRootState) => state.marathonsReducer?.getMarathonByIdResponse?.data);
+  const bibState = useSelector((state: TRootState) => state.registerReducer?.saveTicket);
+  const raceDetailState = useSelector((state: TRootState) => state.raceReducer.detailRaceResponse);
   const handleSubmit = (values: any): void => {
     if (registerGroup) {
       const isExist = registerGroup?.membership?.some((item: any) => item.email === bibState.email);
@@ -46,14 +46,10 @@ const TournamentPaymentRegulars: React.FC<TTournamentPaymentFormProps> = () => {
     return;
   };
   const handleRegitserSuccess = (response: any): void => {
-    if (response.status === EResponseCode.OK) {
-      navigate(Paths.TournamentPayment(response._id));
-    } else {
-      showNotification(ETypeNotification.ERROR, response.message);
-    }
+    navigate(Paths.TournamentPayment(response.data?._id));
   };
   useEffect(() => {
-    if (!bibState) navigate(Paths.Home);
+    // if (!bibState) navigate(Paths.Home);
   }, [bibState]);
   return (
     <div className="TournamentPaymentForm">
@@ -66,9 +62,9 @@ const TournamentPaymentRegulars: React.FC<TTournamentPaymentFormProps> = () => {
           >
             <ol>
               <li>
-                1. Bằng việc đăng ký tham dự giải <b>Oneway Marathon {marathonDetailState?.name}</b> tổ chức vào “
-                {marathonDetailState.startTime}”(sau đây gọi là “Sự kiện”), tôi đồng ý với văn bản xác nhận từ bỏ các
-                quyền đòi hỏi, yêu cầu bồi thường và gánh vác rủi ro này.
+                1. Bằng việc đăng ký tham dự giải <b>Oneway Marathon {raceDetailState?.name}</b> tổ chức vào “
+                {raceDetailState?.startTime}”(sau đây gọi là “Sự kiện”), tôi đồng ý với văn bản xác nhận từ bỏ các quyền
+                đòi hỏi, yêu cầu bồi thường và gánh vác rủi ro này.
               </li>
               <br />
               <li>2. Tôi đã đọc và hiểu các điều luật của Sự kiện và các thông tin liên quan đến Sự kiện.</li>

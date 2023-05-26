@@ -9,28 +9,24 @@ import Select from '@/components/Select';
 import DatePicker from '@/components/DatePicker';
 import Checkbox from '@/components/Checkbox';
 import ShirtSize from '@/assets/images/t-shirt-size.jpg';
-import Icon, { EIconName } from '@/components/Icon';
 import { TTournamentRegisterFormProps } from './TournamentRegisterForm.types';
 import './TournamentRegisterForm.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   ERegisterTicketAction,
   ERunnerRegisterGroupAction,
-  runnerRegisterGroupAction,
   wardAction,
   registerTicketAction,
-  addressAction,
   cityAction,
   districtAction,
   getClubsAction,
 } from '@/redux/actions';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { EResponseCode, ETypeNotification } from '@/common/enums';
+import { ETypeNotification } from '@/common/enums';
 import { TRootState } from '@/redux/reducers';
 import { navigate } from '@reach/router';
-import { LayoutPaths, Paths } from '@/pages/routers';
-import { EKeyTabTournamentRegisterPage } from '../TournamentRegisterPage.enums';
+import { Paths } from '@/pages/routers';
 import moment from 'moment';
 import TimePicker from '@/components/TimePicker';
 
@@ -46,7 +42,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
     (state: any) => state.loadingReducer[ERunnerRegisterGroupAction.RUNNER_REISTER_GROUP],
   );
   const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.listGroupsResponse?.[0]);
-  const bibState = useSelector((state: TRootState) => state.registerReducer?.registerTicketResponse?.body);
+  const bibState = useSelector((state: TRootState) => state.registerReducer?.saveTicket);
   const profileState = useSelector((state: TRootState) => state.profileReducer.getProfileResponse?.data);
   const clubsState = useSelector((state: TRootState) => state.clubsReducer.clubs);
   const addressCityState = useSelector((state: TRootState) => state.addressReducer.cities);
@@ -103,7 +99,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
       if (nationality !== 'vn') {
         delete body.address;
       }
-      dispatch(registerTicketAction.success({ body }));
+      dispatch(registerTicketAction.save(body));
       navigate(Paths.TournamentRegulars);
     } else {
       const { distance, checkVat, address, club, status, ...ress } = values;
@@ -137,7 +133,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
       if (nationality !== 'vn') {
         delete body.address;
       }
-      dispatch(registerTicketAction.success({ body }));
+      dispatch(registerTicketAction.save(body));
       navigate(Paths.TournamentRegulars);
     }
   };
