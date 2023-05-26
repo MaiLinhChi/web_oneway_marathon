@@ -37,9 +37,9 @@ const RollBibWheel: React.FC<TRollBibWheelProps> = ({ color, data, onNext }) => 
         },
         id,
       };
-      dispatch(
-        updateTicketAction.request({ body, headers }, (response): void => handlerGetPaymentMethodSuccess(response)),
-      );
+      // dispatch(
+      //   updateTicketAction.request({ body, headers }, (response): void => handlerGetPaymentMethodSuccess(response)),
+      // );
     }
   };
 

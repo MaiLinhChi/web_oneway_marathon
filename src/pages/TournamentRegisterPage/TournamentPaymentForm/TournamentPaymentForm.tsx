@@ -12,27 +12,27 @@ import './TournamentPaymentForm.scss';
 import Button from '@/components/Button';
 // import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { navigate, useParams } from '@reach/router';
-import { EUpdateTicketAction, getTicketDetailAction, updateTicketAction, updatePromotionAction } from '@/redux/actions';
+import {
+  EUpdateTicketAction,
+  updatePromotionAction,
+  getOrderByIdAction,
+  updateOrderAction,
+  payOrderAction,
+} from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
-import { Paths } from '@/pages/routers';
 // import { TRootState } from '@/redux/reducers';
 import { getPaymentMethod } from '@/services/api';
-import AuthHelpers from '@/services/helpers';
-import numeral from 'numeral';
-import { TRootState } from '@/redux/reducers';
 
 const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
   const dispatch = useDispatch();
   const [promotion, setPromotion] = useState('');
   const [arrPromotion, setArrPromotion] = useState(['']);
   const [paymentMethods, setPaymentMethods] = useState([]);
-  const [total, settotal] = useState('');
-  const [paymentItems, setPaymentItems] = useState<any>({});
+  const [order, setOrder] = useState<any>({});
+  const [ticketList, setTicketList] = useState<any>([]);
   const [form] = Form.useForm();
   const { id } = useParams();
   const [totalFee, setTotalFee] = useState<any>();
-  const atk = AuthHelpers.getAccessToken();
-  const bibState = useSelector((state: TRootState) => state.registerReducer?.registerTicketResponse);
   const orderEditLoading = useSelector((state: any) => state.loadingReducer[EUpdateTicketAction.UPDATE_TICKET]);
   // const orderState = useSelector((state: TRootState) => state.orderDetailReducer.getOrderDetailResponse);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -49,22 +49,12 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
       },
     };
     if (id) {
-      const headers = {
-        // params: {
-        //   authorization: `Bearer ${atk}`,
-        // },
-        id,
-      };
-      dispatch(
-        updateTicketAction.request({ body, headers }, (response): void => handlerGetPaymentMethodSuccess(response)),
-      );
+      dispatch(updateOrderAction.request({ id, body }));
+      dispatch(payOrderAction.request({ body: { id } }, (response): void => handlerGetPaymentMethodSuccess(response)));
     }
   };
   const getOrderDetail = useCallback(() => {
-    if (id)
-      dispatch(
-        getTicketDetailAction.request({ paths: { id } }, (response): void => handlerGetOrderDetailSuccess(response)),
-      );
+    if (id) dispatch(getOrderByIdAction.request(id, (response): void => handlerGetOrderDetailSuccess(response)));
   }, [dispatch, id]);
   const getPaymentMethodApi = useCallback(async () => {
     const params = {
@@ -74,24 +64,12 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
     setPaymentMethods(res.data);
   }, []);
   const handlerGetOrderDetailSuccess = (response: any): void => {
-    if (response.status === EResponseCode.OK) {
-      // showNotification(ETypeNotification.SUCCESS, 'Lấy chi tiết đơn hàng thành công !');
-      // setInfo(response.data.order.items[0]);
-      // settotal(response.data.order.total);
-      setPaymentItems(response.data);
-      // setArrPromotion(response.data.order.promotionCodeUsages);
-    } else {
-      showNotification(ETypeNotification.ERROR, response.message);
-      // navigate(Paths.Home);
-    }
+    setTicketList(response?.data?.bibs);
+    setOrder(response?.data?.order);
   };
   const handlerGetPaymentMethodSuccess = (response: any): void => {
-    if (response.status === EResponseCode.OK) {
-      showNotification(ETypeNotification.SUCCESS, 'Chuyển trang thanh toán');
-      navigate(response.url.uri);
-    } else {
-      showNotification(ETypeNotification.ERROR, response.message);
-    }
+    showNotification(ETypeNotification.SUCCESS, 'Chuyển trang thanh toán');
+    navigate(response.data);
   };
   const handlerClickApplyPromotion = (): void => {
     const body = {
@@ -119,7 +97,6 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
     getOrderDetail();
     getPaymentMethodApi();
   }, [getOrderDetail, getPaymentMethodApi]);
-  console.log(bibState);
   return (
     <div className="TournamentPaymentForm">
       <Form layout="vertical" form={form} onFinish={handleSubmit}>
@@ -128,18 +105,18 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
           <div className="TournamentRegisterPage-card-table expand-x">
             <table>
               <tbody>
-                {
-                  <tr className="spacing-bottom">
+                {ticketList.map((item: any, index: any) => (
+                  <tr className="spacing-bottom" key={index}>
                     <td>
-                      {paymentItems?.marathon?.state} - {paymentItems?.marathon?.distance}
-                      {paymentItems?.marathon?.unit}
+                      {item?.marathon?.state} - {item?.marathon?.distance}
+                      {item?.marathon?.unit}
                     </td>
                     <td>x1</td>
                     <td className="text-right">
-                      <strong>{parseInt(paymentItems?.price).toLocaleString('ES-es')} VNĐ</strong>
+                      <strong>{parseInt(item?.marathon?.price).toLocaleString('ES-es')} VNĐ</strong>
                     </td>
                   </tr>
-                }
+                ))}
                 {/* {arrPromotion[0] !== '' &&
                   arrPromotion.map((e: any, i) => (
                     <tr className="border-top border-bottom">
@@ -166,9 +143,7 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
                   <td />
                   <td className="text-right">
                     <strong style={{ color: '#1964FF', fontWeight: 900 }}>
-                      {parseInt(totalFee ? paymentItems?.price + totalFee : paymentItems?.price).toLocaleString(
-                        'ES-es',
-                      )}
+                      {parseInt(totalFee ? order?.total + totalFee : order?.total).toLocaleString('ES-es')}
                       {''} VNĐ
                     </strong>
                   </td>
@@ -199,7 +174,7 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
             <Radio
               spacing={16}
               options={paymentMethods}
-              onChange={(item: any): void => setTotalFee((item.feePercent * paymentItems?.price) / 100 + item.fee)}
+              onChange={(item: any): void => setTotalFee((item.feePercent * order?.total) / 100 + item.fee)}
             />
           </Form.Item>
 
@@ -293,7 +268,7 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
                 <>
                   Thanh toán {''}
                   <strong>
-                    {parseInt(totalFee ? paymentItems?.price + totalFee : paymentItems?.price).toLocaleString('ES-es')}
+                    {parseInt(totalFee ? order?.total + totalFee : order?.total).toLocaleString('ES-es')}
                     {''} VND
                   </strong>
                 </>

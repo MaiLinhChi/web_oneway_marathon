@@ -3,41 +3,19 @@ import ApiService from '@/services/api';
 
 // TYPES
 
-export type TUpdateOrderHeaders = {
-  params: {
-    limit: number;
-  };
-};
+export type TUpdateOrderId = string;
+export type TUpdateOrderBody = any;
 
 export type TUpdateOrderMaterials = {
-  requests?: TUpdateOrderHeaders;
+  id: TUpdateOrderId;
+  body: TUpdateOrderBody;
 };
-
-// export type TUpdateProfileResponse = TCommonResponse & {
-//   data: {
-//     user: {
-//       avatar?: string;
-//       birthday: null;
-//       email: string;
-//       gender: null;
-//       name: string;
-//       phone: null;
-//       id_card: null;
-//       address?: string;
-//       fullAddress?: string;
-//       ward?: string;
-//       district: string;
-//       city?: string;
-//       country?: string;
-//     };
-//   };
-// };
 
 export type TUpdateOrderResponse = TCommonResponse & any;
 
 // FUNCTION
 
-export const updateOrder = async (params: TUpdateOrderMaterials): Promise<TUpdateOrderResponse> => {
-  const response = await ApiService.put(`/order`, params.requests);
+export const updateOrder = async ({ id, body }: TUpdateOrderMaterials): Promise<TUpdateOrderResponse> => {
+  const response = await ApiService.put(`/order/${id}`, body);
   return response.data;
 };

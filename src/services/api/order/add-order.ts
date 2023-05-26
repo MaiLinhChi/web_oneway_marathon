@@ -6,6 +6,7 @@ import ApiService from '@/services/api';
 export type TAddOrderHeaders = {
   groupId?: string;
   products: any;
+  email: string;
 };
 
 export type TAddOrderMaterials = {

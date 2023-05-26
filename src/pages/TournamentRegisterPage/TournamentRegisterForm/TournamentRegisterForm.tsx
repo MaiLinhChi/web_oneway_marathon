@@ -71,7 +71,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
     let body = null;
     if (isGroup) {
       const { distance, checkVat, address, club, status, ...ress } = values;
-      const { name, startTime, price, ...res } = values.distance;
+      const { name, startTime, ...res } = values.distance;
       body = {
         ...ress,
         address: {
@@ -90,7 +90,6 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
           ...res,
         },
         clubId: club ? club.value : '',
-        price: distance.price,
         groupId: registerGroup._id,
       };
       if (!club) {
@@ -103,7 +102,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
       navigate(Paths.TournamentRegulars);
     } else {
       const { distance, checkVat, address, club, status, ...ress } = values;
-      const { name, startTime, price, ...res } = values.distance;
+      const { name, startTime, ...res } = values.distance;
       body = {
         ...ress,
         address: {
@@ -122,7 +121,6 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
           ...res,
         },
         clubId: club ? club.value : '',
-        price: distance.price,
       };
       if (!club) {
         delete body.clubId;
@@ -187,13 +185,9 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   useEffect(() => {
     getInfo();
     if (bibState) {
-      const marathonData = {
-        ...bibState.marathon,
-        price: bibState.price,
-      };
       form.setFieldsValue({
         email: bibState.email,
-        distance: marathonData,
+        distance: bibState.marathon,
         fullName: bibState.fullName,
         birthday: moment(bibState?.birthday),
         gender: bibState.gender,

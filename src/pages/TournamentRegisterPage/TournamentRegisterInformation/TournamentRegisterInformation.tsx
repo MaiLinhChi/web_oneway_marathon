@@ -8,35 +8,37 @@ import { useSelector } from 'react-redux';
 import { TRootState } from '@/redux/reducers';
 import moment from 'moment';
 
-const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProps> = ({ payment, group }) => {
+const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProps> = ({ group }) => {
   const [data, setData] = useState<any>({});
   const tabQuery = getQueryParam('tab');
   const { pathname } = useLocation();
   const type = pathname.split('/')[2];
   const raceDetailState = useSelector((state: TRootState) => state.raceReducer.detailRaceResponse);
   const ticketState = useSelector((state: TRootState) => state.registerReducer.saveTicket);
+  const orderState = useSelector((state: TRootState) => state.ordersReducer.getOrderByIdResponse?.data?.bibs?.[0]);
   const getData = useCallback(() => {
-    if (payment) {
-      setData(payment);
-      return;
-    }
     if (type === 'register' || type === 'join') {
       setData(raceDetailState);
-    } else {
+      return;
+    }
+    if (ticketState) {
       setData(ticketState);
     }
-  }, [type, raceDetailState, ticketState, payment]);
+    if (tabQuery === 'SINGLE' && orderState) {
+      setData(orderState);
+      return;
+    }
+  }, [type, raceDetailState, ticketState, orderState, tabQuery]);
 
   useEffect(() => {
     getData();
     if (group) {
       setData(group);
     }
-  }, [tabQuery, payment, group, getData]);
-  console.log(ticketState);
+  }, [tabQuery, orderState, group, getData]);
   return (
     <div className="TournamentRegisterInformation-card sticky">
-      {payment || data?.email ? (
+      {data?.email ? (
         <>
           <div className="TournamentRegisterInformation-card-title">Thông tin của bạn</div>
           <div className="TournamentRegisterInformation-card-table">
@@ -45,7 +47,7 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
                 <tr>
                   <td>Họ và tên</td>
                   <th>
-                    <strong>{data.fullName}</strong>
+                    <strong>{data?.fullName}</strong>
                   </th>
                 </tr>
                 <tr>
@@ -60,37 +62,37 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
                 <tr>
                   <td>Tên trên BIB</td>
                   <td>
-                    <strong>{data.nameBib}</strong>
+                    <strong>{data?.nameBib}</strong>
                   </td>
                 </tr>
                 <tr>
                   <td>Ngày sinh</td>
                   <td>
-                    <strong>{moment(data.birthday).format('DD/MM/YYYY')}</strong>
+                    <strong>{moment(data?.birthday).format('DD/MM/YYYY')}</strong>
                   </td>
                 </tr>
                 <tr>
                   <td>Email</td>
                   <th>
-                    <strong>{data.email}</strong>
+                    <strong>{data?.email}</strong>
                   </th>
                 </tr>
                 <tr>
                   <td>SĐT</td>
                   <td>
-                    <strong>{data.phone}</strong>
+                    <strong>{data?.phone}</strong>
                   </td>
                 </tr>
                 <tr>
                   <td>CCCD</td>
                   <td>
-                    <strong>{data.passport}</strong>
+                    <strong>{data?.passport}</strong>
                   </td>
                 </tr>
                 <tr>
                   <td>Size áo</td>
                   <td>
-                    <strong>{data.shirtSize}</strong>
+                    <strong>{data?.shirtSize}</strong>
                   </td>
                 </tr>
               </tbody>
@@ -120,27 +122,6 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
           </div>
         </>
       )}
-      {/* // <>
-      //   <div className="TournamentRegisterInformation-card-title">Thông tin nhóm</div>
-      //   <div className="TournamentRegisterInformation-card-table expand-x">
-      //     <table>
-      //       <tbody>
-      //         <tr>
-      //           <td>Tên nhóm</td>
-      //           <td style={{ width: '100%' }}>
-      //             <strong>Only tiger</strong>
-      //           </td>
-      //         </tr>
-      //         <tr>
-      //           <td>Thành viên</td>
-      //           <td style={{ width: '100%' }}>
-      //             <strong>3</strong>
-      //           </td>
-      //         </tr>
-      //       </tbody>
-      //     </table>
-      //   </div>
-      // </> */}
     </div>
   );
 };

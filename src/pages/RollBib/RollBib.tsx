@@ -22,10 +22,7 @@ const RollBib: React.FC = () => {
   //   key: EKeyStepRollBib.ROLL,
   // });
   const getOrderDetail = useCallback(() => {
-    if (id)
-      dispatch(
-        getTicketDetailAction.request({ paths: { id } }, (response): void => handlerGetOrderDetailSuccess(response)),
-      );
+    if (id) dispatch(getTicketDetailAction.request({ id }, (response): void => handlerGetOrderDetailSuccess(response)));
   }, [dispatch, id]);
   const handlerGetOrderDetailSuccess = (response: any): void => {
     if (response.status === EResponseCode.OK) {

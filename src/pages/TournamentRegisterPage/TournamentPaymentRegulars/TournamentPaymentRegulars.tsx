@@ -1,56 +1,74 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Col, Form, Row } from 'antd';
 
-import { getQueryParam, showNotification, validationRules } from '@/utils/functions';
+import { validationRules } from '@/utils/functions';
 import Checkbox from '@/components/Checkbox';
-import Radio from '@/components/Radio';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { TTournamentPaymentFormProps } from './TournamentPaymentRegulars.types';
 import Button from '@/components/Button';
 import { navigate } from '@reach/router';
-import { registerTicketAction, runnerRegisterGroupAction } from '@/redux/actions';
-import { EResponseCode, ETypeNotification } from '@/common/enums';
+import { addOrderAction, registerTicketAction, runnerRegisterGroupAction, updateTicketAction } from '@/redux/actions';
 import { Paths } from '@/pages/routers';
 import { TRootState } from '@/redux/reducers';
+import { EKeyTabTournamentRegisterPage } from '../TournamentRegisterPage.enums';
 
 const TournamentPaymentRegulars: React.FC<TTournamentPaymentFormProps> = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.listGroupsResponse?.[0]);
-  const bibState = useSelector((state: TRootState) => state.registerReducer?.saveTicket);
+  const saveTicketState = useSelector((state: TRootState) => state.registerReducer?.saveTicket);
+  const registerticketState = useSelector((state: TRootState) => state.registerReducer.registerTicketResponse);
   const raceDetailState = useSelector((state: TRootState) => state.raceReducer.detailRaceResponse);
+  const postOrderState = useSelector((state: TRootState) => state.ordersReducer.addOrder?.data);
   const handleSubmit = (values: any): void => {
     if (registerGroup) {
-      const isExist = registerGroup?.membership?.some((item: any) => item.email === bibState.email);
+      const isExist = registerGroup?.membership?.some((item: any) => item.email === saveTicketState.email);
       const body = {
-        email: bibState.email,
-        phone: bibState.phone,
-        fullName: bibState.fullName,
+        email: saveTicketState.email,
+        phone: saveTicketState.phone,
+        fullName: saveTicketState.fullName,
       };
       if (!isExist) {
-        dispatch(registerTicketAction.request({ body: bibState }));
+        dispatch(registerTicketAction.request({ body: saveTicketState }));
         dispatch(
           runnerRegisterGroupAction.request({ id: registerGroup._id, body }, (response): void =>
             handlerJoinGroupSuccess(response),
           ),
         );
       }
-      dispatch(registerTicketAction.request({ body: bibState }, (response): void => handlerJoinGroupSuccess(response)));
+      dispatch(
+        registerTicketAction.request({ body: saveTicketState }, (response): void => handlerJoinGroupSuccess(response)),
+      );
     } else {
-      dispatch(registerTicketAction.request({ body: bibState }, (response): void => handleRegitserSuccess(response)));
+      if (!postOrderState) {
+        dispatch(
+          registerTicketAction.request({ body: saveTicketState }, (response): void =>
+            handleRegitserTicketSuccess(response),
+          ),
+        );
+      }
+      dispatch(updateTicketAction.request({ id: registerticketState._id, body: saveTicketState }));
+      navigate(Paths.TournamentPayment(`${postOrderState?._id}?tab=${EKeyTabTournamentRegisterPage.SINGLE}`));
     }
   };
   const handlerJoinGroupSuccess = (response: any): void => {
     navigate(Paths.TournamentRegisterGroupEnd);
-    return;
+  };
+  const handleRegitserTicketSuccess = (bibResponse: any): void => {
+    const body = {
+      email: saveTicketState.email,
+      products: [bibResponse?.data?._id],
+      total: bibResponse?.data?.marathon?.price,
+    };
+    dispatch(addOrderAction.request({ body }, (response): void => handleRegitserSuccess(response)));
   };
   const handleRegitserSuccess = (response: any): void => {
-    navigate(Paths.TournamentPayment(response.data?._id));
+    navigate(Paths.TournamentPayment(`${response.data?._id}?tab=${EKeyTabTournamentRegisterPage.SINGLE}`));
   };
   useEffect(() => {
-    // if (!bibState) navigate(Paths.Home);
-  }, [bibState]);
+    // if (!saveTicketState) navigate(Paths.Home);
+  }, [saveTicketState]);
   return (
     <div className="TournamentPaymentForm">
       <Form layout="vertical" form={form} onFinish={handleSubmit}>
