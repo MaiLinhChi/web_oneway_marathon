@@ -29,7 +29,7 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
       setData(orderState);
       return;
     }
-  }, [type, raceDetailState, ticketState, orderState, tabQuery]);
+  }, [type, raceDetailState, ticketState, orderState]);
 
   useEffect(() => {
     getData();
