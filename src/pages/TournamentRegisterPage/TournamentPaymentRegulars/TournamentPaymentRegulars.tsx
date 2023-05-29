@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Col, Form, Row } from 'antd';
 
-import { validationRules } from '@/utils/functions';
+import { getQueryParam, validationRules } from '@/utils/functions';
 import Checkbox from '@/components/Checkbox';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -16,13 +16,15 @@ import { EKeyTabTournamentRegisterPage } from '../TournamentRegisterPage.enums';
 const TournamentPaymentRegulars: React.FC<TTournamentPaymentFormProps> = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const key = 'tab';
+  const tabQuery = getQueryParam(key);
   const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.listGroupsResponse?.[0]);
   const saveTicketState = useSelector((state: TRootState) => state.registerReducer?.saveTicket);
   const registerticketState = useSelector((state: TRootState) => state.registerReducer.registerTicketResponse);
   const raceDetailState = useSelector((state: TRootState) => state.raceReducer.detailRaceResponse);
   const postOrderState = useSelector((state: TRootState) => state.ordersReducer.addOrder?.data);
   const handleSubmit = (values: any): void => {
-    if (registerGroup) {
+    if (tabQuery === 'MULTIPLE') {
       const isExist = registerGroup?.membership?.some((item: any) => item.email === saveTicketState.email);
       const body = {
         email: saveTicketState.email,
@@ -60,6 +62,7 @@ const TournamentPaymentRegulars: React.FC<TTournamentPaymentFormProps> = () => {
       email: saveTicketState.email,
       products: [bibResponse?.data?._id],
       total: bibResponse?.data?.marathon?.price,
+      marathonId: raceDetailState._id,
     };
     dispatch(addOrderAction.request({ body }, (response): void => handleRegitserSuccess(response)));
   };
@@ -67,7 +70,7 @@ const TournamentPaymentRegulars: React.FC<TTournamentPaymentFormProps> = () => {
     navigate(Paths.TournamentPayment(`${response.data?._id}?tab=${EKeyTabTournamentRegisterPage.SINGLE}`));
   };
   useEffect(() => {
-    // if (!saveTicketState) navigate(Paths.Home);
+    if (!saveTicketState) navigate(Paths.Home);
   }, [saveTicketState]);
   return (
     <div className="TournamentPaymentForm">

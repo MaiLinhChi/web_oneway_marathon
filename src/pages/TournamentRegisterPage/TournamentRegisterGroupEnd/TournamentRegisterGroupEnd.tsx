@@ -11,10 +11,10 @@ import { Paths } from '@/pages/routers';
 
 const TournamentRegisterGroupEnd: React.FC = () => {
   const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.listGroupsResponse?.[0]);
-  const bibState = useSelector((state: TRootState) => state.registerReducer?.registerTicketResponse?.body);
+  const ticketSaveState = useSelector((state: TRootState) => state.registerReducer.saveTicket);
   useEffect(() => {
-    if (!registerGroup || !bibState) navigate(Paths.Home);
-  }, [registerGroup, bibState]);
+    if (!registerGroup || !ticketSaveState) navigate(Paths.Home);
+  }, [registerGroup, ticketSaveState]);
   return (
     <div className="TournamentRegisterPage">
       <div className="TournamentRegisterPage-background">
@@ -73,55 +73,55 @@ const TournamentRegisterGroupEnd: React.FC = () => {
                       <tr>
                         <td>Họ và tên</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{bibState?.fullName}</strong>
+                          <strong>{ticketSaveState?.fullName}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Cự ly</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{bibState?.phone}</strong>
+                          <strong>{ticketSaveState?.phone}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Tên trên BIB</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{bibState?.nameBib}</strong>
+                          <strong>{ticketSaveState?.nameBib}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Ngày sinh</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{bibState?.phone}</strong>
+                          <strong>{ticketSaveState?.phone}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Giới tính</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{bibState?.gender}</strong>
+                          <strong>{ticketSaveState?.gender}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Email</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{bibState?.email}</strong>
+                          <strong>{ticketSaveState?.email}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>SĐT</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{bibState?.phone}</strong>
+                          <strong>{ticketSaveState?.phone}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>CCCD</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{bibState?.passport}</strong>
+                          <strong>{ticketSaveState?.passport}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Size áo</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{bibState?.shirtSize}</strong>
+                          <strong>{ticketSaveState?.shirtSize}</strong>
                         </td>
                       </tr>
                     </table>

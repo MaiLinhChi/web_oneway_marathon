@@ -29,6 +29,7 @@ import { navigate } from '@reach/router';
 import { Paths } from '@/pages/routers';
 import moment from 'moment';
 import TimePicker from '@/components/TimePicker';
+import { EKeyTabTournamentRegisterPage } from '../TournamentRegisterPage.enums';
 
 dayjs.extend(customParseFormat);
 
@@ -99,7 +100,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
         delete body.address;
       }
       dispatch(registerTicketAction.save(body));
-      navigate(Paths.TournamentRegulars);
+      navigate(`${Paths.TournamentRegulars}?tab=${EKeyTabTournamentRegisterPage.MULTIPLE}`);
     } else {
       const { distance, checkVat, address, club, status, ...ress } = values;
       const { name, startTime, ...res } = values.distance;
@@ -132,7 +133,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
         delete body.address;
       }
       dispatch(registerTicketAction.save(body));
-      navigate(Paths.TournamentRegulars);
+      navigate(`${Paths.TournamentRegulars}?tab=${EKeyTabTournamentRegisterPage.SINGLE}`);
     }
   };
   const handleSetBill = (value: boolean): void => {

@@ -20,9 +20,9 @@ const Tournaments: React.FC<TTournamentsProps> = ({ data }) => {
                 <Col lg={{ span: 8 }} xs={{ span: 12 }} key={item}>
                   <div
                     className="Tournaments-group-list-item"
-                    // onClick={(): void => {
-                    //   navigate(Paths.TournamentDetail(item._id));
-                    // }}
+                    onClick={(): void => {
+                      navigate(Paths.TournamentDetail(item._id));
+                    }}
                   >
                     <img src={item.image} alt="" />
                   </div>

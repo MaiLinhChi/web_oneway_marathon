@@ -10,12 +10,11 @@ import Button from '@/components/Button';
 import './TournamentDetail.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { TRootState } from '@/redux/reducers';
-import { detailRaceAction, getGroupsAction, getTicketsAction } from '@/redux/actions';
+import { detailRaceAction, getGroupsAction, getOrdersAction, getTicketsAction } from '@/redux/actions';
 import { Link, useParams } from '@reach/router';
 import { Paths } from '../routers';
 import { copyText, truncateStringByWords } from '@/utils/functions';
 import Table from '@/components/Table';
-import AuthHelpers from '@/services/helpers';
 import Pagination from '@/components/Pagination';
 import TabRectangle, { ETabRectangleStyleType } from '@/components/TabRectangle';
 import { columnsBibIndivitual, columnsBibGroups } from './TournamentDetai.data';
@@ -27,29 +26,26 @@ const TournamentDetail: React.FC = () => {
   const [pageIndex, setPageIndex] = useState(1);
   const groupState = useSelector((state: TRootState) => state.registerGroupReducer.listGroupsResponse);
   const [activeTab, setActiveTab] = useState(groupState?.[0]);
-  const atk = AuthHelpers.getAccessToken();
-  const raceState = useSelector((state: TRootState) => state.raceReducer.detailRaceResponse?.data);
+  const raceState = useSelector((state: TRootState) => state.raceReducer.detailRaceResponse);
   const profileState = useSelector((state: TRootState) => state.profileReducer.getProfileResponse?.data);
   const bibsState = useSelector((state: TRootState) => state.registerReducer.getTicketsResponse);
+  const ordersState = useSelector((state: TRootState) => state.ordersReducer.getOrdersResponse?.data);
   const getRaces = useCallback(() => {
-    dispatch(detailRaceAction.request({ id: id, params: {} }));
+    dispatch(detailRaceAction.request({ id }));
   }, [dispatch, id]);
 
   const getOrdersIndividual = useCallback(() => {
     if (!profileState?.email || !raceState?._id) return;
     const materials = {
-      headers: {
-        authorization: `Bearer ${atk}`,
-      },
       params: {
         email: profileState.email,
-        marathon: raceState._id,
+        marathonId: raceState._id,
         pageSize,
         pageIndex,
       },
     };
-    dispatch(getTicketsAction.request(materials));
-  }, [dispatch, atk, profileState?.email, raceState?._id, pageSize, pageIndex]);
+    dispatch(getOrdersAction.request(materials));
+  }, [dispatch, profileState?.email, raceState?._id, pageSize, pageIndex]);
 
   const getGroup = useCallback(() => {
     if (!profileState?.email || !raceState?._id) return;
@@ -65,6 +61,7 @@ const TournamentDetail: React.FC = () => {
     getOrdersIndividual();
     getGroup();
   }, [dispatch, getRaces, getOrdersIndividual, getGroup]);
+  console.log(ordersState);
   return (
     <div className="TournamentDetail">
       <div className="container">

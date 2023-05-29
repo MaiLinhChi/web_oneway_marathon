@@ -29,6 +29,7 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = () => {
   const key = 'tab';
   const tabQuery = getQueryParam(key);
   const payment = pathname.includes('payment');
+  const register = pathname.includes('register');
   const regulations = pathname.includes('regulations');
   const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
   const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.listGroupsResponse?.[0]);
@@ -75,8 +76,8 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = () => {
             <h2 className="TournamentRegisterPage-title">
               {payment
                 ? 'Thanh toán'
-                : registerGroup
-                ? `Đăng ký tham gia nhóm ${registerGroup.groupName}`
+                : tabQuery === 'MULTIPLE' && !register
+                ? `Đăng ký tham gia nhóm ${registerGroup?.groupName}`
                 : 'Đăng ký tham gia'}
             </h2>
           </Col>
