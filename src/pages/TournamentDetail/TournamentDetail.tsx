@@ -51,9 +51,8 @@ const TournamentDetail: React.FC = () => {
   const getBibGroup = useCallback(() => {
     if (!profileState?.email || !raceState?._id) return;
     const params = {
-      email: profileState.email,
       marathon: raceState._id,
-      groupId: activeTab._id,
+      groupId: activeTab?._id,
       pageSize,
       pageIndex,
     };
@@ -74,11 +73,13 @@ const TournamentDetail: React.FC = () => {
   };
 
   useEffect(() => {
-    getRaces();
     getOrdersIndividual();
+  }, [getOrdersIndividual]);
+  useEffect(() => {
+    getRaces();
     getGroup();
     getBibGroup();
-  }, [dispatch, getRaces, getOrdersIndividual, getGroup, getBibGroup]);
+  }, [dispatch, getRaces, getGroup, getBibGroup]);
   return (
     <div className="TournamentDetail">
       <div className="container">
@@ -156,7 +157,7 @@ const TournamentDetail: React.FC = () => {
                 />
               </div>
             </div>
-            {ticketsState?.data?.length && (
+            {groupState?.length && (
               <div className="TournamentDetail-section">
                 <h2 className="TournamentDetail-subtitle">Thông tin đăng ký Nhóm </h2>
                 <div className="TournamentDetail-tab">

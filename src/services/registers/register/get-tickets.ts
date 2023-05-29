@@ -3,7 +3,6 @@ import RegistersService from '@/services/registers';
 
 // TYPES
 export type TGetTicketsParams = {
-  email: string;
   marathon: string;
   groupId: string;
   pageSize: number;
