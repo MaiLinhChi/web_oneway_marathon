@@ -14,7 +14,8 @@ import moment from 'moment';
 const TournamentRegisterGroupEnd: React.FC = () => {
   const dispatch = useDispatch();
   const registerGroup = useSelector(
-    (state: TRootState) => state.registerGroupReducer.runnerRegisterGroupResponse?.data,
+    (state: TRootState) =>
+      state.registerGroupReducer.runnerRegisterGroupResponse?.data || state.registerGroupReducer.listGroupsResponse[0],
   );
   const ticketState = useSelector((state: TRootState) => state.registerReducer.registerTicketResponse);
   useEffect(() => {
@@ -85,7 +86,10 @@ const TournamentRegisterGroupEnd: React.FC = () => {
                       <tr>
                         <td>Cự ly</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{ticketState?.marathon?.distance}</strong>
+                          <strong>
+                            {ticketState?.marathon?.distance}
+                            {ticketState?.marathon?.unit}
+                          </strong>
                         </td>
                       </tr>
                       <tr>
