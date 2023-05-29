@@ -9,6 +9,7 @@ import { TRootState } from '@/redux/reducers';
 import { navigate } from '@reach/router';
 import { Paths } from '@/pages/routers';
 import { registerTicketAction } from '@/redux/actions';
+import moment from 'moment';
 
 const TournamentRegisterGroupEnd: React.FC = () => {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ const TournamentRegisterGroupEnd: React.FC = () => {
       </div>
       <div className="container">
         <div className="TournamentRegisterPage-wrapper">
-          <h2 className="TournamentRegisterPage-title">Đăng ký tham gia nhóm </h2>
+          <h2 className="TournamentRegisterPage-title">Đăng ký tham gia nhóm {registerGroup.groupName}</h2>
 
           <div className="TournamentRegisterPage-main">
             <Row gutter={[24, 24]} className="reverse">
@@ -35,7 +36,7 @@ const TournamentRegisterGroupEnd: React.FC = () => {
                 <div className="TournamentRegisterPage-main-success">
                   <div className="TournamentRegisterPage-main-success-header">
                     <Icon name={EIconName.CheckCircle} color="white" />
-                    <span>Tạo nhóm thành công</span>
+                    <span>Đăng ký tham gia nhóm thành công</span>
                   </div>
                   <div className="TournamentRegisterPage-main-success-body">
                     <h3>Tên nhóm: {registerGroup?.groupName}</h3>
@@ -84,7 +85,7 @@ const TournamentRegisterGroupEnd: React.FC = () => {
                       <tr>
                         <td>Cự ly</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{ticketState?.phone}</strong>
+                          <strong>{ticketState?.marathon?.distance}</strong>
                         </td>
                       </tr>
                       <tr>
@@ -96,7 +97,7 @@ const TournamentRegisterGroupEnd: React.FC = () => {
                       <tr>
                         <td>Ngày sinh</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{ticketState?.phone}</strong>
+                          <strong>{moment(ticketState?.birthday).format('DD/MM/YYYY')}</strong>
                         </td>
                       </tr>
                       <tr>

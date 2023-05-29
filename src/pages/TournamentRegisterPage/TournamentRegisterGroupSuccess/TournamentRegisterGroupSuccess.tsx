@@ -10,6 +10,7 @@ import { navigate, useParams } from '@reach/router';
 import { EKeyTabTournamentRegisterPage } from '@/pages/TournamentRegisterPage/TournamentRegisterPage.enums';
 import AuthHelpers from '@/services/helpers';
 import { getGroupById } from '@/services/registers/register-group/register-group-by-id';
+import { copyText } from '@/utils/functions';
 
 const TournamentRegisterGroupSuccess: React.FC = () => {
   const [group, setGroup] = useState<any>({});
@@ -69,7 +70,7 @@ const TournamentRegisterGroupSuccess: React.FC = () => {
                         <div className="link" onClick={handlerClick}>
                           {group?.linkJoin}
                         </div>
-                        <Button title="Sao chép" type="primary" />
+                        <Button title="Sao chép" type="primary" onClick={(): void => copyText(group?.linkJoin)} />
                       </div>
                       <div className="TournamentRegisterPage-main-success-body-copy-bottom">
                         Hướng dẫn: Để đăng ký theo nhóm (từ 2 người) bạn cần làm theo các bước sau: Bước 1: Chia sẻ

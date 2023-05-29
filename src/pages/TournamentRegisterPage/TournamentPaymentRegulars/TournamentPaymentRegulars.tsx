@@ -25,7 +25,9 @@ const TournamentPaymentRegulars: React.FC<TTournamentPaymentFormProps> = () => {
   const postOrderState = useSelector((state: TRootState) => state.ordersReducer.addOrder?.data);
   const handleSubmit = (values: any): void => {
     if (tabQuery === 'MULTIPLE') {
-      const isExist = registerGroup?.membership?.some((item: any) => item.email === saveTicketState.email);
+      const isExist = registerGroup?.membership?.some(
+        (item: any) => item.email === saveTicketState.email && item.role !== 'leader',
+      );
       if (!isExist) {
         dispatch(
           registerTicketAction.request({ body: saveTicketState }, (response): void =>

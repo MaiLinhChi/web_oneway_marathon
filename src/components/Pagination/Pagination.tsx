@@ -26,7 +26,6 @@ const Pagination: React.FC<TPaginationProps> = ({ page, pageSize, total = 0, cla
   return (
     <div className={classNames('Pagination flex items-center', className)}>
       <AntdPagination
-        current={page}
         pageSize={pageSize}
         total={total}
         showQuickJumper={false}
