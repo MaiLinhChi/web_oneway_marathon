@@ -53,11 +53,12 @@ const TournamentDetail: React.FC = () => {
     const params = {
       email: profileState.email,
       marathon: raceState._id,
+      groupId: activeTab._id,
       pageSize,
       pageIndex,
     };
     dispatch(getTicketsAction.request({ params }));
-  }, [dispatch, profileState?.email, raceState?._id, pageSize, pageIndex]);
+  }, [dispatch, profileState?.email, raceState?._id, pageSize, pageIndex, activeTab]);
 
   const getGroup = useCallback(() => {
     if (!profileState?.email || !raceState?._id) return;
