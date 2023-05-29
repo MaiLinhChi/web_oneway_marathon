@@ -4,17 +4,22 @@ import { Col, Row } from 'antd';
 import BackgroundRegisterPage from '@/assets/images/image-home-banner-3.jpg';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import Button from '@/components/Button';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { TRootState } from '@/redux/reducers';
 import { navigate } from '@reach/router';
 import { Paths } from '@/pages/routers';
+import { registerTicketAction } from '@/redux/actions';
 
 const TournamentRegisterGroupEnd: React.FC = () => {
-  const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.listGroupsResponse?.[0]);
-  const ticketSaveState = useSelector((state: TRootState) => state.registerReducer.saveTicket);
+  const dispatch = useDispatch();
+  const registerGroup = useSelector(
+    (state: TRootState) => state.registerGroupReducer.runnerRegisterGroupResponse?.data,
+  );
+  const ticketState = useSelector((state: TRootState) => state.registerReducer.registerTicketResponse);
   useEffect(() => {
-    if (!registerGroup || !ticketSaveState) navigate(Paths.Home);
-  }, [registerGroup, ticketSaveState]);
+    if (!registerGroup || !ticketState) navigate(Paths.Home);
+    dispatch(registerTicketAction.save(undefined));
+  }, [registerGroup, ticketState, dispatch]);
   return (
     <div className="TournamentRegisterPage">
       <div className="TournamentRegisterPage-background">
@@ -73,55 +78,55 @@ const TournamentRegisterGroupEnd: React.FC = () => {
                       <tr>
                         <td>Họ và tên</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{ticketSaveState?.fullName}</strong>
+                          <strong>{ticketState?.fullName}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Cự ly</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{ticketSaveState?.phone}</strong>
+                          <strong>{ticketState?.phone}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Tên trên BIB</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{ticketSaveState?.nameBib}</strong>
+                          <strong>{ticketState?.nameBib}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Ngày sinh</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{ticketSaveState?.phone}</strong>
+                          <strong>{ticketState?.phone}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Giới tính</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{ticketSaveState?.gender}</strong>
+                          <strong>{ticketState?.gender}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Email</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{ticketSaveState?.email}</strong>
+                          <strong>{ticketState?.email}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>SĐT</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{ticketSaveState?.phone}</strong>
+                          <strong>{ticketState?.phone}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>CCCD</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{ticketSaveState?.passport}</strong>
+                          <strong>{ticketState?.passport}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Size áo</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{ticketSaveState?.shirtSize}</strong>
+                          <strong>{ticketState?.shirtSize}</strong>
                         </td>
                       </tr>
                     </table>

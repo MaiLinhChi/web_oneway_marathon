@@ -7,6 +7,7 @@ export type TRunnerRegisterGroupBody = {
   email?: string;
   phone?: string;
   fullName?: string;
+  bibId: string;
 };
 
 export type TRunnerRegisterGroupMaterials = {

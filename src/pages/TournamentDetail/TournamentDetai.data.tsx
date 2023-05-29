@@ -11,19 +11,19 @@ export const columnsBibIndivitual = [
     render: (_: string, __: any, index: number): string => `${index + 1}`,
   },
   {
-    key: 'fullName',
-    dataIndex: 'fullName',
+    key: 'products',
+    dataIndex: 'products',
     title: 'Họ và tên',
-    render: (item: string): string => item,
+    render: (item: any): string => item[0]?.fullName,
   },
   {
-    key: 'marathon',
-    dataIndex: 'marathon',
+    key: 'products',
+    dataIndex: 'products',
     title: 'Cự ly',
     render: (item: any): ReactElement => (
       <span>
-        {item.distance}
-        {item.unit}
+        {item[0]?.marathon?.distance}
+        {item[0]?.marathon?.unit}
       </span>
     ),
   },
@@ -125,21 +125,16 @@ export const columnsBibGroups = [
     ),
   },
   {
-    key: 'marathon',
-    dataIndex: 'marathon',
+    key: 'createdAt',
+    dataIndex: 'createdAt',
     title: 'Thời gian đăng ký',
-    render: (item: any): ReactElement => (
-      <span>
-        {item.distance}
-        {item.unit}
-      </span>
-    ),
+    render: (item: any): ReactElement => <span>{item}</span>,
   },
   {
-    key: 'price',
-    dataIndex: 'price',
+    key: 'marathon',
+    dataIndex: 'marathon',
     title: 'Giá tiền',
-    render: (item: string): ReactElement => <span>{item}</span>,
+    render: (item: any): ReactElement => <span>{parseInt(item.price).toLocaleString('ES-es')}VND</span>,
   },
   {
     key: 'status',

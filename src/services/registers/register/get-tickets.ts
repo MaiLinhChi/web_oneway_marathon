@@ -5,20 +5,17 @@ import RegistersService from '@/services/registers';
 export type TGetTicketsParams = {
   email: string;
   marathon: string;
-};
-
-export type TGetTicketsHeaders = {
-  authorization: string;
+  pageSize: number;
+  pageIndex: number;
 };
 
 export type TGetTicketsMaterials = {
-  headers?: TGetTicketsHeaders;
   params: TGetTicketsParams;
 };
 
 export type TGetTicketsResponse = any | TCommonResponse;
 
-export const getTickets = async (materials: TGetTicketsMaterials): Promise<TGetTicketsResponse> => {
-  const response = await RegistersService.get(`bibs`, materials);
+export const getTickets = async (params: TGetTicketsMaterials): Promise<TGetTicketsResponse> => {
+  const response = await RegistersService.get(`bibs`, params);
   return response.data;
 };
