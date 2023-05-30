@@ -36,6 +36,7 @@ const TournamentDetail = lazy(() => retryLoadComponent(() => import('@/pages/Tou
 const TournamentRegister = lazy(() => retryLoadComponent(() => import('@/pages/TournamentRegisterPage')));
 const TournamentPayment = lazy(() => retryLoadComponent(() => import('@/pages/TournamentPayment')));
 const TournamentRegulars = lazy(() => retryLoadComponent(() => import('@/pages/TournamentRegisterPage')));
+const EditBibGroup = lazy(() => retryLoadComponent(() => import('@/pages/EditBibGroup')));
 const RollBib = lazy(() => retryLoadComponent(() => import('@/pages/RollBib')));
 const NotFound = lazy(() => retryLoadComponent(() => import('@/pages/NotFound')));
 const BuyOnlineTicketTutorials = lazy(() => retryLoadComponent(() => import('@/pages/BuyOnlineTicketTutorials')));
@@ -101,6 +102,7 @@ export const Paths = {
   TournamentRegisterGroupJoin: (id?: string): string => `/register-group/join/${id || ':id'}`,
   TournamentPaymentSuccess: (id?: string): string => `/payment-result/${id || ':id'}`,
   TournamentRegisterGroupEnd: `/register-group/end`,
+  EditBibGroup: (id?: string): string => `/group/edit-bib/${id || ':id'}`,
   Rest: '*',
 };
 
@@ -134,6 +136,7 @@ export const Pages = {
   TournamentRegisterGroupJoin,
   TournamentPaymentSuccess,
   TournamentRegisterGroupEnd,
+  EditBibGroup,
 };
 
 interface IRouteProps extends RouteComponentProps {

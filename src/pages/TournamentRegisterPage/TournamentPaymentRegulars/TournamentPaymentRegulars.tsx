@@ -29,17 +29,31 @@ const TournamentPaymentRegulars: React.FC<TTournamentPaymentFormProps> = () => {
         (item: any) => item.email === saveTicketState.email && item.role !== 'leader',
       );
       if (!isExist) {
-        dispatch(
-          registerTicketAction.request({ body: saveTicketState }, (response): void =>
-            handlerJoinGroupProcess(response),
-          ),
-        );
-        return;
+        registerticketState
+          ? dispatch(
+              updateTicketAction.request({ id: registerticketState._id, body: saveTicketState }, (response): void =>
+                handlerJoinGroupSuccess(response),
+              ),
+            )
+          : dispatch(
+              registerTicketAction.request({ body: saveTicketState }, (response): void =>
+                handlerJoinGroupProcess(response),
+              ),
+            );
+      } else {
+        registerticketState
+          ? dispatch(
+              updateTicketAction.request({ id: registerticketState._id, body: saveTicketState }, (response): void =>
+                handlerJoinGroupSuccess(response),
+              ),
+            )
+          : dispatch(
+              registerTicketAction.request({ body: saveTicketState }, (response): void =>
+                handlerJoinGroupSuccess(response),
+              ),
+            );
       }
-      dispatch(
-        registerTicketAction.request({ body: saveTicketState }, (response): void => handlerJoinGroupSuccess(response)),
-      );
-    } else {
+    } else if (tabQuery === 'SINGLE') {
       if (!postOrderState) {
         dispatch(
           registerTicketAction.request({ body: saveTicketState }, (response): void =>

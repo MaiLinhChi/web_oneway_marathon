@@ -337,3 +337,23 @@
     }
   }
 }
+
+.Modal {
+  &-title {
+    font-weight: 700;
+    font-size: 34.1224px;
+    line-height: 41px;
+    letter-spacing: -0.02em;
+    color: #001375;
+    text-align: center;
+  }
+  &-description {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: -0.02em;
+    color: #EA3629;
+    text-align: center;
+    margin: 10px 0;
+  }
+}

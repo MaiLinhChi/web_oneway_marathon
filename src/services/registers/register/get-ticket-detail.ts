@@ -5,7 +5,7 @@ import ApiService from '@/services/api';
 export type TGetTicketDetailParams = unknown;
 
 export type TGetTicketDetailMaterials = {
-  id?: string;
+  id: string;
 };
 
 export type TGetTicketDetailResponse = any;

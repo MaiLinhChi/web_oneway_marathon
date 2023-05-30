@@ -18,6 +18,8 @@ import AngleRight from './AngleRight';
 import MinusCircle from './MinusCircle';
 import Copy from './Copy';
 import Bars from './Bars';
+import Delete from './Delete';
+import Edit from './Edit';
 import Close from './Close';
 import CheckCircle from './CheckCircle';
 import Clock from './Clock';
@@ -37,6 +39,10 @@ const Icon: React.FC<TIconProps> = ({ name, className, color, onClick }) => {
         return <Eye color={color} />;
       case EIconName.EyeClosed:
         return <EyeClosed color={color} />;
+      case EIconName.Delete:
+        return <Delete color={color} />;
+      case EIconName.Edit:
+        return <Edit color={color} />;
       case EIconName.Calendar:
         return <Calendar color={color} />;
       case EIconName.AngleDown:

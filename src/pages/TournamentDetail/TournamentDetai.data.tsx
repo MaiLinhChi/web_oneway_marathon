@@ -1,7 +1,11 @@
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import { copyText } from '@/utils/functions';
 import CopyIcon from '@/assets/icons/copy.svg';
 import Button from '@/components/Button';
+import { EIconName } from '@/components/Icon';
+import Modal from '@/components/Modal';
+import { navigate } from '@reach/router';
+import { Paths } from '../routers';
 
 export const columnsBibIndivitual = [
   {
@@ -100,7 +104,7 @@ export const columnsBibIndivitual = [
   },
 ];
 
-export const columnsBibGroups = [
+export const columnsBibGroups = (handleClick: any): any => [
   {
     key: 'index',
     dataIndex: 'index',
@@ -141,11 +145,25 @@ export const columnsBibGroups = [
     dataIndex: 'status',
     title: '',
     width: 300,
-    render: (item: string): any => {
+    render: (item: string, obj: any): any => {
       return (
         <div className="wrapperAction flex items-center justify-between">
-          <Button title="Chỉnh sửa" type="ghost" />
-          <Button title="Xoá" type="ghost" />
+          <Button
+            title="Sửa"
+            type="ghost"
+            backgroundColor="#E6EBF0"
+            iconName={EIconName.Edit}
+            className="btn-edit"
+            onClick={(): any => navigate(Paths.EditBibGroup(obj._id))}
+          />
+          <Button
+            title="Xoá"
+            type="ghost"
+            backgroundColor="#E6EBF0"
+            iconName={EIconName.Delete}
+            className="btn-delete"
+            onClick={(): void => handleClick(true)}
+          />
         </div>
       );
     },

@@ -46,6 +46,9 @@
           &:nth-child(even) {
             background: #F2F6F8;
           }
+          &:last-child {
+            background: #E9F7FF;
+          }
         }
         // &:nth-child(even) {
         //   td {

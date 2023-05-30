@@ -10,6 +10,8 @@ export enum EIconName {
   AngleLeft = 'AngleLeft',
   AngleRight = 'AngleRight',
   Copy = 'Copy',
+  Edit = 'Edit',
+  Delete = 'Delete',
   MinusCircle = 'MinusCircle',
   Bars = 'Bars',
   Close = 'Close',

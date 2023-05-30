@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { ReactElement, useCallback, useEffect, useState } from 'react';
 import { Col, Row } from 'antd';
 
 import ImageHomeBanner1 from '@/assets/images/image-home-banner-1.png';
@@ -17,7 +17,8 @@ import { copyText, truncateStringByWords } from '@/utils/functions';
 import Table from '@/components/Table';
 import Pagination from '@/components/Pagination';
 import TabRectangle, { ETabRectangleStyleType } from '@/components/TabRectangle';
-import { columnsBibIndivitual, columnsBibGroups } from './TournamentDetai.data';
+import { columnsBibGroups, columnsBibIndivitual } from './TournamentDetai.data';
+import Modal from '@/components/Modal';
 
 const TournamentDetail: React.FC = () => {
   const dispatch = useDispatch();
@@ -26,11 +27,14 @@ const TournamentDetail: React.FC = () => {
   const [pageIndex, setPageIndex] = useState(1);
   const [pageSizeBib, setPageSizeBib] = useState(10);
   const [pageIndexBib, setPageIndexBib] = useState(1);
+  const [openDeleteGroup, setOpenDeleteGroup] = useState(false);
+  const [openDeleteMember, setOpenDeleteMember] = useState(false);
   const groupState = useSelector((state: TRootState) => state.registerGroupReducer.listGroupsResponse);
   const [activeTab, setActiveTab] = useState(groupState?.[0]);
   const raceState = useSelector((state: TRootState) => state.raceReducer.detailRaceResponse);
   const profileState = useSelector((state: TRootState) => state.profileReducer.getProfileResponse?.data);
   const ticketsState = useSelector((state: TRootState) => state.registerReducer.getTicketsResponse);
+  const updateTicketsState = useSelector((state: TRootState) => state.registerReducer.registerTicketResponse);
   const ordersState = useSelector((state: TRootState) => state.ordersReducer.getOrdersResponse);
   const getRaces = useCallback(() => {
     dispatch(detailRaceAction.request({ id }));
@@ -47,7 +51,6 @@ const TournamentDetail: React.FC = () => {
     };
     dispatch(getOrdersAction.request(materials));
   }, [dispatch, profileState?.email, raceState?._id, pageSize, pageIndex]);
-
   const getBibGroup = useCallback(() => {
     if (!profileState?.email || !raceState?._id) return;
     const params = {
@@ -79,7 +82,7 @@ const TournamentDetail: React.FC = () => {
     getRaces();
     getGroup();
     getBibGroup();
-  }, [dispatch, getRaces, getGroup, getBibGroup]);
+  }, [dispatch, getRaces, getGroup, getBibGroup, updateTicketsState]);
   return (
     <div className="TournamentDetail">
       <div className="container">
@@ -172,7 +175,7 @@ const TournamentDetail: React.FC = () => {
                 <div className="TournamentDetail-card">
                   <div className="TournamentDetail-card-edit flex justify-between items-center">
                     <h3 className="TournamentDetail-card-title">Tên nhóm: {activeTab?.groupName}</h3>
-                    <Button title="Chỉnh sửa" type="ghost" />
+                    <Button title="Sửa" type="ghost" backgroundColor="#E6EBF0" iconName={EIconName.Edit} />
                   </div>
                   <div className="TournamentDetail-table">
                     <table>
@@ -218,7 +221,7 @@ const TournamentDetail: React.FC = () => {
                 <h3 className="TournamentDetail-card-title">Thông tin thành viên</h3>
                 <div className="TournamentDetail-table">
                   <Table
-                    columns={columnsBibGroups}
+                    columns={columnsBibGroups(setOpenDeleteMember)}
                     dataSources={ticketsState?.data}
                     className="TournamentDetail-table"
                   />
@@ -231,16 +234,25 @@ const TournamentDetail: React.FC = () => {
                     />
                   </div>
                 </div>
-
                 <div className="TournamentDetail-card-total text-right">
                   Tổng cộng: <strong>{parseInt(getTotalGroup(ticketsState?.data)).toLocaleString('ES-es')} VNĐ</strong>
                 </div>
                 <div className="TournamentDetail-card-actions flex items-center justify-between">
-                  <Button title="Xoá nhóm" type="text" size="large" />
+                  <Button title="Xoá nhóm" type="text" size="large" onClick={(): void => setOpenDeleteGroup(true)} />
                   <Button title="Thanh toán" type="primary" size="large" />
                 </div>
               </div>
             )}
+            <Modal
+              className="Modal"
+              visible={openDeleteMember}
+              cancelButton={{ title: 'Có' }}
+              confirmButton={{ title: 'Không' }}
+              onClose={(): void => setOpenDeleteMember(false)}
+            >
+              <h1 className="Modal-title">Xoá thành viên?</h1>
+              <p className="Modal-description">Mọi thông tin của thành viên này sẽ bị xoá vĩnh viễn khỏi nhóm</p>
+            </Modal>
           </div>
         </div>
       </div>

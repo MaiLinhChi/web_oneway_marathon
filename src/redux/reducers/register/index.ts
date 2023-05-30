@@ -10,6 +10,7 @@ import { getTicketsAction, registerTicketAction, getTicketDetailAction, updateTi
 import { getTicketsUpdateState } from './get-tickets';
 import { registerTicketUpdateState } from './register-ticket';
 import { updateTicketUpdateState } from './update-ticket';
+import { getTicketDetaillUpdateState } from './ticket-detail';
 
 export type TRegisterState = {
   getTicketsResponse?: TGetTicketsResponse;
@@ -28,7 +29,7 @@ const initialState: TRegisterState = {
 const RegisterReducer = createReducer(initialState, (handleAction) => [
   handleAction(getTicketsAction.success, getTicketsUpdateState),
   handleAction(registerTicketAction.success, registerTicketUpdateState),
-  handleAction(getTicketDetailAction.success, getTicketsUpdateState),
+  handleAction(getTicketDetailAction.success, getTicketDetaillUpdateState),
   handleAction(updateTicketAction.success, updateTicketUpdateState),
   handleAction(registerTicketAction.save, (state, { payload }) => ({
     ...state,

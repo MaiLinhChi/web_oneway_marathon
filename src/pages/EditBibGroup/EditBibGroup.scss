@@ -1,0 +1,229 @@
+.EditBibGroup {
+  position: relative;
+  padding: 9.6rem 0 12.8rem;
+
+  &-container {
+    max-width: calc(100rem + 1.6rem * 2);
+    padding: 0 1.6rem;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  &-background {
+    @include fullAbsolute;
+    @include centerScaleImage;
+    z-index: 1;
+
+    &:before {
+      @include fullAbsolute;
+      content: '';
+      background: rgba($bottle-green, 0.7);
+    }
+  }
+
+  &-wrapper {
+    position: relative;
+    z-index: 2;
+  }
+
+  &-title {
+    margin-bottom: 3.6rem;
+    color: $white;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 3.6rem;
+    line-height: 4.2rem;
+  }
+
+  &-tab {
+    .TabRectangle {
+      &.NORMAL {
+        .TabRectangle {
+          &-item {
+            transform: none;
+            padding: 1.6rem 3.6rem;
+            font-size: 1.8rem;
+            font-style: italic;
+            font-weight: 900;
+            line-height: 2.2rem;
+            background: rgba($black, 0.25);
+            transform: none;
+            color: $white;
+            @media (max-width: 767px) {
+              padding: 1.6rem 0;
+              width: 50%;
+              display: flex;
+              justify-content: center;
+              font-size: 1.5rem;
+             }
+            &:hover {
+              background: rgba($black, 0.5);
+            }
+
+            &.active {
+              color: $blue-ribbon;
+              background: $white;
+            }
+          }
+        }
+      }
+
+    }
+  }
+  .hover {
+    display: none;
+    position: absolute;
+    top: 25px;
+    right: 0;
+    max-width: 534px;
+    width: 100%;
+  }
+
+  .hover-text::before {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    content: "";
+    width: 140px;
+    height: 20px;
+  }
+
+  .hover-text:hover > .hover {
+    display: block;
+  }
+  &-main {
+    justify-content: space-between;
+  }
+  &-card {
+    background: $white;
+    padding: 3.2rem 4rem;
+    margin-bottom: 24px;
+    @media (max-width: 767px) {
+      padding: 32px 16px;
+    }
+    &.sticky {
+      position: sticky;
+      top: calc(8rem + 1.6rem);
+    }
+
+    &-title {
+      font-size: 2rem;
+      line-height: 2.8rem;
+      color: $cod-gray;
+      margin-bottom: 2.8rem;
+      font-style: italic;
+      font-weight: 900;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    &-description {
+      font-size: 1.6rem;
+      line-height: 2rem;
+      font-style: italic;
+      color: $regent-gray;
+      position: relative;
+
+      strong {
+        color: $cod-gray;
+        font-weight: 700;
+      }
+
+      a {
+        color: $blue-ribbon;
+        font-weight: 600;
+
+        &:hover {
+          text-decoration: underline;
+        }
+        a:hover:after {
+          content: url(); /* no need for qoutes */
+          display: block;
+        }
+      }
+    }
+
+    &-table {
+      &.expand-x {
+        margin: 0 -1.2rem;
+      }
+
+      &.striped {
+        table {
+          tr {
+            &:nth-child(odd) {
+              background: $porcelain;
+            }
+
+            &:nth-child(even) {
+              background: $aqua-haze;
+            }
+          }
+        }
+      }
+
+      table {
+        width: 100%;
+
+        tr {
+          &.spacing-bottom {
+            td {
+              padding-bottom: 2.4rem;
+            }
+          }
+
+          &.spacing-top {
+            td {
+              padding-top: 2.4rem;
+            }
+          }
+
+          &.border-top {
+            td {
+              padding-top: 2.4rem;
+              border-top: 1px solid $mystic;
+            }
+          }
+
+          &.border-bottom {
+            td {
+              padding-bottom: 2.4rem;
+              border-bottom: 1px solid $mystic;
+            }
+          }
+        }
+
+        td {
+          font-style: italic;
+          font-weight: 500;
+          font-size: 1.6rem;
+          line-height: 2.4rem;
+          color: $dove-gray;
+          padding: .8rem 1.2rem;
+          white-space: nowrap;
+          vertical-align: middle;
+
+          .Icon {
+            width: 2.4rem;
+            height: 2.4rem;
+            cursor: pointer;
+          }
+
+          strong {
+            font-weight: 600;
+            color: $cod-gray;
+
+            span {
+              font-size: 2.4rem;
+              font-weight: 900;
+              font-style: italic;
+              line-height: 3rem;
+              color: $blue-ribbon;
+            }
+          }
+        }
+      }
+    }
+  }
+}
