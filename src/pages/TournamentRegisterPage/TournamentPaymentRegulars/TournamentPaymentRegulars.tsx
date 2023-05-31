@@ -20,38 +20,23 @@ const TournamentPaymentRegulars: React.FC<TTournamentPaymentFormProps> = () => {
   const tabQuery = getQueryParam(key);
   const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.listGroupsResponse?.[0]);
   const saveTicketState = useSelector((state: TRootState) => state.registerReducer?.saveTicket);
-  const registerticketState = useSelector((state: TRootState) => state.registerReducer.registerTicketResponse);
   const raceDetailState = useSelector((state: TRootState) => state.raceReducer.detailRaceResponse);
   const postOrderState = useSelector((state: TRootState) => state.ordersReducer.addOrder?.data);
   const handleSubmit = (values: any): void => {
     if (tabQuery === 'MULTIPLE') {
-      const isExist = registerGroup?.membership?.some(
-        (item: any) => item.email === saveTicketState.email && item.role !== 'leader',
-      );
+      const isExist = registerGroup?.membership?.some((item: any) => item.email === saveTicketState.email);
       if (!isExist) {
-        registerticketState
-          ? dispatch(
-              updateTicketAction.request({ id: registerticketState._id, body: saveTicketState }, (response): void =>
-                handlerJoinGroupSuccess(response),
-              ),
-            )
-          : dispatch(
-              registerTicketAction.request({ body: saveTicketState }, (response): void =>
-                handlerJoinGroupProcess(response),
-              ),
-            );
+        dispatch(
+          registerTicketAction.request({ body: saveTicketState }, (response): void =>
+            handlerJoinGroupProcess(response),
+          ),
+        );
       } else {
-        registerticketState
-          ? dispatch(
-              updateTicketAction.request({ id: registerticketState._id, body: saveTicketState }, (response): void =>
-                handlerJoinGroupSuccess(response),
-              ),
-            )
-          : dispatch(
-              registerTicketAction.request({ body: saveTicketState }, (response): void =>
-                handlerJoinGroupSuccess(response),
-              ),
-            );
+        dispatch(
+          registerTicketAction.request({ body: saveTicketState }, (response): void =>
+            handlerJoinGroupSuccess(response),
+          ),
+        );
       }
     } else if (tabQuery === 'SINGLE') {
       if (!postOrderState) {
@@ -60,8 +45,9 @@ const TournamentPaymentRegulars: React.FC<TTournamentPaymentFormProps> = () => {
             handleRegitserTicketSuccess(response),
           ),
         );
+        return;
       }
-      dispatch(updateTicketAction.request({ id: registerticketState._id, body: saveTicketState }));
+      dispatch(registerTicketAction.request({ body: saveTicketState }));
       navigate(Paths.TournamentPayment(`${postOrderState?._id}?tab=${EKeyTabTournamentRegisterPage.SINGLE}`));
     }
   };

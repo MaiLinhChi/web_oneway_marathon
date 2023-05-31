@@ -44,6 +44,7 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   );
   const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.listGroupsResponse?.[0]);
   const bibState = useSelector((state: TRootState) => state.registerReducer?.saveTicket);
+  const registerBibState = useSelector((state: TRootState) => state.registerReducer.registerTicketResponse);
   const profileState = useSelector((state: TRootState) => state.profileReducer.getProfileResponse?.data);
   const clubsState = useSelector((state: TRootState) => state.clubsReducer.clubs);
   const addressCityState = useSelector((state: TRootState) => state.addressReducer.cities);
@@ -93,6 +94,9 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
         clubId: club ? club.value : '',
         groupId: registerGroup._id,
       };
+      if (registerBibState) {
+        body._id = registerBibState._id;
+      }
       if (!club) {
         delete body.clubId;
       }
@@ -123,6 +127,9 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
         },
         clubId: club ? club.value : '',
       };
+      if (registerBibState) {
+        body._id = registerBibState._id;
+      }
       if (!club) {
         delete body.clubId;
       }
