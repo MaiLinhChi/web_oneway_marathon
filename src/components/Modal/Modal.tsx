@@ -41,8 +41,8 @@ const Modal: React.FC<TModalProps> = ({
             single: (confirmButton && !cancelButton) || (!confirmButton && cancelButton),
           })}
         >
-          {cancelButton && <Button onClick={onClose} {...cancelButton} />}
           {confirmButton && <Button onClick={onSubmit} {...confirmButton} />}
+          {cancelButton && <Button onClick={onClose} {...cancelButton} />}
         </div>
       )}
     </AntdModal>

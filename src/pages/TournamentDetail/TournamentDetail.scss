@@ -1,6 +1,5 @@
 .TournamentDetail {
   padding-bottom: 12.8rem;
-
   .WrapperTd {
     display: flex;
     justify-content: center;
@@ -355,5 +354,76 @@
     color: #EA3629;
     text-align: center;
     margin: 10px 0;
+  }
+  &-btn {
+    &-cancel {
+      width: 100%;
+      .ant-btn {
+        &.ant-btn-default {
+          background-color: #F2F6F8;
+          color: #1E1E1E;
+          width: 100%;
+          border: none;
+          &:hover {
+            background-color: #F2F6F8;
+          }
+        }
+      }
+    }
+    &-confirm {
+      width: 100%;
+      .ant-btn {
+        &.ant-btn-default {
+          background-color: #1964FF;
+          color: #FFFFFF;
+          width: 100%;
+          &:hover {
+            background-color: #1964FF;
+          }
+        }
+      }
+    }
+  }
+}
+
+.text-total {
+  font-style: italic;
+  font-weight: 700;
+  font-size: 17.5118px;
+  line-height: 22px;
+  letter-spacing: -0.0043em;
+  color: #001375;
+  margin-right: 10px;
+}
+
+.custom-btn {
+  min-height: unset;
+  height: unset;
+  border-radius: 0;
+  padding: 1.2rem 2.4rem;
+  height: 4.8rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 1rem;
+  background-color: #E6EBF0;
+  font-size: 1.6rem;
+  line-height: 2rem;
+  cursor: pointer;
+  color: #001375;
+
+  &-icon {
+    color: currentColor;
+  }
+
+  &.delete:hover {
+    background-color: #FF2E2E;
+    color: #FFFFFF;
+  }
+
+  &.edit:hover {
+    background-color: #001375;
+    color: #FFFFFF;
   }
 }

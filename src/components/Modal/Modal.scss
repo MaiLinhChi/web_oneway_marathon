@@ -1,1 +1,5 @@
-.Modal {}
+.Modal {
+    &-footer {
+        gap: 10px;
+    }
+}

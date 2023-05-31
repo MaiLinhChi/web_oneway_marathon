@@ -4,6 +4,7 @@ import { Col, Row } from 'antd';
 import ImageHomeBanner1 from '@/assets/images/image-home-banner-1.png';
 import TournamentMap from '@/containers/TournamentMap';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
+import DeleteIcon from '@/components/Icon/Delete';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 
@@ -54,7 +55,6 @@ const TournamentDetail: React.FC = () => {
   const getBibGroup = useCallback(() => {
     if (!profileState?.email || !raceState?._id) return;
     const params = {
-      marathon: raceState._id,
       groupId: activeTab?._id,
       pageSize: pageSizeBib,
       pageIndex: pageIndexBib,
@@ -160,7 +160,7 @@ const TournamentDetail: React.FC = () => {
                 />
               </div>
             </div>
-            {groupState?.length && (
+            {groupState?.length ? (
               <div className="TournamentDetail-section">
                 <h2 className="TournamentDetail-subtitle">Thông tin đăng ký Nhóm </h2>
                 <div className="TournamentDetail-tab">
@@ -234,24 +234,44 @@ const TournamentDetail: React.FC = () => {
                     />
                   </div>
                 </div>
-                <div className="TournamentDetail-card-total text-right">
-                  Tổng cộng: <strong>{parseInt(getTotalGroup(ticketsState?.data)).toLocaleString('ES-es')} VNĐ</strong>
-                </div>
                 <div className="TournamentDetail-card-actions flex items-center justify-between">
-                  <Button title="Xoá nhóm" type="text" size="large" onClick={(): void => setOpenDeleteGroup(true)} />
-                  <Button title="Thanh toán" type="primary" size="large" />
+                  <div className="custom-btn delete" onClick={(): void => setOpenDeleteGroup(true)}>
+                    <DeleteIcon className="custom-btn-icon" />
+                    Xoá nhóm
+                  </div>
+                  <div className="flex" style={{ gap: 10 }}>
+                    <div className="flex items-center text-right">
+                      <span className="text-total">Tổng cộng:</span>
+                      <div className="custom-btn">
+                        <strong>{parseInt(getTotalGroup(ticketsState?.data)).toLocaleString('ES-es')} VNĐ</strong>
+                      </div>
+                    </div>
+                    <div className="custom-btn">Thanh toán</div>
+                  </div>
                 </div>
               </div>
-            )}
+            ) : null}
             <Modal
               className="Modal"
               visible={openDeleteMember}
-              cancelButton={{ title: 'Có' }}
-              confirmButton={{ title: 'Không' }}
+              confirmButton={{ title: 'Có', className: 'Modal-btn-cancel' }}
+              cancelButton={{ title: 'Không', className: 'Modal-btn-confirm' }}
               onClose={(): void => setOpenDeleteMember(false)}
+              onSubmit={(): void => console.log('aaa')}
             >
               <h1 className="Modal-title">Xoá thành viên?</h1>
               <p className="Modal-description">Mọi thông tin của thành viên này sẽ bị xoá vĩnh viễn khỏi nhóm</p>
+            </Modal>
+            <Modal
+              className="Modal"
+              visible={openDeleteGroup}
+              confirmButton={{ title: 'Có', className: 'Modal-btn-cancel' }}
+              cancelButton={{ title: 'Không', className: 'Modal-btn-confirm' }}
+              onClose={(): void => setOpenDeleteGroup(false)}
+              onSubmit={(): void => console.log('aaa')}
+            >
+              <h1 className="Modal-title">Xoá nhóm?</h1>
+              <p className="Modal-description">Mọi thông tin của nhóm này sẽ bị xoá vĩnh viễn khỏi hệ thống</p>
             </Modal>
           </div>
         </div>

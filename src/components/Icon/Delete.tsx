@@ -10,7 +10,7 @@ const Svg: React.FC<TIconProps> = ({ color = EIconColor.BLACK }) => {
       className="icon icon-tabler icon-tabler-eye-off"
       width="20"
       height="20"
-      viewBox="0 0 24 24"
+      viewBox="0 0 17 16"
       strokeWidth="1.5"
       stroke={color}
       fill="none"

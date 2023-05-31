@@ -1,9 +1,8 @@
 import { ReactElement, useState } from 'react';
 import { copyText } from '@/utils/functions';
 import CopyIcon from '@/assets/icons/copy.svg';
-import Button from '@/components/Button';
-import { EIconName } from '@/components/Icon';
-import Modal from '@/components/Modal';
+import DeleteIcon from '@/components/Icon/Delete';
+import EditIcon from '@/components/Icon/Edit';
 import { navigate } from '@reach/router';
 import { Paths } from '../routers';
 
@@ -138,7 +137,7 @@ export const columnsBibGroups = (handleClick: any): any => [
     key: 'marathon',
     dataIndex: 'marathon',
     title: 'Giá tiền',
-    render: (item: any): ReactElement => <span>{parseInt(item.price).toLocaleString('ES-es')}VND</span>,
+    render: (item: any): ReactElement => <span>{parseInt(item.price).toLocaleString('ES-es')} VND</span>,
   },
   {
     key: 'status',
@@ -148,22 +147,14 @@ export const columnsBibGroups = (handleClick: any): any => [
     render: (item: string, obj: any): any => {
       return (
         <div className="wrapperAction flex items-center justify-between">
-          <Button
-            title="Sửa"
-            type="ghost"
-            backgroundColor="#E6EBF0"
-            iconName={EIconName.Edit}
-            className="btn-edit"
-            onClick={(): any => navigate(Paths.EditBibGroup(obj._id))}
-          />
-          <Button
-            title="Xoá"
-            type="ghost"
-            backgroundColor="#E6EBF0"
-            iconName={EIconName.Delete}
-            className="btn-delete"
-            onClick={(): void => handleClick(true)}
-          />
+          <div className="custom-btn edit" onClick={(): any => navigate(Paths.EditBibGroup(obj._id))}>
+            <EditIcon className="custom-btn-icon" />
+            Sửa
+          </div>
+          <div className="custom-btn delete" onClick={(): void => handleClick(true)}>
+            <DeleteIcon className="custom-btn-icon" />
+            Xoá
+          </div>
         </div>
       );
     },
