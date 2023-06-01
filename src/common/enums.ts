@@ -66,6 +66,8 @@ export enum EViMessageCode {
   'invalid_password' = 'Nhập sai mật khẩu hiện tại ',
   'email_exist' = 'Email đã tồn tại',
   'username_exist' = 'Username đã tồn tại',
+  'not_permission' = 'Khong duoc xoa',
+  'group_not_found' = 'Nhóm không đã tồn tại',
 }
 
 export enum ETypeNotification {

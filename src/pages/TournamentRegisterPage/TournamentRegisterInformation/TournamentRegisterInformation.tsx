@@ -30,7 +30,6 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
       return;
     }
   }, [type, raceDetailState, ticketState, orderState]);
-
   useEffect(() => {
     getData();
     if (group) {

@@ -9,7 +9,7 @@ import { Paths } from '@/pages/routers';
 import { navigate, useParams } from '@reach/router';
 import { EKeyTabTournamentRegisterPage } from '@/pages/TournamentRegisterPage/TournamentRegisterPage.enums';
 import AuthHelpers from '@/services/helpers';
-import { getGroupById } from '@/services/registers/register-group/register-group-by-id';
+import { getGroupById } from '@/services/registers/register-group/get-group-by-id';
 import { copyText } from '@/utils/functions';
 
 const TournamentRegisterGroupSuccess: React.FC = () => {
@@ -20,15 +20,9 @@ const TournamentRegisterGroupSuccess: React.FC = () => {
     // navigate(Paths.TournamentRegisterGroupConfirm(group?.group.slug));
   };
   const getInfoGroup = useCallback(async () => {
-    const headers = {
-      params: {
-        authorization: `Bearer ${atk}`,
-      },
-      id,
-    };
-    const data = await getGroupById({ headers });
-    setGroup(data.res);
-  }, [atk, id]);
+    const res = await getGroupById({ id });
+    setGroup(res.data);
+  }, [id]);
   useEffect(() => {
     getInfoGroup();
   }, [id, getInfoGroup]);

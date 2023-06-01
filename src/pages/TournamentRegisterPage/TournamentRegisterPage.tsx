@@ -32,7 +32,7 @@ const TournamentRegisterPage: React.FC<TTournamentRegisterPageProps> = () => {
   const register = pathname.includes('register');
   const regulations = pathname.includes('regulations');
   const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
-  const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.listGroupsResponse?.[0]);
+  const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.groupDetailResponse);
   const dispatch = useDispatch();
   const getMarathonDetail = useCallback(() => {
     if (!id) return;

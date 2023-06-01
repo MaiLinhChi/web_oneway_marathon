@@ -5,6 +5,7 @@ import DeleteIcon from '@/components/Icon/Delete';
 import EditIcon from '@/components/Icon/Edit';
 import { navigate } from '@reach/router';
 import { Paths } from '../routers';
+import Modal from '@/components/Modal';
 
 export const columnsBibIndivitual = [
   {
@@ -103,60 +104,78 @@ export const columnsBibIndivitual = [
   },
 ];
 
-export const columnsBibGroups = (handleClick: any): any => [
-  {
-    key: 'index',
-    dataIndex: 'index',
-    title: 'STT',
-    render: (_: string, __: any, index: number): string => `${index + 1}`,
-  },
-  {
-    key: 'fullName',
-    dataIndex: 'fullName',
-    title: 'Họ và tên',
-    render: (item: string): string => item,
-  },
-  {
-    key: 'marathon',
-    dataIndex: 'marathon',
-    title: 'Cự ly',
-    render: (item: any): ReactElement => (
-      <span>
-        {item.distance}
-        {item.unit}
-      </span>
-    ),
-  },
-  {
-    key: 'createdAt',
-    dataIndex: 'createdAt',
-    title: 'Thời gian đăng ký',
-    render: (item: any): ReactElement => <span>{item}</span>,
-  },
-  {
-    key: 'marathon',
-    dataIndex: 'marathon',
-    title: 'Giá tiền',
-    render: (item: any): ReactElement => <span>{parseInt(item.price).toLocaleString('ES-es')} VND</span>,
-  },
-  {
-    key: 'status',
-    dataIndex: 'status',
-    title: '',
-    width: 300,
-    render: (item: string, obj: any): any => {
-      return (
-        <div className="wrapperAction flex items-center justify-between">
-          <div className="custom-btn edit" onClick={(): any => navigate(Paths.EditBibGroup(obj._id))}>
-            <EditIcon className="custom-btn-icon" />
-            Sửa
-          </div>
-          <div className="custom-btn delete" onClick={(): void => handleClick(true)}>
-            <DeleteIcon className="custom-btn-icon" />
-            Xoá
-          </div>
-        </div>
-      );
+export const columnsBibGroups = (
+  openDeleteMember: boolean,
+  handleClick: any,
+  isLeader: boolean,
+  handleDeleteMember: any,
+): any =>
+  [
+    {
+      key: 'index',
+      dataIndex: 'index',
+      title: 'STT',
+      render: (_: string, __: any, index: number): string => `${index + 1}`,
     },
-  },
-];
+    {
+      key: 'fullName',
+      dataIndex: 'fullName',
+      title: 'Họ và tên',
+      render: (item: string): string => item,
+    },
+    {
+      key: 'marathon',
+      dataIndex: 'marathon',
+      title: 'Cự ly',
+      render: (item: any): ReactElement => (
+        <span>
+          {item.distance}
+          {item.unit}
+        </span>
+      ),
+    },
+    {
+      key: 'createdAt',
+      dataIndex: 'createdAt',
+      title: 'Thời gian đăng ký',
+      render: (item: any): ReactElement => <span>{item}</span>,
+    },
+    {
+      key: 'marathon',
+      dataIndex: 'marathon',
+      title: 'Giá tiền',
+      render: (item: any): ReactElement => <span>{parseInt(item.price).toLocaleString('ES-es')} VND</span>,
+    },
+    {
+      key: 'email',
+      dataIndex: 'email',
+      title: '',
+      width: 300,
+      hidden: !isLeader,
+      render: (item: string, obj: any): any => {
+        return (
+          <div className="wrapperAction flex items-center justify-between">
+            <div className="custom-btn edit" onClick={(): any => navigate(Paths.EditBibGroup(obj._id))}>
+              <EditIcon className="custom-btn-icon" />
+              Sửa
+            </div>
+            <div className="custom-btn delete" onClick={(): void => handleClick(true)}>
+              <DeleteIcon className="custom-btn-icon" />
+              Xoá
+            </div>
+            <Modal
+              className="Modal"
+              visible={openDeleteMember}
+              confirmButton={{ title: 'Có', className: 'Modal-btn-cancel' }}
+              cancelButton={{ title: 'Không', className: 'Modal-btn-confirm' }}
+              onClose={(): void => handleClick(false)}
+              onSubmit={(): void => handleDeleteMember(item)}
+            >
+              <h1 className="Modal-title">Xoá thành viên?</h1>
+              <p className="Modal-description">Mọi thông tin của thành viên này sẽ bị xoá vĩnh viễn khỏi nhóm</p>
+            </Modal>
+          </div>
+        );
+      },
+    },
+  ].filter((item) => !item.hidden);

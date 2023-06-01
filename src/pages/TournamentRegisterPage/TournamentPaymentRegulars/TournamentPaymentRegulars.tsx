@@ -18,7 +18,7 @@ const TournamentPaymentRegulars: React.FC<TTournamentPaymentFormProps> = () => {
   const [form] = Form.useForm();
   const key = 'tab';
   const tabQuery = getQueryParam(key);
-  const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.listGroupsResponse?.[0]);
+  const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.groupDetailResponse);
   const saveTicketState = useSelector((state: TRootState) => state.registerReducer?.saveTicket);
   const raceDetailState = useSelector((state: TRootState) => state.raceReducer.detailRaceResponse);
   const postOrderState = useSelector((state: TRootState) => state.ordersReducer.addOrder?.data);

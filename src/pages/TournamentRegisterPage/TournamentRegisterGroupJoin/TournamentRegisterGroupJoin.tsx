@@ -28,7 +28,7 @@ const TournamentRegisterGroupJoin: React.FC = () => {
       showNotification(ETypeNotification.ERROR, response.message);
     }
   };
-  const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.listGroupsResponse?.[0]);
+  const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.groupDetailResponse);
   useEffect(() => {
     if (!registerGroup) navigate(Paths.Home);
     getMarathonDetail();

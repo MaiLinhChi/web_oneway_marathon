@@ -9,7 +9,7 @@ import { showNotification, validationRules } from '@/utils/functions';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 import { EIconColor } from '@/components/Icon';
-import { EVertifyRegisterGroupAction, getGroupsAction, vertifyRegisterGroupAction } from '@/redux/actions';
+import { EVertifyRegisterGroupAction, getGroupByIdAction, vertifyRegisterGroupAction } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 import { navigate, useParams } from '@reach/router';
 import { Paths } from '@/pages/routers';
@@ -21,7 +21,7 @@ const TournamentRegisterGroupConfirm: React.FC = () => {
   const vertifyRegisterGroupLoading = useSelector(
     (state: any) => state.loadingReducer[EVertifyRegisterGroupAction.VERTIFY_REISTER_GROUP],
   );
-  const groupState = useSelector((state: TRootState) => state.registerGroupReducer?.listGroupsResponse?.[0]);
+  const groupState = useSelector((state: TRootState) => state.registerGroupReducer.groupDetailResponse);
   const handleSubmit = (values: any): void => {
     if (groupState) {
       const body = { ...values, _id: groupState._id };
@@ -29,11 +29,17 @@ const TournamentRegisterGroupConfirm: React.FC = () => {
     }
   };
   const getGroup = useCallback(() => {
-    const params = {
-      groupCode: id,
-    };
-    dispatch(getGroupsAction.request({ params }));
+    dispatch(
+      getGroupByIdAction.request(
+        { id },
+        (): void => {},
+        (err): void => handleGetDetailGroupError(err),
+      ),
+    );
   }, [dispatch, id]);
+  const handleGetDetailGroupError = (err: any): void => {
+    navigate(Paths.Home);
+  };
   const handlerVertifySuccess = (response: any): void => {
     if (response.statusCode === EResponseCode.OK) {
       showNotification(ETypeNotification.SUCCESS, 'Xác nhận thành công !');
@@ -44,7 +50,7 @@ const TournamentRegisterGroupConfirm: React.FC = () => {
   };
   useEffect(() => {
     getGroup();
-  }, [getGroup]);
+  }, [getGroup, groupState]);
   return (
     <div className="TournamentRegisterPage">
       <div className="TournamentRegisterPage-background">

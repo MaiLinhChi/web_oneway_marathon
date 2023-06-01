@@ -99,6 +99,7 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
     getOrderDetail();
     getPaymentMethodApi();
   }, [getOrderDetail, getPaymentMethodApi]);
+  console.log(order);
   return (
     <div className="TournamentPaymentForm">
       <Form layout="vertical" form={form} onFinish={handleSubmit}>

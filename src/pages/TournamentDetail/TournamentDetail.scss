@@ -418,16 +418,37 @@
     color: #FFFFFF;
   }
 
-  &.delete:hover > .custom-btn-icon {
-    stroke: #FFFFFF;
-  }
-  
-  &.edit:hover > .custom-btn-icon {
-    stroke: #FFFFFF;
-  }
-
   &.edit:hover {
     background-color: #001375;
     color: #FFFFFF;
   }
+}
+
+.custom-btn.payment {
+  background: #13CB89;
+  color: #FFFFFF;
+}
+
+.OrderStatus {
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 2.6rem;
+  letter-spacing: -0.02em;
+  padding: 5px 8px;
+  border: 1px solid transparent;
+  border-radius: 24px;
+  color: #FFA928;
+  border: 1px solid #FFA928;
+  background: #FEFFE4;
+}
+
+.OrderStatus.success {
+  border-color: #0FB700;
+  color: #00B528;
+  background-color: #EFFFED;
+}
+
+.wrapperAction {
+  gap: 10px;
 }
