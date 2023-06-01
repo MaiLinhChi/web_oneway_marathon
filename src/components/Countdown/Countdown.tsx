@@ -4,6 +4,7 @@ import moment, { Duration } from 'moment';
 import { TCountdownProps } from './Countdown.types.d';
 import './Countdown.scss';
 import { uiActions } from '@/redux/actions';
+import { useDispatch } from 'react-redux';
 
 export const currentDateTime = {
   year: moment().year(),
@@ -18,12 +19,13 @@ const Countdown: React.FC<TCountdownProps> = ({ dateTo, dateFrom, render, onFini
   const [diffTime, setDiffTime] = useState<number>();
   const [duration, setDuration] = useState<Duration | undefined>();
   const [isFirstFetching, setIsFirstFetching] = useState<boolean>(true);
+  const dispatch = useDispatch();
   useEffect(() => {
     if (dateTo) {
       const unixValue = moment(dateTo, 'YYYY/MM/DD HH:mm:ss').unix();
       const currentValue = moment(dateFrom || currentDateTime, dateFrom ? 'YYYY/MM/DD HH:mm:ss' : undefined).unix();
       setDiffTime(unixValue - currentValue);
-      uiActions.setCountdown(unixValue - currentValue);
+      dispatch(uiActions.setCountdown(unixValue - currentValue));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dateFrom, dateTo]);
@@ -44,8 +46,9 @@ const Countdown: React.FC<TCountdownProps> = ({ dateTo, dateFrom, render, onFini
           durationData?.seconds() <= 0;
 
         if (isCountEnd) {
-          onFinish?.();
+          onFinish?.(true);
           clearInterval(interval);
+          return;
         }
 
         if (isFirstFetching) {

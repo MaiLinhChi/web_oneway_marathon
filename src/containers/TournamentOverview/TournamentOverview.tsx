@@ -25,6 +25,7 @@ const TournamentOverview: React.FC<TTournamentOverviewProps> = ({
   _id,
 }) => {
   const [isExpired, setIsExpired] = useState<boolean>();
+  console.log(isExpired);
   const navigation = useLocation();
   return (
     <div className="TournamentOverview">
@@ -48,7 +49,6 @@ const TournamentOverview: React.FC<TTournamentOverviewProps> = ({
             <br />
             <span style={{ textShadow: `.8rem .8rem 0 ${color}` }}>{title}</span>
           </h1>
-
           {typeof isExpired === 'boolean' && isExpired && (
             <div className="TournamentOverview-banner-countdown">
               <strong>Đã kết thúc</strong>
@@ -72,9 +72,7 @@ const TournamentOverview: React.FC<TTournamentOverviewProps> = ({
                       const isHide = item.hideInZero && item.value === 0;
                       const showValue = item.value < 10 ? `0${item.value}` : item.value;
 
-                      return isHide ? (
-                        <></>
-                      ) : (
+                      return isHide ? null : (
                         <div key={index}>
                           <strong>
                             <span style={{ color }}>{showValue}</span>

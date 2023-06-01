@@ -413,13 +413,17 @@
   cursor: pointer;
   color: #001375;
 
-  &-icon {
-    color: currentColor;
-  }
-
   &.delete:hover {
     background-color: #FF2E2E;
     color: #FFFFFF;
+  }
+
+  &.delete:hover > .custom-btn-icon {
+    stroke: #FFFFFF;
+  }
+  
+  &.edit:hover > .custom-btn-icon {
+    stroke: #FFFFFF;
   }
 
   &.edit:hover {

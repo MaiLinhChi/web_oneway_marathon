@@ -14,15 +14,19 @@ import TournamentRule from '@/containers/TournamentRule';
 import TournamentEvent from '@/containers/TournamentEvent';
 
 import './OneWayMarathonDetail.scss';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { detailRaceAction } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 import { showNotification } from '@/utils/functions';
+import { TRootState } from '@/redux/reducers';
+import moment from 'moment';
 
 const OneWayMarathonDetail: any = () => {
   const { id } = useParams();
   const [data, setData] = useState<any>({});
+  const [timestamp, setTimestamp] = useState(0);
   const dispatch = useDispatch();
+  const timestampState = useSelector((state: TRootState) => state.uiReducer.timestamp);
   const getMarathonDetail = useCallback(() => {
     if (!id) return;
     dispatch(detailRaceAction.request({ id }, (response): void => handlerGetMarathonDetailSuccess(response)));
@@ -38,6 +42,17 @@ const OneWayMarathonDetail: any = () => {
   useEffect(() => {
     getMarathonDetail();
   }, [id, getMarathonDetail]);
+  useEffect(() => {
+    let durationData: any = moment.duration(timestampState * 1000, 'milliseconds');
+
+    const interval = setInterval(() => {
+      durationData = moment.duration(durationData - 1000, 'milliseconds');
+      setTimestamp(durationData._milliseconds);
+    }, 1000);
+    return (): void => {
+      clearInterval(interval);
+    };
+  }, [timestampState]);
   if (Object.keys(data).length === 0) return null;
   return (
     <div className="OneWayMarathonVungTau">
@@ -67,23 +82,27 @@ const OneWayMarathonDetail: any = () => {
         typeTournament={data?.type}
       />
       <div className="OneWayMarathonVungTau-wrapper">
-        <TournamentRegister
-          color={EIconColor.PERSIAN_GREEN}
-          data={data.priceList}
-          unitRace={data.unitRace}
-          id="register"
-          _id={data._id}
-          date={data?.startTime}
-        />
+        {timestamp > 0 ? (
+          <TournamentRegister
+            color={EIconColor.PERSIAN_GREEN}
+            data={data.priceList}
+            unitRace={data.unitRace}
+            id="register"
+            _id={data._id}
+            date={data?.startTime}
+          />
+        ) : null}
 
-        <TournamentRegister
-          color={EIconColor.PERSIAN_GREEN}
-          multiple
-          data={data}
-          registerGroup={data?.registerGroup}
-          date={data?.startTime}
-          _id={data._id}
-        />
+        {timestamp > 0 ? (
+          <TournamentRegister
+            color={EIconColor.PERSIAN_GREEN}
+            multiple
+            data={data}
+            registerGroup={data?.registerGroup}
+            date={data?.startTime}
+            _id={data._id}
+          />
+        ) : null}
 
         <TournamentMap color={EIconColor.PERSIAN_GREEN} data={data} id="map" height={640} />
 

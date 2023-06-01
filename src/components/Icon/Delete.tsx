@@ -1,13 +1,13 @@
 import React from 'react';
-
+import classNames from 'classnames';
 import { TIconProps } from '@/components/Icon/Icon.types';
 import { EIconColor } from '@/components/Icon/Icon.enums';
 
-const Svg: React.FC<TIconProps> = ({ color = EIconColor.BLACK }) => {
+const Svg: React.FC<TIconProps> = ({ color = EIconColor.BLACK, className }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="icon icon-tabler icon-tabler-eye-off"
+      className={classNames('icon icon-tabler icon-tabler-eye-off', className)}
       width="20"
       height="20"
       viewBox="0 0 17 16"
