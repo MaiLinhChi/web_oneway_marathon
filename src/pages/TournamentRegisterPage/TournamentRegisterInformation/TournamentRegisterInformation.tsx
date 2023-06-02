@@ -15,18 +15,18 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
   const type = pathname.split('/')[2];
   const raceDetailState = useSelector((state: TRootState) => state.raceReducer.detailRaceResponse);
   const ticketState = useSelector((state: TRootState) => state.registerReducer.saveTicket);
-  const orderState = useSelector((state: TRootState) => state.ordersReducer.getOrderByIdResponse?.data?.bibs?.[0]);
+  const orderState = useSelector((state: TRootState) => state.ordersReducer.getOrderByIdResponse?.data);
   const getData = useCallback(() => {
     if (type === 'register' || type === 'join') {
       setData(raceDetailState);
       return;
     }
-    if (ticketState) {
-      setData(ticketState);
+    if (orderState) {
+      setData(orderState?.bibs?.[0]);
       return;
     }
-    if (orderState) {
-      setData(orderState);
+    if (ticketState) {
+      setData(ticketState);
       return;
     }
   }, [type, raceDetailState, ticketState, orderState]);
@@ -38,7 +38,27 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
   }, [tabQuery, orderState, group, getData]);
   return (
     <div className="TournamentRegisterInformation-card sticky">
-      {data?.email ? (
+      {orderState?.group ? (
+        <>
+          <div className="TournamentRegisterInformation-card-title">Thông tin nhóm</div>
+          <div className="TournamentRegisterInformation-card-table expand-x">
+            <table>
+              <tr>
+                <td>Tên nhóm</td>
+                <td style={{ width: '100%' }}>
+                  <strong>{orderState?.group?.groupName}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>Thành viên</td>
+                <td style={{ width: '100%' }}>
+                  <strong>{orderState?.group?.membership?.length}</strong>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </>
+      ) : data?.email ? (
         <>
           <div className="TournamentRegisterInformation-card-title">Thông tin của bạn</div>
           <div className="TournamentRegisterInformation-card-table">

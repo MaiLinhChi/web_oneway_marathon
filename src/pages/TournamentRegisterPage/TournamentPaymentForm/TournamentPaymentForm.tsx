@@ -31,6 +31,7 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
   const [paymentMethods, setPaymentMethods] = useState([]);
   const [order, setOrder] = useState<any>({});
   const [ticketList, setTicketList] = useState<any>([]);
+  const [listInfoTicket, setListInfoTicket] = useState<any>([]);
   const [form] = Form.useForm();
   const { id } = useParams();
   const [totalFee, setTotalFee] = useState<any>();
@@ -97,11 +98,32 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
   const handleCannelPromote = (): void => {
     setArrPromotion(['']);
   };
+  const handleShowInfo = (array: any): any => {
+    if (!array.length) return;
+    const result = [];
+    const tickets = array?.reduce(function (res: any, value: any) {
+      if (!res[value.marathon.distance]) {
+        res[value.marathon.distance] = {
+          distance: value.marathon.distance + value.marathon.unit,
+          state: value.marathon.state,
+          qty: 0,
+          count: 0,
+        };
+        result.push(res[value.marathon.distance]);
+      }
+      res[value.marathon.distance].qty += value.marathon.price;
+      res[value.marathon.distance].count++;
+      return res;
+    }, {});
+    setListInfoTicket(Object.values(tickets));
+  };
+  useEffect(() => {
+    handleShowInfo(ticketList);
+  }, [ticketList]);
   useEffect(() => {
     getOrderDetail();
     getPaymentMethodApi();
   }, [getOrderDetail, getPaymentMethodApi]);
-  console.log(order);
   return (
     <div className="TournamentPaymentForm">
       <Form layout="vertical" form={form} onFinish={handleSubmit}>
@@ -110,15 +132,14 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
           <div className="TournamentRegisterPage-card-table expand-x">
             <table>
               <tbody>
-                {ticketList.map((item: any, index: any) => (
+                {listInfoTicket?.map((item: any, index: any) => (
                   <tr className="spacing-bottom" key={index}>
                     <td>
-                      {item?.marathon?.state} - {item?.marathon?.distance}
-                      {item?.marathon?.unit}
+                      {item?.state} - {item?.distance}
                     </td>
-                    <td>x1</td>
+                    <td>x{item?.count}</td>
                     <td className="text-right">
-                      <strong>{parseInt(item?.marathon?.price).toLocaleString('ES-es')} VNĐ</strong>
+                      <strong>{parseInt(item?.qty).toLocaleString('ES-es')} VNĐ</strong>
                     </td>
                   </tr>
                 ))}

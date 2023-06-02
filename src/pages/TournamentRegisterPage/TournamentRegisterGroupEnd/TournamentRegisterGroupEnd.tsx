@@ -15,7 +15,7 @@ const TournamentRegisterGroupEnd: React.FC = () => {
   const dispatch = useDispatch();
   const registerGroup = useSelector(
     (state: TRootState) =>
-      state.registerGroupReducer.runnerRegisterGroupResponse?.data || state.registerGroupReducer.listGroupsResponse[0],
+      state.registerGroupReducer.runnerRegisterGroupResponse?.data || state.registerGroupReducer.groupDetailResponse,
   );
   const ticketState = useSelector((state: TRootState) => state.registerReducer.registerTicketResponse);
   useEffect(() => {

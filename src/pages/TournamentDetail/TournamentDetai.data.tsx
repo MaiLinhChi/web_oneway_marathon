@@ -109,6 +109,7 @@ export const columnsBibGroups = (
   handleClick: any,
   isLeader: boolean,
   handleDeleteMember: any,
+  isConfirmed: boolean,
 ): any =>
   [
     {
@@ -151,7 +152,7 @@ export const columnsBibGroups = (
       dataIndex: 'email',
       title: '',
       width: 300,
-      hidden: !isLeader,
+      hidden: !isLeader || isConfirmed,
       render: (item: string, obj: any): any => {
         return (
           <div className="wrapperAction flex items-center justify-between">

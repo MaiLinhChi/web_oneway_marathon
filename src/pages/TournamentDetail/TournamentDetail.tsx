@@ -296,8 +296,8 @@ const TournamentDetail: React.FC = () => {
                   <div className="TournamentDetail-card-edit flex justify-between items-center">
                     <div className="flex items-center" style={{ gap: 16 }}>
                       <h3 className="TournamentDetail-card-title">Tên nhóm: {activeTab?.groupName}</h3>
-                      <div className={`OrderStatus ${orderGroup?.status === 'comfirmed' ? 'success' : ''}`}>
-                        {orderGroup?.status === 'comfirmed' ? 'Đã thanh toán' : 'Chờ thanh toán'}
+                      <div className={`OrderStatus ${orderGroup?.status === 'confirmed' ? 'success' : ''}`}>
+                        {orderGroup?.status === 'confirmed' ? 'Đã thanh toán' : 'Chờ thanh toán'}
                       </div>
                     </div>
                     {isLeader && (
@@ -348,7 +348,13 @@ const TournamentDetail: React.FC = () => {
                 <h3 className="TournamentDetail-card-title">Thông tin thành viên</h3>
                 <div className="TournamentDetail-table">
                   <Table
-                    columns={columnsBibGroups(openDeleteMember, setOpenDeleteMember, isLeader, handleDeleteMember)}
+                    columns={columnsBibGroups(
+                      openDeleteMember,
+                      setOpenDeleteMember,
+                      isLeader,
+                      handleDeleteMember,
+                      orderGroup?.status === 'confirmed',
+                    )}
                     dataSources={ticketsState?.data}
                     className="TournamentDetail-table"
                     loading={loadingTabel}
@@ -368,11 +374,13 @@ const TournamentDetail: React.FC = () => {
                   }`}
                   style={{ rowGap: 10, marginTop: 10 }}
                 >
-                  {!isMobile && isLeader && (
+                  {!isMobile && isLeader && orderGroup?.status !== 'confirmed' ? (
                     <div className="custom-btn delete" onClick={(): void => setOpenDeleteGroup(true)}>
                       <DeleteIcon className="custom-btn-icon" />
                       Xoá nhóm
                     </div>
+                  ) : (
+                    <div />
                   )}
                   <div className="flex wrap justify-around" style={{ gap: 10 }}>
                     <div className="flex items-center text-right">
