@@ -58,7 +58,7 @@ const BuyOnlineTicketTutorials: React.FC = () => {
       shirtSize: values?.shirtSize?.value || values?.shirtSize,
       timeEstimation: values.timeEstimation.format('HH:mm:ss'),
       clubId: club ? club.value : '',
-      groupId: ticketState._id,
+      groupId: ticketState.groupId,
     };
     if (!club) {
       delete body.clubId;
