@@ -26,6 +26,7 @@ import Icon, { EIconName } from '@/components/Icon';
 import moment from 'moment';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import { getTicketDetail } from '@/services/registers';
 
 dayjs.extend(customParseFormat);
 
@@ -34,8 +35,8 @@ const BuyOnlineTicketTutorials: React.FC = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [nationality, setNationality] = useState('');
+  const [ticketState, setTicketState] = useState<any>({});
   const updateTicketLoading = useSelector((state: any) => state.loadingReducer[EUpdateTicketAction.UPDATE_TICKET]);
-  const ticketState = useSelector((state: TRootState) => state.registerReducer.ticketDetailResponse?.data);
   const clubsState = useSelector((state: TRootState) => state.clubsReducer.clubs);
   const addressCityState = useSelector((state: TRootState) => state.addressReducer.cities);
   const addressDistrictState = useSelector((state: TRootState) => state.addressReducer.districts);
@@ -89,9 +90,10 @@ const BuyOnlineTicketTutorials: React.FC = () => {
     setNationality(value);
   };
 
-  const getTicketDetail = useCallback(() => {
-    dispatch(getTicketDetailAction.request({ id }));
-  }, [dispatch, id]);
+  const getTicketDetailGroup = useCallback(async () => {
+    const res = await getTicketDetail({ id });
+    setTicketState(res.data);
+  }, [id]);
 
   const getInfo = useCallback(async () => {
     dispatch(cityAction.request({}));
@@ -119,10 +121,10 @@ const BuyOnlineTicketTutorials: React.FC = () => {
       });
       setNationality(ticketState.nationality);
     }
-  }, [dispatch, getInfo, getTicketDetail, ticketState, form]);
+  }, [dispatch, getInfo, getTicketDetailGroup, ticketState, form]);
   useEffect(() => {
-    getTicketDetail();
-  }, [getTicketDetail]);
+    getTicketDetailGroup();
+  }, [getTicketDetailGroup]);
   return (
     <div className="EditBibGroup">
       <div className="EditBibGroup-background">

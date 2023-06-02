@@ -8,7 +8,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TTournamentPaymentFormProps } from './TournamentPaymentRegulars.types';
 import Button from '@/components/Button';
 import { navigate } from '@reach/router';
-import { addOrderAction, registerTicketAction, runnerRegisterGroupAction, updateTicketAction } from '@/redux/actions';
+import {
+  EAddOrderAction,
+  ERegisterTicketAction,
+  ERunnerRegisterGroupAction,
+  addOrderAction,
+  registerTicketAction,
+  runnerRegisterGroupAction,
+} from '@/redux/actions';
 import { Paths } from '@/pages/routers';
 import { TRootState } from '@/redux/reducers';
 import { EKeyTabTournamentRegisterPage } from '../TournamentRegisterPage.enums';
@@ -18,6 +25,13 @@ const TournamentPaymentRegulars: React.FC<TTournamentPaymentFormProps> = () => {
   const [form] = Form.useForm();
   const key = 'tab';
   const tabQuery = getQueryParam(key);
+  const RegisterTicketLoading = useSelector(
+    (state: any) => state.loadingReducer[ERegisterTicketAction.REGISTER_TICKET],
+  );
+  const addOrderLoading = useSelector((state: any) => state.loadingReducer[EAddOrderAction.ADD_ORDER]);
+  const runnerRegisterLoading = useSelector(
+    (state: any) => state.loadingReducer[ERunnerRegisterGroupAction.RUNNER_REISTER_GROUP],
+  );
   const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.groupDetailResponse);
   const saveTicketState = useSelector((state: TRootState) => state.registerReducer?.saveTicket);
   const raceDetailState = useSelector((state: TRootState) => state.raceReducer.detailRaceResponse);
@@ -182,7 +196,13 @@ const TournamentPaymentRegulars: React.FC<TTournamentPaymentFormProps> = () => {
             </Col>
           </Row>
           <div className="TournamentPaymentForm-submit flex justify-end">
-            <Button size="large" type="primary" htmlType="submit" title="Tiếp tục" />
+            <Button
+              size="large"
+              type="primary"
+              htmlType="submit"
+              title="Tiếp tục"
+              loading={RegisterTicketLoading || addOrderLoading || runnerRegisterLoading}
+            />
           </div>
         </div>
       </Form>

@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useEffect, useState } from 'react';
+import React, { ReactElement, ReactNode, useCallback, useEffect, useState } from 'react';
 import { Col, Row } from 'antd';
 
 import ImageHomeBanner1 from '@/assets/images/image-home-banner-1.png';
@@ -11,15 +11,7 @@ import Button from '@/components/Button';
 import './TournamentDetail.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { TRootState } from '@/redux/reducers';
-import {
-  addOrderAction,
-  deleteRunnerGroupAction,
-  detailRaceAction,
-  getGroupsAction,
-  getOrdersAction,
-  getTicketsAction,
-  updateOrderAction,
-} from '@/redux/actions';
+import { addOrderAction, detailRaceAction, updateOrderAction } from '@/redux/actions';
 import { Link, navigate, useParams } from '@reach/router';
 import { Paths } from '../routers';
 import { copyText, showNotification, truncateStringByWords } from '@/utils/functions';
@@ -30,8 +22,10 @@ import { columnsBibGroups, columnsBibIndivitual } from './TournamentDetai.data';
 import Modal from '@/components/Modal';
 import AuthHelpers from '@/services/helpers';
 import { ETypeNotification } from '@/common/enums';
-import { getOrders } from '@/services/api';
+import { detailRace, getOrders } from '@/services/api';
 import { EKeyTabTournamentRegisterPage } from '../TournamentRegisterPage/TournamentRegisterPage.enums';
+import { deleteRunnerGroup, getGroups, getTickets } from '@/services/registers';
+import { deleteGroup } from '@/services/registers/register-group/delete-group';
 
 const TournamentDetail: React.FC = () => {
   const dispatch = useDispatch();
@@ -43,20 +37,22 @@ const TournamentDetail: React.FC = () => {
   const [pageIndexBib, setPageIndexBib] = useState(1);
   const [openDeleteGroup, setOpenDeleteGroup] = useState(false);
   const [openDeleteMember, setOpenDeleteMember] = useState(false);
+  const [groupState, setGroupState] = useState<any>([]);
   const [isLeader, setIsLeader] = useState(false);
   const [total, setTotal] = useState('0');
+  const [loadingTabel, setLoadingTabel] = useState(true);
   const [orderGroup, setOrderGroup] = useState<any>({});
-  const groupState = useSelector((state: TRootState) => state.registerGroupReducer.listGroupsResponse);
+  const [ordersState, setOrdersState] = useState<any>({});
+  const [ticketsState, setTicketsState] = useState<any>({});
   const [activeTab, setActiveTab] = useState(groupState?.[0]);
-  const raceState = useSelector((state: TRootState) => state.raceReducer.detailRaceResponse);
   const profileState = useSelector((state: TRootState) => state.profileReducer.getProfileResponse?.data);
-  const ticketsState = useSelector((state: TRootState) => state.registerReducer.getTicketsResponse);
   const updateTicketsState = useSelector((state: TRootState) => state.registerReducer.registerTicketResponse);
-  const ordersState = useSelector((state: TRootState) => state.ordersReducer.getOrdersResponse);
-  const getRaces = useCallback(() => {
+  const raceState = useSelector((state: TRootState) => state.raceReducer.detailRaceResponse);
+  const isMobile = useSelector((state: TRootState) => state.uiReducer.device.isMobile);
+  const getRaces = useCallback(async () => {
     dispatch(detailRaceAction.request({ id }));
   }, [dispatch, id]);
-  const getOrdersIndividual = useCallback(() => {
+  const getOrdersIndividual = useCallback(async () => {
     if (!profileState?.email || !raceState?._id) return;
     const materials = {
       params: {
@@ -67,31 +63,49 @@ const TournamentDetail: React.FC = () => {
         pageIndex,
       },
     };
-    dispatch(getOrdersAction.request(materials));
-  }, [dispatch, profileState?.email, raceState?._id, pageSize, pageIndex]);
-  const getBibGroup = useCallback(() => {
+    try {
+      const res = await getOrders(materials);
+      setOrdersState(res);
+    } catch (error: any) {
+      showNotification(ETypeNotification.ERROR, error.message);
+    }
+  }, [profileState?.email, raceState?._id, pageSize, pageIndex]);
+  const getBibGroup = useCallback(async () => {
     if (!profileState?.email || !raceState?._id) return;
+    setLoadingTabel(true);
     const params = {
       groupId: activeTab?._id,
       pageSize: pageSizeBib,
       pageIndex: pageIndexBib,
     };
-    dispatch(getTicketsAction.request({ params }));
-  }, [dispatch, profileState?.email, raceState?._id, activeTab, pageIndexBib, pageSizeBib]);
+    try {
+      const res = await getTickets({ params });
+      setTicketsState(res);
+      setLoadingTabel(false);
+    } catch (error: any) {
+      setLoadingTabel(false);
+      showNotification(ETypeNotification.ERROR, error.message);
+    }
+  }, [profileState?.email, raceState?._id, activeTab, pageIndexBib, pageSizeBib]);
   const checkRuleGroup = useCallback(() => {
     if (!profileState?.email || !activeTab?.membership[0]?.email) {
       return;
     }
     setIsLeader(activeTab?.membership[0]?.email === profileState?.email);
   }, [profileState?.email, activeTab?.membership]);
-  const getGroup = useCallback(() => {
+  const getGroup = useCallback(async () => {
     if (!profileState?.email || !raceState?._id) return;
     const params = {
       email: profileState.email,
       marathonId: raceState._id,
     };
-    dispatch(getGroupsAction.request({ params }));
-  }, [dispatch, profileState?.email, raceState?._id]);
+    try {
+      const res = await getGroups({ params });
+      setGroupState(res.data);
+    } catch (error: any) {
+      showNotification(ETypeNotification.ERROR, error.message);
+    }
+  }, [profileState?.email, raceState?._id]);
   const getOrderByGroup = useCallback(async () => {
     if (!profileState?.email || !raceState?._id || !activeTab?._id) return;
     const materials = {
@@ -131,36 +145,64 @@ const TournamentDetail: React.FC = () => {
   const handleOrderSuccess = (response: any): void => {
     navigate(Paths.TournamentPayment(`${response.data?._id}?tab=${EKeyTabTournamentRegisterPage.MULTIPLE}`));
   };
-  const handleDeleteMember = (email: string): void => {
+  const canPayOrder = (): ReactNode => {
+    const today = new Date().getTime();
+    if (
+      isLeader &&
+      orderGroup?.status !== 'confirmed' &&
+      new Date(raceState.startTime).getTime() > today &&
+      ticketsState?.data?.length > 0
+    ) {
+      return (
+        <div className="custom-btn payment" onClick={handlePaymentGroup}>
+          Thanh toán
+        </div>
+      );
+    }
+    return null;
+  };
+  const handleDeleteMember = async (email: string): Promise<void> => {
     const params = {
       id: activeTab._id,
       body: { email },
       headers: { authorization: `Bearer ${atk}` },
     };
-    dispatch(deleteRunnerGroupAction.request(params, (response): void => handleDeleteMemberSuccess(response)));
+    try {
+      await deleteRunnerGroup(params);
+      setOpenDeleteMember(false);
+      getBibGroup();
+    } catch (error: any) {
+      showNotification(ETypeNotification.ERROR, error.response.data.message);
+      setOpenDeleteMember(false);
+    }
   };
-  const handleDeleteGroup = (idGroup: string): void => {
-    console.log(idGroup);
+  const handleDeleteGroup = async (idGroup: string): Promise<void> => {
+    const params = {
+      id: idGroup,
+      headers: { authorization: `Bearer ${atk}` },
+    };
+    try {
+      setOpenDeleteGroup(false);
+      await deleteGroup(params);
+      getGroup();
+    } catch (error: any) {
+      setOpenDeleteGroup(false);
+      showNotification(ETypeNotification.ERROR, error.response.data.message);
+    }
   };
-  const handleDeleteMemberSuccess = (response: any): void => {
-    setOpenDeleteMember(false);
-    getBibGroup();
-  };
-  useEffect(() => {
-    getOrdersIndividual();
-  }, [getOrdersIndividual]);
   useEffect(() => {
     checkRuleGroup();
     getOrderByGroup();
-  }, [activeTab, checkRuleGroup, getOrderByGroup]);
+    getTotalGroup(ticketsState?.data);
+  }, [activeTab, checkRuleGroup, getOrderByGroup, getTotalGroup, ticketsState?.data]);
   useEffect(() => {
     getBibGroup();
   }, [updateTicketsState, getBibGroup]);
   useEffect(() => {
     getRaces();
+    getOrdersIndividual();
     getGroup();
-    getTotalGroup(ticketsState?.data);
-  }, [dispatch, getRaces, getGroup, getTotalGroup, ticketsState?.data]);
+  }, [getGroup, getRaces, getOrdersIndividual]);
   return (
     <div className="TournamentDetail">
       <div className="container">
@@ -233,7 +275,7 @@ const TournamentDetail: React.FC = () => {
                 <Pagination
                   page={pageIndex}
                   pageSize={pageSize}
-                  total={ordersState?.totalRecord}
+                  total={ordersState.totalRecord}
                   onChange={(item): void => setPageIndex(item)}
                 />
               </div>
@@ -309,6 +351,7 @@ const TournamentDetail: React.FC = () => {
                     columns={columnsBibGroups(openDeleteMember, setOpenDeleteMember, isLeader, handleDeleteMember)}
                     dataSources={ticketsState?.data}
                     className="TournamentDetail-table"
+                    loading={loadingTabel}
                   />
                   <div className="TournamentDetail-pagination flex justify-center">
                     <Pagination
@@ -321,11 +364,11 @@ const TournamentDetail: React.FC = () => {
                 </div>
                 <div
                   className={`TournamentDetail-card-actions flex items-center wrap ${
-                    isLeader ? 'justify-around' : 'justify-end'
+                    isLeader ? 'justify-between' : 'justify-end'
                   }`}
                   style={{ rowGap: 10, marginTop: 10 }}
                 >
-                  {isLeader && (
+                  {!isMobile && isLeader && (
                     <div className="custom-btn delete" onClick={(): void => setOpenDeleteGroup(true)}>
                       <DeleteIcon className="custom-btn-icon" />
                       Xoá nhóm
@@ -338,11 +381,15 @@ const TournamentDetail: React.FC = () => {
                         <strong>{parseInt(total).toLocaleString('ES-es')} VNĐ</strong>
                       </div>
                     </div>
-                    {isLeader && (
-                      <div className="custom-btn payment" onClick={handlePaymentGroup}>
-                        Thanh toán
-                      </div>
-                    )}
+                    <div className="flex justify-around" style={{ gap: 6 }}>
+                      {isMobile && isLeader && (
+                        <div className="custom-btn delete" onClick={(): void => setOpenDeleteGroup(true)}>
+                          <DeleteIcon className="custom-btn-icon" />
+                          Xoá nhóm
+                        </div>
+                      )}
+                      {canPayOrder()}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -353,7 +400,7 @@ const TournamentDetail: React.FC = () => {
               confirmButton={{ title: 'Có', className: 'Modal-btn-cancel' }}
               cancelButton={{ title: 'Không', className: 'Modal-btn-confirm' }}
               onClose={(): void => setOpenDeleteGroup(false)}
-              onSubmit={(): void => handleDeleteGroup(activeTab._id)}
+              onSubmit={(): Promise<void> => handleDeleteGroup(activeTab._id)}
             >
               <h1 className="Modal-title">Xoá nhóm?</h1>
               <p className="Modal-description">Mọi thông tin của nhóm này sẽ bị xoá vĩnh viễn khỏi hệ thống</p>

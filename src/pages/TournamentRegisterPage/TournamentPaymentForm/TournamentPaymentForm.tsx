@@ -18,6 +18,7 @@ import {
   getOrderByIdAction,
   updateOrderAction,
   payOrderAction,
+  EPayOrderAction,
 } from '@/redux/actions';
 import { EResponseCode, ETypeNotification } from '@/common/enums';
 // import { TRootState } from '@/redux/reducers';
@@ -34,6 +35,7 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
   const { id } = useParams();
   const [totalFee, setTotalFee] = useState<any>();
   const orderEditLoading = useSelector((state: any) => state.loadingReducer[EUpdateTicketAction.UPDATE_TICKET]);
+  const payOrderLoading = useSelector((state: any) => state.loadingReducer[EPayOrderAction.PAY_ORDER]);
   // const orderState = useSelector((state: TRootState) => state.orderDetailReducer.getOrderDetailResponse);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
@@ -266,7 +268,7 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
               size="large"
               type="primary"
               htmlType="submit"
-              loading={orderEditLoading}
+              loading={orderEditLoading || payOrderLoading}
               title={
                 <>
                   Thanh toán {''}

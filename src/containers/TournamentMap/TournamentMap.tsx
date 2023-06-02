@@ -5,10 +5,10 @@ import { TStepKilometerTournamentMap, TTournamentMapProps } from './TournamentMa
 import './TournamentMap.scss';
 
 const TournamentMap: React.FC<TTournamentMapProps> = ({ data, color, id, noRouteMap, height }) => {
-  const [activeTab, setActiveTab] = useState<TStepKilometerTournamentMap>(data?.race[0]);
+  const [activeTab, setActiveTab] = useState<TStepKilometerTournamentMap>(data?.race?.[0]);
   if (!data) return null;
   if (!activeTab) {
-    setActiveTab(data?.race[0]);
+    setActiveTab(data?.race?.[0]);
   }
   return (
     <div className="TournamentMap" id={id}>
