@@ -272,7 +272,7 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
                 <Checkbox
                   label={
                     <>
-                      Tôi đã đọc và đồng ý với <a href="#">Điều khoản và quy định</a> của OneWay 2022
+                      Tôi đã đọc và đồng ý với <a href="#">Điều khoản và quy định</a> của OneWay
                     </>
                   }
                 />

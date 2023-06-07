@@ -83,11 +83,11 @@ const TournamentRegisterGroupSuccess: React.FC = () => {
                       />
                       <Button
                         size="large"
-                        title="Quản lý giải"
+                        title="Quản lý nhóm"
                         titleColor={EIconColor.WHITE}
                         borderColor={EIconColor.PERSIAN_GREEN}
                         backgroundColor={EIconColor.PERSIAN_GREEN}
-                        link={Paths.Profile}
+                        link={Paths.TournamentDetail(group?.marathonId)}
                       />
                     </div>
                   </div>

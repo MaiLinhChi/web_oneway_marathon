@@ -44,17 +44,17 @@ export const dataFooterLinks = [
 
 export const dataFooterPartnerLinks = (dark?: boolean): TFooterPartnerLink[] => [
   {
-    link: '#',
+    link: 'https://vnexpress.net/tag/doanh-nhan-tre-149597',
     logo: dark ? ImageDoanhNhanTreDark : ImageDoanhNhanTre,
     maxWidth: '13.4rem',
   },
   {
-    link: '#',
+    link: 'https://vnexpress.net/tag/doanh-nhan-tre-149597',
     logo: ImageVOV,
     maxWidth: '9.28rem',
   },
   {
-    link: '#',
+    link: 'https://hoinhabao.vn/',
     logo: ImageHoiNhaBaoVietNam,
     maxWidth: '3.9rem',
   },
@@ -74,12 +74,12 @@ export const dataFooterPartnerLinks = (dark?: boolean): TFooterPartnerLink[] => 
   //   maxWidth: '7.9rem',
   // },
   {
-    link: '#',
+    link: 'https://kols.shopdi.com.vn/',
     logo: dark ? ImageShopdiDark : ImageShopdi,
     maxWidth: '12.6rem',
   },
   {
-    link: '#',
+    link: 'https://laodong.vn/van-hoa-giai-tri/vtvcab-phat-trien-kenh-phat-thanh-on-365-fm-1029812.ldo',
     logo: ImageOn365,
     maxWidth: '7.2rem',
   },
