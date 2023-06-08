@@ -13,8 +13,8 @@ export function* getGroupByIdSaga(action: ActionType<typeof getGroupByIdAction.r
     const getGroupByIdResponse: TGetGroupByIdResponse = response as TGetGroupByIdResponse;
     yield put(getGroupByIdAction.success(getGroupByIdResponse?.data));
     successCallback?.(getGroupByIdResponse);
-  } catch (err) {
+  } catch (err: any) {
     yield put(getGroupByIdAction.failure(err));
-    failedCallback?.(err);
+    failedCallback?.(err.response);
   }
 }

@@ -6,8 +6,8 @@ import ImageMoreTripDark from '@/assets/images/image-more-trip-dark.png';
 import ImageOn365 from '@/assets/images/image-on-365.png';
 import ImageOnebit from '@/assets/images/image-onebit.png';
 import ImagePhone91 from '@/assets/images/image-phone-91.png';
-import ImageShopdi from '@/assets/images/image-shopdi.png';
-import ImageShopdiDark from '@/assets/images/image-shopdi-dark.webp';
+import ImageShopdi from '@/assets/images/logo-shopdi-dark.png';
+import ImageShopdiDark from '@/assets/images/logo-shopdi-white.png';
 import ImageVOV from '@/assets/images/image-vov.png';
 import ImageVuonUom from '@/assets/images/image-vuon-uom.png';
 import ImageVuonUomDark from '@/assets/images/image-vuon-uom-dark.png';
@@ -46,22 +46,22 @@ export const dataFooterPartnerLinks = (dark?: boolean): TFooterPartnerLink[] => 
   {
     link: 'https://vnexpress.net/tag/doanh-nhan-tre-149597',
     logo: dark ? ImageDoanhNhanTreDark : ImageDoanhNhanTre,
-    maxWidth: '13.4rem',
+    maxWidth: '15.4rem',
   },
   {
     link: 'https://vnexpress.net/tag/doanh-nhan-tre-149597',
     logo: ImageVOV,
-    maxWidth: '9.28rem',
+    maxWidth: '12.28rem',
   },
   {
     link: 'https://hoinhabao.vn/',
     logo: ImageHoiNhaBaoVietNam,
-    maxWidth: '3.9rem',
+    maxWidth: '5.9rem',
   },
   {
     link: '#',
     logo: ImageRespo,
-    maxWidth: '11rem',
+    maxWidth: '13rem',
   },
   // {
   //   link: '#',
@@ -76,12 +76,12 @@ export const dataFooterPartnerLinks = (dark?: boolean): TFooterPartnerLink[] => 
   {
     link: 'https://kols.shopdi.com.vn/',
     logo: dark ? ImageShopdiDark : ImageShopdi,
-    maxWidth: '12.6rem',
+    maxWidth: '17.6rem',
   },
   {
     link: 'https://laodong.vn/van-hoa-giai-tri/vtvcab-phat-trien-kenh-phat-thanh-on-365-fm-1029812.ldo',
     logo: ImageOn365,
-    maxWidth: '7.2rem',
+    maxWidth: '8.2rem',
   },
   // {
   //   link: '#',

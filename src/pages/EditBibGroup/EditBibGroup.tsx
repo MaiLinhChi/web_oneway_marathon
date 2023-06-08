@@ -13,7 +13,7 @@ import {
 } from '@/redux/actions';
 import { Paths } from '../routers';
 import { navigate, useParams } from '@reach/router';
-import { validationRules } from '@/utils/functions';
+import { showNotification, validationRules } from '@/utils/functions';
 import Input from '@/components/Input';
 import DatePicker from '@/components/DatePicker';
 import Select from '@/components/Select';
@@ -27,6 +27,7 @@ import moment from 'moment';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { getTicketDetail } from '@/services/registers';
+import { ETypeNotification, EViMessageCode } from '@/common/enums';
 
 dayjs.extend(customParseFormat);
 
@@ -66,7 +67,12 @@ const BuyOnlineTicketTutorials: React.FC = () => {
     if (nationality !== 'vn') {
       delete body.address;
     }
-    dispatch(updateTicketAction.request({ id: ticketState._id, body }));
+    dispatch(
+      updateTicketAction.request({ id: ticketState._id, body }, (response): void => handleUpdateSuccess(response)),
+    );
+  };
+  const handleUpdateSuccess = (response: any): void => {
+    showNotification(ETypeNotification.SUCCESS, EViMessageCode[response.messageKey as keyof typeof EViMessageCode]);
     navigate(Paths.TournamentDetail(ticketState?.marathon?.marathonId));
   };
   const handleChangeDistrict = (values: any): void => {

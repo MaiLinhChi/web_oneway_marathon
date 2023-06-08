@@ -67,7 +67,8 @@ export enum EViMessageCode {
   'email_exist' = 'Email đã tồn tại',
   'username_exist' = 'Username đã tồn tại',
   'not_remove_yourself' = 'Không thể xóa chính mình',
-  'group_not_found' = 'Nhóm không đã tồn tại',
+  'group_not_found' = 'Truy cập nhóm không thành công do trưởng nhóm đã thanh toán hoặc nhóm không tồn tại',
+  'update_bib_detail_successfully' = 'Thay đổi thông tin thành công',
 }
 
 export enum ETypeNotification {

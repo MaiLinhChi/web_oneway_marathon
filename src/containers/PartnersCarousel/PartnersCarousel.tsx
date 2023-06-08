@@ -14,9 +14,9 @@ const PartnersCarousel: React.FC<TPartnersCarouselProps> = () => {
         <div className="PartnersCarousel-wrapper">
           <Carousels infinite autoplay slidesToShow={6} dots={false} arrows={false} slidesToScroll={2}>
             {dataFooterPartnerLinks(true).map((item, index) => (
-              <div className="PartnersCarousel-item" style={{ maxWidth: item.maxWidth }} key={index}>
+              <div className="PartnersCarousel-item" key={index}>
                 <a href={item.link}>
-                  <img src={item.logo} alt="" />
+                  <img src={item.logo} alt="" style={{ maxWidth: item.maxWidth }} />
                 </a>
               </div>
             ))}

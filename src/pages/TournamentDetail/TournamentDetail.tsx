@@ -172,7 +172,7 @@ const TournamentDetail: React.FC = () => {
       setOpenDeleteMember(false);
       getBibGroup();
     } catch (error: any) {
-      showNotification(ETypeNotification.ERROR, error.response.data.message);
+      showNotification(ETypeNotification.WARNING, error.response.data.message);
       setOpenDeleteMember(false);
     }
   };
