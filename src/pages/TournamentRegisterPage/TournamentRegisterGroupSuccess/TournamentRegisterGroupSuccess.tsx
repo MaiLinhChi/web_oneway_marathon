@@ -47,15 +47,15 @@ const TournamentRegisterGroupSuccess: React.FC = () => {
                     <ul className="TournamentRegisterPage-main-success-body-list">
                       <li>
                         <span>Họ và tên trưởng nhóm</span>
-                        <span>{group?.membership?.[0]?.fullName}</span>
+                        <span>{group?.fullName}</span>
                       </li>
                       <li>
                         <span>Số điện thoại</span>
-                        <span>{group?.membership?.[0]?.phone}</span>
+                        <span>{group?.phone}</span>
                       </li>
                       <li>
                         <span>Email</span>
-                        <span>{group?.membership?.[0]?.email}</span>
+                        <span>{group?.email}</span>
                       </li>
                     </ul>
                     <h3>Link đăng ký nhóm</h3>

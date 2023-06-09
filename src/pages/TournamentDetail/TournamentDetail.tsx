@@ -191,7 +191,7 @@ const TournamentDetail: React.FC = () => {
       setOpenDeleteMember(false);
       getBibGroup();
     } catch (error: any) {
-      showNotification(ETypeNotification.WARNING, error.response.data.message);
+      showNotification(ETypeNotification.ERROR, error.response.data.message);
       setOpenDeleteMember(false);
     }
   };
@@ -330,20 +330,19 @@ const TournamentDetail: React.FC = () => {
                         <tr>
                           <td>Họ và tên trưởng nhóm</td>
                           <td style={{ width: '100%' }}>
-                            <strong>{activeTab?.membership?.[0].fullName}</strong>
+                            <strong>{activeTab?.fullName}</strong>
                           </td>
                         </tr>
-
                         <tr>
                           <td>Số điện thoại</td>
                           <td style={{ width: '100%' }}>
-                            <strong>{activeTab?.membership?.[0].phone}</strong>
+                            <strong>{activeTab?.phone}</strong>
                           </td>
                         </tr>
                         <tr>
                           <td>Email</td>
                           <td style={{ width: '100%' }}>
-                            <strong>{activeTab?.membership?.[0].email}</strong>
+                            <strong>{activeTab?.email}</strong>
                           </td>
                         </tr>
                       </tbody>

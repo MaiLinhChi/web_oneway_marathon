@@ -44,15 +44,15 @@ const TournamentRegisterGroupEnd: React.FC = () => {
                     <ul className="TournamentRegisterPage-main-success-body-list">
                       <li>
                         <span>Họ và tên trưởng nhóm</span>
-                        <span>{registerGroup?.membership?.[0]?.fullName}</span>
+                        <span>{registerGroup?.fullName}</span>
                       </li>
                       <li>
                         <span>Số điện thoại</span>
-                        <span>{registerGroup?.membership?.[0]?.phone}</span>
+                        <span>{registerGroup?.phone}</span>
                       </li>
                       <li>
                         <span>Email</span>
-                        <span>{registerGroup?.membership?.[0]?.email}</span>
+                        <span>{registerGroup?.email}</span>
                       </li>
                       <li>
                         <span>Số thành viên đã đăng ký</span>

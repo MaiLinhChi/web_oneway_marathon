@@ -82,15 +82,15 @@ const TournamentRegisterGroupConfirm: React.FC = () => {
                           <ul className="TournamentRegisterPage-main-success-body-list">
                             <li>
                               <span>Họ và tên trưởng nhóm</span>
-                              <span>{groupState?.membership?.[0].fullName}</span>
+                              <span>{groupState?.fullName}</span>
                             </li>
                             <li>
                               <span>Số điện thoại</span>
-                              <span>{groupState?.membership?.[0].phone}</span>
+                              <span>{groupState?.phone}</span>
                             </li>
                             <li>
                               <span>Email</span>
-                              <span>{groupState?.membership?.[0].email}</span>
+                              <span>{groupState?.email}</span>
                             </li>
                           </ul>
                           <Form
