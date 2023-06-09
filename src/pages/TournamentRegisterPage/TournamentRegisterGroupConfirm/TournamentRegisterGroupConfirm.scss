@@ -181,6 +181,11 @@
   }
   &-main{
     &-success{
+      &.fail {
+        .TournamentRegisterPage-main-success-header {
+          background: #FF2E2E;
+        }
+      }
       &-header{
         width: 100%;
         background: $persian-green;
@@ -195,11 +200,6 @@
         .Icon{
           margin-right: 1.9rem;
           width: unset;
-        }
-        &.fail {
-          .TournamentPaymentSucces-main-success-header {
-            background: #FF2E2E;
-          }
         }
       }
       p{
@@ -278,6 +278,10 @@
             }
           }
         }
+      }
+      &.small{
+        max-width: 900px;
+        margin: 0 auto;
       }
     }
   }

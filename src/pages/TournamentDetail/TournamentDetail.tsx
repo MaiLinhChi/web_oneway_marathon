@@ -38,6 +38,7 @@ const TournamentDetail: React.FC = () => {
   const [openDeleteGroup, setOpenDeleteGroup] = useState(false);
   const [openDeleteMember, setOpenDeleteMember] = useState(false);
   const [groupState, setGroupState] = useState<any>([]);
+  const [currentPrice, setCurrentPrice] = useState<any>([]);
   const [isLeader, setIsLeader] = useState(false);
   const [total, setTotal] = useState('0');
   const [loadingTabel, setLoadingTabel] = useState(true);
@@ -70,23 +71,41 @@ const TournamentDetail: React.FC = () => {
       showNotification(ETypeNotification.ERROR, error.message);
     }
   }, [profileState?.email, raceState?._id, pageSize, pageIndex]);
+  const getPriceCurrent = useCallback((value: any): any => {
+    const today = new Date();
+    const listPrice = value?.find((item: any) => {
+      if (new Date(item.startSell).getTime() <= today.getTime() && new Date(item.endSell).getTime() > today.getTime()) {
+        return item;
+      }
+    });
+    setCurrentPrice(listPrice?.individual);
+  }, []);
   const getBibGroup = useCallback(async () => {
-    if (!profileState?.email || !raceState?._id) return;
+    if (!profileState?.email || !raceState?._id || !activeTab?._id) return;
     setLoadingTabel(true);
     const params = {
-      groupId: activeTab?._id,
+      groupId: activeTab._id,
       pageSize: pageSizeBib,
       pageIndex: pageIndexBib,
     };
     try {
       const res = await getTickets({ params });
+      if (orderGroup?.status !== 'confirmed') {
+        for (let i = 0; i < currentPrice.length; i++) {
+          const distance = res.data[i]?.marathon?.distance;
+          const matchingData1 = currentPrice.find((item: any) => item.distance === distance);
+          if (matchingData1) {
+            res.data[i].marathon.price = matchingData1.price;
+          }
+        }
+      }
       setTicketsState(res);
       setLoadingTabel(false);
     } catch (error: any) {
       setLoadingTabel(false);
       showNotification(ETypeNotification.ERROR, error.message);
     }
-  }, [profileState?.email, raceState?._id, activeTab, pageIndexBib, pageSizeBib]);
+  }, [profileState?.email, raceState?._id, activeTab, pageIndexBib, pageSizeBib, currentPrice, orderGroup?.status]);
   const checkRuleGroup = useCallback(() => {
     if (!profileState?.email || !activeTab?.membership[0]?.email) {
       return;
@@ -197,7 +216,8 @@ const TournamentDetail: React.FC = () => {
   }, [activeTab, checkRuleGroup, getOrderByGroup, getTotalGroup, ticketsState?.data]);
   useEffect(() => {
     getBibGroup();
-  }, [updateTicketsState, getBibGroup]);
+    getPriceCurrent(raceState?.priceList);
+  }, [updateTicketsState, getBibGroup, getPriceCurrent, raceState?.priceList]);
   useEffect(() => {
     getRaces();
     getOrdersIndividual();
@@ -300,9 +320,9 @@ const TournamentDetail: React.FC = () => {
                         {orderGroup?.status === 'confirmed' ? 'Đã thanh toán' : 'Chờ thanh toán'}
                       </div>
                     </div>
-                    {isLeader && (
+                    {/* {isLeader && (
                       <Button title="Sửa" type="ghost" backgroundColor="#E6EBF0" iconName={EIconName.Edit} />
-                    )}
+                    )} */}
                   </div>
                   <div className="TournamentDetail-table">
                     <table>
