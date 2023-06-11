@@ -4,3 +4,4 @@ export * from './runner-register-group';
 export * from './get-groups';
 export * from './get-group-by-id';
 export * from './delete-runner-group';
+export * from './delete-group';

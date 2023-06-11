@@ -18,5 +18,5 @@ export type TDeleteGroupResponse = any;
 
 export const deleteGroup = async ({ id, headers }: TDeleteGroupMaterials): Promise<TDeleteGroupResponse> => {
   const response = await ApiService.delete(`group/${id}`, { headers });
-  return response;
+  return response.data;
 };

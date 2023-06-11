@@ -7,6 +7,7 @@ import {
   getGroupsAction,
   deleteRunnerGroupAction,
   getGroupByIdAction,
+  deleteGroupAction,
 } from '@/redux/actions';
 
 import { registerGroupSaga } from './register-group';
@@ -15,6 +16,7 @@ import { runnerRegisterGroupSaga } from '@/redux/sagas/register-group/runner-reg
 import { getGroupsSaga } from './get-groups';
 import { deleteRunnerGroupSaga } from './delete-runner-group';
 import { getGroupByIdSaga } from './get-group-by-id';
+import { deleteGroupSaga } from './delete-group';
 
 export default function* root(): Generator {
   yield all([
@@ -23,6 +25,7 @@ export default function* root(): Generator {
     takeLatest(runnerRegisterGroupAction.request.type, runnerRegisterGroupSaga),
     takeLatest(getGroupsAction.request.type, getGroupsSaga),
     takeLatest(deleteRunnerGroupAction.request.type, deleteRunnerGroupSaga),
+    takeLatest(deleteGroupAction.request.type, deleteGroupSaga),
     takeLatest(getGroupByIdAction.request.type, getGroupByIdSaga),
   ]);
 }

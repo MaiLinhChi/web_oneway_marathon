@@ -84,7 +84,13 @@ const TournamentPaymentRegulars: React.FC<TTournamentPaymentFormProps> = () => {
   const handleRegitserTicketSuccess = (bibResponse: any): void => {
     const body = {
       email: saveTicketState.email,
-      products: [bibResponse?.data?._id],
+      products: [
+        {
+          productId: bibResponse?.data?._id,
+          price: bibResponse?.data?.marathon.price,
+          state: bibResponse?.data?.marathon.name,
+        },
+      ],
       total: bibResponse?.data?.marathon?.price,
       marathonId: raceDetailState._id,
     };

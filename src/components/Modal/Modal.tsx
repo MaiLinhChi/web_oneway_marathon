@@ -11,6 +11,7 @@ const Modal: React.FC<TModalProps> = ({
   visible,
   cancelButton,
   confirmButton,
+  loadingConfirmButton,
   centered,
   width,
   wrapClassName,
@@ -41,7 +42,7 @@ const Modal: React.FC<TModalProps> = ({
             single: (confirmButton && !cancelButton) || (!confirmButton && cancelButton),
           })}
         >
-          {confirmButton && <Button onClick={onSubmit} {...confirmButton} />}
+          {confirmButton && <Button onClick={onSubmit} {...confirmButton} loading={loadingConfirmButton} />}
           {cancelButton && <Button onClick={onClose} {...cancelButton} />}
         </div>
       )}

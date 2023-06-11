@@ -69,6 +69,7 @@ export enum EViMessageCode {
   'not_remove_yourself' = 'Không thể xóa chính mình',
   'invalid_group' = 'Truy cập nhóm không thành công do trưởng nhóm đã thanh toán hoặc nhóm không tồn tại',
   'update_bib_detail_successfully' = 'Thay đổi thông tin thành công',
+  'delete_group_success' = 'Xóa nhóm thành công',
 }
 
 export enum ETypeNotification {

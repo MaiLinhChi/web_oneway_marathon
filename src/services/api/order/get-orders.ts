@@ -3,7 +3,6 @@ import ApiService from '@/services/api';
 
 export type TGetOrdersParams = {
   email: string;
-  marathonId: string;
   groupId?: string;
 };
 

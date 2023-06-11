@@ -9,6 +9,7 @@ export type TModalProps = {
   cancelButton?: TButtonProps;
   confirmButton?: TButtonProps;
   closeable?: boolean;
+  loadingConfirmButton?: boolean;
   hideFooter?: boolean;
   onClose?: () => void;
   onSubmit?: () => void;

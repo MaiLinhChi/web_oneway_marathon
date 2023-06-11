@@ -109,6 +109,7 @@ export const columnsBibGroups = (
   handleClick: any,
   isLeader: boolean,
   handleDeleteMember: any,
+  deleteRunnerLoading: boolean,
   isConfirmed: boolean,
 ): any =>
   [
@@ -171,6 +172,7 @@ export const columnsBibGroups = (
               cancelButton={{ title: 'Không', className: 'Modal-btn-confirm' }}
               onClose={(): void => handleClick(false)}
               onSubmit={(): void => handleDeleteMember(item)}
+              loadingConfirmButton={deleteRunnerLoading}
             >
               <h1 className="Modal-title">Xoá thành viên?</h1>
               <p className="Modal-description">Mọi thông tin của thành viên này sẽ bị xoá vĩnh viễn khỏi nhóm</p>
