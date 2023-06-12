@@ -88,7 +88,7 @@ const TournamentPaymentRegulars: React.FC<TTournamentPaymentFormProps> = () => {
         {
           productId: bibResponse?.data?._id,
           price: bibResponse?.data?.marathon.price,
-          state: bibResponse?.data?.marathon.name,
+          state: bibResponse?.data?.marathon.state,
         },
       ],
       total: bibResponse?.data?.marathon?.price,

@@ -52,6 +52,8 @@ const TournamentPaymentForm: React.FC<TTournamentPaymentFormProps> = () => {
   // };
   const handleSubmit = (values: any): void => {
     const body = {
+      total: order.total,
+      products: order.products,
       payment: {
         gateway: values.payment_method.gateway,
         bankCode: values.payment_method.bankCode,

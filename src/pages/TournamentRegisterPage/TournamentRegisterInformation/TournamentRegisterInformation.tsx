@@ -22,7 +22,7 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
       return;
     }
     if (orderState) {
-      setData(orderState?.bibs?.[0]);
+      setData(orderState);
       return;
     }
     if (ticketState) {
@@ -32,13 +32,10 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
   }, [type, raceDetailState, ticketState, orderState]);
   useEffect(() => {
     getData();
-    if (group) {
-      setData(group);
-    }
-  }, [tabQuery, orderState, group, getData]);
+  }, [tabQuery, orderState, getData]);
   return (
     <div className="TournamentRegisterInformation-card sticky">
-      {orderState?.group ? (
+      {data?.group ? (
         <>
           <div className="TournamentRegisterInformation-card-title">Thông tin nhóm</div>
           <div className="TournamentRegisterInformation-card-table expand-x">

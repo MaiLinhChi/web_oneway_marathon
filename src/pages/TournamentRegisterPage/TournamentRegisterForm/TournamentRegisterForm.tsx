@@ -63,7 +63,12 @@ const TournamentRegisterForm: React.FC<TTournamentRegisterFormProps> = ({ isGrou
   };
   const getPrice = (value: any): any => {
     const today = new Date();
-    const ticketCurrent = value?.find((item: any) => new Date(item.endSell).getTime() >= today.getTime());
+    let ticketCurrent = value?.find((item: any) => {
+      if (new Date(item.startSell).getTime() <= today.getTime() && new Date(item.endSell).getTime() > today.getTime()) {
+        return item;
+      }
+    });
+    if (!ticketCurrent) ticketCurrent = value?.[value?.length - 1];
     return {
       ...ticketCurrent,
       unit: data.unitRace,
