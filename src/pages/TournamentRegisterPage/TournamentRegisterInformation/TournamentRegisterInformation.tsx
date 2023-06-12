@@ -43,7 +43,7 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
         </>
       );
     }
-    if (orderState?.group && orderState?.bib?.length > 1) {
+    if (orderState?.group && orderState?.bibs?.length > 1) {
       const data = orderState.group;
       return (
         <>
