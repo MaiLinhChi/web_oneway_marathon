@@ -10,8 +10,6 @@ import moment from 'moment';
 
 const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProps> = ({ group }) => {
   const { pathname } = useLocation();
-  const key = 'tab';
-  const tabQuery = getQueryParam(key);
   const type = pathname.split('/')[2];
   const raceDetailState = useSelector((state: TRootState) => state.raceReducer.detailRaceResponse);
   const ticketState = useSelector((state: TRootState) => state.registerReducer.saveTicket);
