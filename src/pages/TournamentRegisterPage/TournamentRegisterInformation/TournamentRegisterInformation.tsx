@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { ReactElement } from 'react';
 import './TournamentRegisterInformation.scss';
 import { TTournamentRegisterInformationProps } from './TournamentRegisterInformation.types';
 import { useLocation } from '@reach/router';
@@ -9,33 +9,43 @@ import { TRootState } from '@/redux/reducers';
 import moment from 'moment';
 
 const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProps> = ({ group }) => {
-  const [data, setData] = useState<any>({});
-  const tabQuery = getQueryParam('tab');
   const { pathname } = useLocation();
+  const key = 'tab';
+  const tabQuery = getQueryParam(key);
   const type = pathname.split('/')[2];
   const raceDetailState = useSelector((state: TRootState) => state.raceReducer.detailRaceResponse);
   const ticketState = useSelector((state: TRootState) => state.registerReducer.saveTicket);
   const orderState = useSelector((state: TRootState) => state.ordersReducer.getOrderByIdResponse?.data);
-  const getData = useCallback(() => {
-    if (type === 'register' || type === 'join') {
-      setData(raceDetailState);
-      return;
+  const getDataContent = (): ReactElement => {
+    if (type === 'register' || type === 'join' || group) {
+      const data = raceDetailState ? raceDetailState : group;
+      return (
+        <>
+          <div className="TournamentRegisterInformation-card-title">Thông tin cuộc đua</div>
+          <div className="TournamentRegisterInformation-card-table expand-x">
+            <table>
+              <tbody>
+                <tr>
+                  <td>Địa điểm</td>
+                  <td style={{ width: '100%' }}>
+                    <strong>{data?.location}</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Thời gian</td>
+                  <td style={{ width: '100%' }}>
+                    <strong>{data?.startTime}</strong>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </>
+      );
     }
-    if (orderState) {
-      setData(orderState);
-      return;
-    }
-    if (ticketState) {
-      setData(ticketState);
-      return;
-    }
-  }, [type, raceDetailState, ticketState, orderState]);
-  useEffect(() => {
-    getData();
-  }, [tabQuery, orderState, getData]);
-  return (
-    <div className="TournamentRegisterInformation-card sticky">
-      {data?.group ? (
+    if (orderState?.group && orderState?.bib?.length > 1) {
+      const data = orderState.group;
+      return (
         <>
           <div className="TournamentRegisterInformation-card-title">Thông tin nhóm</div>
           <div className="TournamentRegisterInformation-card-table expand-x">
@@ -43,19 +53,22 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
               <tr>
                 <td>Tên nhóm</td>
                 <td style={{ width: '100%' }}>
-                  <strong>{orderState?.group?.groupName}</strong>
+                  <strong>{data?.groupName}</strong>
                 </td>
               </tr>
               <tr>
                 <td>Thành viên</td>
                 <td style={{ width: '100%' }}>
-                  <strong>{orderState?.group?.membership?.length}</strong>
+                  <strong>{data?.membership?.length}</strong>
                 </td>
               </tr>
             </table>
           </div>
         </>
-      ) : data?.email ? (
+      );
+    } else {
+      const data = orderState?.bibs?.[0] ? orderState?.bibs?.[0] : ticketState;
+      return (
         <>
           <div className="TournamentRegisterInformation-card-title">Thông tin của bạn</div>
           <div className="TournamentRegisterInformation-card-table">
@@ -116,31 +129,10 @@ const TournamentRegisterInformation: React.FC<TTournamentRegisterInformationProp
             </table>
           </div>
         </>
-      ) : (
-        <>
-          <div className="TournamentRegisterInformation-card-title">Thông tin cuộc đua</div>
-          <div className="TournamentRegisterInformation-card-table expand-x">
-            <table>
-              <tbody>
-                <tr>
-                  <td>Địa điểm</td>
-                  <td style={{ width: '100%' }}>
-                    <strong>{data?.location}</strong>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Thời gian</td>
-                  <td style={{ width: '100%' }}>
-                    <strong>{data?.startTime}</strong>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </>
-      )}
-    </div>
-  );
+      );
+    }
+  };
+  return <div className="TournamentRegisterInformation-card sticky">{getDataContent()}</div>;
 };
 
 export default TournamentRegisterInformation;

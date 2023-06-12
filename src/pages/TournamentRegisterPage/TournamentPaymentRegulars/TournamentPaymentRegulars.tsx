@@ -38,22 +38,13 @@ const TournamentPaymentRegulars: React.FC<TTournamentPaymentFormProps> = () => {
   const postOrderState = useSelector((state: TRootState) => state.ordersReducer.addOrder?.data);
   const handleSubmit = (values: any): void => {
     if (tabQuery === 'MULTIPLE') {
-      const isExist = registerGroup?.membership?.some((item: any) => item.email === saveTicketState.email);
-      if (!isExist) {
-        dispatch(
-          registerTicketAction.request({ body: saveTicketState }, (response): void =>
-            handlerJoinGroupProcess(response),
-          ),
-        );
-      } else {
-        dispatch(
-          registerTicketAction.request({ body: saveTicketState }, (response): void =>
-            handlerJoinGroupSuccess(response),
-          ),
-        );
-      }
+      dispatch(
+        runnerRegisterGroupAction.request({ id: registerGroup._id, body: saveTicketState }, (response): void =>
+          handlerJoinGroupSuccess(response),
+        ),
+      );
     } else if (tabQuery === 'SINGLE') {
-      if (!postOrderState) {
+      if (!postOrderState || postOrderState.groupId) {
         dispatch(
           registerTicketAction.request({ body: saveTicketState }, (response): void =>
             handleRegitserTicketSuccess(response),
@@ -64,19 +55,6 @@ const TournamentPaymentRegulars: React.FC<TTournamentPaymentFormProps> = () => {
       dispatch(registerTicketAction.request({ body: saveTicketState }));
       navigate(Paths.TournamentPayment(`${postOrderState?._id}?tab=${EKeyTabTournamentRegisterPage.SINGLE}`));
     }
-  };
-  const handlerJoinGroupProcess = (bib: any): void => {
-    const body = {
-      email: saveTicketState.email,
-      phone: saveTicketState.phone,
-      fullName: saveTicketState.fullName,
-      bibId: bib?.data?._id,
-    };
-    dispatch(
-      runnerRegisterGroupAction.request({ id: registerGroup._id, body }, (response): void =>
-        handlerJoinGroupSuccess(response),
-      ),
-    );
   };
   const handlerJoinGroupSuccess = (response: any): void => {
     navigate(Paths.TournamentRegisterGroupEnd);

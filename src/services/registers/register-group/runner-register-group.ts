@@ -4,10 +4,27 @@ import ApiService from '@/services/api';
 
 export type TRunnerRegisterGroupParams = string;
 export type TRunnerRegisterGroupBody = {
+  _id?: string;
+  birthday: any;
   email?: string;
   phone?: string;
   fullName?: string;
-  bibId: string;
+  emergencyContactName: string;
+  emergencyContactPhone: string;
+  gender: string;
+  groupId: string;
+  marathon: {
+    distance: number;
+    marathonId: string;
+    price: number;
+    state: string;
+    unit: string;
+  };
+  nameBib?: any;
+  nationality: string;
+  passport: string;
+  shirtSize: string;
+  timeEstimation: string;
 };
 
 export type TRunnerRegisterGroupMaterials = {
@@ -24,5 +41,5 @@ export const runnerRegisterGroup = async ({
   body,
 }: TRunnerRegisterGroupMaterials): Promise<TRunnerRegisterGroupResponse> => {
   const response = await ApiService.put(`group/join/${id}`, body);
-  return response;
+  return response.data;
 };

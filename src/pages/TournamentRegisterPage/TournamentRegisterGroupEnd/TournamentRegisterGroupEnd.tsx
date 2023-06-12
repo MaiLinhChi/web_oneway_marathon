@@ -13,15 +13,12 @@ import moment from 'moment';
 
 const TournamentRegisterGroupEnd: React.FC = () => {
   const dispatch = useDispatch();
-  const registerGroup = useSelector(
-    (state: TRootState) =>
-      state.registerGroupReducer.runnerRegisterGroupResponse?.data || state.registerGroupReducer.groupDetailResponse,
-  );
-  const ticketState = useSelector((state: TRootState) => state.registerReducer.registerTicketResponse);
+  const registerGroup = useSelector((state: TRootState) => state.registerGroupReducer.runnerRegisterGroupResponse);
   useEffect(() => {
-    if (!registerGroup || !ticketState) navigate(Paths.Home);
+    if (!registerGroup) navigate(Paths.Home);
     dispatch(registerTicketAction.save(undefined));
-  }, [registerGroup, ticketState, dispatch]);
+    dispatch(registerTicketAction.success(undefined));
+  }, [registerGroup, dispatch]);
   return (
     <div className="TournamentRegisterPage">
       <div className="TournamentRegisterPage-background">
@@ -40,23 +37,23 @@ const TournamentRegisterGroupEnd: React.FC = () => {
                     <span>Đăng ký tham gia nhóm thành công</span>
                   </div>
                   <div className="TournamentRegisterPage-main-success-body">
-                    <h3>Tên nhóm: {registerGroup?.groupName}</h3>
+                    <h3>Tên nhóm: {registerGroup?.group?.groupName}</h3>
                     <ul className="TournamentRegisterPage-main-success-body-list">
                       <li>
                         <span>Họ và tên trưởng nhóm</span>
-                        <span>{registerGroup?.fullName}</span>
+                        <span>{registerGroup?.group?.fullName}</span>
                       </li>
                       <li>
                         <span>Số điện thoại</span>
-                        <span>{registerGroup?.phone}</span>
+                        <span>{registerGroup?.group?.phone}</span>
                       </li>
                       <li>
                         <span>Email</span>
-                        <span>{registerGroup?.email}</span>
+                        <span>{registerGroup?.group?.email}</span>
                       </li>
                       <li>
                         <span>Số thành viên đã đăng ký</span>
-                        <span>{registerGroup?.membership?.length}</span>
+                        <span>{registerGroup?.group?.membership?.length}</span>
                       </li>
                     </ul>
                     <div className="TournamentRegisterPage-main-success-body-btn flex">
@@ -80,58 +77,58 @@ const TournamentRegisterGroupEnd: React.FC = () => {
                       <tr>
                         <td>Họ và tên</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{ticketState?.fullName}</strong>
+                          <strong>{registerGroup?.bib?.fullName}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Cự ly</td>
                         <td style={{ width: '100%' }}>
                           <strong>
-                            {ticketState?.marathon?.distance}
-                            {ticketState?.marathon?.unit}
+                            {registerGroup?.bib?.marathon?.distance}
+                            {registerGroup?.bib?.marathon?.unit}
                           </strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Tên trên BIB</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{ticketState?.nameBib}</strong>
+                          <strong>{registerGroup?.bib?.nameBib}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Ngày sinh</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{moment(ticketState?.birthday).format('DD/MM/YYYY')}</strong>
+                          <strong>{moment(registerGroup?.bib?.birthday).format('DD/MM/YYYY')}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Giới tính</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{ticketState?.gender}</strong>
+                          <strong>{registerGroup?.bib?.gender}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Email</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{ticketState?.email}</strong>
+                          <strong>{registerGroup?.bib?.email}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>SĐT</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{ticketState?.phone}</strong>
+                          <strong>{registerGroup?.bib?.phone}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>CCCD</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{ticketState?.passport}</strong>
+                          <strong>{registerGroup?.bib?.passport}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Size áo</td>
                         <td style={{ width: '100%' }}>
-                          <strong>{ticketState?.shirtSize}</strong>
+                          <strong>{registerGroup?.bib?.shirtSize}</strong>
                         </td>
                       </tr>
                     </table>
